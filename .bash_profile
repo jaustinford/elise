@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-echo -e "\n my name is elise..."
-
 export SHELL_ROOT_DIR='/root'
 
 . "${SHELL_ROOT_DIR}/src/eslabs.env"
-. "${SHELL_ROOT_DIR}/src/colors.sh"
+
+"${SHELL_ROOT_DIR}/scripts/start.sh"
+echo -e "\n my name is elise..."
 
 # shell prompt
 USER_PROMPT="${SHELL_USER_PROMPT_CODE} elise ${ECHO_RESET}"
