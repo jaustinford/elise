@@ -5,6 +5,7 @@ VERSION='latest'
 
 if [ "$1" == 'deploy' ]; then
     read -sp " password : " DOCKER_IMAGE_PASSWORD
+    echo
     docker run -dit \
         --name ${NAME} \
         --env DOCKER_IMAGE_PASSWORD=${DOCKER_IMAGE_PASSWORD} \
