@@ -38,12 +38,12 @@ alias k_eslabs_edit="${SHELL_ROOT_DIR}/scripts/kube_automator.sh edit eslabs"
 alias k_eslabs_describe="${SHELL_ROOT_DIR}/scripts/kube_automator.sh describe eslabs"
 alias k_eslabs_events="${SHELL_ROOT_DIR}/scripts/kube_automator.sh events eslabs"
 alias k_eslabs_display="${SHELL_ROOT_DIR}/scripts/kube_automator.sh display eslabs"
-alias k_eslabs_watch="watch -t -c ${SHELL_ROOT_DIR}/scripts/kube_automator.sh display eslabs"
+alias k_eslabs_watch="watch -n 5 -t -c ${SHELL_ROOT_DIR}/scripts/kube_automator.sh display eslabs"
 
 alias k_system_tail="${SHELL_ROOT_DIR}/scripts/kube_automator.sh tail kube-system"
 alias k_system_events="${SHELL_ROOT_DIR}/scripts/kube_automator.sh events kube-system"
 alias k_system_display="${SHELL_ROOT_DIR}/scripts/kube_automator.sh display kube-system"
-alias k_system_watch="watch -t -c ${SHELL_ROOT_DIR}/scripts/kube_automator.sh display kube-system"
+alias k_system_watch="watch -n 5 -t -c ${SHELL_ROOT_DIR}/scripts/kube_automator.sh display kube-system"
 
 # iscsi
 alias v_mount="${SHELL_ROOT_DIR}/scripts/iscsi_automator.sh mount"
