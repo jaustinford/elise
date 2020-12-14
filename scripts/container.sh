@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 NAME='elise'
-VERSION='testing'
+VERSION='1.0'
 
 if [ "$1" == 'deploy' ]; then
     read -sp " password : " DOCKER_IMAGE_PASSWORD
