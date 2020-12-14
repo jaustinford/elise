@@ -5,7 +5,7 @@ set -eu
 NAME='elise'
 VERSION='1.0'
 
-if [ "$1" == 'shell' ]; then
+if [ "$1" == 'build' ]; then
     docker build ${SHELL_ROOT_DIR} -t ${NAME}:${VERSION}
 
 elif [ "$1" == 'deploy' ]; then
