@@ -1,6 +1,8 @@
 FROM centos:8
 LABEL maintainer="Austin Ford <j.austin.ford@gmail.com>"
 
+COPY entrypoint.sh /tmp/entrypoint.sh
+
 RUN \
     yum update -y && \
     yum install -y \
@@ -33,3 +35,8 @@ RUN \
 # source local profile
 RUN \
     ln -s /root/.bash_profile /etc/profile.d/elise_shell.sh
+
+RUN \
+    chmod +x /tmp/entrypoint.sh
+
+ENTRYPOINT ["/tmp/entrypoint.sh"]
