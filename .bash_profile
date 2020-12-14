@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
-export SHELL_ROOT_DIR='/root'
-
 . "${SHELL_ROOT_DIR}/src/eslabs.env"
+. "${SHELL_ROOT_DIR}/src/colors.sh"
 
 "${SHELL_ROOT_DIR}/scripts/start.sh"
 echo -e "\n my name is elise..."
