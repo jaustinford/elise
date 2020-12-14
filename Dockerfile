@@ -36,4 +36,7 @@ RUN \
 RUN \
     ln -s /root/.bash_profile /etc/profile.d/elise_shell.sh
 
+RUN \
+    chmod +x /tmp/entrypoint.sh
+
 ENTRYPOINT ["/tmp/entrypoint.sh"]
