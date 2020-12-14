@@ -75,4 +75,4 @@ alias _sed_edit="${SHELL_ROOT_DIR}/scripts/eslabs_shell.sh edit"
 alias torrent_cli='docker exec -it plex-pipeline torrent_cli.py'
 alias rpi_temp="${SHELL_ROOT_DIR}/scripts/rpi_temp.sh"
 alias youdown="${SHELL_ROOT_DIR}/scripts/youdown.sh"
-
+alias ssh='ssh -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no'

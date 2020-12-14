@@ -9,4 +9,5 @@ set -e
 . "${SHELL_ROOT_DIR}/src/kubernetes.sh"
 
 ssh_key
+ssh_client_config
 kube_config

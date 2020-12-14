@@ -14,10 +14,7 @@ elif [ "$1" == 'deploy' ]; then
     docker run -dit \
         --name ${NAME} \
         --network=host \
-        --cap-add SYS_ADMIN \
-        --cap-add SYS_MODULE \
-        --cap-add NET_ADMIN \
-	--privileged \
+        --privileged \
         --env SHELL_ROOT_DIR='/root' \
         --volume ${SHELL_ROOT_DIR}:/root:rw \
          ${NAME}:${VERSION}
@@ -29,6 +26,10 @@ elif [ "$1" == 'start' ]; then
 
 elif [ "$1" == 'stop' ]; then
     docker stop ${NAME}
+
+elif [ "$1" == 'remove' ]; then
+    docker stop ${NAME}
+    docker rm ${NAME}
 
 elif [ "$1" == 'destroy' ]; then
     docker stop ${NAME}
