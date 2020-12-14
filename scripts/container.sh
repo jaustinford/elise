@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eu
+
 NAME='elise'
 VERSION='1.0'
 
