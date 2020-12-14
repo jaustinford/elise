@@ -11,7 +11,6 @@ RUN \
         curl \
         wget \
         git \
-        htop \
         chrony \
         bc \
         net-tools \

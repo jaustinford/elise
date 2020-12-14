@@ -9,7 +9,7 @@ if [ "$1" == 'deploy' ]; then
         --name ${NAME} \
         --env DOCKER_IMAGE_PASSWORD=${DOCKER_IMAGE_PASSWORD} \
         --volume "${SHELL_ROOT_DIR}":/root:rw \
-         ${NAME}:${VERSION}
+         jamesaustin87/${NAME}:${VERSION}
 
 elif [ "$1" == 'build' ]; then
     docker build ${SHELL_ROOT_DIR} -t ${NAME}:${VERSION}
