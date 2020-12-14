@@ -1,0 +1,6 @@
+src/eslabs.env
+.*_history
+.viminfo
+backups/*
+.kube/*
+.ssh/*

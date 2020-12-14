@@ -1,0 +1,1 @@
+0 4 15 * * austin /mnt/tvault/es-labs/projects/es-labs-bash/scripts/lab_backup.sh &>> /home/austin/backup_cron.log
