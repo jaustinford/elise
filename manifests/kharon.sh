@@ -106,8 +106,6 @@ spec:
           value: "1000"
         - name:  TZ
           value: "${DOCKER_TIMEZONE}"
-        - name: DELUGE_API_PASSWORD
-          value: "${DELUGE_API_PASSWORD}"
         lifecycle:
           postStart:
             exec:
