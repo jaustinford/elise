@@ -14,7 +14,7 @@ elif [ "$1" == 'deploy' ]; then
     docker run -dit \
         --name ${NAME} \
         --env SHELL_ROOT_DIR='/root' \
-        --volume "${SHELL_ROOT_DIR}":/root:rw \
+        --volume ${SHELL_ROOT_DIR}:/root:rw \
          ${NAME}:${VERSION}
 
     docker exec -it ${NAME} /bin/bash
