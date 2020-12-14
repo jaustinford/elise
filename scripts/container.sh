@@ -13,10 +13,8 @@ elif [ "$1" == 'deploy' ]; then
 
     docker run -dit \
         --name ${NAME} \
-        --cap-add SYS_ADMIN \
+        --network=host \
         --cap-add SYS_MODULE \
-        --cap-add NET_ADMIN \
-        --cap-add PERFMON \
 	--privileged \
         --env SHELL_ROOT_DIR='/root' \
         --volume ${SHELL_ROOT_DIR}:/root:rw \
