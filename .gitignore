@@ -2,4 +2,5 @@ src/eslabs.env
 .*_history
 .viminfo
 .kube/*
-dropoff/
+.ssh/*
+dropoff/*

@@ -19,3 +19,4 @@ Host labs.elysianskies.com
 EOF
     chmod 600 /tmp/ssh_config
 }
+
