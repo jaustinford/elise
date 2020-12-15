@@ -1,15 +1,25 @@
 print_message () {
+    TOTAL_LENGTH='40'
+    KEY_LENGTH=$(echo "$2" | wc -c)
+    PAD_LENGTH=$(echo $TOTAL_LENGTH-$KEY_LENGTH | bc -l)
+
+    key="$2"
+    for pad in $(seq 1 $PAD_LENGTH); do
+        key+=" "
+
+    done
+
     if [ "$1" == 'stdout' ]; then
         if [ ! -z "$3" ]; then
-            echo -e "[$SHELL_STDOUT_CODE*$ECHO_RESET] $2 : $3" 
+            echo -e "[$SHELL_STDOUT_CODE*$ECHO_RESET] $key : $3" 
 
         else
-            echo -e "[$SHELL_STDOUT_CODE*$ECHO_RESET] $2" 
+            echo -e "[$SHELL_STDOUT_CODE*$ECHO_RESET] $key"
 
         fi
 
     elif [ "$1" == 'stderr' ]; then
-        echo -e "[$SHELL_STDERR_CODE*$ECHO_RESET] $2" 
+        echo -e "[$SHELL_STDERR_CODE*$ECHO_RESET] $key" 
 
     fi
 }
