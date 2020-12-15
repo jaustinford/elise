@@ -9,6 +9,8 @@ CURRENT_STRING="$2"
 NEW_STRING="$3"
 
 if [ "${MODE}" == 'replace' ]; then
-    sed_edit  "${CURRENT_STRING}" "${NEW_STRING}"   
+    sed_edit  \
+        "${CURRENT_STRING}" \
+        "${NEW_STRING}"   
 
 fi
