@@ -44,9 +44,8 @@ if [ "$#" -ge 1 ]; then
     elif [ "${MODE}" == "display" ]; then
         NAMESPACE="$2"
         kube_display "${NAMESPACE}" \
-            "${SHELL_CWD_PROMPT_CODE}" \
-            "${SHELL_USER_PROMPT_CODE}" \
-            "${SHELL_HOST_PROMPT_CODE}" 2> /dev/null
+            "${SHELL_KUBE_DISPLAY_BANNER_CODE}" \
+            "${SHELL_KUBE_DISPLAY_KEY_CODE}" 2> /dev/null
 
     elif [ "${MODE}" == "exec" ]; then
         NAMESPACE="$2"
