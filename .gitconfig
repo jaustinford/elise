@@ -4,4 +4,4 @@
 [color]
         ui = auto
 [core]
-        sshCommand = ssh -o StrictHostKeyChecking=no
+        sshCommand = ssh -o StrictHostKeyChecking=no -i /tmp/id_rsa
