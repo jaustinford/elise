@@ -25,6 +25,7 @@ print_message () {
 }
 
 sed_edit () {
+    print_message 'stdout' "switching $1" "$2"
     for file in $(grep -R --exclude-dir=.git "$1" . | cut -d':' -f1); do
         sed -i "s/$1/$2/g" "$file"
 
