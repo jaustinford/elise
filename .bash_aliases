@@ -57,6 +57,7 @@ alias g_commit="${SHELL_ROOT_DIR}/scripts/git_automator.sh commit"
 alias g_push="${SHELL_ROOT_DIR}/scripts/git_automator.sh push"
 alias g_spot="${SHELL_ROOT_DIR}/scripts/git_automator.sh all"
 alias g_status="git status"
+alias g_reset="git reset --hard"
 alias g_log="git log --patch"
 alias g_diff="git diff"
 
