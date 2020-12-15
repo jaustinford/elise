@@ -4,7 +4,7 @@
 . "${SHELL_ROOT_DIR}/src/colors.sh"
 . "${SHELL_ROOT_DIR}/src/general.sh"
 
-interface='eth0'
+interface=$(ifconfig | egrep '^[a-z0-9]' | head -1 | cut -d':' -f1)
 rx=$(ifconfig ${interface} | grep RX\ packets | cut -d'(' -f2 | cut -d')' -f1)
 tx=$(ifconfig ${interface} | grep TX\ packets | cut -d'(' -f2 | cut -d')' -f1)
 
