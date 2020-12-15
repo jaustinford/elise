@@ -3,6 +3,7 @@
 . "${SHELL_ROOT_DIR}/src/eslabs.env"
 . "${SHELL_ROOT_DIR}/src/colors.sh"
 
+"${SHELL_ROOT_DIR}/scripts/motd.sh"
 "${SHELL_ROOT_DIR}/scripts/start.sh"
 echo -e "\n my name is elise..."
 
@@ -13,7 +14,6 @@ CWD_PROMPT="${SHELL_CWD_PROMPT_CODE} \w ${ECHO_RESET}"
 PS1="\n[${USER_PROMPT}|${HOST_PROMPT}|${CWD_PROMPT}] "
 
 cd ${HOME}
-#"${SHELL_ROOT_DIR}/scripts/kube_motd.sh"
 
 # exports
 export PATH=$PATH:$HOME/.local/bin:$HOME/bin

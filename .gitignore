@@ -2,3 +2,4 @@ src/eslabs.env
 .*_history
 .viminfo
 .kube/*
+dropoff/
