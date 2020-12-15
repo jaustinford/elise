@@ -80,7 +80,15 @@ spec:
         lifecycle:
           postStart:
             exec:
-              command: ['/bin/bash', '/tmp/entrypoint.sh']
+              command:
+              - '/bin/bash'
+              - '-c'
+              - >
+                apt-get update -y;
+                apt-get install -y wget;
+                wget -q https://www.expressvpn.works/clients/linux/${EXPRESSVPN_VERSION} -O /tmp/${EXPRESSVPN_VERSION};
+                dpkg -i /tmp/${EXPRESSVPN_VERSION};
+                /bin/bash /tmp/entrypoint.sh
         securityContext:
           capabilities:
             add:
