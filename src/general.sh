@@ -19,7 +19,7 @@ print_message () {
         fi
 
     elif [ "$1" == 'stderr' ]; then
-        echo -e "[$SHELL_STDERR_CODE*$ECHO_RESET] $key" 
+        echo -e "[$SHELL_STDERR_CODE!$ECHO_RESET] $key"
 
     fi
 }
