@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-. "${SHELL_ROOT_DIR}/src/eslabs.ini"
+. "${ELISE_ROOT_DIR}/src/eslabs.ini"
 
 cat <<EOF | kubectl "$1" -f -
 ---

@@ -2,11 +2,11 @@
 
 set -e
 
-. "${SHELL_ROOT_DIR}/src/eslabs.ini"
-. "${SHELL_ROOT_DIR}/src/general.sh"
-. "${SHELL_ROOT_DIR}/src/colors.sh"
-. "${SHELL_ROOT_DIR}/src/kubernetes.sh"
-. "${SHELL_ROOT_DIR}/src/iscsi.sh"
+. "${ELISE_ROOT_DIR}/src/eslabs.ini"
+. "${ELISE_ROOT_DIR}/src/general.sh"
+. "${ELISE_ROOT_DIR}/src/colors.sh"
+. "${ELISE_ROOT_DIR}/src/kubernetes.sh"
+. "${ELISE_ROOT_DIR}/src/iscsi.sh"
 
 MODE="$1"
 VOLUME="$2"

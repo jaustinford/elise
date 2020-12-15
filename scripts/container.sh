@@ -6,18 +6,18 @@ NAME='elise'
 VERSION='1.0'
 
 if [ "$1" == 'build' ]; then
-    docker build ${SHELL_ROOT_DIR} -t ${NAME}:${VERSION}
+    docker build ${ELISE_ROOT_DIR} -t ${NAME}:${VERSION}
 
 elif [ "$1" == 'deploy' ]; then
-    docker build ${SHELL_ROOT_DIR} -t ${NAME}:${VERSION}
+    docker build ${ELISE_ROOT_DIR} -t ${NAME}:${VERSION}
 
     docker run -dit \
         --name ${NAME} \
         --network=host \
         --env TZ='America/Denver' \
         --privileged \
-        --env SHELL_ROOT_DIR='/root' \
-        --volume ${SHELL_ROOT_DIR}:/root:rw \
+        --env ELISE_ROOT_DIR='/root' \
+        --volume ${ELISE_ROOT_DIR}:/root:rw \
         ${NAME}:${VERSION}
 
     docker exec -it ${NAME} /bin/bash

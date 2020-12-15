@@ -2,7 +2,7 @@
 
 set -e
 
-. "${SHELL_ROOT_DIR}/src/youtube-dl-wrapper.sh"
+. "${ELISE_ROOT_DIR}/src/youtube-dl-wrapper.sh"
 
 OPTION="$1"
 DOWNLOAD_DIR="$2"

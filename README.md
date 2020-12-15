@@ -1,4 +1,4 @@
 ## wrapper shell and custom scripts
 
-- `export SHELL_ROOT_DIR='/path/to/elise'`
-- `${SHELL_ROOT_DIR}/scripts/container.sh deploy`
+- `export ELISE_ROOT_DIR='/path/to/elise'`
+- `${ELISE_ROOT_DIR}/scripts/container.sh deploy`

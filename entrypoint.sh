@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ ! -f "${SHELL_ROOT_DIR}/src/eslabs.ini" ]; then
+if [ ! -f "${ELISE_ROOT_DIR}/src/eslabs.ini" ]; then
     exit 1
 
 fi
