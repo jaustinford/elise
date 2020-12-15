@@ -128,7 +128,7 @@ kube_events () {
 }
 
 kube_config () {
-    print_message 'stdout' 'generating kubernetes config'
+    print_message 'stdout' 'generating kubernetes config' "${SHELL_ROOT_DIR}/.kube/config"
     mkdir -p "${SHELL_ROOT_DIR}/.kube"
     echo "${KUBE_CONFIG_FILE}" | base64 -d > "${SHELL_ROOT_DIR}/.kube/config"
 }
