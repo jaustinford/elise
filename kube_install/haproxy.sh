@@ -2,7 +2,7 @@
 
 set -e
 
-. /mnt/tvault/es-labs/projects/es-labs-scripts/vars/eslabs.env
+. /mnt/tvault/es-labs/projects/es-labs-scripts/vars/eslabs.ini
 . "${SCRIPTS_DIR}/echo_colors.sh"
 . "${KUBE_INSTALL_SCRIPTS}/os.sh"
 

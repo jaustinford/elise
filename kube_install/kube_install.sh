@@ -9,7 +9,7 @@ set -e
 # https://www.tecmint.com/install-a-kubernetes-cluster-on-centos-8/
 # https://gist.github.com/dbafromthecold/015d87444a77e12b90433f32fb265f37
 
-. /mnt/tvault/es-labs/projects/es-labs-scripts/vars/eslabs.env
+. /mnt/tvault/es-labs/projects/es-labs-scripts/vars/eslabs.ini
 . "${SCRIPTS_DIR}/echo_colors.sh"
 . "${KUBE_INSTALL_SCRIPTS}/os.sh"
 

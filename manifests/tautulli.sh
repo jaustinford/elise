@@ -2,7 +2,7 @@
 
 set -eu
 
-. "${SHELL_ROOT_DIR}/src/eslabs.env"
+. "${SHELL_ROOT_DIR}/src/eslabs.ini"
 
 cat <<EOF | kubectl "$1" -f -
 ---

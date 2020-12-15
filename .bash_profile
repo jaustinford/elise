@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-. "${SHELL_ROOT_DIR}/src/eslabs.env"
+. "${SHELL_ROOT_DIR}/src/eslabs.ini"
 . "${SHELL_ROOT_DIR}/src/colors.sh"
 
 "${SHELL_ROOT_DIR}/scripts/motd.sh"
