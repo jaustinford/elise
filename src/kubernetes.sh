@@ -73,28 +73,28 @@ $2    K U B E R N E T E S    O N    E L Y S I A N    S K I E S $ECHO_RESET
 
       namespace : $3 $1                                        $ECHO_RESET
 
-$3    nodes                                                    $ECHO_RESET
-
+$3  nodes                                                      $ECHO_RESET
+-------------------------------------------------------
 $(kubectl get nodes -o wide)
 
-$3    pods                                                     $ECHO_RESET
-
+$3  pods                                                       $ECHO_RESET
+-------------------------------------------------------
 $(kubectl -n $1 -o wide get pods)
 
-$3    services                                                 $ECHO_RESET
-
+$3  services                                                   $ECHO_RESET
+-------------------------------------------------------
 $(kubectl -n $1 -o wide get services)
 
-$3    endpoints                                                $ECHO_RESET
-
+$3  endpoints                                                  $ECHO_RESET
+-------------------------------------------------------
 $(kubectl -n $1 -o wide get endpoints)
 
-$3    ingresses                                                $ECHO_RESET
-
+$3  ingresses                                                  $ECHO_RESET
+-------------------------------------------------------
 $(kubectl -n $1 -o wide get ingresses)
 
-$3    events                                                   $ECHO_RESET
-
+$3  events                                                     $ECHO_RESET
+-------------------------------------------------------
 $(kubectl -n $1 -o wide get events)
 "
 }

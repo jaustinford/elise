@@ -17,7 +17,7 @@ elif [ "$1" == 'deploy' ]; then
         --privileged \
         --env SHELL_ROOT_DIR='/root' \
         --volume ${SHELL_ROOT_DIR}:/root:rw \
-         ${NAME}:${VERSION}
+        ${NAME}:${VERSION}
 
     docker exec -it ${NAME} /bin/bash
 
