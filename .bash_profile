@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-. "${ELISE_ROOT_DIR}/src/eslabs.ini"
+. "${ELISE_ROOT_DIR}/src/elise.ini"
 . "${ELISE_ROOT_DIR}/src/colors.sh"
 
 "${ELISE_ROOT_DIR}/scripts/motd.sh"

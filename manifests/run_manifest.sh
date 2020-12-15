@@ -2,7 +2,7 @@
 
 set -e
 
-. "${ELISE_ROOT_DIR}/src/eslabs.ini"
+. "${ELISE_ROOT_DIR}/src/elise.ini"
 
 MODE="$1"
 MANIFEST="$2"

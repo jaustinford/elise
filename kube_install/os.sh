@@ -2,7 +2,7 @@
 
 set -e
 
-. /mnt/tvault/es-labs/projects/es-labs-scripts/vars/eslabs.ini
+. /mnt/tvault/es-labs/projects/es-labs-scripts/vars/elise.ini
 . "${SCRIPTS_DIR}/echo_colors.sh"
 
 # collection of functions and key values specific to centos and
