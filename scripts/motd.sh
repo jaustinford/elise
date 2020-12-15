@@ -4,27 +4,15 @@
 . "${SHELL_ROOT_DIR}/src/colors.sh"
 . "${SHELL_ROOT_DIR}/src/general.sh"
 
-# centos vs. raspbian
+interface='eth0'
+rx=$(ifconfig ${interface} | grep RX\ packets | cut -d'(' -f2 | cut -d')' -f1)
+tx=$(ifconfig ${interface} | grep TX\ packets | cut -d'(' -f2 | cut -d')' -f1)
+
 find_operating_system
-if [ "$operating_system" == "Raspbian GNU/Linux 10 (buster)" ]; then
-    install_date=""
-    interface='eth0'
-    rx=$(ifconfig ${interface} | grep RX\ packets | cut -d'(' -f2 | cut -d')' -f1)
-    tx=$(ifconfig ${interface} | grep TX\ packets | cut -d'(' -f2 | cut -d')' -f1)
-
-elif [ "$operating_system" == "CentOS Linux 8" ]; then
-    install_date=$(rpm -qi basesystem | grep Install\ Date | cut -d":" -f2-4 | cut -d" " -f2-10)
-    interface='bond0'
-    rx=$(ifconfig ${interface} | grep RX\ packets | cut -d'(' -f2 | cut -d')' -f1)
-    tx=$(ifconfig ${interface} | grep TX\ packets | cut -d'(' -f2 | cut -d')' -f1)
-
-fi
-
-# system information
 hostname="$(hostname)"
-host_ip="$(hostname -i | egrep -o '172.16.17.[0-9]{1,}')"
 uptime="$(uptime | awk '{print $3, $4}' | cut -d ',' -f1)"
 date="$(date)"
+install_date=$(rpm -qi basesystem | grep Install\ Date | cut -d":" -f2-4 | cut -d" " -f2-10)
 cpu=$(lscpu | grep Model\ name | cut -d":" -f2 | egrep -o '[A-Za-z].*$')
 total_memory=$(free | grep Mem | awk '{print $2}')
 total_memory_human=$(free -h | grep Mem | awk '{print $2}')
@@ -37,7 +25,6 @@ echo -e \
  ${SHELL_USER_PROMPT_CODE}   system information                                                                          $ECHO_RESET
   -----------------------------------------------------------
  ${SHELL_HOST_PROMPT_CODE} hostname               $ECHO_RESET : ${SHELL_CWD_PROMPT_CODE} $hostname                               $ECHO_RESET
- ${SHELL_HOST_PROMPT_CODE} host ip                $ECHO_RESET : ${SHELL_CWD_PROMPT_CODE} $host_ip                                $ECHO_RESET
  ${SHELL_HOST_PROMPT_CODE} uptime                 $ECHO_RESET : ${SHELL_CWD_PROMPT_CODE} $uptime                                 $ECHO_RESET
  ${SHELL_HOST_PROMPT_CODE} date                   $ECHO_RESET : ${SHELL_CWD_PROMPT_CODE} $date                                   $ECHO_RESET
  ${SHELL_HOST_PROMPT_CODE} install date           $ECHO_RESET : ${SHELL_CWD_PROMPT_CODE} $install_date                           $ECHO_RESET
