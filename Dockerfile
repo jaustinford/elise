@@ -6,16 +6,20 @@ COPY entrypoint.sh /tmp/entrypoint.sh
 RUN \
     yum update -y && \
     yum install -y \
+        epel-release
+
+RUN \
+    yum install -y \
         tree \
         vim \
         curl \
+        htop \
         wget \
         git \
         chrony \
         bc \
         net-tools \
         bind-utils \
-        epel-release \
         iscsi-initiator-utils
 
 # kubernetes client
