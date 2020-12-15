@@ -20,8 +20,6 @@ free_memory=$(free | grep Mem | awk '{print $7}')
 free_memory_percent=$(echo "$free_memory/$total_memory*100" | bc -l | egrep -o '[0-9]{2}[.][0-9]{2}')
 root_partition_used=$(df -H | egrep '/$' | awk '{print $5}')
 
-clear 
-
 echo -e \
 "
  ${SHELL_USER_PROMPT_CODE}   system information                                                                              $ECHO_RESET
