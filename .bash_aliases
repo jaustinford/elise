@@ -6,8 +6,8 @@ alias tree='tree -C'
 alias ls='ls --color '
 
 # watchers
-alias watcher_start="${SHELL_ROOT_DIR}/scripts/watcher/rtsp_server.py start"
-alias watcher_stop="${SHELL_ROOT_DIR}/scripts/watcher/rtsp_server.py stop"
+# alias watcher_start="${SHELL_ROOT_DIR}/scripts/watcher/rtsp_server.py start"
+# alias watcher_stop="${SHELL_ROOT_DIR}/scripts/watcher/rtsp_server.py stop"
 
 # kubernetes
 alias k_manifest_apply="${KUBE_MANIFESTS_DIR}/run_manifest.sh apply"
@@ -46,10 +46,10 @@ alias k_system_display="${SHELL_ROOT_DIR}/scripts/kube_automator.sh display kube
 alias k_system_watch="watch -n 5 -t -c ${SHELL_ROOT_DIR}/scripts/kube_automator.sh display kube-system"
 
 # iscsi
-alias v_mount="${SHELL_ROOT_DIR}/scripts/iscsi_automator.sh mount"
-alias v_dismount="${SHELL_ROOT_DIR}/scripts/iscsi_automator.sh dismount"
-alias v_backup="${SHELL_ROOT_DIR}/scripts/iscsi_automator.sh backup"
-alias v_backup_lab="${SHELL_ROOT_DIR}/scripts/lab_backup.sh"
+# alias v_mount="${SHELL_ROOT_DIR}/scripts/iscsi_automator.sh mount"
+# alias v_dismount="${SHELL_ROOT_DIR}/scripts/iscsi_automator.sh dismount"
+# alias v_backup="${SHELL_ROOT_DIR}/scripts/iscsi_automator.sh backup"
+# alias v_backup_lab="${SHELL_ROOT_DIR}/scripts/lab_backup.sh"
 
 # git
 alias g_add="${SHELL_ROOT_DIR}/scripts/git_automator.sh add"
@@ -72,8 +72,8 @@ alias _vars="${EDITOR} ${SHELL_ROOT_DIR}/src/eslabs.env"
 alias _profile="${EDITOR} ${SHELL_ROOT_DIR}/.bash_profile"
 alias _expressvpn="${SHELL_ROOT_DIR}/scripts/kube_automator.sh exec eslabs kharon 'expressvpn status' expressvpn"
 alias _plexspy="${SHELL_ROOT_DIR}/scripts/kube_automator.sh tail eslabs tautulli | egrep 'Session\ [0-9]{1,}\ started'"
-alias _sed_edit="${SHELL_ROOT_DIR}/scripts/eslabs_shell.sh edit"
-alias torrent_cli='docker exec -it plex-pipeline torrent_cli.py'
-alias rpi_temp="${SHELL_ROOT_DIR}/scripts/rpi_temp.sh"
+# alias _sed_edit="${SHELL_ROOT_DIR}/scripts/eslabs_shell.sh edit"
+# alias torrent_cli='docker exec -it plex-pipeline torrent_cli.py'
+# alias rpi_temp="${SHELL_ROOT_DIR}/scripts/rpi_temp.sh"
 alias youdown="${SHELL_ROOT_DIR}/scripts/youdown.sh"
 alias ssh='ssh -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no'

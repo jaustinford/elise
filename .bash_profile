@@ -5,6 +5,7 @@
 
 "${SHELL_ROOT_DIR}/scripts/motd.sh"
 "${SHELL_ROOT_DIR}/scripts/start.sh"
+
 echo -e "\n my name is elise..."
 
 # shell prompt
@@ -15,7 +16,6 @@ PS1="\n[${USER_PROMPT}|${HOST_PROMPT}|${CWD_PROMPT}] "
 
 cd ${HOME}
 
-# exports
 export PATH=$PATH:$HOME/.local/bin:$HOME/bin
 export EDITOR=vim
 export HISTTIMEFORMAT="%F %T "
