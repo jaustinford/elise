@@ -1,5 +1,5 @@
 print_message () {
-    TOTAL_LENGTH='40'
+    TOTAL_LENGTH='29'
     KEY_LENGTH=$(echo "$2" | wc -c)
     PAD_LENGTH=$(echo $TOTAL_LENGTH-$KEY_LENGTH | bc -l)
 
