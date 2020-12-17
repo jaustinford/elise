@@ -72,7 +72,5 @@ alias _vars="${EDITOR} ${ELISE_ROOT_DIR}/src/elise.ini"
 alias _profile="${EDITOR} ${ELISE_ROOT_DIR}/.bash_profile"
 alias _plexspy="${ELISE_ROOT_DIR}/scripts/kube_automator.sh tail eslabs tautulli | egrep 'Session\ [0-9]{1,}\ started'"
 alias _sed_edit="${ELISE_ROOT_DIR}/scripts/sed.sh replace"
-# alias torrent_cli='docker exec -it plex-pipeline torrent_cli.py'
-# alias rpi_temp="${ELISE_ROOT_DIR}/scripts/rpi_temp.sh"
 alias youdown="${ELISE_ROOT_DIR}/scripts/youdown.sh"
 alias ssh='ssh -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no'
