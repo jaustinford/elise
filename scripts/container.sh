@@ -14,8 +14,8 @@ elif [ "$1" == 'deploy' ]; then
     docker run -dit \
         --name ${NAME} \
         --network=host \
-        --env TZ='America/Denver' \
         --privileged \
+        --env TZ='America/Denver' \
         --env ELISE_ROOT_DIR='/root' \
         --volume ${ELISE_ROOT_DIR}:/root:rw \
         ${NAME}:${VERSION}

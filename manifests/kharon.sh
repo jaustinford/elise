@@ -35,6 +35,61 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  name: vpn-credentials-config-map
+  namespace: eslabs
+data:
+  vpn.credentials: |
+    ${EXPRESSVPN_USERNAME}
+    ${EXPRESSVPN_PASSWORD}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: vpn-conf-config-map
+  namespace: eslabs
+data:
+  vpn.conf: |
+    dev tun
+    fast-io
+    persist-key
+    persist-tun
+    nobind
+    remote ${EXPRESSVPN_SERVER}-ca-version-2.expressnetw.com 1195
+    remote-random
+    pull
+    comp-lzo no
+    tls-client
+    verify-x509-name Server name-prefix
+    ns-cert-type server
+    key-direction 1
+    route-method exe
+    route-delay 2
+    tun-mtu 1500
+    fragment 1300
+    mssfix 1200
+    verb 3
+    cipher AES-256-CBC
+    keysize 256
+    auth SHA512
+    sndbuf 524288
+    rcvbuf 524288
+    auth-user-pass /vpn/vpn.credentials
+    <cert>
+    $(echo ${EXPRESSVPN_CERT} | base64 -d)
+    </cert>
+    <key>
+    $(echo ${EXPRESSVPN_KEY} | base64 -d)
+    </key>
+    <tls-auth>
+    $(echo ${EXPRESSVPN_TLS} | base64 -d)
+    </tls-auth>
+    <ca>
+    $(echo ${EXPRESSVPN_CA} | base64 -d)
+    </ca>
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
   name: squid-config-map
   namespace: eslabs
 data:
@@ -67,28 +122,13 @@ spec:
         app: kharon
     spec:
       containers:
-      - image: polkaned/expressvpn:latest
+      - image: dperson/openvpn-client:latest
         name: expressvpn
         env:
-        - name: ACTIVATION_CODE
-          value: "${EXPRESSVPN_ACTIVATION_CODE}"
-        - name: SERVER
-          value: "${EXPRESSVPN_SERVER_CODE}"
+        - name: TZ
+          value: "${DOCKER_TIMEZONE}"
         stdin: true
         tty: true
-        command: ['/bin/bash']
-        lifecycle:
-          postStart:
-            exec:
-              command:
-              - '/bin/bash'
-              - '-c'
-              - >
-                apt-get update -y;
-                apt-get install -y wget;
-                wget -q https://www.expressvpn.works/clients/linux/${EXPRESSVPN_VERSION} -O /tmp/${EXPRESSVPN_VERSION};
-                dpkg -i /tmp/${EXPRESSVPN_VERSION};
-                /bin/bash /tmp/entrypoint.sh
         securityContext:
           capabilities:
             add:
@@ -97,6 +137,12 @@ spec:
         volumeMounts:
         - name: k8s-vol-tun-dev
           mountPath: /dev/net/tun
+        - name: vpn-conf
+          mountPath: /vpn/vpn.conf
+          subPath: vpn.conf
+        - name: vpn-credentials
+          mountPath: /vpn/vpn.credentials
+          subPath: vpn.credentials
       - image: sameersbn/squid:latest
         name: squid
         ports:
@@ -126,6 +172,12 @@ spec:
         hostPath:
           path: /dev/net/tun
           type: CharDevice
+      - name: vpn-conf
+        configMap:
+          name: vpn-conf-config-map
+      - name: vpn-credentials
+        configMap:
+          name: vpn-credentials-config-map
       - name: squid-config
         configMap:
           name: squid-config-map
