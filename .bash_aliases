@@ -70,7 +70,6 @@ alias _source="source ${ELISE_ROOT_DIR}/.bash_profile"
 alias _home="cd ~"
 alias _vars="${EDITOR} ${ELISE_ROOT_DIR}/src/elise.ini"
 alias _profile="${EDITOR} ${ELISE_ROOT_DIR}/.bash_profile"
-alias _expressvpn="${ELISE_ROOT_DIR}/scripts/kube_automator.sh exec eslabs kharon 'expressvpn status' expressvpn"
 alias _plexspy="${ELISE_ROOT_DIR}/scripts/kube_automator.sh tail eslabs tautulli | egrep 'Session\ [0-9]{1,}\ started'"
 alias _sed_edit="${ELISE_ROOT_DIR}/scripts/sed.sh replace"
 # alias torrent_cli='docker exec -it plex-pipeline torrent_cli.py'
