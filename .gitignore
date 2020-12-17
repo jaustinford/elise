@@ -1,6 +1,7 @@
 src/elise.ini
 .*_history
 .viminfo
+.config/*
 .vim/*
 .kube/*
 .ssh/*
