@@ -11,3 +11,4 @@ set -e
 ssh_key
 ssh_client_config
 kube_config
+check_cluster_to_wan_connectivity

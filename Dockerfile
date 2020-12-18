@@ -18,6 +18,7 @@ RUN \
         git \
         chrony \
         bc \
+        nmap \
         net-tools \
         bind-utils \
         iscsi-initiator-utils
