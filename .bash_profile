@@ -12,7 +12,7 @@ echo -e "\n my name is elise..."
 USER_PROMPT="\[${SHELL_USER_PROMPT_CODE}\] elise \[${ECHO_RESET}\]"
 HOST_PROMPT="\[${SHELL_HOST_PROMPT_CODE}\] \H \[${ECHO_RESET}\]"
 CWD_PROMPT="\[${SHELL_CWD_PROMPT_CODE}\] \w \[${ECHO_RESET}\]"
-PS1="\n[${USER_PROMPT}|${HOST_PROMPT}|${CWD_PROMPT}] "
+PS1="\n[${USER_PROMPT}][${HOST_PROMPT}][${CWD_PROMPT}] "
 
 cd ${HOME}
 
