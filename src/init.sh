@@ -20,12 +20,12 @@ EOF
     chmod 600 /tmp/ssh_config
 }
 
-check_cluster_to_wan_connectivity () {
-    if [ $(nmap -p 6443 ${LAB_FQDN} | egrep '^6443\/tcp' | awk '{print $2}') == 'open' ]; then
-        print_message 'stdout' 'lab wan connection confirmed' "${LAB_FQDN}:6443"
+check_cluster_from_wan_connectivity () {
+    if [ $(nmap -p $1 ${LAB_FQDN} | egrep "^$1\/tcp" | awk '{print $2}') == 'open' ]; then
+        print_message 'stdout' 'lab wan connection confirmed' "${LAB_FQDN}:$1"
 
     else
-        print_message 'stderr' 'lab wan connection refused' "${LAB_FQDN}:6443"
+        print_message 'stderr' 'lab wan connection refused' "${LAB_FQDN}:$1"
 
     fi
 }
