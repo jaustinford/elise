@@ -1,4 +1,4 @@
 set nu
-set wrap
+set nowrap
 syntax on
 colorscheme peachpuff
