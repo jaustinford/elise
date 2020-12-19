@@ -17,10 +17,72 @@ if [ "$#" -ge 1 ]; then
     install_v4l2rtspserver "$operating_system"
 
     if [ "${MODE}" == "start" ]; then
-        python3 "${ELISE_ROOT_DIR}/watcher/rtsp_server.py" start
+        if [ "$(hostname)" == 'watcher01.labs.elysianskies.com' ]; then
+            v4l2-ctl -d /dev/video0 --set-ctrl=led1_mode=0
+            v4l2-ctl -d /dev/video0 --set-ctrl=sharpness=255
+            v4l2-ctl -d /dev/video0 --set-ctrl=focus_auto=0
+            v4l2-ctl -d /dev/video0 --set-ctrl=focus_absolute=0
+
+            v4l2rtspserver \
+                -P 8554 \
+                -p 8554 \
+                -U "${LAB_WATCHER_USERNAME}:${LAB_WATCHER_PASSWORD}" \
+                -W 640 \
+                -H 480 \
+                -u doorway \
+                /dev/video0 1> /dev/null &
+
+            v4l2-ctl -d /dev/video2 --set-ctrl=led1_mode=0
+            v4l2-ctl -d /dev/video2 --set-ctrl=sharpness=255
+            v4l2-ctl -d /dev/video2 --set-ctrl=focus_auto=0
+            v4l2-ctl -d /dev/video2 --set-ctrl=focus_absolute=0
+
+            v4l2rtspserver \
+                -P 8555 \
+                -p 8555 \
+                -U "${LAB_WATCHER_USERNAME}:${LAB_WATCHER_PASSWORD}" \
+                -W 640 \
+                -H 480 \
+                -u dining \
+                /dev/video2 1> /dev/null &
+
+
+        elif [ "$(hostname)" == 'watcher02.labs.elysianskies.com' ]; then
+            v4l2-ctl -d /dev/video0 --set-ctrl=led1_mode=0
+            v4l2-ctl -d /dev/video0 --set-ctrl=sharpness=255
+            v4l2-ctl -d /dev/video0 --set-ctrl=focus_auto=0
+            v4l2-ctl -d /dev/video0 --set-ctrl=focus_absolute=0
+
+            v4l2rtspserver \
+                -P 8554 \
+                -p 8554 \
+                -U "${LAB_WATCHER_USERNAME}:${LAB_WATCHER_PASSWORD}" \
+                -W 640 \
+                -H 480 \
+                -u safe \
+                /dev/video0 1> /dev/null &
+
+            v4l2-ctl -d /dev/video2 --set-ctrl=led1_mode=0
+            v4l2-ctl -d /dev/video2 --set-ctrl=sharpness=255
+            v4l2-ctl -d /dev/video2 --set-ctrl=focus_auto=0
+            v4l2-ctl -d /dev/video2 --set-ctrl=focus_absolute=0
+
+            v4l2rtspserver \
+                -P 8555 \
+                -p 8555 \
+                -U "${LAB_WATCHER_USERNAME}:${LAB_WATCHER_PASSWORD}" \
+                -W 640 \
+                -H 480 \
+                -u office \
+                /dev/video2 1> /dev/null &
+
+        fi
 
     elif [ "${MODE}" == "stop" ]; then
-        python3 "${ELISE_ROOT_DIR}/watcher/rtsp_server.py" stop
+        for pid in $(/bin/pidof v4l2rtspserver); do 
+            kill -9 $pid
+
+        done
 
     fi
 
