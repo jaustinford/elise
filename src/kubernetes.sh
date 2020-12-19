@@ -151,22 +151,14 @@ local_k8s_node_resolution () {
 
 install_master_node () {
     print_message 'stdout' 'preparing master' "$(hostname)"
-    if [ "${OS_NAME}" == "Raspbian GNU/Linux" ]; then
-        # cgroups
+    if [ "$1" == 'Raspbian GNU/Linux' ]; then
         print_message 'stdout' 'updating rpi cgroups'
         cp /boot/cmdline.txt /boot/cmdline_backup.txt
         orig="$(head -n1 /boot/cmdline.txt) cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory"
         echo ${orig} | tee /boot/cmdline.txt
 
-        # install
-        install_docker_rpi
-        install_k8s_rpi
-
-    elif [ "${OS_NAME}" == "CentOS Linux" ]; then
-        # disable selinux
+    elif [ "$1" == 'CentOS Linux 8' ]; then
         disable_selinux
-
-        # firewalld rules
         print_message 'stdout' 'adding k8s firewalld'
         firewall-cmd --permanent --add-port=6443/tcp 1> /dev/null
         firewall-cmd --permanent --add-port=2379-2380/tcp 1> /dev/null
@@ -175,42 +167,31 @@ install_master_node () {
         firewall-cmd --permanent --add-port=10252/tcp 1> /dev/null
         firewall-cmd --permanent --add-port=10255/tcp 1> /dev/null
         firewall-cmd --reload 1> /dev/null
-
-        # networking
         bridge_centos
-
-        # install
-        install_docker_centos
-        install_k8s_centos
 
     fi
 
+    install_docker "$operating_system"
+    install_k8s "$operating_system"
     turn_swap_off
 }
 
 install_worker_node () {
     print_message 'stdout' 'preparing worker' "$(hostname)"
-    if [ "${OS_NAME}" == "CentOS Linux" ]; then
-        # disable selinux
+    if [ "$1" == 'CentOS Linux 8' ]; then
         disable_selinux
-
-        # firewalld rules
         print_message 'stdout' 'adding k8s firewalld'
         firewall-cmd --permanent --add-port=6783/tcp 1> /dev/null
         firewall-cmd --permanent --add-port=10250/tcp 1> /dev/null
         firewall-cmd --permanent --add-port=10255/tcp 1> /dev/null
         firewall-cmd --permanent --add-port=30000-32767/tcp 1> /dev/null
         firewall-cmd --reload 1> /dev/null
-
-        # networking
         bridge_centos
-
-        # install
-        install_docker_centos
-        install_k8s_centos
 
     fi
 
+    install_docker "$operating_system"
+    install_k8s "$operating_system"
     turn_swap_off
 }
 

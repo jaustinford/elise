@@ -34,41 +34,53 @@ EOF
     fi
 }
 
-install_docker_centos () {
-    if [ -z "$(rpm -qa | grep docker-ce)" ]; then
-        print_message 'stdout' "installing docker on ${operating_system}"
-        yum update -y
-        yum upgrade -y
-        dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
-        dnf install https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm -y
-        dnf install docker-ce -y
-        usermod -aG docker "${DOCKER_USER}"
-        systemctl enable docker
-        systemctl start docker
-        docker_systemd_driver
+install_docker () {
+    if [ "$1" == 'Raspbian GNU/Linux 10 (buster)' ]; then
+        if [ -z "$(dpkg --get-selections | grep docker-ce)" ]; then
+            print_message 'stdout' "installing docker on ${operating_system}"
+            apt-get update -y
+            apt-get upgrade -y
+            curl -sSL https://get.docker.com | sh
+
+        fi
+
+    elif [ "$1" == 'CentOS Linux 8' ]; then
+        if [ -z "$(rpm -qa | grep docker-ce)" ]; then
+            print_message 'stdout' "installing docker on ${operating_system}"
+            yum update -y
+            yum upgrade -y
+            dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+            dnf install https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm -y
+            dnf install docker-ce -y
+
+        fi
 
     fi
+
+    usermod -aG docker "${DOCKER_USER}"
+    systemctl enable docker 1> /dev/null
+    systemctl start docker 1> /dev/null
+    docker_systemd_driver
 }
 
-install_docker_rpi () {
-    if [ -z "$(dpkg --get-selections | grep docker-ce)" ]; then
-        print_message 'stdout' "installing docker on ${operating_system}"
-        apt-get update -y
-        apt-get upgrade -y
-        curl -sSL https://get.docker.com | sh
-        usermod -aG docker "${DOCKER_USER}"
-        systemctl enable docker
-        systemctl start docker
-        docker_systemd_driver
+install_k8s () {
+    if [ "$1" == 'Raspbian GNU/Linux 10 (buster)' ]; then
+        if [ -z "$(dpkg --get-selections | grep kubeadm)" ]; then
+            print_message 'stdout' "installing kubernetes on ${operating_system}"
+            curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+            echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list
+            apt-get install kubeadm -y
+            update-alternatives --set iptables /usr/sbin/iptables-legacy
+            systemctl enable kubelet
+            systemctl start kubelet
 
-    fi
-}
+        fi
 
-install_k8s_centos () {
-    if [ -z "$(rpm -qa | grep kubeadm)" ]; then
-        print_message 'stdout' "installing kubernetes on ${operating_system}"
-        apt-get update -y
-        cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+    elif [ "$1" == 'CentOS Linux 8' ]; then
+        if [ -z "$(rpm -qa | grep kubeadm)" ]; then
+            print_message 'stdout' "installing kubernetes on ${operating_system}"
+            apt-get update -y
+            cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
 baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
@@ -77,22 +89,11 @@ gpgcheck=1
 repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
-        dnf install kubeadm -y
-        systemctl enable kubelet
-        systemctl start kubelet
+            dnf install kubeadm -y
+            systemctl enable kubelet
+            systemctl start kubelet
 
-    fi
-}
-
-install_k8s_rpi () {
-    if [ -z "$(dpkg --get-selections | grep kubeadm)" ]; then
-        print_message 'stdout' "installing kubernetes on ${operating_system}"
-        curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-        echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list
-        apt-get install kubeadm -y
-        update-alternatives --set iptables /usr/sbin/iptables-legacy
-        systemctl enable kubelet
-        systemctl start kubelet
+        fi
 
     fi
 }
