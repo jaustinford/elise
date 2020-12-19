@@ -8,3 +8,4 @@ src/elise.env
 dropoff/*
 haproxy/*.crt
 haproxy/*.key
+watcher/cams.json

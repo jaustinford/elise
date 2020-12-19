@@ -21,8 +21,14 @@ RUN \
         bc \
         nmap \
         net-tools \
-        bind-utils \
-        iscsi-initiator-utils
+        bind-utils
+
+# python3
+RUN \
+    yum install -y python3 && \
+    pip3 install --upgrade pip && \
+    pip3 install \
+        requests
 
 # kubernetes client
 RUN \

@@ -1,0 +1,48 @@
+# populate a json file in this template 
+# by filling these values, call file
+# cams.json in this directory
+
+[
+    {
+        "host": "host.fqdn.com",
+        "sources": [
+            {
+                "device": "/dev/videoX",
+                "enabled": true,
+                "name": "name_of_feed",
+                "port": "999",
+                "username": "username",
+                "password": "password"
+            },
+            {
+                "device": "/dev/videoX",
+                "enabled": true,
+                "name": "name_of_feed",
+                "port": "999",
+                "username": "username",
+                "password": "password"
+            }
+        ]
+    },
+    {
+        "host": "host.fqdn.com",
+        "sources": [
+            {
+                "device": "/dev/videoX",
+                "enabled": true,
+                "name": "name_of_feed",
+                "port": "999",
+                "username": "username",
+                "password": "password"
+            },
+            {
+                "device": "/dev/videoX",
+                "enabled": true,
+                "name": "name_of_feed",
+                "port": "999",
+                "username": "username",
+                "password": "password"
+            }
+        ]
+    }
+]
