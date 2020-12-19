@@ -1,4 +1,4 @@
-src/elise.ini
+src/elise.env
 .*_history
 .viminfo
 .config/*

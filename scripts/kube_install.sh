@@ -9,7 +9,7 @@ set -eu
 # https://www.tecmint.com/install-a-kubernetes-cluster-on-centos-8/
 # https://gist.github.com/dbafromthecold/015d87444a77e12b90433f32fb265f37
 
-. "${ELISE_ROOT_DIR}/src/elise.ini"
+. "${ELISE_ROOT_DIR}/src/elise.env"
 . "${ELISE_ROOT_DIR}/src/colors.sh"
 . "${ELISE_ROOT_DIR}/src/general.sh"
 . "${ELISE_ROOT_DIR}/src/os.sh"

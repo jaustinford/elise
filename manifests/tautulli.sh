@@ -2,7 +2,7 @@
 
 set -eu
 
-. "${ELISE_ROOT_DIR}/src/elise.ini"
+. "${ELISE_ROOT_DIR}/src/elise.env"
 
 cat <<EOF | kubectl "$1" -f -
 ---
