@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
- set -e
+ set -eu
 
 . "${ELISE_ROOT_DIR}/src/elise.env"
 . "${ELISE_ROOT_DIR}/src/general.sh"
