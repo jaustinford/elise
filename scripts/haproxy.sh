@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
-
 . "${ELISE_ROOT_DIR}/src/elise.env"
 . "${ELISE_ROOT_DIR}/src/colors.sh"
 . "${ELISE_ROOT_DIR}/src/general.sh"
@@ -29,8 +27,11 @@ if [ "$1" == "deploy" ]; then
 
 elif [ "$1" == "destroy" ]; then
     print_message 'stdout' 'destroying haproxy' "${HAPROXY_NAME}"
-    docker stop ${HAPROXY_NAME} 1> /dev/null
-    docker rm ${HAPROXY_NAME} 1> /dev/null
+    docker stop ${HAPROXY_NAME} &> /dev/null
+    docker rm ${HAPROXY_NAME} &> /dev/null
+    docker rmi haproxy:latest &> /dev/null
+    rm -f "${ELISE_ROOT_DIR}/haproxy/nginx.crt"
+    rm -f "${ELISE_ROOT_DIR}/haproxy/nginx.crt.key"
 
 elif [ "$1" == "reload" ]; then
     print_message 'stdout' 'reloading haproxy' "${HAPROXY_NAME}"
