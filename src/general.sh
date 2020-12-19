@@ -11,10 +11,10 @@ print_message () {
 
     if [ "$1" == 'stdout' ]; then
         if [ ! -z "$3" ]; then
-            echo -e "[$SHELL_STDOUT_CODE OK $ECHO_RESET] $key | $3"
+            echo -e "[$SHELL_STDOUT_CODE  OK  $ECHO_RESET] $key | $3"
 
         else
-            echo -e "[$SHELL_STDOUT_CODE OK $ECHO_RESET] $key"
+            echo -e "[$SHELL_STDOUT_CODE  OK  $ECHO_RESET] $key"
 
         fi
 
