@@ -11,6 +11,8 @@ set -e
 MODE="$1"
 VOLUME="$2"
 
+dont_run_if_inside_docker
+
 if [ "$#" == 2 ]; then
     ensure_chap "${ISCSI_CHAP_SESSION_USERNAME}" "${ISCSI_CHAP_SESSION_PASSWORD}"
     iscsi_discovery "${ISCSI_PORTAL}"

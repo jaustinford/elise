@@ -8,6 +8,8 @@
 . "${ELISE_ROOT_DIR}/src/kubernetes.sh"
 . "${ELISE_ROOT_DIR}/src/iscsi.sh"
 
+dont_run_if_inside_docker
+
 if [ "$(hostname)" == "${ISCSI_CRON_HOST}" ]; then
     print_message 'stdout' 'started' "$(date)"
     print_message 'stdout' 'processing host' "$(hostname)"
