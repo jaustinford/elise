@@ -1,35 +1,14 @@
 disable_selinux () {
-    if [ $(getenforce) != "Disabled" ]; then
-        print_message 'stdout' 'disabled selinux'
-        setenforce 0
-        sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
+    if [ "$1" == 'CentOS Linux 8' ]; then
+        if [ $(getenforce) != "Disabled" ]; then
+            print_message 'stdout' 'disabled selinux'
+            setenforce 0
+            sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
 
-    else
-        print_message 'stdout' 'selinux already disabled'
+        else
+            print_message 'stdout' 'selinux already disabled'
 
-    fi
-}
-
-docker_systemd_driver () {
-    if [ -z "$(grep '"log-driver": "json-file",' /etc/docker/daemon.json)" ]; then
-        print_message 'stdout' 'configuring docker systemd driver'
-        mkdir -p /etc/docker
-        cat <<EOF > /etc/docker/daemon.json
-{
-  "exec-opts": ["native.cgroupdriver=systemd"],
-  "log-driver": "json-file",
-  "log-opts": {
-    "max-size": "100m"
-  },
-  "storage-driver": "overlay2",
-  "storage-opts": [
-    "overlay2.override_kernel_check=true"
-  ]
-}
-EOF
-        mkdir -p /etc/systemd/system/docker.service.d
-        systemctl daemon-reload
-        systemctl restart docker
+        fi
 
     fi
 }
@@ -77,7 +56,6 @@ install_k8s () {
     elif [ "$1" == 'CentOS Linux 8' ]; then
         if [ -z "$(rpm -qa | grep kubeadm)" ]; then
             print_message 'stdout' "installing kubernetes on ${operating_system}"
-            apt-get update -y
             cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
 name=Kubernetes
@@ -98,11 +76,13 @@ EOF
 }
 
 modprobe_br_netfilter () {
-    if [ "$(cat /proc/sys/net/bridge/bridge-nf-call-iptables 2> /dev/null)" == "1" ]; then
-        print_message 'stdout' 'configuring bridge adapter settings'
-        modprobe br_netfilter
-        echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
+    if [ "$1" == 'CentOS Linux 8' ]; then
+        if [ "$(cat /proc/sys/net/bridge/bridge-nf-call-iptables 2> /dev/null)" == "1" ]; then
+            print_message 'stdout' 'configuring bridge adapter settings'
+            modprobe br_netfilter
+            echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
 
+        fi
     fi
 }
 
@@ -112,6 +92,85 @@ turn_swap_off () {
         chmod +x /etc/rc.d/rc.local
         echo "swapoff -a" >> /etc/rc.d/rc.local
         swapoff -a
+
+    fi
+}
+
+prepare_master_node () {
+    print_message 'stdout' 'preparing master' "$(hostname)"
+    if [ "$1" == 'Raspbian GNU/Linux' ]; then
+        print_message 'stdout' 'updating rpi cgroups'
+        cp /boot/cmdline.txt /boot/cmdline_backup.txt
+        orig="$(head -n1 /boot/cmdline.txt) cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory"
+        echo ${orig} | tee /boot/cmdline.txt
+
+    elif [ "$1" == 'CentOS Linux 8' ]; then
+        disable_selinux "$operating_system"
+        print_message 'stdout' 'adding k8s firewalld'
+        firewall-cmd --permanent --add-port=6443/tcp 1> /dev/null
+        firewall-cmd --permanent --add-port=2379-2380/tcp 1> /dev/null
+        firewall-cmd --permanent --add-port=10250/tcp 1> /dev/null
+        firewall-cmd --permanent --add-port=10251/tcp 1> /dev/null
+        firewall-cmd --permanent --add-port=10252/tcp 1> /dev/null
+        firewall-cmd --permanent --add-port=10255/tcp 1> /dev/null
+        firewall-cmd --reload 1> /dev/null
+        modprobe_br_netfilter "$operating_system"
+
+    fi
+}
+
+prepare_worker_node () {
+    print_message 'stdout' 'preparing worker' "$(hostname)"
+    if [ "$1" == 'CentOS Linux 8' ]; then
+        disable_selinux "$operating_system"
+        print_message 'stdout' 'adding k8s firewalld'
+        firewall-cmd --permanent --add-port=6783/tcp 1> /dev/null
+        firewall-cmd --permanent --add-port=10250/tcp 1> /dev/null
+        firewall-cmd --permanent --add-port=10255/tcp 1> /dev/null
+        firewall-cmd --permanent --add-port=30000-32767/tcp 1> /dev/null
+        firewall-cmd --reload 1> /dev/null
+        modprobe_br_netfilter "$operating_system"
+
+    fi
+}
+
+install_open_iscsi () {
+    if [ "$1" == 'CentOS Linux 8' ]; then
+        if [ -z "$(rpm -qa | grep iscsi-initiator-utils)" ]; then
+            print_message 'stdout' 'installing iscsi tools'
+            yum install -y iscsi-initiator-utils
+
+        fi
+
+    fi
+}
+
+install_ntopng () {
+    if [ "$1" == 'Raspbian GNU/Linux' ]; then
+        if [ -z "$(which ntopng 2> /dev/null)" ]; then
+            print_message 'stdout' 'installing repo' "$2"
+            wget "http://packages.ntop.org/RaspberryPI/$2" 1> /dev/null
+            dpkg -i "$2" 1> /dev/null
+
+            for pkg in ntopng nrpobe n2n; do
+                print_message 'stdout' 'installing package' "$pkg"
+                apt install "$pkg" -y 1> /dev/null
+
+            done
+
+        fi
+    fi
+}
+
+print_rpi_temp () {
+    if [ "$1" == "Raspbian GNU/Linux 10 (buster)" ]; then
+        while true; do
+            temp_c=$(vcgencmd measure_temp | egrep -o '[0-9]*\.[0-9]*')
+            temp_f=$(echo $temp_c*9/5+32 | bc -l)
+            print_message 'stdout' "$(date +%Y.%m.%d-%H:%M:%S) - $(echo $temp_f | egrep -o '[0-9]{1,}[.][0-9]{2}') degrees fahrenheit"
+            sleep 4
+
+        done
 
     fi
 }

@@ -10,6 +10,8 @@
 
 dont_run_if_inside_docker
 ensure_root
+find_operating_system
+install_open_iscsi "$operating_system"
 
 if [ "$(hostname)" == "${ISCSI_CRON_HOST}" ]; then
     print_message 'stdout' 'started' "$(date)"

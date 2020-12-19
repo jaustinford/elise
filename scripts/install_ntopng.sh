@@ -6,6 +6,7 @@ set -e
 . "${ELISE_ROOT_DIR}/src/general.sh"
 . "${ELISE_ROOT_DIR}/src/colors.sh"
 . "${ELISE_ROOT_DIR}/src/ntopng.sh"
+. "${ELISE_ROOT_DIR}/src/os.sh"
 
 if [ "$(hostname)" != 'netmon.labs.elysianskies.com' ]; then
     print_message 'stderr' 'host match failed!'
@@ -13,6 +14,7 @@ if [ "$(hostname)" != 'netmon.labs.elysianskies.com' ]; then
 
 fi
 
-ntopng_install "${NTOPNG_REPO}"
+find_operating_system
+install_ntopng "$operating_system" "${NTOPNG_REPO}"
 ntopng_webroot
 ntopng_service

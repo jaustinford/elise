@@ -149,44 +149,6 @@ local_k8s_node_resolution () {
     fi
 }
 
-prepare_master_node () {
-    print_message 'stdout' 'preparing master' "$(hostname)"
-    if [ "$1" == 'Raspbian GNU/Linux' ]; then
-        print_message 'stdout' 'updating rpi cgroups'
-        cp /boot/cmdline.txt /boot/cmdline_backup.txt
-        orig="$(head -n1 /boot/cmdline.txt) cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory"
-        echo ${orig} | tee /boot/cmdline.txt
-
-    elif [ "$1" == 'CentOS Linux 8' ]; then
-        disable_selinux
-        print_message 'stdout' 'adding k8s firewalld'
-        firewall-cmd --permanent --add-port=6443/tcp 1> /dev/null
-        firewall-cmd --permanent --add-port=2379-2380/tcp 1> /dev/null
-        firewall-cmd --permanent --add-port=10250/tcp 1> /dev/null
-        firewall-cmd --permanent --add-port=10251/tcp 1> /dev/null
-        firewall-cmd --permanent --add-port=10252/tcp 1> /dev/null
-        firewall-cmd --permanent --add-port=10255/tcp 1> /dev/null
-        firewall-cmd --reload 1> /dev/null
-        modprobe_br_netfilter
-
-    fi
-}
-
-prepare_worker_node () {
-    print_message 'stdout' 'preparing worker' "$(hostname)"
-    if [ "$1" == 'CentOS Linux 8' ]; then
-        disable_selinux
-        print_message 'stdout' 'adding k8s firewalld'
-        firewall-cmd --permanent --add-port=6783/tcp 1> /dev/null
-        firewall-cmd --permanent --add-port=10250/tcp 1> /dev/null
-        firewall-cmd --permanent --add-port=10255/tcp 1> /dev/null
-        firewall-cmd --permanent --add-port=30000-32767/tcp 1> /dev/null
-        firewall-cmd --reload 1> /dev/null
-        modprobe_br_netfilter
-
-    fi
-}
-
 copy_new_kube_config () {
     if [ ! -f "${HOME}/.kube/config" ]; then
         print_message 'stdout' 'copying config'
