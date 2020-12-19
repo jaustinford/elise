@@ -6,7 +6,7 @@ ensure_root () {
     fi
 }
 
-selinux () {
+disable_selinux () {
     if [ $(getenforce) != "Disabled" ]; then
         print_message 'stdout' 'disabled selinux'
         setenforce 0

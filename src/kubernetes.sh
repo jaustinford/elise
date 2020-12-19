@@ -164,7 +164,7 @@ install_master_node () {
 
     elif [ "${OS_NAME}" == "CentOS Linux" ]; then
         # disable selinux
-        selinux
+        disable_selinux
 
         # firewalld rules
         print_message 'stdout' 'adding k8s firewalld'
@@ -192,7 +192,7 @@ install_worker_node () {
     print_message 'stdout' 'preparing worker' "$(hostname)"
     if [ "${OS_NAME}" == "CentOS Linux" ]; then
         # disable selinux
-        selinux
+        disable_selinux
 
         # firewalld rules
         print_message 'stdout' 'adding k8s firewalld'
