@@ -6,6 +6,7 @@ set -e
 . "${ELISE_ROOT_DIR}/src/colors.sh"
 . "${ELISE_ROOT_DIR}/src/general.sh"
 
+find_operating_system
 if [ "${operating_system}" == "Raspbian GNU/Linux 10 (buster)" ]; then
     while true; do
         temp_c=$(vcgencmd measure_temp | egrep -o '[0-9]*\.[0-9]*')
