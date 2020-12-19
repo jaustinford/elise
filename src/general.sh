@@ -74,7 +74,7 @@ docker_systemd_driver () {
 EOF
         mkdir -p /etc/systemd/system/docker.service.d
         systemctl daemon-reload
-        systemctl restart docker
+        systemctl reload docker
 
     fi
 }

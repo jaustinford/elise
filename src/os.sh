@@ -16,9 +16,20 @@ disable_selinux () {
 install_docker () {
     if [ "$1" == 'Raspbian GNU/Linux 10 (buster)' ]; then
         if [ -z "$(dpkg --get-selections | grep docker-ce)" ]; then
-            print_message 'stdout' 'installing docker on' "$1"
-            apt-get update -y
+	    if [ ! -f '/boot/cmdline_backup.txt' ]; then
+                print_message 'stdout' 'updating rpi cgroups'
+                cp /boot/cmdline.txt /boot/cmdline_backup.txt
+                orig="$(head -n1 /boot/cmdline.txt) cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory"
+                echo ${orig} | tee /boot/cmdline.txt
+
+		print_message 'stdout' 'rebooting host' "$(hostname)"
+                reboot
+
+	    fi
+
+	    apt-get update -y
             apt-get upgrade -y
+            print_message 'stdout' 'installing docker on' "$1"
             curl -sSL https://get.docker.com | sh
 
         fi
@@ -98,13 +109,7 @@ turn_swap_off () {
 
 prepare_master_node () {
     print_message 'stdout' 'preparing master' "$(hostname)"
-    if [ "$1" == 'Raspbian GNU/Linux' ]; then
-        print_message 'stdout' 'updating rpi cgroups'
-        cp /boot/cmdline.txt /boot/cmdline_backup.txt
-        orig="$(head -n1 /boot/cmdline.txt) cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory"
-        echo ${orig} | tee /boot/cmdline.txt
-
-    elif [ "$1" == 'CentOS Linux 8' ]; then
+    if [ "$1" == 'CentOS Linux 8' ]; then
         disable_selinux "$operating_system"
         print_message 'stdout' 'adding k8s firewalld'
         firewall-cmd --permanent --add-port=6443/tcp 1> /dev/null
