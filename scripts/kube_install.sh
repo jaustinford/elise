@@ -17,6 +17,7 @@ set -eu
 
 ensure_root
 dont_run_if_inside_docker
+find_operating_system
 local_k8s_node_resolution
 
 if [ $(hostname) == "${KUBE_MASTER_NODE_HOSTNAME}" ]; then
