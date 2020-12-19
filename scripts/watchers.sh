@@ -84,6 +84,7 @@ if [ "$#" -ge 1 ]; then
 
     elif [ "${MODE}" == "stop" ]; then
         for pid in $(/bin/pidof v4l2rtspserver); do 
+            print_message 'stdout' 'killing process' "$pid"
             kill -9 $pid
 
         done
