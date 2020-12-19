@@ -16,18 +16,18 @@ disable_selinux () {
 install_docker () {
     if [ "$1" == 'Raspbian GNU/Linux 10 (buster)' ]; then
         if [ -z "$(dpkg --get-selections | grep docker-ce)" ]; then
-	    if [ ! -f '/boot/cmdline_backup.txt' ]; then
+            if [ ! -f '/boot/cmdline_backup.txt' ]; then
                 print_message 'stdout' 'updating rpi cgroups'
                 cp /boot/cmdline.txt /boot/cmdline_backup.txt
                 orig="$(head -n1 /boot/cmdline.txt) cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory"
                 echo ${orig} | tee /boot/cmdline.txt
 
-		print_message 'stdout' 'rebooting host' "$(hostname)"
+                print_message 'stdout' 'rebooting host' "$(hostname)"
                 reboot
 
-	    fi
+            fi
 
-	    apt-get update -y
+            apt-get update -y
             apt-get upgrade -y
             print_message 'stdout' 'installing docker on' "$1"
             curl -sSL https://get.docker.com | sh
