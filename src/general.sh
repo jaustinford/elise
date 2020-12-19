@@ -78,3 +78,13 @@ EOF
 
     fi
 }
+
+turn_swap_off () {
+    if [ -n "$(cat /proc/swaps | grep -v Filename)" ]; then
+        print_message 'stdout' 'disabling swap'
+        chmod +x /etc/rc.d/rc.local
+        echo "swapoff -a" >> /etc/rc.d/rc.local
+        swapoff -a
+
+    fi
+}

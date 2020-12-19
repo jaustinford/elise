@@ -82,16 +82,6 @@ modprobe_br_netfilter () {
     fi
 }
 
-turn_swap_off () {
-    if [ -n "$(cat /proc/swaps | grep -v Filename)" ]; then
-        print_message 'stdout' 'disabling swap'
-        chmod +x /etc/rc.d/rc.local
-        echo "swapoff -a" >> /etc/rc.d/rc.local
-        swapoff -a
-
-    fi
-}
-
 prepare_master_node () {
     print_message 'stdout' 'preparing master' "$(hostname)"
     if [ "$1" == 'Raspbian GNU/Linux 10 (buster)' ]; then
