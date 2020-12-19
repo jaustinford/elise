@@ -12,6 +12,7 @@ MODE="$1"
 if [ "$#" -ge 1 ]; then
     check_if_anything_to_add
     find_remote_git_project
+    count_commits
     print_message 'stdout' 'username' "${GITHUB_COMMIT_USERNAME}"
     print_message 'stdout' 'email' "${GITHUB_COMMIT_EMAIL}"
     print_message 'stdout' 'remote url' "$remote_url"
@@ -42,6 +43,7 @@ if [ "$#" -ge 1 ]; then
 
         print_message 'stdout' 'branch' "${BRANCH}"
         print_message 'stdout' 'message' "${MESSAGE}"
+        print_message 'stdout' 'commit number' "$(echo $number_of_commits+1 | bc -l)"
         git_add
         git_commit "${MESSAGE}"
         git_push "${BRANCH}"
@@ -49,7 +51,7 @@ if [ "$#" -ge 1 ]; then
     fi
 
     find_last_commit_hash
-    print_message 'stdout' 'commit' "$commit_hash"
+    print_message 'stdout' 'commit hash' "$commit_hash"
     print_message 'stdout' 'done'
 
 fi

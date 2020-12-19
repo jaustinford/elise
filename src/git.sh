@@ -30,3 +30,7 @@ find_last_commit_hash () {
         | head -1 \
         | awk '{print $2}')
 }
+
+count_commits () {
+    number_of_commits=$(git log | egrep '^commit\ ' | wc -l)
+}
