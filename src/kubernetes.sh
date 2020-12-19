@@ -132,3 +132,94 @@ kube_config () {
     mkdir -p "${ELISE_ROOT_DIR}/.kube"
     echo "${KUBE_CONFIG_FILE}" | base64 -d > "${ELISE_ROOT_DIR}/.kube/config"
 }
+
+local_k8s_node_resolution () {
+    print_message 'stdout' 'updating /etc/hosts'
+    if [ -z "$(cat /etc/hosts | egrep ^${KUBE_MASTER_NODE_ADDRESS})" ]; then
+        echo "${KUBE_MASTER_NODE_ADDRESS}    ${KUBE_MASTER_NODE_HOSTNAME}" >> /etc/hosts
+
+    fi
+    if [ -z "$(cat /etc/hosts | egrep ^${KUBE_WORKER_NODE_0_ADDRESS})" ]; then
+        echo "${KUBE_WORKER_NODE_0_ADDRESS}    ${KUBE_WORKER_NODE_0_HOSTNAME}" >> /etc/hosts
+
+    fi
+    if [ -z "$(cat /etc/hosts | egrep ^${KUBE_WORKER_NODE_1_ADDRESS})" ]; then
+        echo "${KUBE_WORKER_NODE_1_ADDRESS}    ${KUBE_WORKER_NODE_1_HOSTNAME}" >> /etc/hosts
+
+    fi
+}
+
+install_master_node () {
+    print_message 'stdout' 'preparing master' "$(hostname)"
+    if [ "${OS_NAME}" == "Raspbian GNU/Linux" ]; then
+        # cgroups
+        print_message 'stdout' 'updating rpi cgroups'
+        cp /boot/cmdline.txt /boot/cmdline_backup.txt
+        orig="$(head -n1 /boot/cmdline.txt) cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory"
+        echo ${orig} | tee /boot/cmdline.txt
+
+        # install
+        install_docker_rpi
+        install_k8s_rpi
+
+    elif [ "${OS_NAME}" == "CentOS Linux" ]; then
+        # disable selinux
+        selinux
+
+        # firewalld rules
+        print_message 'stdout' 'adding k8s firewalld'
+        firewall-cmd --permanent --add-port=6443/tcp 1> /dev/null
+        firewall-cmd --permanent --add-port=2379-2380/tcp 1> /dev/null
+        firewall-cmd --permanent --add-port=10250/tcp 1> /dev/null
+        firewall-cmd --permanent --add-port=10251/tcp 1> /dev/null
+        firewall-cmd --permanent --add-port=10252/tcp 1> /dev/null
+        firewall-cmd --permanent --add-port=10255/tcp 1> /dev/null
+        firewall-cmd --reload 1> /dev/null
+
+        # networking
+        bridge_centos
+
+        # install
+        install_docker_centos
+        install_k8s_centos
+
+    fi
+
+    turn_swap_off
+}
+
+install_worker_node () {
+    print_message 'stdout' 'preparing worker' "$(hostname)"
+    if [ "${OS_NAME}" == "CentOS Linux" ]; then
+        # disable selinux
+        selinux
+
+        # firewalld rules
+        print_message 'stdout' 'adding k8s firewalld'
+        firewall-cmd --permanent --add-port=6783/tcp 1> /dev/null
+        firewall-cmd --permanent --add-port=10250/tcp 1> /dev/null
+        firewall-cmd --permanent --add-port=10255/tcp 1> /dev/null
+        firewall-cmd --permanent --add-port=30000-32767/tcp 1> /dev/null
+        firewall-cmd --reload 1> /dev/null
+
+        # networking
+        bridge_centos
+
+        # install
+        install_docker_centos
+        install_k8s_centos
+
+    fi
+
+    turn_swap_off
+}
+
+copy_new_kube_config () {
+    if [ ! -f "${HOME}/.kube/config" ]; then
+        print_message 'stdout' 'copying config'
+        mkdir -p "${HOME}/.kube"
+        cp -i /etc/kubernetes/admin.conf "${HOME}/.kube/config"
+        chown $(id -u):$(id -g) "${HOME}/.kube/config"
+
+    fi
+}

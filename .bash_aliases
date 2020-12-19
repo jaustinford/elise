@@ -46,12 +46,6 @@ alias k_system_events="${ELISE_ROOT_DIR}/scripts/kube_automator.sh events kube-s
 alias k_system_display="${ELISE_ROOT_DIR}/scripts/kube_automator.sh display kube-system"
 alias k_system_watch="watch -n 5 -t -c ${ELISE_ROOT_DIR}/scripts/kube_automator.sh display kube-system"
 
-# iscsi
-# alias v_mount="${ELISE_ROOT_DIR}/scripts/iscsi_automator.sh mount"
-# alias v_dismount="${ELISE_ROOT_DIR}/scripts/iscsi_automator.sh dismount"
-# alias v_backup="${ELISE_ROOT_DIR}/scripts/iscsi_automator.sh backup"
-# alias v_backup_lab="${ELISE_ROOT_DIR}/scripts/lab_backup.sh"
-
 # git
 alias g_add="${ELISE_ROOT_DIR}/scripts/git_automator.sh add"
 alias g_commit="${ELISE_ROOT_DIR}/scripts/git_automator.sh commit"
@@ -64,10 +58,10 @@ alias g_diff="git diff"
 
 # misc
 alias _aliases="vim ${ELISE_ROOT_DIR}/.bash_aliases"
+alias _source="source ${ELISE_ROOT_DIR}/.bash_profile"
 alias _scripts="cd ${ELISE_ROOT_DIR}/scripts"
 alias _src="cd ${ELISE_ROOT_DIR}/src"
 alias _manifests="cd ${KUBE_MANIFESTS_DIR}"
-alias _source="source ${ELISE_ROOT_DIR}/.bash_profile"
 alias _home="cd ~"
 alias _vars="${EDITOR} ${ELISE_ROOT_DIR}/src/elise.ini"
 alias _profile="${EDITOR} ${ELISE_ROOT_DIR}/.bash_profile"

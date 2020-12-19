@@ -1,16 +1,29 @@
-#!/usr/bin/env bash
+ensure_root () {
+    if [ $(whoami) != "root" ]; then
+        print_message 'stderr' 'must be run as root'
+        exit 1
 
-set -e
+    fi
+}
 
-. /mnt/tvault/es-labs/projects/es-labs-scripts/vars/elise.ini
-. "${SCRIPTS_DIR}/echo_colors.sh"
+selinux () {
+    if [ $(getenforce) != "Disabled" ]; then
+        print_message 'stdout' 'disabled selinux'
+        setenforce 0
+        sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
 
-# collection of functions and key values specific to centos and
-# raspbian configurations
+    else
+        print_message 'stdout' 'selinux already disabled'
 
-OS_NAME=$(cat /etc/os-release | egrep ^NAME | sed 's/"//g' | cut -d'=' -f2)
+    fi
+}
 
-SYSTEMD_DRIVER='{
+docker_systemd_driver () {
+    if [ -z "$(grep '"log-driver": "json-file",' /etc/docker/daemon.json)" ]; then
+        print_message 'stdout' 'configuring docker systemd driver'
+        mkdir -p /etc/docker
+        cat <<EOF > /etc/docker/daemon.json
+{
   "exec-opts": ["native.cgroupdriver=systemd"],
   "log-driver": "json-file",
   "log-opts": {
@@ -20,42 +33,18 @@ SYSTEMD_DRIVER='{
   "storage-opts": [
     "overlay2.override_kernel_check=true"
   ]
-}'
-
-ensure_root () {
-    if [ $(whoami) != "root" ]; then
-        echo "[$DEFAULT_STDERR_COLOR*$ECHO_RESET] must be run as root!"
-        exit 1
-
-    fi
 }
-
-selinux () {
-    if [ $(getenforce) != "Disabled" ]; then
-        echo "[$DEFAULT_STDOUT_COLOR*$ECHO_RESET] disabled selinux, rebooting..."
-        sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
-        reboot
-
-    else
-        echo "[$DEFAULT_STDOUT_COLOR*$ECHO_RESET] selinux already disabled."
-
-    fi
-}
-
-docker_systemd_driver () {
-    if [ -z "$(grep '"log-driver": "json-file",' /etc/docker/daemon.json)" ]; then
-        echo "[$DEFAULT_STDOUT_COLOR*$ECHO_RESET] configuring docker systemd driver"
-        mkdir -p /etc/docker
-        echo "${SYSTEMD_DRIVER}" > /etc/docker/daemon.json
+EOF
         mkdir -p /etc/systemd/system/docker.service.d
         systemctl daemon-reload
         systemctl restart docker
+
     fi
 }
 
 install_docker_centos () {
     if [ -z "$(rpm -qa | grep docker-ce)" ]; then
-        echo "[$DEFAULT_STDOUT_COLOR*$ECHO_RESET] installing docker on ${OS_NAME}"
+        print_message 'stdout' "installing docker on ${operating_system}"
         yum update -y
         yum upgrade -y
         dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
@@ -65,12 +54,13 @@ install_docker_centos () {
         systemctl enable docker
         systemctl start docker
         docker_systemd_driver
+
     fi
 }
 
 install_docker_rpi () {
     if [ -z "$(dpkg --get-selections | grep docker-ce)" ]; then
-        echo "[$DEFAULT_STDOUT_COLOR*$ECHO_RESET] installing docker on ${OS_NAME}"
+        print_message 'stdout' "installing docker on ${operating_system}"
         apt-get update -y
         apt-get upgrade -y
         curl -sSL https://get.docker.com | sh
@@ -78,28 +68,58 @@ install_docker_rpi () {
         systemctl enable docker
         systemctl start docker
         docker_systemd_driver
+
     fi
 }
 
 install_k8s_centos () {
     if [ -z "$(rpm -qa | grep kubeadm)" ]; then
-        echo "[$DEFAULT_STDOUT_COLOR*$ECHO_RESET] installing kubernetes on ${OS_NAME}"
+        print_message 'stdout' "installing kubernetes on ${operating_system}"
         apt-get update -y
-        echo "${KUBE_REPO}" > /etc/yum.repos.d/kubernetes.repo
+        cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
         dnf install kubeadm -y
         systemctl enable kubelet
         systemctl start kubelet
+
     fi
 }
 
 install_k8s_rpi () {
     if [ -z "$(dpkg --get-selections | grep kubeadm)" ]; then
-        echo "[$DEFAULT_STDOUT_COLOR*$ECHO_RESET] installing kubernetes on ${OS_NAME}"
+        print_message 'stdout' "installing kubernetes on ${operating_system}"
         curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
         echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list
         apt-get install kubeadm -y
         update-alternatives --set iptables /usr/sbin/iptables-legacy
         systemctl enable kubelet
         systemctl start kubelet
+
+    fi
+}
+
+bridge_centos () {
+    if [ "$(cat /proc/sys/net/bridge/bridge-nf-call-iptables 2> /dev/null)" == "1" ]; then
+        print_message 'stdout' 'configuring bridge adapter settings'
+        modprobe br_netfilter
+        echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
+
+    fi
+}
+
+turn_swap_off () {
+    if [ -n "$(cat /proc/swaps | grep -v Filename)" ]; then
+        print_message 'stdout' 'disabling swap'
+        chmod +x /etc/rc.d/rc.local
+        echo "swapoff -a" >> /etc/rc.d/rc.local
+        swapoff -a
+
     fi
 }
