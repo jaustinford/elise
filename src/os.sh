@@ -71,8 +71,6 @@ install_k8s () {
             echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list
             apt-get install kubeadm -y
             update-alternatives --set iptables /usr/sbin/iptables-legacy
-            systemctl enable kubelet
-            systemctl start kubelet
 
         fi
 
@@ -90,15 +88,16 @@ repo_gpgcheck=1
 gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
 EOF
             dnf install kubeadm -y
-            systemctl enable kubelet
-            systemctl start kubelet
 
         fi
 
     fi
+
+    systemctl enable kubelet
+    systemctl start kubelet
 }
 
-bridge_centos () {
+modprobe_br_netfilter () {
     if [ "$(cat /proc/sys/net/bridge/bridge-nf-call-iptables 2> /dev/null)" == "1" ]; then
         print_message 'stdout' 'configuring bridge adapter settings'
         modprobe br_netfilter

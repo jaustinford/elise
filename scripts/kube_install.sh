@@ -21,7 +21,10 @@ find_operating_system
 local_k8s_node_resolution
 
 if [ $(hostname) == "${KUBE_MASTER_NODE_HOSTNAME}" ]; then
-    install_master_node
+    prepare_master_node "$operating_system"
+    install_docker "$operating_system"
+    install_k8s "$operating_system"
+    turn_swap_off
 
     print_message 'stdout' 'initializing k8s cluster'
     kubeadm init \
@@ -39,6 +42,9 @@ if [ $(hostname) == "${KUBE_MASTER_NODE_HOSTNAME}" ]; then
 
 elif [ $(hostname) == "${KUBE_WORKER_NODE_0_HOSTNAME}" ] ||\
      [ $(hostname) == "${KUBE_WORKER_NODE_1_HOSTNAME}" ]; then
-    install_worker_node
+    prepare_worker_node "$operating_system"
+    install_docker "$operating_system"
+    install_k8s "$operating_system"
+    turn_swap_off
 
 fi

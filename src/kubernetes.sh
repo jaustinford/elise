@@ -149,7 +149,7 @@ local_k8s_node_resolution () {
     fi
 }
 
-install_master_node () {
+prepare_master_node () {
     print_message 'stdout' 'preparing master' "$(hostname)"
     if [ "$1" == 'Raspbian GNU/Linux' ]; then
         print_message 'stdout' 'updating rpi cgroups'
@@ -167,16 +167,12 @@ install_master_node () {
         firewall-cmd --permanent --add-port=10252/tcp 1> /dev/null
         firewall-cmd --permanent --add-port=10255/tcp 1> /dev/null
         firewall-cmd --reload 1> /dev/null
-        bridge_centos
+        modprobe_br_netfilter
 
     fi
-
-    install_docker "$operating_system"
-    install_k8s "$operating_system"
-    turn_swap_off
 }
 
-install_worker_node () {
+prepare_worker_node () {
     print_message 'stdout' 'preparing worker' "$(hostname)"
     if [ "$1" == 'CentOS Linux 8' ]; then
         disable_selinux
@@ -186,13 +182,9 @@ install_worker_node () {
         firewall-cmd --permanent --add-port=10255/tcp 1> /dev/null
         firewall-cmd --permanent --add-port=30000-32767/tcp 1> /dev/null
         firewall-cmd --reload 1> /dev/null
-        bridge_centos
+        modprobe_br_netfilter
 
     fi
-
-    install_docker "$operating_system"
-    install_k8s "$operating_system"
-    turn_swap_off
 }
 
 copy_new_kube_config () {
