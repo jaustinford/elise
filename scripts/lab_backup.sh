@@ -9,6 +9,7 @@
 . "${ELISE_ROOT_DIR}/src/iscsi.sh"
 
 dont_run_if_inside_docker
+ensure_root
 
 if [ "$(hostname)" == "${ISCSI_CRON_HOST}" ]; then
     print_message 'stdout' 'started' "$(date)"

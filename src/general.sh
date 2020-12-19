@@ -46,3 +46,11 @@ dont_run_if_inside_docker () {
 
     fi
 }
+
+ensure_root () {
+    if [ $(whoami) != "root" ]; then
+        print_message 'stderr' 'must be run as root'
+        exit 1
+
+    fi
+}

@@ -1,11 +1,3 @@
-ensure_root () {
-    if [ $(whoami) != "root" ]; then
-        print_message 'stderr' 'must be run as root'
-        exit 1
-
-    fi
-}
-
 disable_selinux () {
     if [ $(getenforce) != "Disabled" ]; then
         print_message 'stdout' 'disabled selinux'
