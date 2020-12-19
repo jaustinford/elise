@@ -19,15 +19,15 @@ if [ "$1" == "start" ]; then
         --network bridge \
         --restart unless-stopped \
         --volume ${HAPROXY_VOLUME}:/usr/local/etc/haproxy:ro \
-        haproxy:latest
+        haproxy:latest 1> /dev/null
 
 elif [ "$1" == "stop" ]; then
     print_message 'stdout' 'destroying haproxy' "${HAPROXY_NAME}"
-    docker stop ${HAPROXY_NAME}
-    docker rm ${HAPROXY_NAME}
+    docker stop ${HAPROXY_NAME} 1> /dev/null
+    docker rm ${HAPROXY_NAME} 1> /dev/null
 
 elif [ "$1" == "reload" ]; then
     print_message 'stdout' 'reloading haproxy' "${HAPROXY_NAME}"
-    docker kill -s HUP ${HAPROXY_NAME}
+    docker kill -s HUP ${HAPROXY_NAME} 1> /dev/null
 
 fi
