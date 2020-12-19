@@ -12,25 +12,22 @@ if [ "$1" == "start" ]; then
     find_operating_system
     install_docker_rpi
 
-    print_message 'stdout' "deploying ${HAPROXY_NAME} on" "$KUBE_MASTER_NODE_HOSTNAME"
-    ssh ${KUBE_MASTER_NODE_HOSTNAME} \
-        "docker run -dit \
-            --name ${HAPROXY_NAME} \
-            --publish 443:443 \
-            --network bridge \
-            --restart unless-stopped \
-            --volume ${HAPROXY_VOLUME}:/usr/local/etc/haproxy:ro \
-            haproxy:latest"
+    print_message 'stdout' "deploying ${HAPROXY_NAME}" "${KUBE_MASTER_NODE_HOSTNAME}"
+    docker run -dit \
+        --name ${HAPROXY_NAME} \
+        --publish 443:443 \
+        --network bridge \
+        --restart unless-stopped \
+        --volume ${HAPROXY_VOLUME}:/usr/local/etc/haproxy:ro \
+        haproxy:latest
 
 elif [ "$1" == "stop" ]; then
     print_message 'stdout' 'destroying haproxy' "${HAPROXY_NAME}"
-    ssh ${KUBE_MASTER_NODE_HOSTNAME} \
-        "docker stop ${HAPROXY_NAME}; \
-         docker rm ${HAPROXY_NAME}"
+    docker stop ${HAPROXY_NAME}
+    docker rm ${HAPROXY_NAME}
 
 elif [ "$1" == "reload" ]; then
     print_message 'stdout' 'reloading haproxy' "${HAPROXY_NAME}"
-    ssh ${KUBE_MASTER_NODE_HOSTNAME} \
-        "docker kill -s HUP ${HAPROXY_NAME}"
+    docker kill -s HUP ${HAPROXY_NAME}
 
 fi
