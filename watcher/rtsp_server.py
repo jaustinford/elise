@@ -28,68 +28,36 @@ def import_cams_json(cams_json_file):
 
     return data
 
-def install_packages(host):
-    """clone v4l2rtspserver and build from source"""
-
-    install_steps = "\
-        sudo apt update -y && \
-        sudo apt install -y git cmake && \
-        git clone https://github.com/mpromonet/v4l2rtspserver.git && \
-        cd v4l2rtspserver && \
-        cmake . && \
-        make && \
-        make install && \
-        sudo apt-get install -y \
-            v4l-utils \
-            uvcdynctrl \
-    "
-    
-    os.system(
-        "ssh " + host + \
-        " 'if [ -z $(which v4l2rtspserver) ]; then " + install_steps + "; fi'"
-    )
-
 def start_stream(host, device, port, username, password, name):
     """start an rtsp server using provided parameters"""
 
-    # configure webcams
-    os.system(
-        "ssh " + host + \
-        " 'sudo v4l2-ctl -d " + device + " --set-ctrl=led1_mode=0 && \
-           sudo v4l2-ctl -d " + device + " --set-ctrl=sharpness=255 && \
-           sudo v4l2-ctl -d " + device + " --set-ctrl=focus_auto=0 && \
-           sudo v4l2-ctl -d " + device + " --set-ctrl=focus_absolute=0'"
-    )
+    if os.environ['HOSTNAME'] == host:
+        os.system(
+            "v4l2-ctl -d " + device + " --set-ctrl=led1_mode=0 && " + \
+            "v4l2-ctl -d " + device + " --set-ctrl=sharpness=255 && " + \
+            "v4l2-ctl -d " + device + " --set-ctrl=focus_auto=0 && " + \
+            "v4l2-ctl -d " + device + " --set-ctrl=focus_absolute=0"
+        )
 
-    # start streams
-    os.system(
-        "ssh " + host + \
-        " 'sudo v4l2rtspserver" + \
-              " -P " + port + \
-              " -p " + port + \
-              " -U " + username + ":" + password + \
-              " -W " + "640" + \
-              " -H " + "480" + \
-              " -u " + name + \
-              " " + device + " 1> /dev/null &'"
-    )
+        os.system(
+            "v4l2rtspserver" + \
+                " -P " + port + \
+                " -p " + port + \
+                " -U " + username + ":" + password + \
+                " -W " + "640" + \
+                " -H " + "480" + \
+                " -u " + name + \
+                " " + device + " 1> /dev/null &'"
+        )
 
 def stop_stream(host):
     """kill each pid for each streaming device"""
 
     os.system(
-        "ssh " + host + \
-        " 'for pid in $(/bin/pidof v4l2rtspserver); do sudo kill -9 $pid; done'"
-
+        "for pid in $(/bin/pidof v4l2rtspserver); do sudo kill -9 $pid; done"
     )
 
-if OPTION == "install":
-    for item in import_cams_json(CAMS_JSON_FILE):
-        install_packages(
-            item['host']
-        )
-
-elif OPTION == "start":
+if OPTION == "start":
     for item in import_cams_json(CAMS_JSON_FILE):
         for source in item['sources']:
 

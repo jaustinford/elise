@@ -6,8 +6,8 @@ alias tree='tree -C'
 alias ls='ls --color '
 
 # watchers
-# alias watcher_start="${ELISE_ROOT_DIR}/scripts/watcher/rtsp_server.py start"
-# alias watcher_stop="${ELISE_ROOT_DIR}/scripts/watcher/rtsp_server.py stop"
+ alias watcher_start="${ELISE_ROOT_DIR}/scripts/watchers.sh start"
+ alias watcher_stop="${ELISE_ROOT_DIR}/scripts/watchers.sh stop"
 
 # kubernetes
 alias k_manifest_apply="${KUBE_MANIFESTS_DIR}/run_manifest.sh apply"

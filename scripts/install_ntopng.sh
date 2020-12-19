@@ -14,6 +14,7 @@ if [ "$(hostname)" != 'netmon.labs.elysianskies.com' ]; then
 
 fi
 
+ensure root
 find_operating_system
 install_ntopng "$operating_system" "${NTOPNG_REPO}"
 ntopng_webroot

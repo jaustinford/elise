@@ -174,3 +174,23 @@ print_rpi_temp () {
 
     fi
 }
+
+install_v4l2rtspserver () {
+    if [ "$1" == "Raspbian GNU/Linux 10 (buster)" ]; then
+        if [ -z $(which v4l2rtspserver) ]; then
+            print_message 'stdout' 'installing v4l2rtspserver'
+            apt update -y
+            apt install -y git cmake
+            git clone https://github.com/mpromonet/v4l2rtspserver.git
+            cd v4l2rtspserver
+            cmake .
+            make
+            make install
+            apt-get install -y \
+                v4l-utils \
+                uvcdynctrl
+
+        fi
+
+    fi
+}

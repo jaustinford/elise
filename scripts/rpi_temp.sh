@@ -7,5 +7,6 @@ set -e
 . "${ELISE_ROOT_DIR}/src/general.sh"
 . "${ELISE_ROOT_DIR}/src/os.sh"
 
+ensure_root
 find_operating_system
 print_rpi_temp "$operating_system"
