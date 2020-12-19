@@ -7,6 +7,8 @@ set -eu
 . "${ELISE_ROOT_DIR}/src/general.sh"
 . "${ELISE_ROOT_DIR}/src/os.sh"
 
+dont_run_if_inside_docker
+
 if [ "$1" == "start" ]; then
     ensure_root
     find_operating_system
