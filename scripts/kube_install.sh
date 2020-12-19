@@ -16,6 +16,7 @@ set -eu
 . "${ELISE_ROOT_DIR}/src/kubernetes.sh"
 
 ensure_root
+dont_run_if_inside_docker
 local_k8s_node_resolution
 
 if [ $(hostname) == "${KUBE_MASTER_NODE_HOSTNAME}" ]; then
