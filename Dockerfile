@@ -14,6 +14,7 @@ RUN \
         vim \
         curl \
         htop \
+        bmon \
         wget \
         git \
         chrony \

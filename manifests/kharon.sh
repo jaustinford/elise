@@ -39,8 +39,8 @@ metadata:
   namespace: eslabs
 data:
   vpn.credentials: |
-    ${EXPRESSVPN_USERNAME}
-    ${EXPRESSVPN_PASSWORD}
+    ${KHARON_EXPRESSVPN_USERNAME}
+    ${KHARON_EXPRESSVPN_PASSWORD}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -54,7 +54,7 @@ data:
     persist-key
     persist-tun
     nobind
-    remote ${EXPRESSVPN_SERVER}-ca-version-2.expressnetw.com 1195
+    remote ${KHARON_EXPRESSVPN_SERVER}-ca-version-2.expressnetw.com 1195
     remote-random
     pull
     comp-lzo no
@@ -75,16 +75,16 @@ data:
     rcvbuf 524288
     auth-user-pass /vpn/vpn.credentials
     <cert>
-    $(echo ${EXPRESSVPN_CERT} | base64 -d)
+    $(echo ${KHARON_EXPRESSVPN_CERT} | base64 -d)
     </cert>
     <key>
-    $(echo ${EXPRESSVPN_KEY} | base64 -d)
+    $(echo ${KHARON_EXPRESSVPN_KEY} | base64 -d)
     </key>
     <tls-auth>
-    $(echo ${EXPRESSVPN_TLS} | base64 -d)
+    $(echo ${KHARON_EXPRESSVPN_TLS} | base64 -d)
     </tls-auth>
     <ca>
-    $(echo ${EXPRESSVPN_CA} | base64 -d)
+    $(echo ${KHARON_EXPRESSVPN_CA} | base64 -d)
     </ca>
 ---
 apiVersion: v1
@@ -145,6 +145,9 @@ spec:
           subPath: vpn.credentials
       - image: sameersbn/squid:latest
         name: squid
+        env:
+        - name: TZ
+          value: "${DOCKER_TIMEZONE}"
         ports:
         - containerPort: 3128
         volumeMounts:
@@ -154,12 +157,12 @@ spec:
       - image: linuxserver/deluge:latest
         name: deluge
         env:
+        - name:  TZ
+          value: "${DOCKER_TIMEZONE}"
         - name: PUID
           value: "1000"
         - name: PGID
           value: "1000"
-        - name:  TZ
-          value: "${DOCKER_TIMEZONE}"
         lifecycle:
           postStart:
             exec:
@@ -183,7 +186,7 @@ spec:
           name: squid-config-map
       - name: k8s-vol-deluge-downloads
         hostPath:
-          path: "${DELUGE_DOWNLOAD_DIR}"
+          path: "${KHARON_DELUGE_DOWNLOAD_DIR}"
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
