@@ -10,7 +10,7 @@ dont_run_if_inside_docker
 if [ "$1" == "deploy" ]; then
     ensure_root
     find_operating_system
-    install_docker_centos
+    install_docker_rpi
 
     print_message 'stdout' 'decoding tls for volume'
     echo "${LAB_NGINX_CERT}" | base64 -d > "${ELISE_ROOT_DIR}/haproxy/nginx.crt"
