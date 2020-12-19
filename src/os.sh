@@ -148,7 +148,7 @@ install_open_iscsi () {
 }
 
 install_ntopng () {
-    if [ "$1" == 'Raspbian GNU/Linux' ]; then
+    if [ "$1" == 'Raspbian GNU/Linux 10 (buster)' ]; then
         if [ -z "$(which ntopng 2> /dev/null)" ]; then
             print_message 'stdout' 'installing repo' "$2"
             wget "http://packages.ntop.org/RaspberryPI/$2" 1> /dev/null
@@ -193,6 +193,21 @@ install_v4l2rtspserver () {
                 uvcdynctrl
 
         fi
+
+    fi
+}
+
+run_all_updates () {
+    print_message 'stdout' 'updating all packages' "$(hostname)"
+    print_message 'stdout' 'updates may require reboot'
+
+    if [ "$1" == "Raspbian GNU/Linux 10 (buster)" ]; then
+        apt-get update -y
+        apt-get upgrade -y
+
+    elif [ "$1" == 'CentOS Linux 8' ]; then
+        yum update -y
+        yum upgrade -y
 
     fi
 }

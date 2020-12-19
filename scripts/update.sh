@@ -10,7 +10,4 @@ set -e
 ensure_root
 dont_run_if_inside_docker
 find_operating_system
-
 run_all_updates "$operating_system"
-install_docker "$operating_system"
-docker_systemd_driver
