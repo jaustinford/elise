@@ -18,6 +18,7 @@ if [ "$#" -ge 1 ]; then
 
     if [ "${MODE}" == "start" ]; then
         if [ "$(hostname)" == 'watcher01.labs.elysianskies.com' ]; then
+            print_message 'stdout' 'deploying rtsp stream' "$(hostname):8554/doorway"
             v4l2-ctl -d /dev/video0 --set-ctrl=led1_mode=0
             v4l2-ctl -d /dev/video0 --set-ctrl=sharpness=255
             v4l2-ctl -d /dev/video0 --set-ctrl=focus_auto=0
@@ -32,6 +33,7 @@ if [ "$#" -ge 1 ]; then
                 -u doorway \
                 /dev/video0 1> /dev/null &
 
+            print_message 'stdout' 'deploying rtsp stream' "$(hostname):8555/dining"
             v4l2-ctl -d /dev/video2 --set-ctrl=led1_mode=0
             v4l2-ctl -d /dev/video2 --set-ctrl=sharpness=255
             v4l2-ctl -d /dev/video2 --set-ctrl=focus_auto=0
@@ -48,6 +50,7 @@ if [ "$#" -ge 1 ]; then
 
 
         elif [ "$(hostname)" == 'watcher02.labs.elysianskies.com' ]; then
+            print_message 'stdout' 'deploying rtsp stream' "$(hostname):8554/safe"
             v4l2-ctl -d /dev/video0 --set-ctrl=led1_mode=0
             v4l2-ctl -d /dev/video0 --set-ctrl=sharpness=255
             v4l2-ctl -d /dev/video0 --set-ctrl=focus_auto=0
@@ -62,6 +65,7 @@ if [ "$#" -ge 1 ]; then
                 -u safe \
                 /dev/video0 1> /dev/null &
 
+            print_message 'stdout' 'deploying rtsp stream' "$(hostname):8555/office"
             v4l2-ctl -d /dev/video2 --set-ctrl=led1_mode=0
             v4l2-ctl -d /dev/video2 --set-ctrl=sharpness=255
             v4l2-ctl -d /dev/video2 --set-ctrl=focus_auto=0
