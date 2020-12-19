@@ -1,6 +1,6 @@
 ssh_key () {
     print_message 'stdout' 'configure user ssh key' '/tmp/id_rsa'
-    echo "${AUSTIN_SSH_KEY}" | base64 -d > /tmp/id_rsa
+    echo "${LAB_USER_AUSTIN_SSH_KEY}" | base64 -d > /tmp/id_rsa
     chmod 600 /tmp/id_rsa
 }
 
