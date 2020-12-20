@@ -65,4 +65,4 @@ alias _plexspy="${ELISE_ROOT_DIR}/scripts/kube_automator.sh tail eslabs tautulli
 alias _sed_edit="${ELISE_ROOT_DIR}/scripts/sed.sh replace"
 alias youdown="${ELISE_ROOT_DIR}/scripts/youdown.sh"
 alias ssh='ssh -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no'
-alias scp='scp -F /tmp/ssh_config -i /tmp/id_rsa'
+alias scp='scp -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no'
