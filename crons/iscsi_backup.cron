@@ -1,0 +1,1 @@
+0 4 20 * * root /mnt/tvault/es-labs/projects/elise/scripts/lab_backup.sh &>> /home/austin/backup_cron.log

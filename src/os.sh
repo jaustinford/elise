@@ -1,5 +1,5 @@
 disable_selinux () {
-    if [ "$1" == 'CentOS Linux 8' ]; then
+    if [ "$1" == 'CentOS Linux 8 (Core)' ]; then
         if [ $(getenforce) != "Disabled" ]; then
             print_message 'stdout' 'disabled selinux'
             setenforce 0
@@ -21,7 +21,7 @@ install_docker () {
 
         fi
 
-    elif [ "$1" == 'CentOS Linux 8' ]; then
+    elif [ "$1" == 'CentOS Linux 8 (Core)' ]; then
         if [ -z "$(rpm -qa | grep docker-ce)" ]; then
             print_message 'stdout' 'installing docker on' "$1"
             dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
@@ -49,7 +49,7 @@ install_k8s () {
 
         fi
 
-    elif [ "$1" == 'CentOS Linux 8' ]; then
+    elif [ "$1" == 'CentOS Linux 8 (Core)' ]; then
         if [ -z "$(rpm -qa | grep kubeadm)" ]; then
             print_message 'stdout' 'installing kubernetes on' "$1"
             cat <<EOF > /etc/yum.repos.d/kubernetes.repo
@@ -72,7 +72,7 @@ EOF
 }
 
 modprobe_br_netfilter () {
-    if [ "$1" == 'CentOS Linux 8' ]; then
+    if [ "$1" == 'CentOS Linux 8 (Core)' ]; then
         if [ "$(cat /proc/sys/net/bridge/bridge-nf-call-iptables 2> /dev/null)" == "1" ]; then
             print_message 'stdout' 'configuring bridge adapter settings'
             modprobe br_netfilter
@@ -97,7 +97,7 @@ prepare_master_node () {
 
         fi
 
-    elif [ "$1" == 'CentOS Linux 8' ]; then
+    elif [ "$1" == 'CentOS Linux 8 (Core)' ]; then
         disable_selinux "$operating_system"
         print_message 'stdout' 'adding k8s firewalld'
         firewall-cmd --permanent --add-port=6443/tcp 1> /dev/null
@@ -114,7 +114,7 @@ prepare_master_node () {
 
 prepare_worker_node () {
     print_message 'stdout' 'preparing worker' "$(hostname)"
-    if [ "$1" == 'CentOS Linux 8' ]; then
+    if [ "$1" == 'CentOS Linux 8 (Core)' ]; then
         disable_selinux "$operating_system"
         print_message 'stdout' 'adding k8s firewalld'
         firewall-cmd --permanent --add-port=6783/tcp 1> /dev/null
@@ -128,7 +128,7 @@ prepare_worker_node () {
 }
 
 install_open_iscsi () {
-    if [ "$1" == 'CentOS Linux 8' ]; then
+    if [ "$1" == 'CentOS Linux 8 (Core)' ]; then
         if [ -z "$(rpm -qa | grep iscsi-initiator-utils)" ]; then
             print_message 'stdout' 'installing iscsi tools'
             yum install -y iscsi-initiator-utils
@@ -197,9 +197,33 @@ run_all_updates () {
         apt-get update -y
         apt-get upgrade -y
 
-    elif [ "$1" == 'CentOS Linux 8' ]; then
+    elif [ "$1" == 'CentOS Linux 8 (Core)' ]; then
         yum update -y
         yum upgrade -y
 
     fi
+}
+
+install_cron () {
+    if [ "$1" == "Raspbian GNU/Linux 10 (buster)" ]; then
+        cron_service='cron'
+        if [ -z "$(dpkg --get-selections | grep cron)" ]; then
+            print_message 'stdout' 'installing cron' "$(hostname)"
+            apt-get install -y cron
+
+        fi
+
+    elif [ "$1" == 'CentOS Linux 8 (Core)' ]; then
+        cron_service='crond'
+        if [ -z "$(rpm -qa | grep cronie)" ]; then
+            print_message 'stdout' 'installing cronie' "$(hostname)"
+            yum install -y cronie
+
+        fi
+
+    fi
+
+    print_message 'stdout' 'configuring cron systemd' "$(hostname)"
+    systemctl enable "$cron_service" 1> /dev/null
+    systemctl start "$cron_service" 1> /dev/null
 }
