@@ -76,7 +76,7 @@ dismount_disk () {
     umount "$1" 1> /dev/null
 }
 
-create_backup() {
+create_backup () {
     backup_file="$1_$(date +%Y%m%d).tgz"
     print_message 'stdout' 'generating tarball' "$3/$backup_file"
     tar -C "$2" -czvf "$3/$backup_file" . 1> /dev/null
