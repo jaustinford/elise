@@ -27,7 +27,7 @@ if [ "$#" -ge 1 ]; then
             v4l2rtspserver \
                 -P 8554 -p 8554 \
                 -U "${LAB_WATCHER_USERNAME}:${LAB_WATCHER_PASSWORD}" \
-                -W 640 -H 480 \
+                -W ${BIGBROTHER_CAMERA_WIDTH} -H ${BIGBROTHER_CAMERA_HEIGHT} \
                 -u doorway /dev/video0 1> /dev/null &
 
             print_message 'stdout' 'deploying rtsp stream' "$(hostname):8555/dining"
@@ -39,7 +39,7 @@ if [ "$#" -ge 1 ]; then
             v4l2rtspserver \
                 -P 8555 -p 8555 \
                 -U "${LAB_WATCHER_USERNAME}:${LAB_WATCHER_PASSWORD}" \
-                -W 640 -H 480 \
+                -W ${BIGBROTHER_CAMERA_WIDTH} -H ${BIGBROTHER_CAMERA_HEIGHT} \
                 -u dining /dev/video2 1> /dev/null &
 
 
@@ -53,7 +53,7 @@ if [ "$#" -ge 1 ]; then
             v4l2rtspserver \
                 -P 8554 -p 8554 \
                 -U "${LAB_WATCHER_USERNAME}:${LAB_WATCHER_PASSWORD}" \
-                -W 640 -H 480 \
+                -W ${BIGBROTHER_CAMERA_WIDTH} -H ${BIGBROTHER_CAMERA_HEIGHT} \
                 -u safe /dev/video0 1> /dev/null &
 
             print_message 'stdout' 'deploying rtsp stream' "$(hostname):8555/office"
@@ -65,7 +65,7 @@ if [ "$#" -ge 1 ]; then
             v4l2rtspserver \
                 -P 8555 -p 8555 \
                 -U "${LAB_WATCHER_USERNAME}:${LAB_WATCHER_PASSWORD}" \
-                -W 640 -H 480 \
+                -W ${BIGBROTHER_CAMERA_WIDTH} -H ${BIGBROTHER_CAMERA_HEIGHT} \
                 -u office /dev/video2 1> /dev/null &
 
         fi
