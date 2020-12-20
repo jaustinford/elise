@@ -25,13 +25,10 @@ if [ "$#" -ge 1 ]; then
             v4l2-ctl -d /dev/video0 --set-ctrl=focus_absolute=0
 
             v4l2rtspserver \
-                -P 8554 \
-                -p 8554 \
+                -P 8554 -p 8554 \
                 -U "${LAB_WATCHER_USERNAME}:${LAB_WATCHER_PASSWORD}" \
-                -W 640 \
-                -H 480 \
-                -u doorway \
-                /dev/video0 1> /dev/null &
+                -W 640 -H 480 \
+                -u doorway /dev/video0 1> /dev/null &
 
             print_message 'stdout' 'deploying rtsp stream' "$(hostname):8555/dining"
             v4l2-ctl -d /dev/video2 --set-ctrl=led1_mode=0
@@ -40,13 +37,10 @@ if [ "$#" -ge 1 ]; then
             v4l2-ctl -d /dev/video2 --set-ctrl=focus_absolute=0
 
             v4l2rtspserver \
-                -P 8555 \
-                -p 8555 \
+                -P 8555 -p 8555 \
                 -U "${LAB_WATCHER_USERNAME}:${LAB_WATCHER_PASSWORD}" \
-                -W 640 \
-                -H 480 \
-                -u dining \
-                /dev/video2 1> /dev/null &
+                -W 640 -H 480 \
+                -u dining /dev/video2 1> /dev/null &
 
 
         elif [ "$(hostname)" == 'watcher02.labs.elysianskies.com' ]; then
@@ -57,13 +51,10 @@ if [ "$#" -ge 1 ]; then
             v4l2-ctl -d /dev/video0 --set-ctrl=focus_absolute=0
 
             v4l2rtspserver \
-                -P 8554 \
-                -p 8554 \
+                -P 8554 -p 8554 \
                 -U "${LAB_WATCHER_USERNAME}:${LAB_WATCHER_PASSWORD}" \
-                -W 640 \
-                -H 480 \
-                -u safe \
-                /dev/video0 1> /dev/null &
+                -W 640 -H 480 \
+                -u safe /dev/video0 1> /dev/null &
 
             print_message 'stdout' 'deploying rtsp stream' "$(hostname):8555/office"
             v4l2-ctl -d /dev/video2 --set-ctrl=led1_mode=0
@@ -72,13 +63,10 @@ if [ "$#" -ge 1 ]; then
             v4l2-ctl -d /dev/video2 --set-ctrl=focus_absolute=0
 
             v4l2rtspserver \
-                -P 8555 \
-                -p 8555 \
+                -P 8555 -p 8555 \
                 -U "${LAB_WATCHER_USERNAME}:${LAB_WATCHER_PASSWORD}" \
-                -W 640 \
-                -H 480 \
-                -u office \
-                /dev/video2 1> /dev/null &
+                -W 640 -H 480 \
+                -u office /dev/video2 1> /dev/null &
 
         fi
 
