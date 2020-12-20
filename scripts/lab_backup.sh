@@ -2,8 +2,6 @@
 
  set -eu
 
-export ELISE_ROOT_DIR='/mnt/tvault/es-labs/projects/elise'
-
 . "${ELISE_ROOT_DIR}/src/elise.env"
 . "${ELISE_ROOT_DIR}/src/general.sh"
 . "${ELISE_ROOT_DIR}/src/os.sh"
