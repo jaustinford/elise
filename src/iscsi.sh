@@ -11,7 +11,7 @@ EOF"
 
 iscsi_discovery () {
     print_message 'stdout' 'discover portal' "$1"
-    /usr/sbin/iscsiadm -m discovery -t sendtargets -p "$1" 1> /dev/null
+    iscsiadm -m discovery -t sendtargets -p "$1" 1> /dev/null
 }
 
 check_if_volume_is_mounted () {
@@ -31,7 +31,7 @@ check_if_volume_is_not_mounted () {
 }
 
 find_target_with_vol () {
-    if [ -z "$(/usr/sbin/iscsiadm -m node | cut -d ":" -f4 | egrep ^$1$)" ]; then
+    if [ -z "$(iscsiadm -m node | cut -d ":" -f4 | egrep ^$1$)" ]; then
         print_message 'stderr' "target $1 not found"
         exit 1
 
@@ -48,13 +48,13 @@ interact_target () {
     fi
 
     print_message 'stdout' "$action" "$3:$2"
-    /usr/sbin/iscsiadm -m node --"$1" --target "$3:$2" 1> /dev/null
+    iscsiadm -m node --"$1" --target "$3:$2" 1> /dev/null
 }
 
 mount_disk () {
     target_disk=""
     while [ -z "$target_disk" ]; do
-        target_disk=$(/usr/sbin/iscsiadm -m session -P 3 \
+        target_disk=$(iscsiadm -m session -P 3 \
             | egrep '^Target|Attached scsi disk' \
             | grep "$1" -A1 \
             | grep 'Attached scsi disk' \
