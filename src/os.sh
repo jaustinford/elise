@@ -74,7 +74,7 @@ EOF
 modprobe_br_netfilter () {
     if [ "$1" == 'CentOS Linux 8 (Core)' ]; then
         if [ "$(cat /proc/sys/net/bridge/bridge-nf-call-iptables 2> /dev/null)" == "1" ]; then
-            print_message 'stdout' 'configuring bridge adapter settings'
+            print_message 'stdout' 'configure bridge adapter'
             modprobe br_netfilter
             echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
 
