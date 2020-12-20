@@ -79,6 +79,7 @@ modprobe_br_netfilter () {
             echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
 
         fi
+
     fi
 }
 
@@ -151,6 +152,7 @@ install_ntopng () {
             done
 
         fi
+
     fi
 }
 
