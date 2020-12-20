@@ -17,8 +17,8 @@ if [ "$(hostname)" == "${ISCSI_CRON_HOST}" ]; then
         'iscsi_backup.cron'
     )
 
-    print_message 'stdout' 'copy cron jobs for host' "$(hostname)"
     for cron in ${host_crons[@]}; do
+        print_message 'stdout' "copy $cron" "$(hostname)"
         cp "${ELISE_ROOT_DIR}/crons/$cron" /etc/cron.d/$cron
         chmod 644 /etc/cron.d/$cron
     
