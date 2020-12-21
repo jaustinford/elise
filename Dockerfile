@@ -1,8 +1,6 @@
 FROM centos:8
 LABEL maintainer="Austin Ford <j.austin.ford@gmail.com>"
 
-COPY entrypoint.sh /tmp/entrypoint.sh
-
 RUN \
     yum update -y && \
     yum install -y \
@@ -13,11 +11,10 @@ RUN \
         tree \
         vim \
         curl \
+        wget \
         htop \
         bmon \
-        wget \
         git \
-        chrony \
         bc \
         nmap \
         net-tools \
@@ -45,10 +42,10 @@ RUN \
     dnf install -y ffmpeg
 
 # source local profile
-RUN \
-    ln -s /root/.bash_profile /etc/profile.d/elise_shell.sh
+RUN ln -s /root/.bash_profile /etc/profile.d/elise_shell.sh
 
-RUN \
-    chmod +x /tmp/entrypoint.sh
-
+# entrypoint ensures elise.env file exists before /bin/bash
+# or container will exit with error
+COPY entrypoint.sh /tmp/entrypoint.sh
+RUN chmod +x /tmp/entrypoint.sh
 ENTRYPOINT ["/tmp/entrypoint.sh"]
