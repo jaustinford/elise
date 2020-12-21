@@ -13,17 +13,10 @@ find_operating_system
 install_cron "$operating_system"
 
 if [ "$(hostname)" == "${ISCSI_CRON_HOST}" ]; then
-    host_crons=(
-        'iscsi_backup.cron'
-    )
-
-    for cron in ${host_crons[@]}; do
-        print_message 'stdout' "copy $cron" "$(hostname)"
-        cp "${ELISE_ROOT_DIR}/crons/$cron" /etc/cron.d/$cron
-        chmod 644 /etc/cron.d/$cron
+    print_message 'stdout' 'copy cron jobs' "$(hostname)"
+    cp "${ELISE_ROOT_DIR}/crons/escrons" /etc/cron.d/escrons
+    chmod 644 /etc/cron.d/escrons
     
-    done
-
     print_message 'stdout' "reloading $cron_service"
     systemctl reload "$cron_service"
 
