@@ -1,6 +1,7 @@
 src/elise.env
 .*_history
 .viminfo
+.python_history
 .config/*
 .vim/*
 .kube/*
