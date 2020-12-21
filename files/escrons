@@ -3,4 +3,4 @@ PATH=/sbin:/bin:/usr/sbin:/usr/bin
 MAILTO=root
 ELISE_ROOT_DIR=/mnt/tvault/es-labs/projects/elise
 
-0 4 21 * * root ${ELISE_ROOT_DIR}/scripts/lab_backup.sh &>> /home/austin/backup_cron.log
+0 4 15 * * root ${ELISE_ROOT_DIR}/scripts/lab_backup.sh &>> /home/austin/backup_cron.log
