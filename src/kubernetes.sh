@@ -171,7 +171,7 @@ download_kubectl () {
 
 crash_container () {
     # meant as a way to force kubernetes to restart containers by crashing them internally
-    # as opposed to using kubernetes kill the pod. useful in troubleshooting boot order
+    # as opposed to using kubernetes to kill the pod. useful in troubleshooting boot order
     # issues with pods that have multiple containers.
     print_message 'stdout' 'crashing container' "$1/$2:$3"
     kubectl -n "$1" exec $(kubectl -n $1 get pods | grep $2 | awk '{print $1}') -c "$3" -- /sbin/killall5
