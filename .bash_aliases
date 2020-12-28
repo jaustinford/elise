@@ -5,7 +5,7 @@ alias egrep='egrep --color=auto'
 alias tree='tree -C'
 alias ls='ls --color '
 
-# kubernetes
+# kubernetes - general
 alias k_manifest_apply="${KUBE_MANIFESTS_DIR}/run_manifest.sh apply"
 alias k_manifest_delete="${KUBE_MANIFESTS_DIR}/run_manifest.sh delete"
 alias k_manifest_diff="${KUBE_MANIFESTS_DIR}/run_manifest.sh diff"
@@ -23,8 +23,16 @@ alias k_describe="${ELISE_ROOT_DIR}/scripts/kube_automator.sh describe"
 alias k_nodes="${ELISE_ROOT_DIR}/scripts/kube_automator.sh nodes"
 alias k_events="${ELISE_ROOT_DIR}/scripts/kube_automator.sh events"
 alias k_display="${ELISE_ROOT_DIR}/scripts/kube_automator.sh display"
+alias k_crash="${ELISE_ROOT_DIR}/scripts/kube_automator.sh crash"
 alias k_watch="watch -n 5 -t -c ${ELISE_ROOT_DIR}/scripts/kube_automator.sh display"
 
+# kubernetes - kube-system namespace
+alias k_system_tail="${ELISE_ROOT_DIR}/scripts/kube_automator.sh tail kube-system"
+alias k_system_events="${ELISE_ROOT_DIR}/scripts/kube_automator.sh events kube-system"
+alias k_system_display="${ELISE_ROOT_DIR}/scripts/kube_automator.sh display kube-system"
+alias k_system_watch="watch -n 5 -t -c ${ELISE_ROOT_DIR}/scripts/kube_automator.sh display kube-system"
+
+# kubernetes - eslabs namespace
 alias k_eslabs_start="${ELISE_ROOT_DIR}/scripts/kube_automator.sh start eslabs"
 alias k_eslabs_stop="${ELISE_ROOT_DIR}/scripts/kube_automator.sh stop eslabs"
 alias k_eslabs_logs="${ELISE_ROOT_DIR}/scripts/kube_automator.sh logs eslabs"
@@ -35,12 +43,9 @@ alias k_eslabs_edit="${ELISE_ROOT_DIR}/scripts/kube_automator.sh edit eslabs"
 alias k_eslabs_describe="${ELISE_ROOT_DIR}/scripts/kube_automator.sh describe eslabs"
 alias k_eslabs_events="${ELISE_ROOT_DIR}/scripts/kube_automator.sh events eslabs"
 alias k_eslabs_display="${ELISE_ROOT_DIR}/scripts/kube_automator.sh display eslabs"
+alias k_eslabs_crash="${ELISE_ROOT_DIR}/scripts/kube_automator.sh crash eslabs"
+alias k_eslabs_crash_kharon_squid="${ELISE_ROOT_DIR}/scripts/kube_automator.sh crash eslabs kharon squid"
 alias k_eslabs_watch="watch -n 5 -t -c ${ELISE_ROOT_DIR}/scripts/kube_automator.sh display eslabs"
-
-alias k_system_tail="${ELISE_ROOT_DIR}/scripts/kube_automator.sh tail kube-system"
-alias k_system_events="${ELISE_ROOT_DIR}/scripts/kube_automator.sh events kube-system"
-alias k_system_display="${ELISE_ROOT_DIR}/scripts/kube_automator.sh display kube-system"
-alias k_system_watch="watch -n 5 -t -c ${ELISE_ROOT_DIR}/scripts/kube_automator.sh display kube-system"
 
 # git
 alias g_add="${ELISE_ROOT_DIR}/scripts/git_automator.sh add"

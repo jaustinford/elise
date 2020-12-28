@@ -85,6 +85,14 @@ if [ "$#" -ge 1 ]; then
         NAMESPACE="$2"
         kube_events "${NAMESPACE}"
 
+    elif [ "${MODE}" == "crash" ]; then
+        NAMESPACE="$2"
+        APP="$3"
+        CONTAINER="$4"
+        crash_container "${NAMESPACE}" \
+            "${APP}" \
+            "${CONTAINER}"
+
     fi
 
 fi
