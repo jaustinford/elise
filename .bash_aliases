@@ -45,6 +45,7 @@ alias k_eslabs_events="${ELISE_ROOT_DIR}/scripts/kube_automator.sh events eslabs
 alias k_eslabs_display="${ELISE_ROOT_DIR}/scripts/kube_automator.sh display eslabs"
 alias k_eslabs_crash="${ELISE_ROOT_DIR}/scripts/kube_automator.sh crash eslabs"
 alias k_eslabs_crash_kharon_squid="${ELISE_ROOT_DIR}/scripts/kube_automator.sh crash eslabs kharon squid"
+alias k_eslabs_crash_kharon_deluge="${ELISE_ROOT_DIR}/scripts/kube_automator.sh crash eslabs kharon deluge"
 alias k_eslabs_watch="watch -n 5 -t -c ${ELISE_ROOT_DIR}/scripts/kube_automator.sh display eslabs"
 
 # git
