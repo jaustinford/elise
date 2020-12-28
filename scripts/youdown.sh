@@ -2,6 +2,7 @@
 
 set -e
 
+. "${ELISE_ROOT_DIR}/src/elise.env"
 . "${ELISE_ROOT_DIR}/src/youtube-dl-wrapper.sh"
 
 OPTION="$1"

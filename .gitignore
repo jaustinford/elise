@@ -7,5 +7,6 @@ src/elise.env
 .kube/*
 .ssh/*
 dropoff/*
+.cache/*
 haproxy/*.crt
 haproxy/*.key
