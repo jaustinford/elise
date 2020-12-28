@@ -83,11 +83,17 @@ spec:
         - name: k8s-vol-plexserver-content-movies
           mountPath: /shares/tvault/video/movies
           readOnly: true
-        - name: k8s-vol-plexserver-content-political-films
-          mountPath: /shares/tvault/video/political/films
+        - name: k8s-vol-plexserver-content-political-movies
+          mountPath: /shares/tvault/video/political-movies
           readOnly: true
         - name: k8s-vol-plexserver-content-tv
           mountPath: /shares/tvault/video/tv
+          readOnly: true
+        - name: k8s-vol-plexserver-content-anime-movies
+          mountPath: /shares/tvault/video/anime-movies
+          readOnly: true
+        - name: k8s-vol-plexserver-content-anime-tv
+          mountPath: /shares/tvault/video/anime-tv
           readOnly: true
       volumes:
       - name: k8s-vol-plexserver-config
@@ -124,12 +130,18 @@ spec:
       - name: k8s-vol-plexserver-content-movies
         hostPath:
           path: /mnt/tvault/video/movies
-      - name: k8s-vol-plexserver-content-political-films
+      - name: k8s-vol-plexserver-content-political-movies
         hostPath:
-          path: /mnt/tvault/video/political/films
+          path: /mnt/tvault/video/political-movies
       - name: k8s-vol-plexserver-content-tv
         hostPath:
           path: /mnt/tvault/video/tv
+      - name: k8s-vol-plexserver-content-anime-movies
+        hostPath:
+          path: /mnt/tvault/video/anime-movies
+      - name: k8s-vol-plexserver-content-anime-tv
+        hostPath:
+          path: /mnt/tvault/video/anime-tv
       nodeSelector:
           kubernetes.io/hostname: ${PLEX_AFFINITY_NODE}
 EOF
