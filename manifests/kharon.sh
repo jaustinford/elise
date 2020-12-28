@@ -31,6 +31,7 @@ spec:
   - protocol: TCP
     port: 3128
     targetPort: 3128
+    nodePort: 30526
 ---
 apiVersion: v1
 kind: ConfigMap
