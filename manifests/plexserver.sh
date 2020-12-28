@@ -83,8 +83,11 @@ spec:
         - name: k8s-vol-plexserver-content-movies
           mountPath: /shares/tvault/video/movies
           readOnly: true
-        - name: k8s-vol-plexserver-content-political-movies
-          mountPath: /shares/tvault/video/political-movies
+        - name: k8s-vol-plexserver-content-usa-movies
+          mountPath: /shares/tvault/video/usa-movies
+          readOnly: true
+        - name: k8s-vol-plexserver-content-usa-tv
+          mountPath: /shares/tvault/video/usa-tv
           readOnly: true
         - name: k8s-vol-plexserver-content-tv
           mountPath: /shares/tvault/video/tv
@@ -130,9 +133,12 @@ spec:
       - name: k8s-vol-plexserver-content-movies
         hostPath:
           path: /mnt/tvault/video/movies
-      - name: k8s-vol-plexserver-content-political-movies
+      - name: k8s-vol-plexserver-content-usa-movies
         hostPath:
-          path: /mnt/tvault/video/political-movies
+          path: /mnt/tvault/video/usa-movies
+      - name: k8s-vol-plexserver-content-usa-tv
+        hostPath:
+          path: /mnt/tvault/video/usa-tv
       - name: k8s-vol-plexserver-content-tv
         hostPath:
           path: /mnt/tvault/video/tv
