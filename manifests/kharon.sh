@@ -162,8 +162,6 @@ spec:
         env:
         - name: TZ
           value: "${DOCKER_TIMEZONE}"
-        ports:
-        - containerPort: 3128
         command: ['/bin/bash']
         args:
         - '-c'
