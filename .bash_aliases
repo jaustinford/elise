@@ -6,11 +6,11 @@ alias tree='tree -C'
 alias ls='ls --color '
 
 # kubernetes - general
-alias k_manifest_apply="${KUBE_MANIFESTS_DIR}/run_manifest.sh apply"
-alias k_manifest_delete="${KUBE_MANIFESTS_DIR}/run_manifest.sh delete"
-alias k_manifest_diff="${KUBE_MANIFESTS_DIR}/run_manifest.sh diff"
-alias k_manifest_edit="${KUBE_MANIFESTS_DIR}/run_manifest.sh edit"
-alias k_manifest_list="ls -m1 ${KUBE_MANIFESTS_DIR} | cut -d'.' -f1 | grep -v run_manifest"
+alias k_manifest_apply="${ELISE_ROOT_DIR}/scripts/run_manifest.sh apply"
+alias k_manifest_delete="${ELISE_ROOT_DIR}/scripts/run_manifest.sh delete"
+alias k_manifest_diff="${ELISE_ROOT_DIR}/scripts/run_manifest.sh diff"
+alias k_manifest_edit="${ELISE_ROOT_DIR}/scripts/run_manifest.sh edit"
+alias k_manifest_list="ls -m1 ${KUBE_MANIFESTS_DIR} | cut -d'.' -f1"
 
 alias k_start="${ELISE_ROOT_DIR}/scripts/kube_automator.sh start"
 alias k_stop="${ELISE_ROOT_DIR}/scripts/kube_automator.sh stop"
