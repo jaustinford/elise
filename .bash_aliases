@@ -14,6 +14,7 @@ alias k_manifest_list="ls -m1 ${KUBE_MANIFESTS_DIR} | cut -d'.' -f1"
 
 alias k_start="${ELISE_ROOT_DIR}/scripts/kube_automator.sh start"
 alias k_stop="${ELISE_ROOT_DIR}/scripts/kube_automator.sh stop"
+alias k_restart="${ELISE_ROOT_DIR}/scripts/kube_automator.sh restart"
 alias k_logs="${ELISE_ROOT_DIR}/scripts/kube_automator.sh logs"
 alias k_tail="${ELISE_ROOT_DIR}/scripts/kube_automator.sh tail"
 alias k_exec="${ELISE_ROOT_DIR}/scripts/kube_automator.sh exec"
@@ -35,6 +36,7 @@ alias k_system_watch="watch -n 5 -t -c ${ELISE_ROOT_DIR}/scripts/kube_automator.
 # kubernetes - eslabs namespace
 alias k_eslabs_start="${ELISE_ROOT_DIR}/scripts/kube_automator.sh start eslabs"
 alias k_eslabs_stop="${ELISE_ROOT_DIR}/scripts/kube_automator.sh stop eslabs"
+alias k_eslabs_restart="${ELISE_ROOT_DIR}/scripts/kube_automator.sh restart eslabs"
 alias k_eslabs_logs="${ELISE_ROOT_DIR}/scripts/kube_automator.sh logs eslabs"
 alias k_eslabs_tail="${ELISE_ROOT_DIR}/scripts/kube_automator.sh tail eslabs"
 alias k_eslabs_exec="${ELISE_ROOT_DIR}/scripts/kube_automator.sh exec eslabs"

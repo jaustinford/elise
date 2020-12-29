@@ -24,7 +24,19 @@ if [ "$#" -ge 1 ]; then
         APP="$3"
         kube_stop_deployment "${NAMESPACE}" \
             "${APP}"
- 
+
+    elif [ "${MODE}" == "restart" ]; then
+        NAMESPACE="$2"
+        APP="$3"
+        kube_stop_deployment "${NAMESPACE}" \
+            "${APP}"
+
+        wait_for_deployment_to_terminate "${APP}"
+
+        kube_start_deployment "${NAMESPACE}" \
+            "${APP}" \
+            '1'
+
     elif [ "${MODE}" == "logs" ]; then
         NAMESPACE="$2"
         APP="$3"
