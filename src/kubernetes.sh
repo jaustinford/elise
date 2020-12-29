@@ -176,3 +176,8 @@ crash_container () {
     print_message 'stdout' 'crashing container' "$1/$2:$3"
     kubectl -n "$1" exec $(kubectl -n $1 get pods | grep $2 | awk '{print $1}') -c "$3" -- /sbin/killall5
 }
+
+grab_loaded_vpn_server () {
+    vpn_server=$(kubectl -n eslabs exec $(kubectl -n eslabs get pods | grep kharon | awk '{print $1}') -c expressvpn -- \
+        egrep '^remote\ ' /vpn/vpn.conf | awk '{print $2}' | sed 's/-ca-version-2.expressnetw.com//g')
+}
