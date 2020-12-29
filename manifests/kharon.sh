@@ -91,6 +91,18 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  name: check-vpn-config-map
+  namespace: eslabs
+data:
+  check-vpn.sh: |
+    while [ ! -d '/sys/devices/virtual/net/tun0' ]; do
+       sleep 2
+
+    done
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
   name: squid-config-map
   namespace: eslabs
 data:
@@ -152,10 +164,19 @@ spec:
           value: "${DOCKER_TIMEZONE}"
         ports:
         - containerPort: 3128
+        command: ['/bin/bash']
+        args:
+        - '-c'
+        - >
+          /tmp/check-vpn.sh &&
+          /sbin/entrypoint.sh
         volumeMounts:
         - name: squid-config
           mountPath: /etc/squid/squid.conf
           subPath: squid.conf
+        - name: check-vpn
+          mountPath: /tmp/check-vpn.sh
+          subPath: check-vpn.sh
       - image: linuxserver/deluge:latest
         name: deluge
         env:
@@ -186,6 +207,10 @@ spec:
       - name: squid-config
         configMap:
           name: squid-config-map
+      - name: check-vpn
+        configMap:
+          name: check-vpn-config-map
+          defaultMode: 0755
       - name: k8s-vol-deluge-downloads
         hostPath:
           path: "${KHARON_DELUGE_DOWNLOAD_DIR}"
