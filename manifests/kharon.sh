@@ -96,7 +96,7 @@ metadata:
 data:
   check-vpn.sh: |
     while [ ! -d '/sys/devices/virtual/net/tun0' ]; do
-       sleep 2
+        sleep 2
 
     done
 ---
