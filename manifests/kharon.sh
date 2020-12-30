@@ -36,19 +36,12 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: vpn-credentials-config-map
+  name: kharon-config-map
   namespace: eslabs
 data:
   vpn.credentials: |
     ${KHARON_EXPRESSVPN_USERNAME}
     ${KHARON_EXPRESSVPN_PASSWORD}
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: vpn-conf-config-map
-  namespace: eslabs
-data:
   vpn.conf: |
     dev tun
     fast-io
@@ -87,25 +80,11 @@ data:
     <ca>
     $(echo ${KHARON_EXPRESSVPN_CA} | base64 -d)
     </ca>
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: check-vpn-config-map
-  namespace: eslabs
-data:
   check-vpn.sh: |
     while [ ! -d '/sys/devices/virtual/net/tun0' ]; do
         sleep 2
 
     done
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: squid-config-map
-  namespace: eslabs
-data:
   squid.conf: |
     http_access allow all
     http_port 3128
@@ -151,10 +130,10 @@ spec:
         volumeMounts:
         - name: k8s-vol-tun-dev
           mountPath: /dev/net/tun
-        - name: vpn-conf
+        - name: kharon-config
           mountPath: /vpn/vpn.conf
           subPath: vpn.conf
-        - name: vpn-credentials
+        - name: kharon-config
           mountPath: /vpn/vpn.credentials
           subPath: vpn.credentials
       - image: sameersbn/squid:latest
@@ -169,10 +148,10 @@ spec:
           /tmp/check-vpn.sh &&
           /sbin/entrypoint.sh
         volumeMounts:
-        - name: squid-config
+        - name: kharon-config
           mountPath: /etc/squid/squid.conf
           subPath: squid.conf
-        - name: check-vpn
+        - name: kharon-config
           mountPath: /tmp/check-vpn.sh
           subPath: check-vpn.sh
       - image: linuxserver/deluge:latest
@@ -196,18 +175,9 @@ spec:
         hostPath:
           path: /dev/net/tun
           type: CharDevice
-      - name: vpn-conf
+      - name: kharon-config
         configMap:
-          name: vpn-conf-config-map
-      - name: vpn-credentials
-        configMap:
-          name: vpn-credentials-config-map
-      - name: squid-config
-        configMap:
-          name: squid-config-map
-      - name: check-vpn
-        configMap:
-          name: check-vpn-config-map
+          name: kharon-config-map
           defaultMode: 0755
       - name: k8s-vol-deluge-downloads
         hostPath:
