@@ -65,6 +65,8 @@ spec:
           value: "0"
         - name: MULTI_PORT_END
           value: "0"
+        securityContext:
+          privileged: true
         volumeMounts:
         - name: k8s-vol-bigbrother-config
           mountPath: /config
