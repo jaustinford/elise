@@ -49,8 +49,6 @@ spec:
           value: "1000"
         - name: PGID
           value: "1000"
-        ports:
-        - containerPort: 8181
         volumeMounts:
         - name: k8s-vol-tautulli
           mountPath: /config
