@@ -58,7 +58,7 @@ ensure_root () {
 docker_systemd_driver () {
     if [ -z "$(grep '"log-driver": "json-file",' /etc/docker/daemon.json)" ]; then
         print_message 'stdout' 'configuring docker systemd driver'
-        mkdir -p /etc/docker
+        mkdir -p /etc/docker 1> /dev/null
         cat <<EOF > /etc/docker/daemon.json
 {
   "exec-opts": ["native.cgroupdriver=systemd"],
@@ -72,19 +72,9 @@ docker_systemd_driver () {
   ]
 }
 EOF
-        mkdir -p /etc/systemd/system/docker.service.d
-        systemctl daemon-reload
-        systemctl reload docker
-
-    fi
-}
-
-turn_swap_off () {
-    if [ -n "$(cat /proc/swaps | grep -v Filename)" ]; then
-        print_message 'stdout' 'disabling swap'
-        chmod +x /etc/rc.d/rc.local
-        echo "swapoff -a" >> /etc/rc.d/rc.local
-        swapoff -a
+        mkdir -p /etc/systemd/system/docker.service.d 1> /dev/null
+        systemctl daemon-reload 1> /dev/null
+        systemctl restart docker 1> /dev/null
 
     fi
 }

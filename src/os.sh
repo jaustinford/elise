@@ -19,6 +19,9 @@ install_docker () {
         if [ -z "$(dpkg --get-selections | grep docker-ce)" ]; then
             print_message 'stdout' 'installing docker on' "$1"
             curl -sSL https://get.docker.com | sh
+            usermod -aG docker "${DOCKER_USER}"
+            print_message 'stdout' 'rebooting host' "$(hostname)"
+            reboot
 
         fi
 
@@ -29,25 +32,34 @@ install_docker () {
             dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
             dnf install https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm -y
             dnf install docker-ce -y
+            usermod -aG docker "${DOCKER_USER}"
+            print_message 'stdout' 'rebooting host' "$(hostname)"
+            reboot
 
         fi
 
     fi
 
-    usermod -aG docker "${DOCKER_USER}"
+    docker_systemd_driver
     systemctl enable docker 1> /dev/null
     systemctl start docker 1> /dev/null
-    docker_systemd_driver
 }
 
 install_k8s () {
     if [ "$1" == 'Raspbian GNU/Linux 10 (buster)' ]; then
         if [ -z "$(dpkg --get-selections | grep kubeadm)" ]; then
             print_message 'stdout' 'installing kubernetes on' "$1"
-            curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+            for pkg in apt-transport-https gnupg2 curl; do
+                print_message 'stdout' 'installing package' "$pkg"
+                apt-get install "$pkg" -y 1> /dev/null
+
+            done
+
+            curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - 1> /dev/null
             echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list
-            apt-get install kubeadm -y
-            update-alternatives --set iptables /usr/sbin/iptables-legacy
+            apt-get update -y 1> /dev/null
+            apt-get install kubeadm -y 1> /dev/null
+            update-alternatives --set iptables /usr/sbin/iptables-legacy 1> /dev/null
 
         fi
 
@@ -240,4 +252,26 @@ install_cron () {
     print_message 'stdout' 'configuring cron systemd' "$(hostname)"
     systemctl enable "$cron_service" 1> /dev/null
     systemctl start "$cron_service" 1> /dev/null
+}
+
+turn_swap_off () {
+    if [ "$1" == "Raspbian GNU/Linux 10 (buster)" ]; then
+        if [ -n "$(cat /proc/swaps | grep -v Filename)" ]; then
+            print_message 'stdout' 'disabling swap'
+            chmod +x /etc/rc.local
+            echo "swapoff -a" | tee -a /etc/rc.local
+            swapoff -a
+
+        fi
+
+    elif [ "$1" == 'CentOS Linux 8 (Core)' ]; then
+        if [ -n "$(cat /proc/swaps | grep -v Filename)" ]; then
+            print_message 'stdout' 'disabling swap'
+            chmod +x /etc/rc.d/rc.local
+            echo "swapoff -a" >> /etc/rc.d/rc.local
+            swapoff -a
+
+        fi
+
+    fi
 }

@@ -140,11 +140,11 @@ local_k8s_node_resolution () {
 
     fi
     if [ -z "$(cat /etc/hosts | egrep ^${KUBE_WORKER_NODE_0_ADDRESS})" ]; then
-        echo "${KUBE_WORKER_NODE_0_ADDRESS}    ${KUBE_WORKER_NODE_0_HOSTNAME}" >> /etc/hosts
+        echo "${KUBE_WORKER_NODE_0_ADDRESS}     ${KUBE_WORKER_NODE_0_HOSTNAME}" >> /etc/hosts
 
     fi
     if [ -z "$(cat /etc/hosts | egrep ^${KUBE_WORKER_NODE_1_ADDRESS})" ]; then
-        echo "${KUBE_WORKER_NODE_1_ADDRESS}    ${KUBE_WORKER_NODE_1_HOSTNAME}" >> /etc/hosts
+        echo "${KUBE_WORKER_NODE_1_ADDRESS}     ${KUBE_WORKER_NODE_1_HOSTNAME}" >> /etc/hosts
 
     fi
 }
@@ -154,7 +154,7 @@ copy_new_kube_config () {
         print_message 'stdout' 'copying config'
         mkdir -p "${HOME}/.kube"
         cp -i /etc/kubernetes/admin.conf "${HOME}/.kube/config"
-        chown $(id -u):$(id -g) "${HOME}/.kube/config"
+        chown -R "$1":"$1" "${HOME}/.kube"
 
     fi
 }

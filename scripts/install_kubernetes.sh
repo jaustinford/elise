@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -eu
+set -e
 
 # auto install a kubernetes 3-node cluster given these 
 # hostnames for either raspbian or centos platforms
@@ -29,10 +29,9 @@ if [ $(hostname) == "${KUBE_MASTER_NODE_HOSTNAME}" ]; then
     print_message 'stdout' 'initializing k8s cluster'
     kubeadm init \
         --apiserver-advertise-address="${KUBE_MASTER_NODE_ADDRESS}" \
-        --pod-network-cidr="${KUBE_CIDR_POD_NETWORK}" \
-        --service-cidr="${KUBE_CIDR_SERVICE}"
+        --ignore-preflight-errors=Mem #https://github.com/kubernetes/kubeadm/issues/2365
 
-    copy_new_kube_config
+    copy_new_kube_config "${DOCKER_USER}"
 
     print_message 'stdout' 'deploy flannel pod network'
     kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
