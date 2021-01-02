@@ -140,16 +140,28 @@ install_open_iscsi () {
     fi
 }
 
+install_pihole () {
+    if [ "$1" == 'Raspbian GNU/Linux 10 (buster)' ]; then
+        if [ -z "$(which pihole 2> /dev/null)" ]; then
+            print_message 'stdout' 'installing pihole'
+            curl -sSL https://install.pi-hole.net | bash
+
+        fi
+
+    fi
+}
+
 install_ntopng () {
     if [ "$1" == 'Raspbian GNU/Linux 10 (buster)' ]; then
         if [ -z "$(which ntopng 2> /dev/null)" ]; then
             print_message 'stdout' 'installing repo' "$2"
-            wget "http://packages.ntop.org/RaspberryPI/$2" 1> /dev/null
-            dpkg -i "$2" 1> /dev/null
+            wget -O "/tmp/$2" "http://packages.ntop.org/RaspberryPI/$2" 1> /dev/null
+            dpkg -i "/tmp/$2" 1> /dev/null
+            rm -rf "/tmp/$2" 1> /dev/null
 
-            for pkg in ntopng nrprobe n2n; do
+            for pkg in ntopng nprobe n2n; do
                 print_message 'stdout' 'installing package' "$pkg"
-                apt install "$pkg" -y 1> /dev/null
+                apt-get install "$pkg" -y 1> /dev/null
 
             done
 
