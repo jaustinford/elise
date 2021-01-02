@@ -8,7 +8,7 @@ set -e
 . "${ELISE_ROOT_DIR}/src/ntopng.sh"
 . "${ELISE_ROOT_DIR}/src/os.sh"
 
-ensure root
+ensure_root
 find_operating_system
 install_ntopng "$operating_system" "${NTOPNG_REPO}"
 ntopng_webroot

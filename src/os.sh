@@ -15,6 +15,7 @@ disable_selinux () {
 
 install_docker () {
     if [ "$1" == 'Raspbian GNU/Linux 10 (buster)' ]; then
+        DOCKER_USER='pi'
         if [ -z "$(dpkg --get-selections | grep docker-ce)" ]; then
             print_message 'stdout' 'installing docker on' "$1"
             curl -sSL https://get.docker.com | sh
@@ -22,6 +23,7 @@ install_docker () {
         fi
 
     elif [ "$1" == 'CentOS Linux 8 (Core)' ]; then
+        DOCKER_USER='centos'
         if [ -z "$(rpm -qa | grep docker-ce)" ]; then
             print_message 'stdout' 'installing docker on' "$1"
             dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
@@ -145,7 +147,7 @@ install_ntopng () {
             wget "http://packages.ntop.org/RaspberryPI/$2" 1> /dev/null
             dpkg -i "$2" 1> /dev/null
 
-            for pkg in ntopng nrpobe n2n; do
+            for pkg in ntopng nrprobe n2n; do
                 print_message 'stdout' 'installing package' "$pkg"
                 apt install "$pkg" -y 1> /dev/null
 
