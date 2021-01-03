@@ -1,5 +1,5 @@
 disable_selinux () {
-    if [ "$1" == 'CentOS Linux 8 (Core)' ]; then
+    if [ "$1" == 'CentOS Linux 8' ]; then
         if [ $(getenforce) != "Disabled" ]; then
             print_message 'stdout' 'disabled selinux'
             setenforce 0
@@ -25,7 +25,7 @@ install_docker () {
 
         fi
 
-    elif [ "$1" == 'CentOS Linux 8 (Core)' ]; then
+    elif [ "$1" == 'CentOS Linux 8' ]; then
         DOCKER_USER='centos'
         if [ -z "$(rpm -qa | grep docker-ce)" ]; then
             print_message 'stdout' 'installing docker on' "$1"
@@ -58,12 +58,13 @@ install_k8s () {
             curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - 1> /dev/null
             echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list
             apt-get update -y 1> /dev/null
+            print_message 'stdout' 'installing kubeadm'
             apt-get install kubeadm -y 1> /dev/null
             update-alternatives --set iptables /usr/sbin/iptables-legacy 1> /dev/null
 
         fi
 
-    elif [ "$1" == 'CentOS Linux 8 (Core)' ]; then
+    elif [ "$1" == 'CentOS Linux 8' ]; then
         if [ -z "$(rpm -qa | grep kubeadm)" ]; then
             print_message 'stdout' 'installing kubernetes on' "$1"
             cat <<EOF > /etc/yum.repos.d/kubernetes.repo
@@ -86,7 +87,7 @@ EOF
 }
 
 modprobe_br_netfilter () {
-    if [ "$1" == 'CentOS Linux 8 (Core)' ]; then
+    if [ "$1" == 'CentOS Linux 8' ]; then
         if [ "$(cat /proc/sys/net/bridge/bridge-nf-call-iptables 2> /dev/null)" == "1" ]; then
             print_message 'stdout' 'configure bridge adapter'
             modprobe br_netfilter
@@ -111,7 +112,7 @@ prepare_master_node () {
 
         fi
 
-    elif [ "$1" == 'CentOS Linux 8 (Core)' ]; then
+    elif [ "$1" == 'CentOS Linux 8' ]; then
         disable_selinux "$operating_system"
         print_message 'stdout' 'adding k8s firewalld'
         firewall-cmd --permanent --add-port=6443/tcp 1> /dev/null
@@ -128,7 +129,7 @@ prepare_master_node () {
 
 prepare_worker_node () {
     print_message 'stdout' 'preparing worker' "$(hostname)"
-    if [ "$1" == 'CentOS Linux 8 (Core)' ]; then
+    if [ "$1" == 'CentOS Linux 8' ]; then
         disable_selinux "$operating_system"
         print_message 'stdout' 'adding k8s firewalld'
         firewall-cmd --permanent --add-port=6783/tcp 1> /dev/null
@@ -142,7 +143,7 @@ prepare_worker_node () {
 }
 
 install_open_iscsi () {
-    if [ "$1" == 'CentOS Linux 8 (Core)' ]; then
+    if [ "$1" == 'CentOS Linux 8' ]; then
         if [ -z "$(rpm -qa | grep iscsi-initiator-utils)" ]; then
             print_message 'stdout' 'installing iscsi tools'
             yum install -y iscsi-initiator-utils
@@ -223,7 +224,7 @@ run_all_updates () {
         apt-get update -y
         apt-get upgrade -y
 
-    elif [ "$1" == 'CentOS Linux 8 (Core)' ]; then
+    elif [ "$1" == 'CentOS Linux 8' ]; then
         yum update -y
         yum upgrade -y
 
@@ -239,7 +240,7 @@ install_cron () {
 
         fi
 
-    elif [ "$1" == 'CentOS Linux 8 (Core)' ]; then
+    elif [ "$1" == 'CentOS Linux 8' ]; then
         cron_service='crond'
         if [ -z "$(rpm -qa | grep cronie)" ]; then
             print_message 'stdout' 'installing cronie' "$(hostname)"
@@ -260,11 +261,15 @@ turn_swap_off () {
             print_message 'stdout' 'disabling swap'
             chmod +x /etc/rc.local
             echo "swapoff -a" | tee -a /etc/rc.local
+            if [ ! -z "$(egrep '^exit 0' /etc/rc.local)" ]; then
+                sed -i 's/exit 0//g' /etc/rc.local
+
+            fi
             swapoff -a
 
         fi
 
-    elif [ "$1" == 'CentOS Linux 8 (Core)' ]; then
+    elif [ "$1" == 'CentOS Linux 8' ]; then
         if [ -n "$(cat /proc/swaps | grep -v Filename)" ]; then
             print_message 'stdout' 'disabling swap'
             chmod +x /etc/rc.d/rc.local

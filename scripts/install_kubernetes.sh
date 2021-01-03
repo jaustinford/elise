@@ -24,11 +24,12 @@ if [ $(hostname) == "${KUBE_MASTER_NODE_HOSTNAME}" ]; then
     prepare_master_node "$operating_system"
     install_docker "$operating_system"
     install_k8s "$operating_system"
-    turn_swap_off
+    turn_swap_off "$operating_system"
 
     print_message 'stdout' 'initializing k8s cluster'
     kubeadm init \
         --apiserver-advertise-address="${KUBE_MASTER_NODE_ADDRESS}" \
+        --pod-network-cidr="${KUBE_CIDR_POD_NETWORK}" \
         --ignore-preflight-errors=Mem #https://github.com/kubernetes/kubeadm/issues/2365
 
     copy_new_kube_config "${DOCKER_USER}"
@@ -44,6 +45,6 @@ elif [ $(hostname) == "${KUBE_WORKER_NODE_0_HOSTNAME}" ] ||\
     prepare_worker_node "$operating_system"
     install_docker "$operating_system"
     install_k8s "$operating_system"
-    turn_swap_off
+    turn_swap_off "$operating_system"
 
 fi
