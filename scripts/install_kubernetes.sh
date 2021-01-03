@@ -29,8 +29,7 @@ if [ $(hostname) == "${KUBE_MASTER_NODE_HOSTNAME}" ]; then
     print_message 'stdout' 'initializing k8s cluster'
     kubeadm init \
         --apiserver-advertise-address="${KUBE_MASTER_NODE_ADDRESS}" \
-        --pod-network-cidr="${KUBE_CIDR_POD_NETWORK}" \
-        --ignore-preflight-errors=Mem #https://github.com/kubernetes/kubeadm/issues/2365
+        --pod-network-cidr="${KUBE_CIDR_POD_NETWORK}"
 
     copy_new_kube_config "${DOCKER_USER}"
 
