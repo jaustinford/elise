@@ -20,12 +20,18 @@ RUN \
         net-tools \
         bind-utils
 
-# python3
+# ansible
 RUN \
-    yum install -y python3 && \
+    yum install -y \
+        ansible \
+        python3
+
+RUN \
     pip3 install --upgrade pip && \
     pip3 install \
         requests
+
+COPY files/ansible.cfg /etc/ansible/ansible.cfg
 
 # kubernetes client
 RUN \

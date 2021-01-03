@@ -1,0 +1,5 @@
+- hosts: pihole
+  tasks:
+  - import_role: 
+      name: pihole
+      tasks_from: install-pihole

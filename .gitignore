@@ -8,5 +8,6 @@ src/elise.env
 .ssh/*
 dropoff/*
 .cache/*
+.lesshst
 haproxy/*.crt
 haproxy/*.key

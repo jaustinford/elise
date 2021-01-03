@@ -60,6 +60,11 @@ alias g_reset="git reset --hard"
 alias g_log="git log --patch"
 alias g_diff="git diff"
 
+# ansible
+alias a_all_ping="ansible all -m ping"
+alias a_all_shell="ansible all -m shell -a"
+alias a_playbook_pihole="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/pihole.yml --ask-become-pass"
+
 # misc
 alias _aliases="vim ${ELISE_ROOT_DIR}/.bash_aliases"
 alias _source="source ${ELISE_ROOT_DIR}/.bash_profile"
