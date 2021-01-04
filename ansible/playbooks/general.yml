@@ -1,0 +1,7 @@
+- hosts: ubuntu
+  become: true
+  tasks:
+    - name: copy sudoers
+      lineinfile:
+        path: /etc/sudoers
+        line: 'ubuntu    ALL=(ALL:ALL)    NOPASSWD: ALL'
