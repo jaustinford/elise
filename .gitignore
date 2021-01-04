@@ -9,5 +9,6 @@ src/elise.env
 dropoff/*
 .cache/*
 .lesshst
+.ansible/*
 haproxy/*.crt
 haproxy/*.key

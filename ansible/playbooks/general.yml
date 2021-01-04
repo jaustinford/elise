@@ -5,3 +5,12 @@
       lineinfile:
         path: /etc/sudoers
         line: 'ubuntu    ALL=(ALL:ALL)    NOPASSWD: ALL'
+    
+    - name: install packages
+      apt:
+        name: "{{ packages }}"
+        state: present
+        update_cache: yes
+      vars:
+        packages:
+          - net-tools
