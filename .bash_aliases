@@ -62,13 +62,16 @@ alias g_diff="git diff"
 
 # ansible - general
 alias a_ping="ansible -m ping"
-alias a_all_shell="ansible all -m shell -a"
-alias a_k8s_shell="ansible k8s -m shell -a"
-alias a_ubuntu_shell="ansible ubuntu -m shell -a"
-alias a_reboot="ansible -m reboot --become"
+alias a_all_shell="ansible all --become -m shell -a"
+alias a_all_reboot="ansible all --become -m reboot"
+alias a_ubuntu_shell="ansible ubuntu --become -m shell -a"
+alias a_ubuntu_reboot="ansible ubuntu --become -m reboot"
+alias a_k8s_shell="ansible k8s --become -m shell -a"
+alias a_k8s_reboot="ansible k8s --become -m reboot"
 
 # ansible - playbooks
-alias a_playbook_general="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/general.yml --ask-become-pass"
+alias a_playbook_sudoers="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/sudoers.yml --ask-become-pass"
+alias a_playbook_general="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/general.yml"
 alias a_playbook_pihole="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/pihole.yml"
 alias a_playbook_docker="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/docker.yml"
 alias a_playbook_kubernetes="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/kubernetes.yml"
