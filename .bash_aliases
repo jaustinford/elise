@@ -79,6 +79,10 @@ alias a_playbook_kubernetes="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbook
 alias a_playbook_k8s_cluster_destroy="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/k8s_cluster_destroy.yml"
 alias a_playbook_k8s_cluster_init="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/k8s_cluster_init.yml"
 alias a_playbook_mount_tvault="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/mount_tvault.yml"
+alias a_playbook_haproxy_present="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/haproxy.yml --extra-vars container_state=present"
+alias a_playbook_haproxy_started="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/haproxy.yml --extra-vars container_state=started"
+alias a_playbook_haproxy_stopped="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/haproxy.yml --extra-vars container_state=stopped"
+alias a_playbook_haproxy_absent="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/haproxy.yml --extra-vars container_state=absent"
 
 # misc
 alias _aliases="vim ${ELISE_ROOT_DIR}/.bash_aliases"

@@ -1,0 +1,15 @@
+- hosts: master_node
+  gather_facts: false
+  become: true
+  tasks:
+    - name: "configure haproxy container - {{ container_state }}"
+      docker_container:
+        image: haproxy:latest
+        name: haproxy
+        state: "{{ container_state }}"
+        ports:
+          - '443:443'
+        network_mode: bridge
+        volumes:
+          - /mnt/tvault/es-labs/haproxy:/usr/local/etc/haproxy
+        restart_policy: unless-stopped

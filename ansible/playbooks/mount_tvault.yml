@@ -1,4 +1,4 @@
-- hosts: worker_nodes
+- hosts: k8s
   become: true
 
   vars_prompt:

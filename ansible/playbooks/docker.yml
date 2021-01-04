@@ -1,4 +1,4 @@
-- hosts: ~(master_node|worker_nodes)
+- hosts: k8s
   become: true
   tasks:
     - name: update-alternatives --set iptables /usr/sbin/iptables-legacy

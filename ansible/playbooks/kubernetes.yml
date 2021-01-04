@@ -30,7 +30,7 @@
         - '10250'
         - '30000:32767'
 
-- hosts: ~(master_node|worker_nodes)
+- hosts: k8s
   become: true
   tasks:
     - name: ensure local resolution
