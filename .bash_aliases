@@ -63,7 +63,11 @@ alias g_diff="git diff"
 # ansible
 alias a_all_ping="ansible all -m ping"
 alias a_all_shell="ansible all -m shell -a"
+alias a_reboot="ansible -m reboot --become --ask-become-pass"
 alias a_playbook_pihole="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/pihole.yml --ask-become-pass"
+alias a_playbook_docker="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/docker.yml --ask-become-pass"
+alias a_playbook_kubernetes="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/kubernetes.yml --ask-become-pass"
+alias a_playbook_mount_tvault="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/mount_tvault.yml --ask-become-pass"
 
 # misc
 alias _aliases="vim ${ELISE_ROOT_DIR}/.bash_aliases"

@@ -1,0 +1,28 @@
+- hosts: worker_nodes
+  become: true
+
+  vars_prompt:
+  - name: tvault_username
+    prompt: enter tvault volume username
+    private: no
+
+  - name: tvault_password
+    prompt: enter tvault volume password
+    private: yes
+
+  tasks:
+  - name: ensure mount path
+    file:
+      path: /mnt/tvault
+      state: directory
+      owner: root
+      group: root
+      mode: 0755
+
+  - name: mount tvault volume
+    mount:
+      fstype: cifs
+      src: //172.16.17.4/tvault
+      opts: username={{ tvault_username }},password={{ tvault_password }},uid=1000,gid=1000
+      path: /mnt/tvault
+      state: mounted
