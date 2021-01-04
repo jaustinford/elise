@@ -14,7 +14,7 @@
         - mkdir -p {{ ansible_env.HOME }}/.kube
         - cp -i /etc/kubernetes/admin.conf {{ ansible_env.HOME }}/.kube/config
         - chown $(id -u):$(id -g) {{ ansible_env.HOME }}/.kube/config
-    
+
     - name: deploy flannel pod network
       shell: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 
@@ -27,11 +27,11 @@
         content: "{{ join_command.stdout_lines[0] }}"
         dest: /tmp/join-command
       delegate_to: localhost
-    
+
     - name: base64 encode new kube config
       shell: cat {{ ansible_env.HOME }}/.kube/config | base64 -w 0
       register: new_kube_config
-    
+
     - name: update kube config in elise.env
       lineinfile:
         path: ../../src/elise.env
@@ -43,7 +43,7 @@
   become: true
   tasks:
     - name: copy the join command to server location
-      copy: 
+      copy:
         src: /tmp/join-command
         dest: /tmp/join-command.sh
         mode: 0777

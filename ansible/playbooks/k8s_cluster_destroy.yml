@@ -6,7 +6,7 @@
       ignore_errors: yes
 
     - name: remove kubernetes and docker binaries
-      apt: 
+      apt:
         name: "{{ packages }}"
         state: absent
         purge: yes
@@ -16,11 +16,11 @@
         update_cache: yes
       vars:
         packages:
-          - kubelet 
-          - kubeadm 
+          - kubelet
+          - kubeadm
           - kubectl
-          - docker-ce 
-          - docker-ce-cli 
+          - docker-ce
+          - docker-ce-cli
           - containerd.io
 
     - name: cleanup
