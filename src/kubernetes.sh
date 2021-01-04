@@ -133,42 +133,6 @@ kube_config () {
     echo "${KUBE_CONFIG_FILE}" | base64 -d > "${ELISE_ROOT_DIR}/.kube/config"
 }
 
-local_k8s_node_resolution () {
-    print_message 'stdout' 'updating /etc/hosts'
-    if [ -z "$(cat /etc/hosts | egrep ^${KUBE_MASTER_NODE_ADDRESS})" ]; then
-        echo "${KUBE_MASTER_NODE_ADDRESS}    ${KUBE_MASTER_NODE_HOSTNAME}" >> /etc/hosts
-
-    fi
-    if [ -z "$(cat /etc/hosts | egrep ^${KUBE_WORKER_NODE_0_ADDRESS})" ]; then
-        echo "${KUBE_WORKER_NODE_0_ADDRESS}     ${KUBE_WORKER_NODE_0_HOSTNAME}" >> /etc/hosts
-
-    fi
-    if [ -z "$(cat /etc/hosts | egrep ^${KUBE_WORKER_NODE_1_ADDRESS})" ]; then
-        echo "${KUBE_WORKER_NODE_1_ADDRESS}     ${KUBE_WORKER_NODE_1_HOSTNAME}" >> /etc/hosts
-
-    fi
-}
-
-copy_new_kube_config () {
-    if [ ! -f "${HOME}/.kube/config" ]; then
-        print_message 'stdout' 'copying config'
-        mkdir -p "${HOME}/.kube"
-        cp -i /etc/kubernetes/admin.conf "${HOME}/.kube/config"
-        chown -R "$1":"$1" "${HOME}/.kube"
-
-    fi
-}
-
-download_kubectl () {
-    if [ ! -f '/usr/local/bin/kubectl' ]; then
-        print_message 'stdout' 'downloading kubectl'
-        curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
-        chmod +x ./kubectl
-        mv ./kubectl /usr/local/bin/kubectl
-
-    fi
-}
-
 crash_container () {
     # meant as a way to force kubernetes to restart containers by crashing them internally
     # as opposed to using kubernetes to kill the pod. useful in troubleshooting boot order

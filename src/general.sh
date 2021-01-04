@@ -54,27 +54,3 @@ ensure_root () {
 
     fi
 }
-
-docker_systemd_driver () {
-    if [ -z "$(grep '"log-driver": "json-file",' /etc/docker/daemon.json)" ]; then
-        print_message 'stdout' 'configuring docker systemd driver'
-        mkdir -p /etc/docker 1> /dev/null
-        cat <<EOF > /etc/docker/daemon.json
-{
-  "exec-opts": ["native.cgroupdriver=systemd"],
-  "log-driver": "json-file",
-  "log-opts": {
-    "max-size": "100m"
-  },
-  "storage-driver": "overlay2",
-  "storage-opts": [
-    "overlay2.override_kernel_check=true"
-  ]
-}
-EOF
-        mkdir -p /etc/systemd/system/docker.service.d 1> /dev/null
-        systemctl daemon-reload 1> /dev/null
-        systemctl restart docker 1> /dev/null
-
-    fi
-}

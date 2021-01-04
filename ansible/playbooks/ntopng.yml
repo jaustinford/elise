@@ -1,0 +1,36 @@
+- hosts: netmon
+  become: true
+  tasks:
+    - name: download ntopng repo
+      get_url:
+        url: https://packages.ntop.org/apt/20.04/all/apt-ntop.deb
+        dest: /tmp/apt-ntop.deb
+        mode: 0755
+
+    - name: install ntopng repo
+      apt:
+        deb: /tmp/apt-ntop.deb
+
+    - name: install ntopng packages
+      apt:
+        name: "{{ packages }}"
+        state: present
+        update_cache: yes
+      vars:
+        packages:
+          - nprobe
+          - n2disk
+          - cento
+          - ntopng
+
+    - name: add webroot prefix
+      lineinfile:
+        path: /etc/ntopng/ntopng.conf
+        line: --http-prefix="/ntopng"
+
+    - name: ntopng service
+      service:
+        name: ntopng
+        daemon_reload: yes
+        enabled: yes
+        state: restarted

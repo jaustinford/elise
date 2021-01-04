@@ -9,3 +9,4 @@
       vars:
         packages:
           - net-tools
+          - bc

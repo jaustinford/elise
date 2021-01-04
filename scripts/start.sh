@@ -11,4 +11,5 @@ set -e
 ssh_key
 ssh_client_config
 kube_config
+add_local_dns_search "labs.elysianskies.com"
 check_cluster_from_wan_connectivity '6443'
