@@ -76,6 +76,8 @@ alias a_playbook_pihole="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/pi
 alias a_playbook_ntopng="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/ntopng.yml"
 alias a_playbook_docker="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/docker.yml"
 alias a_playbook_kubernetes="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/kubernetes.yml"
+alias a_playbook_k8s_cluster_destroy="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/k8s_cluster_destroy.yml"
+alias a_playbook_k8s_cluster_init="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/k8s_cluster_init.yml"
 alias a_playbook_mount_tvault="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/mount_tvault.yml"
 
 # misc

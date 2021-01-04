@@ -1,0 +1,63 @@
+- hosts: master_node
+  become: true
+  tasks:
+    - name: initialize kubernetes cluster
+      shell: |
+        kubeadm init \
+          --apiserver-advertise-address="{{ ansible_default_ipv4.address }}" \
+          --pod-network-cidr="10.17.0.0/16" \
+          --apiserver-cert-extra-sans="labs.elysianskies.com"
+
+    - name: setup kubeconfig
+      shell: "{{ item }}"
+      with_items:
+        - mkdir -p {{ ansible_env.HOME }}/.kube
+        - cp -i /etc/kubernetes/admin.conf {{ ansible_env.HOME }}/.kube/config
+        - chown $(id -u):$(id -g) {{ ansible_env.HOME }}/.kube/config
+    
+    - name: deploy flannel pod network
+      shell: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+
+    - name: generate join command
+      shell: kubeadm token create --print-join-command
+      register: join_command
+
+    - name: copy join command to local file
+      copy:
+        content: "{{ join_command.stdout_lines[0] }}"
+        dest: /tmp/join-command
+      delegate_to: localhost
+    
+    - name: base64 encode new kube config
+      shell: cat {{ ansible_env.HOME }}/.kube/config | base64 -w 0
+      register: new_kube_config
+    
+    - name: update kube config in elise.env
+      lineinfile:
+        path: ../../src/elise.env
+        regexp: '^KUBE_CONFIG_FILE='
+        line: KUBE_CONFIG_FILE='{{ new_kube_config.stdout_lines[0] }}'
+      delegate_to: localhost
+
+- hosts: worker_nodes
+  become: true
+  tasks:
+    - name: copy the join command to server location
+      copy: 
+        src: /tmp/join-command
+        dest: /tmp/join-command.sh
+        mode: 0777
+
+    - name: join nodes to cluster
+      shell: "sh /tmp/join-command.sh"
+    
+    - name: cleanup join-command on worker_nodes
+      file:
+        path: /tmp/join-command.sh
+        state: absent
+
+    - name: cleanup join-command on localhost
+      file:
+        path: /tmp/join-command
+        state: absent
+      delegate_to: localhost

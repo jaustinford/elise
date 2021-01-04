@@ -1,116 +1,118 @@
 - hosts: master_node
   become: true
   tasks:
-  - name: enable cgroups
-    shell: echo 'dwc_otg.lpm_enable=0 console=tty1 root=LABEL=writable rootfstype=ext4 elevator=deadline rootwait fixrtc quiet splash cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory' > /boot/firmware/cmdline.txt
+    - name: enable cgroups
+      shell: echo 'dwc_otg.lpm_enable=0 console=tty1 root=LABEL=writable rootfstype=ext4 elevator=deadline rootwait fixrtc quiet splash cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory' > /boot/firmware/cmdline.txt
 
-  - name: Kubernetes Iptables - master node
-    iptables:
-      chain: INPUT
-      protocol: tcp
-      jump: ACCEPT
-      destination_port: "{{ item }}"
-    with_items:
-      - '6443'
-      - '2379:2380'
-      - '10250'
-      - '10251'
-      - '10252'
+    - name: kubernetes iptables - master node
+      iptables:
+        chain: INPUT
+        protocol: tcp
+        jump: ACCEPT
+        destination_port: "{{ item }}"
+      with_items:
+        - '6443'
+        - '2379:2380'
+        - '10250'
+        - '10251'
+        - '10252'
 
 - hosts: worker_nodes
   become: true
   tasks:
-  - name: Kubernetes Iptables - worker nodes
-    iptables:
-      chain: INPUT
-      protocol: tcp
-      jump: ACCEPT
-      destination_port: "{{ item }}"
-    with_items:
-      - '10250'
-      - '30000:32767'
+    - name: kubernetes iptables - worker nodes
+      iptables:
+        chain: INPUT
+        protocol: tcp
+        jump: ACCEPT
+        destination_port: "{{ item }}"
+      with_items:
+        - '10250'
+        - '30000:32767'
 
 - hosts: ~(master_node|worker_nodes)
   become: true
   tasks:
-  - name: ensure local resolution
-    lineinfile:
-      path: /etc/hosts
-      line: "{{ item }}"
-    with_items:
-      - 172.16.17.20    kube00.labs.elysianskies.com
-      - 172.16.17.6     kube01.labs.elysianskies.com
-      - 172.16.17.7     kube02.labs.elysianskies.com
+    - name: ensure local resolution
+      lineinfile:
+        path: /etc/hosts
+        line: "{{ item }}"
+      with_items:
+        - 172.16.17.20    kube00.labs.elysianskies.com
+        - 172.16.17.6     kube01.labs.elysianskies.com
+        - 172.16.17.7     kube02.labs.elysianskies.com
 
-  - name: Remove swapfile from /etc/fstab
-    mount:
-      name: "{{ item }}"
-      fstype: swap
-      state: absent
-    with_items:
-      - swap
-      - none
+    - name: remove swapfile from /etc/fstab
+      mount:
+        name: "{{ item }}"
+        fstype: swap
+        state: absent
+      with_items:
+        - swap
+        - none
 
-  - name: Disable swap
-    command: swapoff -a
-    when: ansible_swaptotal_mb > 0
+    - name: disable swap
+      command: swapoff -a
+      when: ansible_swaptotal_mb > 0
 
-  - name: enable modules
-    modprobe:
-      name: "{{ item }}"
-      state: present
-    with_items:
-      - overlay
-      - br_netfilter
-  
-  - name: Letting iptables see bridged traffic
-    sysctl:
-      name: "{{ item }}"
-      value: '1'
-      state: present
-    with_items:
-      - net.bridge.bridge-nf-call-iptables
-      - net.bridge.bridge-nf-call-ip6tables
+    - name: enable modules
+      modprobe:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - overlay
+        - br_netfilter
 
-  - name: Add an apt signing key for Kubernetes
-    apt_key:
-      url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
-      state: present
+    - name: letting iptables see bridged traffic
+      sysctl:
+        name: "{{ item }}"
+        value: '1'
+        state: present
+      with_items:
+        - net.bridge.bridge-nf-call-iptables
+        - net.bridge.bridge-nf-call-ip6tables
 
-  - name: Adding apt repository for Kubernetes
-    apt_repository:
-      repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
-      state: present
-      filename: kubernetes.list
+    - name: add an apt signing key for kubernetes
+      apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        state: present
 
-  - name: Install Kubernetes binaries
-    apt: 
-      name: "{{ packages }}"
-      state: present
-      update_cache: yes
-    vars:
-      packages:
-        - kubelet 
-        - kubeadm 
-        - kubectl
-        - open-iscsi
+    - name: adding apt repository for kubernetes
+      apt_repository:
+        repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+        state: present
+        update_cache: yes
+        filename: kubernetes.list
 
-  - name: ensure /etc/default/kubelet
-    file:
-      path: /etc/default/kubelet
-      state: touch
-      owner: root
-      group: root
-      mode: 0644
 
-  - name: Configure node ip
-    lineinfile:
-      path: /etc/default/kubelet
-      line: KUBELET_EXTRA_ARGS=--node-ip={{ ansible_default_ipv4.address }}
+    - name: install kubernetes binaries
+      apt:
+        name: "{{ packages }}"
+        state: present
+        update_cache: yes
+      vars:
+        packages:
+          - kubelet
+          - kubeadm
+          - kubectl
+          - open-iscsi
 
-  - name: Restart kubelet
-    service:
-      name: kubelet
-      daemon_reload: yes
-      enabled: yes
-      state: restarted
+    - name: ensure /etc/default/kubelet
+      file:
+        path: /etc/default/kubelet
+        state: touch
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: configure node ip
+      lineinfile:
+        path: /etc/default/kubelet
+        line: KUBELET_EXTRA_ARGS=--node-ip={{ ansible_default_ipv4.address }}
+
+    - name: restart kubelet
+      service:
+        name: kubelet
+        daemon_reload: yes
+        enabled: yes
+        state: restarted
