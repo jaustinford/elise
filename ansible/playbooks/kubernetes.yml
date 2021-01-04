@@ -84,7 +84,6 @@
         update_cache: yes
         filename: kubernetes.list
 
-
     - name: install kubernetes binaries
       apt:
         name: "{{ packages }}"
