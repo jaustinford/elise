@@ -1,10 +1,14 @@
-- hosts: k8s
+- hosts: "~(netmon|k8s)"
   gather_facts: false
   become: true
-  tasks:
-    - name: update-alternatives --set iptables /usr/sbin/iptables-legacy
-      shell: update-alternatives --set iptables /usr/sbin/iptables-legacy
+  handlers:
+    - name: systemctl restart docker
+      systemd:
+        name: docker
+        state: restarted
+        daemon_reload: yes
 
+  tasks:
     - name: install packages that allow apt to be used over https
       apt:
         name: "{{ packages }}"
@@ -39,6 +43,7 @@
           - docker-ce
           - docker-ce-cli
           - containerd.io
+      notify: systemctl restart docker
 
     - name: configure docker cgroup driver
       copy:
@@ -47,9 +52,33 @@
         owner: root
         group: root
         mode: 0644
+      notify: systemctl restart docker
 
-    - name: restart docker
+    - name: configure docker service
       service:
         name: docker
-        daemon_reload: yes
-        state: restarted
+        enabled: yes
+        state: started
+
+- hosts: "~(netmon|master_node)"
+  gather_facts: false
+  become: true
+  tasks:
+    # needed so ansible can deploy containers
+    # via the docker_container module
+    - name: install apt packages
+      apt:
+        name: "{{ packages }}"
+        state: present
+        update_cache: yes
+      vars:
+        packages:
+          - python3-pip
+
+    - name: install python packages
+      pip:
+        name: "{{ packages }}"
+        executable: pip3
+      vars:
+        packages:
+          - docker

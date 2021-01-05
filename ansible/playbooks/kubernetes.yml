@@ -4,6 +4,9 @@
     - name: enable cgroups
       shell: echo 'dwc_otg.lpm_enable=0 console=tty1 root=LABEL=writable rootfstype=ext4 elevator=deadline rootwait fixrtc quiet splash cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory' > /boot/firmware/cmdline.txt
 
+    - name: update-alternatives --set iptables /usr/sbin/iptables-legacy
+      shell: update-alternatives --set iptables /usr/sbin/iptables-legacy
+
     - name: kubernetes iptables - master node
       iptables:
         chain: INPUT
@@ -16,25 +19,6 @@
         - '10250'
         - '10251'
         - '10252'
-
-    # needed so ansible can deploy haproxy
-    # via the docker_container module
-    - name: install apt packages
-      apt:
-        name: "{{ packages }}"
-        state: present
-        update_cache: yes
-      vars:
-        packages:
-          - python3-pip
-
-    - name: install python packages
-      pip:
-        name: "{{ packages }}"
-        executable: pip3
-      vars:
-        packages:
-          - docker
 
 - hosts: worker_nodes
   become: true
@@ -51,6 +35,13 @@
 
 - hosts: k8s
   become: true
+  handlers:
+    - name: systemctl restart kubelet
+      systemd:
+        name: kubelet
+        state: restarted
+        daemon_reload: yes
+
   tasks:
     - name: ensure local resolution
       lineinfile:
@@ -122,15 +113,16 @@
         owner: root
         group: root
         mode: 0644
+      notify: systemctl restart kubelet
 
     - name: configure node ip
       lineinfile:
         path: /etc/default/kubelet
         line: KUBELET_EXTRA_ARGS=--node-ip={{ ansible_default_ipv4.address }}
+      notify: systemctl restart kubelet
 
-    - name: restart kubelet
+    - name: configure kubelet service
       service:
         name: kubelet
-        daemon_reload: yes
         enabled: yes
-        state: restarted
+        state: started
