@@ -15,9 +15,9 @@
       file:
         path: /etc/pihole
         state: directory
-        owner: root
-        group: root
-        mode: 0755
+        owner: pihole
+        group: pihole
+        mode: 0775
 
     - name: copy pihole configurations
       copy:
@@ -40,4 +40,10 @@
 
     - name: install pihole
       shell: "/tmp/install-pihole.sh --unattended"
+      when: install_state.stdout_lines == ""
+
+    - name: cleanup installer
+      file:
+        path: /tmp/install-pihole.sh
+        state: absent
       when: install_state.stdout_lines == ""
