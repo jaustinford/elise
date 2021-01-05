@@ -1,0 +1,9 @@
+- hosts: watchers
+  gather_facts: false
+  become: true
+  tasks:
+    - name: kill all rtsp streams
+      shell: |
+        for pid in $(/bin/pidof v4l2rtspserver); do \
+            kill -9 $pid; \
+        done

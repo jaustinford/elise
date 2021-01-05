@@ -84,6 +84,8 @@ alias a_playbook_haproxy_present="ansible-playbook ${ELISE_ROOT_DIR}/ansible/pla
 alias a_playbook_haproxy_started="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/haproxy.yml --extra-vars container_state=started"
 alias a_playbook_haproxy_stopped="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/haproxy.yml --extra-vars container_state=stopped"
 alias a_playbook_haproxy_absent="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/haproxy.yml --extra-vars container_state=absent"
+alias a_playbook_watchers_start="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/watchers_start.yml"
+alias a_playbook_watchers_stop="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/watchers_stop.yml"
 
 # misc
 alias _aliases="vim ${ELISE_ROOT_DIR}/.bash_aliases"
