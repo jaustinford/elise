@@ -1,4 +1,4 @@
-- hosts: "~(netmon|k8s)"
+- hosts: k8s
   gather_facts: false
   become: true
   handlers:
@@ -60,7 +60,7 @@
         enabled: yes
         state: started
 
-- hosts: "~(netmon|master_node)"
+- hosts: master_node
   gather_facts: false
   become: true
   tasks:
