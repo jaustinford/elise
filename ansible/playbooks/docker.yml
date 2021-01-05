@@ -1,4 +1,5 @@
 - hosts: k8s
+  gather_facts: false
   become: true
   tasks:
     - name: update-alternatives --set iptables /usr/sbin/iptables-legacy

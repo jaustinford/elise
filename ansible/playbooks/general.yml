@@ -1,4 +1,5 @@
 - hosts: ubuntu
+  gather_facts: false
   become: true
   tasks:
     - name: install apt packages
@@ -10,12 +11,4 @@
         packages:
           - net-tools
           - bc
-          - python3-pip
-
-    - name: install python packages
-      pip:
-        name: "{{ packages }}"
-        executable: pip3
-      vars:
-        packages:
-          - docker
+          - htop

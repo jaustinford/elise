@@ -1,4 +1,5 @@
 - hosts: ubuntu
+  gather_facts: false
   become: true
   tasks:
     - name: copy sudoers

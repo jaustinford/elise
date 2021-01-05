@@ -1,4 +1,5 @@
 - hosts: netmon
+  gather_facts: false
   become: true
   tasks:
     - name: download ntopng repo

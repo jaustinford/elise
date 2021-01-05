@@ -1,4 +1,5 @@
 - hosts: pihole
+  gather_facts: false
   become: true
   tasks:
   - name: download pihole installer
