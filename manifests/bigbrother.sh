@@ -43,8 +43,6 @@ spec:
         env:
         - name:  TZ
           value: "${DOCKER_TIMEZONE}"
-        - name: SHMEM
-          value: "${BIGBROTHER_SHARED_MEMORY}"
         - name: PUID
           value: "99"
         - name: PGID
