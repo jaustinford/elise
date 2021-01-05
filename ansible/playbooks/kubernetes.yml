@@ -62,7 +62,7 @@
         - none
 
     - name: disable swap
-      command: swapoff -a
+      shell: swapoff -a
       when: ansible_swaptotal_mb > 0
 
     - name: enable modules
