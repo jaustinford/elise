@@ -1,37 +1,43 @@
 - hosts: pihole
   gather_facts: false
   become: true
+  handlers:
+    - name: pihole restartdns reload
+      shell: pihole restartdns reload
+
   tasks:
-  - name: download pihole installer
-    get_url:
-      url: https://install.pi-hole.net
-      dest: /tmp/install-pihole.sh
-      mode: 0755
+    - name: check if pihole is already installed
+      shell: which pihole
+      register: install_state
+      ignore_errors: true
 
-  - name: ensure pihole configuration directory
-    file:
-      path: /etc/pihole
-      state: directory
-      owner: root
-      group: root
-      mode: 0755
-    become: yes
+    - name: ensure pihole configuration directory
+      file:
+        path: /etc/pihole
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
 
-  - name: copy pihole configurations
-    copy:
-      src: ../../files/pihole/{{ item }}
-      dest: /etc/pihole/{{ item }}
-      owner: root
-      group: root
-      mode: 0644
-    become: yes
-    with_items:
-      - setupVars.conf
-      - custom.list
+    - name: copy pihole configurations
+      copy:
+        src: ../../files/pihole/{{ item }}
+        dest: /etc/pihole/{{ item }}
+        owner: root
+        group: root
+        mode: 0644
+      with_items:
+        - setupVars.conf
+        - custom.list
+      notify: pihole restartdns reload
 
-  - name: install pihole
-    shell: "/tmp/install-pihole.sh --unattended"
-    become: yes
-    register: result
+    - name: download pihole installer
+      get_url:
+        url: https://install.pi-hole.net
+        dest: /tmp/install-pihole.sh
+        mode: 0755
+      when: install_state.stdout_lines == ""
 
-  - debug: var=result.stdout_lines
+    - name: install pihole
+      shell: "/tmp/install-pihole.sh --unattended"
+      when: install_state.stdout_lines == ""
