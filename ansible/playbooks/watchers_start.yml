@@ -10,7 +10,7 @@
       private: yes
 
   tasks:
-    - name: configure webcams
+    - name: configure webcams - watcher01.labs.elysianskies.com
       shell: |
         v4l2-ctl -d {{ item }} --set-ctrl=led1_mode=0
         v4l2-ctl -d {{ item }} --set-ctrl=sharpness=255
@@ -22,7 +22,7 @@
       when:
         - ansible_fqdn == "watcher01.labs.elysianskies.com"
 
-    - name: start rtsp streams
+    - name: start rtsp streams - watcher01.labs.elysianskies.com
       shell: |
         nohup v4l2rtspserver \
           -P {{ item.port }} -p {{ item.port }} \
@@ -44,7 +44,7 @@
       when:
         - ansible_fqdn == "watcher01.labs.elysianskies.com"
 
-    - name: configure webcams
+    - name: configure webcams - watcher02.labs.elysianskies.com
       shell: |
         v4l2-ctl -d {{ item }} --set-ctrl=led1_mode=0
         v4l2-ctl -d {{ item }} --set-ctrl=sharpness=255
@@ -56,7 +56,7 @@
       when:
         - ansible_fqdn == "watcher02.labs.elysianskies.com"
 
-    - name: start rtsp streams
+    - name: start rtsp streams - watcher02.labs.elysianskies.com
       shell: |
         nohup v4l2rtspserver \
           -P {{ item.port }} -p {{ item.port }} \
