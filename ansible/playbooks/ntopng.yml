@@ -3,6 +3,7 @@
   become: true
   tasks:
     - name: configure ntopng container
+      docker_container:
         image: ntop/ntopng:stable
         name: ntopng
         state: started
