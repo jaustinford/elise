@@ -47,7 +47,7 @@
 
     - name: configure docker cgroup driver
       copy:
-        src: ../files/daemon.json
+        src: ../../files/docker/daemon.json
         dest: /etc/docker/daemon.json
         owner: root
         group: root

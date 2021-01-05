@@ -19,7 +19,7 @@
 
   - name: copy pihole configurations
     copy:
-      src: ../files/{{ item }}
+      src: ../../files/pihole/{{ item }}
       dest: /etc/pihole/{{ item }}
       owner: root
       group: root
