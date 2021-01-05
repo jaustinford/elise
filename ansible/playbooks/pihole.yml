@@ -36,14 +36,7 @@
         url: https://install.pi-hole.net
         dest: /tmp/install-pihole.sh
         mode: 0755
-      when: install_state.stdout_lines == ""
 
     - name: install pihole
       shell: "/tmp/install-pihole.sh --unattended"
-      when: install_state.stdout_lines == ""
-
-    - name: cleanup installer
-      file:
-        path: /tmp/install-pihole.sh
-        state: absent
       when: install_state.stdout_lines == ""
