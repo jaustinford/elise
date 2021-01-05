@@ -1,18 +1,51 @@
 - hosts: netmon
   gather_facts: false
   become: true
-  tasks:
-    - name: configure ntopng container
-      docker_container:
-        image: ntop/ntopng:stable
+  handlers:
+    - name: systemctl restart ntopng
+      systemd:
         name: ntopng
+        state: restarted
+        daemon_reload: yes
+
+  tasks:
+    - name: download ntopng apt raspbian repo
+      get_url:
+        url: https://packages.ntop.org/RaspberryPI/apt-ntop_1.0.190416-469_all.deb
+        dest: /tmp/apt-ntop_1.0.190416-469_all.deb
+        mode: 0750
+
+    - name: install ntopng repo
+      apt:
+        deb: /tmp/apt-ntop_1.0.190416-469_all.deb
+        state: present
+        update_cache: yes
+
+    - name: install ntopng packages
+      apt:
+        name: "{{ packages }}"
+        state: present
+        update_cache: yes
+      vars:
+        packages:
+          - ntopng
+          - nprobe
+          - n2n
+
+    - name: ensure web root configuration
+      lineinfile:
+        path: /etc/ntopng/ntopng.conf
+        line: --http-prefix="/ntopng"
+      notify: systemctl restart ntopng
+
+    - name: ensure ntopng license
+      copy:
+        content: n2pwoI/o25l8omIUUancRc9EyyX8uLyuSxd0HYV4Yu2090XPZzSIqkG7G7sJe0E3t7t2I4I1Un3ByhTfX4OjS1fc1GhmVwE5inSoe/7kKeLiKzeoV42cQpKYQxJ+zt1RNb/bcMTGDQN41BsgZ0ikXG0j9fDhum7NZppZOxDdFjgg05a0HWcR594+WROq1Ouoox6Zb6HaPpoDsV/N4i6O03OZ2RIE7qy+4YL86QhGWpZlSt/J2CyrvRbkOAPz7wSyaKNX0XxeXu5CmDghnZPLyqP3mi7uQ8cXXFYpt8ctJK3CKf4VaH/9nO8JRUsv1TeumlGtdmQ22/VQ3I3q/bB/Hw==
+        dest: /etc/ntopng.license
+      notify: systemctl restart ntopng
+
+    - name: configure ntopng service
+      systemd:
+        name: ntopng
+        enabled: yes
         state: started
-        ports:
-          - '3000:3000'
-        network_mode: host
-        # volumes:
-        #   - /mnt/tvault/es-labs/haproxy:/usr/local/etc/haproxy
-        restart_policy: unless-stopped
-        interactive: yes
-        tty: yes
-        command: -i eth0

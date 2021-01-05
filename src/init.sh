@@ -7,8 +7,14 @@ ssh_key () {
 ssh_client_config () {
     print_message 'stdout' 'configure client ssh config' '/tmp/id_rsa'
     cat <<EOF > /tmp/ssh_config
-Host netmon kube0* watcher* dns wrkstn *.labs.elysianskies.com
+Host kube0* dns wrkstn
     User ubuntu
+
+Host watcher0*
+    User austin
+
+Host netmon
+    User pi
 
 Host tvault
     User sshd
