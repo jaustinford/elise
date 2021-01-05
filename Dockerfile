@@ -18,6 +18,7 @@ RUN \
         bc \
         nmap \
         net-tools \
+        diffutils \
         bind-utils
 
 # ansible
