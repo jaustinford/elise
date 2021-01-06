@@ -1,0 +1,41 @@
+- hosts: watchers
+  become: true
+  tasks:
+    - name: check if v4l2rtspserver is already installed
+      shell: which v4l2rtspserver
+      register: install_state
+      ignore_errors: true
+
+    - name: install v4l2rtspserver dependencies
+      apt:
+        name: "{{ packages }}"
+        state: present
+        update_cache: yes
+      vars:
+        packages:
+          - git
+          - cmake
+
+    - name: clone v4l2rtspserver git repo
+      git:
+        repo: https://github.com/mpromonet/v4l2rtspserver.git
+        dest: /tmp/v4l2rtspserver
+      when: install_state.stdout_lines == ""
+    
+    - name: build and compile v4l2rtspserver
+      shell: |
+        cd /tmp/v4l2rtspserver
+        cmake .
+        make
+        make install
+      when: install_state.stdout_lines == ""
+      
+    - name: install extra v4l2rtspserver
+      apt:
+        name: "{{ packages }}"
+        state: present
+        update_cache: yes
+      vars:
+        packages:
+          - v4l-utils
+          - uvcdynctrl
