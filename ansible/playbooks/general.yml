@@ -13,3 +13,12 @@
           - bc
           - htop
           - vim
+          - cron
+
+    - name: configure general services
+      systemd:
+        name: "{{ item }}"
+        state: started
+        enabled: yes
+      with_items:
+        - cron
