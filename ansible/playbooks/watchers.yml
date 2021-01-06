@@ -21,7 +21,7 @@
         repo: https://github.com/mpromonet/v4l2rtspserver.git
         dest: /tmp/v4l2rtspserver
       when: install_state.stdout_lines == ""
-    
+
     - name: build and compile v4l2rtspserver
       shell: |
         cd /tmp/v4l2rtspserver
@@ -29,7 +29,7 @@
         make
         make install
       when: install_state.stdout_lines == ""
-      
+
     - name: install extra v4l2rtspserver
       apt:
         name: "{{ packages }}"
