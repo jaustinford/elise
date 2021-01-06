@@ -86,6 +86,7 @@ alias a_playbook_sudoers="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/s
 alias a_playbook_watchers="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/watchers.yml"
 alias a_playbook_watchers_start="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/watchers_start.yml"
 alias a_playbook_watchers_stop="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/watchers_stop.yml"
+alias a_playbook_crons="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/crons.yml"
 
 # misc
 alias _aliases="vim ${ELISE_ROOT_DIR}/.bash_aliases"
