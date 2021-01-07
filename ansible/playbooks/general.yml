@@ -22,3 +22,10 @@
         enabled: yes
       with_items:
         - cron
+
+- hosts: rpi
+  gather_facts: false
+  become: true
+  tasks:
+    - name: disable wireless interfaces
+      shell: iwconfig wlan0 txpower off
