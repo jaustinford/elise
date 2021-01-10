@@ -2,7 +2,7 @@
 
 set -e
 
-. "${ELISE_ROOT_DIR}/src/elise.env"
+. "${ELISE_ROOT_DIR}/src/elise.sh"
 
 MODE="$1"
 MANIFEST="$2"

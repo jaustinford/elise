@@ -51,7 +51,7 @@ RUN \
 # source local profile
 RUN ln -s /root/.bash_profile /etc/profile.d/elise_shell.sh
 
-# entrypoint ensures elise.env file exists before /bin/bash
+# entrypoint ensures elise.sh file exists before /bin/bash
 # or container will exit with error
 COPY entrypoint.sh /tmp/entrypoint.sh
 RUN chmod +x /tmp/entrypoint.sh

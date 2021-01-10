@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-. "${ELISE_ROOT_DIR}/src/elise.env"
+. "${ELISE_ROOT_DIR}/src/elise.sh"
 
 cat <<EOF | kubectl "$1" -f -
 ---

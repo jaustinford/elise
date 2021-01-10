@@ -1,4 +1,4 @@
-src/elise.env
+src/elise.sh
 .*_history
 .viminfo
 .python_history

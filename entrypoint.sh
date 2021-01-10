@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ ! -f "${ELISE_ROOT_DIR}/src/elise.env" ]; then
+if [ ! -f "${ELISE_ROOT_DIR}/src/elise.sh" ]; then
     exit 1
 
 fi
