@@ -13,7 +13,6 @@ if [ "$#" -ge 1 ]; then
     if [ "${MODE}" == "start" ]; then
         NAMESPACE="$2"
         APP="$3"
-        check_if_volume_is_mounted "${ISCSI_LOCAL_MOUNT_DIR}"
         kube_start_deployment "${NAMESPACE}" \
             "${APP}" \
             '1'
