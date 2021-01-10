@@ -31,26 +31,3 @@ sed_edit () {
 
     done
 }
-
-find_operating_system () {
-    operating_system=$(cat /etc/os-release \
-        | grep PRETTY_NAME \
-        | cut -d'=' -f2 \
-        | sed 's/"//g')
-}
-
-dont_run_if_inside_docker () {
-    if [ ! -z "$(cat /proc/1/cgroup | grep \/docker\/)" ]; then
-        print_message 'stderr' 'cant run from inside container'
-        exit 1
-
-    fi
-}
-
-ensure_root () {
-    if [ $(whoami) != "root" ]; then
-        print_message 'stderr' 'must be run as root'
-        exit 1
-
-    fi
-}

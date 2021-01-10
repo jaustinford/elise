@@ -4,7 +4,7 @@
 . "${ELISE_ROOT_DIR}/src/colors.sh"
 
 "${ELISE_ROOT_DIR}/scripts/motd.sh"
-"${ELISE_ROOT_DIR}/scripts/start.sh"
+"${ELISE_ROOT_DIR}/scripts/init.sh"
 
 echo -e "\n my name is elise...\n"
 

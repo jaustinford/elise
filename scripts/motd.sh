@@ -8,7 +8,6 @@ interface=$(ifconfig | egrep '^[a-z0-9]' | head -1 | cut -d':' -f1)
 rx=$(ifconfig ${interface} | grep RX\ packets | cut -d'(' -f2 | cut -d')' -f1)
 tx=$(ifconfig ${interface} | grep TX\ packets | cut -d'(' -f2 | cut -d')' -f1)
 
-find_operating_system
 hostname="$(hostname)"
 uptime="$(uptime | awk '{print $3, $4}' | cut -d ',' -f1)"
 date="$(date)"
@@ -28,7 +27,6 @@ echo -e \
  ${SHELL_HOST_PROMPT_CODE} uptime              $ECHO_RESET  ${SHELL_CWD_PROMPT_CODE} $uptime                                 $ECHO_RESET
  ${SHELL_HOST_PROMPT_CODE} date                $ECHO_RESET  ${SHELL_CWD_PROMPT_CODE} $date                                   $ECHO_RESET
  ${SHELL_HOST_PROMPT_CODE} install date        $ECHO_RESET  ${SHELL_CWD_PROMPT_CODE} $install_date                           $ECHO_RESET
- ${SHELL_HOST_PROMPT_CODE} operating system    $ECHO_RESET  ${SHELL_CWD_PROMPT_CODE} $operating_system                       $ECHO_RESET
  ${SHELL_HOST_PROMPT_CODE} cpu                 $ECHO_RESET  ${SHELL_CWD_PROMPT_CODE} $cpu                                    $ECHO_RESET
  ${SHELL_HOST_PROMPT_CODE} total memory        $ECHO_RESET  ${SHELL_CWD_PROMPT_CODE} $total_memory_human                     $ECHO_RESET
  ${SHELL_HOST_PROMPT_CODE} free memory         $ECHO_RESET  ${SHELL_CWD_PROMPT_CODE} $free_memory_percent%                   $ECHO_RESET

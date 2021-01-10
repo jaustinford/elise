@@ -3,10 +3,9 @@
 set -e
 
 . "${ELISE_ROOT_DIR}/src/elise.env"
-. "${ELISE_ROOT_DIR}/src/general.sh"
 . "${ELISE_ROOT_DIR}/src/colors.sh"
+. "${ELISE_ROOT_DIR}/src/general.sh"
 . "${ELISE_ROOT_DIR}/src/kubernetes.sh"
-. "${ELISE_ROOT_DIR}/src/iscsi.sh"
 
 MODE="$1"
 
