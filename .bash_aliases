@@ -6,12 +6,6 @@ alias tree='tree -C'
 alias ls='ls --color '
 
 # kubernetes - general
-alias k_manifest_apply="${ELISE_ROOT_DIR}/scripts/run_manifest.sh apply"
-alias k_manifest_delete="${ELISE_ROOT_DIR}/scripts/run_manifest.sh delete"
-alias k_manifest_diff="${ELISE_ROOT_DIR}/scripts/run_manifest.sh diff"
-alias k_manifest_edit="${ELISE_ROOT_DIR}/scripts/run_manifest.sh edit"
-alias k_manifest_list="ls -m1 ${KUBE_MANIFESTS_DIR} | cut -d'.' -f1"
-
 alias k_start="${ELISE_ROOT_DIR}/scripts/kube_automator.sh start"
 alias k_stop="${ELISE_ROOT_DIR}/scripts/kube_automator.sh stop"
 alias k_restart="${ELISE_ROOT_DIR}/scripts/kube_automator.sh restart"
@@ -26,6 +20,13 @@ alias k_events="${ELISE_ROOT_DIR}/scripts/kube_automator.sh events"
 alias k_display="${ELISE_ROOT_DIR}/scripts/kube_automator.sh display"
 alias k_crash="${ELISE_ROOT_DIR}/scripts/kube_automator.sh crash"
 alias k_watch="watch -n 5 -t -c ${ELISE_ROOT_DIR}/scripts/kube_automator.sh display"
+
+# kubernetes - manifests
+alias k_manifest_apply="${ELISE_ROOT_DIR}/scripts/run_manifest.sh apply"
+alias k_manifest_delete="${ELISE_ROOT_DIR}/scripts/run_manifest.sh delete"
+alias k_manifest_diff="${ELISE_ROOT_DIR}/scripts/run_manifest.sh diff"
+alias k_manifest_edit="${ELISE_ROOT_DIR}/scripts/run_manifest.sh edit"
+alias k_manifest_list="ls -m1 ${KUBE_MANIFESTS_DIR} | cut -d'.' -f1"
 
 # kubernetes - kube-system namespace
 alias k_system_tail="${ELISE_ROOT_DIR}/scripts/kube_automator.sh tail kube-system"
@@ -60,16 +61,6 @@ alias g_reset="git reset --hard"
 alias g_log="git log --patch"
 alias g_diff="git diff"
 
-# ansible - general
-alias a_ping="ansible -m ping"
-alias a_all_shell="ansible all --become -m shell -a"
-alias a_all_reboot="ansible all --become -m reboot"
-alias a_ubuntu_shell="ansible ubuntu --become -m shell -a"
-alias a_ubuntu_reboot="ansible ubuntu --become -m reboot"
-alias a_k8s_shell="ansible k8s --become -m shell -a"
-alias a_reboot="ansible --become -m reboot"
-alias a_k8s_reboot="ansible k8s --become -m reboot"
-
 # ansible - playbooks
 alias a_playbook_docker="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/docker.yml"
 alias a_playbook_general="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/general.yml"
@@ -86,18 +77,12 @@ alias a_playbook_sudoers="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/s
 alias a_playbook_watchers="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/watchers.yml"
 alias a_playbook_watchers_start="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/watchers_start.yml"
 alias a_playbook_watchers_stop="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/watchers_stop.yml"
-alias a_playbook_crons="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/crons.yml"
 
 # misc
-alias _aliases="vim ${ELISE_ROOT_DIR}/.bash_aliases"
 alias _source="source ${ELISE_ROOT_DIR}/.bash_profile"
-alias _scripts="cd ${ELISE_ROOT_DIR}/scripts"
-alias _src="cd ${ELISE_ROOT_DIR}/src"
-alias _manifests="cd ${KUBE_MANIFESTS_DIR}"
-alias _home="cd ~"
+alias _aliases="${EDITOR} ${ELISE_ROOT_DIR}/.bash_aliases"
 alias _vars="${EDITOR} ${ELISE_ROOT_DIR}/src/elise.sh"
 alias _profile="${EDITOR} ${ELISE_ROOT_DIR}/.bash_profile"
-alias _plexspy="${ELISE_ROOT_DIR}/scripts/kube_automator.sh tail eslabs tautulli | egrep 'Session\ [0-9]{1,}\ started'"
 alias _sed_edit="${ELISE_ROOT_DIR}/scripts/sed.sh replace"
 alias _change_vpn_server="${ELISE_ROOT_DIR}/scripts/change_vpn_server.sh change"
 alias youdown="${ELISE_ROOT_DIR}/scripts/youdown.sh"
