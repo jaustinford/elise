@@ -43,7 +43,7 @@ spec:
       - image: plexinc/pms-docker:latest
         name: plexserver
         env:
-        - name:  TZ
+        - name: TZ
           value: "${DOCKER_TIMEZONE}"
         - name: PLEX_CLAIM
           value: "${PLEX_CLAIM}"

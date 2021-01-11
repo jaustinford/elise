@@ -41,7 +41,7 @@ spec:
       - image: dlandon/zoneminder:latest
         name: bigbrother
         env:
-        - name:  TZ
+        - name: TZ
           value: "${DOCKER_TIMEZONE}"
         - name: PUID
           value: "99"

@@ -5,12 +5,12 @@ ssh_key () {
 }
 
 ssh_client_config () {
-    print_message 'stdout' 'configure client ssh config' '/tmp/id_rsa'
+    print_message 'stdout' 'configure client ssh config' '/tmp/ssh_config'
     cat <<EOF > /tmp/ssh_config
-Host kube0* dns wrkstn
+Host kube0* dns
     User ubuntu
 
-Host watcher0*
+Host watcher0* wrkstn
     User austin
 
 Host netmon

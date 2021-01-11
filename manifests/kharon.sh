@@ -157,7 +157,7 @@ spec:
       - image: linuxserver/deluge:latest
         name: deluge
         env:
-        - name:  TZ
+        - name: TZ
           value: "${DOCKER_TIMEZONE}"
         - name: PUID
           value: "1000"

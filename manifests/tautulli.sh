@@ -43,7 +43,7 @@ spec:
       - image: linuxserver/tautulli:latest
         name: tautulli
         env:
-        - name:  TZ
+        - name: TZ
           value: "${DOCKER_TIMEZONE}"
         - name: PUID
           value: "1000"
@@ -74,7 +74,7 @@ spec:
   rules:
   - http:
       paths:
-      - path: /tautulli/
+      - path: /tautulli
         pathType: Prefix
         backend:
           service:
