@@ -16,9 +16,9 @@ spec:
   selector:
     app: tautulli
   ports:
-  - protocol: TCP
-    port: 8181
-    targetPort: 8181
+    - protocol: TCP
+      port: 8181
+      targetPort: 8181
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -40,30 +40,30 @@ spec:
         app: tautulli
     spec:
       containers:
-      - image: linuxserver/tautulli:latest
-        name: tautulli
-        env:
-        - name: TZ
-          value: "${DOCKER_TIMEZONE}"
-        - name: PUID
-          value: "1000"
-        - name: PGID
-          value: "1000"
-        volumeMounts:
-        - name: k8s-vol-tautulli
-          mountPath: /config
+        - image: linuxserver/tautulli:latest
+          name: tautulli
+          env:
+            - name: TZ
+              value: "${DOCKER_TIMEZONE}"
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+          volumeMounts:
+            - name: k8s-vol-tautulli
+              mountPath: /config
       volumes:
-      - name: k8s-vol-tautulli
-        iscsi:
-          targetPortal: 172.16.17.4
-          iqn: iqn.2013-03.com.wdc:elysianskies:k8s-vol-tautulli
-          lun: 0
-          fsType: ext4
-          readOnly: false
-          chapAuthDiscovery: false
-          chapAuthSession: true
-          secretRef:
-             name: tvault-iscsi-chap
+        - name: k8s-vol-tautulli
+          iscsi:
+            targetPortal: 172.16.17.4
+            iqn: iqn.2013-03.com.wdc:elysianskies:k8s-vol-tautulli
+            lun: 0
+            fsType: ext4
+            readOnly: false
+            chapAuthDiscovery: false
+            chapAuthSession: true
+            secretRef:
+              name: tvault-iscsi-chap
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -72,13 +72,13 @@ metadata:
   namespace: eslabs
 spec:
   rules:
-  - http:
-      paths:
-      - path: /tautulli
-        pathType: Prefix
-        backend:
-          service:
-            name: tautulli
-            port:
-              number: 8181
+    - http:
+        paths:
+          - path: /tautulli
+            pathType: Prefix
+            backend:
+              service:
+                name: tautulli
+                port:
+                  number: 8181
 EOF

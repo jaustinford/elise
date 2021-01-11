@@ -3,13 +3,13 @@
   become: true
 
   vars_prompt:
-  - name: tvault_username
-    prompt: enter tvault volume username
-    private: no
+    - name: tvault_username
+      prompt: enter tvault volume username
+      private: no
 
-  - name: tvault_password
-    prompt: enter tvault volume password
-    private: yes
+    - name: tvault_password
+      prompt: enter tvault volume password
+      private: yes
 
   tasks:
   - name: ensure mount path

@@ -14,9 +14,9 @@ spec:
   selector:
     app: kharon
   ports:
-  - protocol: TCP
-    port: 8112
-    targetPort: 8112
+    - protocol: TCP
+      port: 8112
+      targetPort: 8112
 ---
 apiVersion: v1
 kind: Service
@@ -28,10 +28,10 @@ spec:
   selector:
     app: kharon
   ports:
-  - protocol: TCP
-    port: 3128
-    targetPort: 3128
-    nodePort: 30526
+    - protocol: TCP
+      port: 3128
+      targetPort: 3128
+      nodePort: 30526
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -114,74 +114,74 @@ spec:
         app: kharon
     spec:
       containers:
-      - image: dperson/openvpn-client:latest
-        name: expressvpn
-        env:
-        - name: TZ
-          value: "${DOCKER_TIMEZONE}"
-        stdin: true
-        tty: true
-        command: ["/sbin/tini", "--", "/usr/bin/openvpn.sh", "-d"]
-        securityContext:
-          capabilities:
-            add:
-            - NET_ADMIN
-          privileged: true
-        volumeMounts:
-        - name: k8s-vol-tun-dev
-          mountPath: /dev/net/tun
-        - name: kharon-config
-          mountPath: /vpn/vpn.conf
-          subPath: vpn.conf
-        - name: kharon-config
-          mountPath: /vpn/vpn.credentials
-          subPath: vpn.credentials
-      - image: sameersbn/squid:latest
-        name: squid
-        env:
-        - name: TZ
-          value: "${DOCKER_TIMEZONE}"
-        command: ['/bin/bash']
-        args:
-        - '-c'
-        - >
-          /tmp/check-vpn.sh &&
-          /sbin/entrypoint.sh
-        volumeMounts:
-        - name: kharon-config
-          mountPath: /etc/squid/squid.conf
-          subPath: squid.conf
-        - name: kharon-config
-          mountPath: /tmp/check-vpn.sh
-          subPath: check-vpn.sh
-      - image: linuxserver/deluge:latest
-        name: deluge
-        env:
-        - name: TZ
-          value: "${DOCKER_TIMEZONE}"
-        - name: PUID
-          value: "1000"
-        - name: PGID
-          value: "1000"
-        lifecycle:
-          postStart:
-            exec:
-              command: ['/bin/bash', '-c', 'chmod 755 /root']
-        volumeMounts:
-        - name: k8s-vol-deluge-downloads
-          mountPath: /root/Downloads
+        - image: dperson/openvpn-client:latest
+          name: expressvpn
+          env:
+            - name: TZ
+              value: "${DOCKER_TIMEZONE}"
+          stdin: true
+          tty: true
+          command: ["/sbin/tini", "--", "/usr/bin/openvpn.sh", "-d"]
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+            privileged: true
+          volumeMounts:
+            - name: k8s-vol-tun-dev
+              mountPath: /dev/net/tun
+            - name: kharon-config
+              mountPath: /vpn/vpn.conf
+              subPath: vpn.conf
+            - name: kharon-config
+              mountPath: /vpn/vpn.credentials
+              subPath: vpn.credentials
+        - image: sameersbn/squid:latest
+          name: squid
+          env:
+            - name: TZ
+              value: "${DOCKER_TIMEZONE}"
+          command: ['/bin/bash']
+          args:
+            - '-c'
+            - >
+              /tmp/check-vpn.sh &&
+              /sbin/entrypoint.sh
+          volumeMounts:
+            - name: kharon-config
+              mountPath: /etc/squid/squid.conf
+              subPath: squid.conf
+            - name: kharon-config
+              mountPath: /tmp/check-vpn.sh
+              subPath: check-vpn.sh
+        - image: linuxserver/deluge:latest
+          name: deluge
+          env:
+            - name: TZ
+              value: "${DOCKER_TIMEZONE}"
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+          lifecycle:
+            postStart:
+              exec:
+                command: ['/bin/bash', '-c', 'chmod 755 /root']
+          volumeMounts:
+            - name: k8s-vol-deluge-downloads
+              mountPath: /root/Downloads
       volumes:
-      - name: k8s-vol-tun-dev
-        hostPath:
-          path: /dev/net/tun
-          type: CharDevice
-      - name: kharon-config
-        configMap:
-          name: kharon-config-map
-          defaultMode: 0755
-      - name: k8s-vol-deluge-downloads
-        hostPath:
-          path: "${KHARON_DELUGE_DOWNLOAD_DIR}"
+        - name: k8s-vol-tun-dev
+          hostPath:
+            path: /dev/net/tun
+            type: CharDevice
+        - name: kharon-config
+          configMap:
+            name: kharon-config-map
+            defaultMode: 0755
+        - name: k8s-vol-deluge-downloads
+          hostPath:
+            path: "${KHARON_DELUGE_DOWNLOAD_DIR}"
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -200,13 +200,13 @@ metadata:
         sub_filter_once on;
 spec:
   rules:
-  - http:
-      paths:
-      - path: /deluge(/|$)(.*)
-        pathType: Prefix
-        backend:
-          service:
-            name: deluge
-            port:
-              number: 8112
+    - http:
+        paths:
+          - path: /deluge(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: deluge
+                port:
+                  number: 8112
 EOF
