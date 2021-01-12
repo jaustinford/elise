@@ -21,7 +21,7 @@
       shell: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 
     - name: deploy nginx ingress controller
-      shell: kubectl apply -f ../../files/ingress-nginx.yml
+      shell: kubectl apply -f ../../manifests/ingress-nginx.yml
 
     - name: generate join command
       shell: kubeadm token create --print-join-command
