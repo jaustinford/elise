@@ -288,7 +288,6 @@ metadata:
   namespace: ingress-nginx
 spec:
   externalIPs:
-    - 172.16.17.20
     - 172.16.17.6
     - 172.16.17.7
   type: NodePort
@@ -349,7 +348,7 @@ spec:
             - /nginx-ingress-controller
             - --election-id=ingress-controller-leader
             - --ingress-class=nginx
-            - --configmap=$(POD_NAMESPACE)/ingress-nginx-controller
+            - --configmap=\$(POD_NAMESPACE)/ingress-nginx-controller
             - --validating-webhook=:8443
             - --validating-webhook-certificate=/usr/local/certificates/cert
             - --validating-webhook-key=/usr/local/certificates/key
@@ -604,8 +603,8 @@ spec:
           imagePullPolicy: IfNotPresent
           args:
             - create
-            - --host=ingress-nginx-controller-admission,ingress-nginx-controller-admission.$(POD_NAMESPACE).svc
-            - --namespace=$(POD_NAMESPACE)
+            - --host=ingress-nginx-controller-admission,ingress-nginx-controller-admission.\$(POD_NAMESPACE).svc
+            - --namespace=\$(POD_NAMESPACE)
             - --secret-name=ingress-nginx-admission
           env:
             - name: POD_NAMESPACE
@@ -653,7 +652,7 @@ spec:
           args:
             - patch
             - --webhook-name=ingress-nginx-admission
-            - --namespace=$(POD_NAMESPACE)
+            - --namespace=\$(POD_NAMESPACE)
             - --patch-mutating=false
             - --secret-name=ingress-nginx-admission
             - --patch-failure-policy=Fail
