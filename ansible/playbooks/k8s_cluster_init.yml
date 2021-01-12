@@ -18,10 +18,10 @@
         - chown $(id -u):$(id -g) {{ ansible_env.HOME }}/.kube/config
 
     - name: deploy flannel pod network
-      shell: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+      shell: /root/manifests/kube-flannel.sh apply
 
     - name: deploy nginx ingress controller
-      shell: kubectl apply -f ../../manifests/ingress-nginx.yml
+      shell: /root/manifests/ingress-nginx.sh apply
 
     - name: generate join command
       shell: kubeadm token create --print-join-command

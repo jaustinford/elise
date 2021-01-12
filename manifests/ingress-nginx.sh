@@ -1,4 +1,9 @@
+#!/usr/bin/env bash
 
+. "${ELISE_ROOT_DIR}/src/elise.sh"
+
+cat <<EOF | kubectl "$1" -f -
+---
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -662,3 +667,4 @@ spec:
       securityContext:
         runAsNonRoot: true
         runAsUser: 2000
+EOF
