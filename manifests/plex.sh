@@ -74,10 +74,6 @@ spec:
           env:
             - name: TZ
               value: "${DOCKER_TIMEZONE}"
-            - name: PUID
-              value: "1000"
-            - name: PGID
-              value: "1000"
           volumeMounts:
             - name: k8s-vol-tautulli
               mountPath: /config
