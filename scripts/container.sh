@@ -15,7 +15,7 @@ elif [ "$1" == 'deploy' ]; then
         --name ${NAME} \
         --network=host \
         --privileged \
-        --env TZ="${DOCKER_TIMEZONE}" \
+        --env TZ=${DOCKER_TIMEZONE} \
         --env ELISE_ROOT_DIR='/root' \
         --volume ${ELISE_ROOT_DIR}:/root:rw \
         ${NAME}:${VERSION}
