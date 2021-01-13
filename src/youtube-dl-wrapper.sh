@@ -1,10 +1,10 @@
-grab_download_name() {
+grab_download_name () {
     curl -L $1 -so - \
         | grep -iPo '(?<=<title>)(.*)(?=</title>)' \
         | sed -E 's/ - YouTube$//g'
 }
 
-download_file() {
+download_file () {
     if [ "$1" == "audio" ]; then
         youtube-dl \
             --prefer-ffmpeg \

@@ -12,7 +12,7 @@ find_remote_git_project () {
         | cut -d":" -f2)
 }
 
-git_add() {
+git_add () {
     git add --all . 1> /dev/null
 }
 
