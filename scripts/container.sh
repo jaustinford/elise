@@ -5,6 +5,18 @@
 NAME='elise'
 VERSION='1.0'
 
+if [ "${MSYSTEM}" == 'MINGW64' ]; then
+    ROOT_MOUNT_PATH='//root'
+    ROOT_VOLUME="/${ELISE_ROOT_DIR}://root"
+    SHELL_CMD="winpty docker exec -it ${NAME} //bin/bash"
+
+else
+    ROOT_MOUNT_PATH='/root'
+    ROOT_VOLUME="${ELISE_ROOT_DIR}:/root"
+    SHELL_CMD="docker exec -it ${NAME} /bin/bash"
+
+fi
+
 if [ "$1" == 'build' ]; then
     docker build ${ELISE_ROOT_DIR} -t ${NAME}:${VERSION}
 
@@ -16,11 +28,11 @@ elif [ "$1" == 'deploy' ]; then
         --network=host \
         --privileged \
         --env TZ=${DOCKER_TIMEZONE} \
-        --env ELISE_ROOT_DIR='/root' \
-        --volume ${ELISE_ROOT_DIR}:/root:rw \
+        --env ELISE_ROOT_DIR=${ROOT_MOUNT_PATH} \
+        --volume ${ROOT_VOLUME}:rw \
         ${NAME}:${VERSION}
 
-    docker exec -it ${NAME} /bin/bash
+    ${SHELL_CMD}
 
 elif [ "$1" == 'start' ]; then
     docker start ${NAME}
@@ -38,6 +50,6 @@ elif [ "$1" == 'destroy' ]; then
     docker rmi ${NAME}:${VERSION}
 
 elif [ "$1" == 'shell' ]; then
-    docker exec -it ${NAME} /bin/bash
+    ${SHELL_CMD}
 
 fi
