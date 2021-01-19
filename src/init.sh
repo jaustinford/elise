@@ -10,7 +10,7 @@ ssh_client_config () {
 Host kube0* dns
     User ubuntu
 
-Host watcher0* wrkstn
+Host watcher0* eva
     User austin
 
 Host netmon
