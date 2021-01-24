@@ -13,7 +13,7 @@ total_memory=$(free | grep Mem | awk '{print $2}')
 total_memory_human=$(free -h | grep Mem | awk '{print $2}')
 free_memory=$(free | grep Mem | awk '{print $7}')
 free_memory_percent=$(echo "$free_memory/$total_memory*100" | bc -l | egrep -o '[0-9]{2}[.][0-9]{2}')
-root_partition_used=$(df -H | egrep '/$' | awk '{print $5}')
+root_partition_used=$(df -H | egrep '/root$' | awk '{print $5}')
 
 echo -e \
 "
