@@ -39,6 +39,7 @@ spec:
     spec:
       containers:
         - image: dlandon/zoneminder:latest
+          imagePullPolicy: IfNotPresent
           name: bigbrother
           env:
             - name: TZ
