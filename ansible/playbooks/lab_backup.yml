@@ -1,0 +1,72 @@
+- hosts: kube02.labs.elysianskies.com
+  gather_facts: false
+  become: true
+  vars:
+    ELISE_ROOT_DIR: /tmp/lab_backup
+
+  environment:
+    ELISE_ROOT_DIR: "{{ ELISE_ROOT_DIR }}"
+
+  handlers:
+    - name: systemctl restart cron
+      systemd:
+        name: cron
+        state: restarted
+        daemon_reload: yes
+
+  tasks:
+    - name: ensure lab_backup dir
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: root
+        group: root
+        mode: 0750
+      when: option == "copy"
+      with_items:
+        - "{{ ELISE_ROOT_DIR }}"
+        - "{{ ELISE_ROOT_DIR }}/src"
+        - "{{ ELISE_ROOT_DIR }}/scripts"
+
+    - name: copy source files
+      copy:
+        src: "../../{{ item }}"
+        dest: "{{ ELISE_ROOT_DIR }}/{{ item }}"
+        owner: root
+        group: root
+        mode: 0750
+      when: option == "copy"
+      with_items:
+        - scripts/lab_backup.sh
+        - src/elise.sh
+        - src/colors.sh
+        - src/general.sh
+        - src/iscsi.sh
+        - src/kubernetes.sh
+
+    - name: copy cronjob
+      copy:
+        src: ../../files/crons/lab_backup.crons
+        dest: /etc/cron.d/lab_backup.crons
+        owner: root
+        group: root
+        mode: 0750
+      notify: systemctl restart cron
+      when: option == "copy"
+
+    - name: execute lab_backup tasks
+      shell: /tmp/lab_backup/scripts/lab_backup.sh
+      register: backup_output
+      when: option == "execute"
+    - debug: var=backup_output.stdout_lines
+
+    - name: remove lab_backup
+      file:
+        path: "{{ item }}"
+        state: absent
+        owner: root
+        group: root
+        mode: 0750
+      when: option == "remove"
+      with_items:
+        - "{{ ELISE_ROOT_DIR }}"

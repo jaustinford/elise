@@ -1,8 +1,47 @@
+ensure_kubeconfig () {
+    if [ ! -f ~/.kube/config ]; then
+        print_message 'stderr' 'missing ~/.kube/config'
+        exit 1
+
+    fi
+}
+
 wait_for_deployment_to_terminate () {
     while [ ! -z "$(kubectl get pods --all-namespaces | grep $1 | egrep '\-[a-z0-9]{1,}\-[a-z0-9]{1,}')" ]; do
         sleep 5
 
     done
+}
+
+check_if_k8s_is_using () {
+    if [ ! -z "$(kubectl describe pod --all-namespaces | egrep "from\ $1\ \(r(w|o)\)")" ]; then
+        print_message 'stderr' 'cant proceed while kubernetes has volume'
+        exit 1
+
+    fi
+}
+
+find_namespace_from_deployment () {
+    namespace=$(kubectl get deployments --all-namespaces \
+        | grep "$1" \
+        | awk '{print $1}')
+}
+
+find_deployments_from_array () {
+    iscsi_backup_volumes=("$@")
+        for vol in "${iscsi_backup_volumes[@]}"; do
+            deployment=$(kubectl describe pods --all-namespaces \
+                | egrep "^Name\:|$vol" \
+                | egrep "$vol\ \(r(o|w)\)$" -B1 \
+                | egrep '^Name\:' \
+                | awk '{print $2}' \
+                | sed -E 's/\-[0-9a-z]{1,}\-[0-9a-z]{1,}$//g')
+
+                attached_deployments+=("$deployment")
+
+        done
+
+        unique_deployments=$(echo "${attached_deployments[@]}" | tr ' ' '\n' | sort -u)
 }
 
 kube_start_deployment () {
@@ -97,9 +136,9 @@ kube_events () {
 }
 
 kube_config () {
-    print_message 'stdout' 'generating kubernetes config' "${ELISE_ROOT_DIR}/.kube/config"
-    mkdir -p "${ELISE_ROOT_DIR}/.kube"
-    echo "${KUBE_CONFIG_FILE}" | base64 -d > "${ELISE_ROOT_DIR}/.kube/config"
+    print_message 'stdout' 'generating kubernetes config' "$1/.kube/config"
+    mkdir -p "$1/.kube"
+    echo "${KUBE_CONFIG_FILE}" | base64 -d > "$1/.kube/config"
 }
 
 crash_container () {

@@ -24,6 +24,14 @@ print_message () {
     fi
 }
 
+ensure_root () {
+    if [ $(whoami) != "root" ]; then
+        print_message 'stderr' 'must be run as root'
+        exit 1
+
+    fi
+}
+
 sed_edit () {
     print_message 'stdout' "switching $1" "$2"
     for file in $(grep -R --exclude-dir=.git "$1" . | cut -d':' -f1); do

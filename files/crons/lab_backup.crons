@@ -1,0 +1,6 @@
+SHELL=/bin/bash
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+MAILTO=root
+ELISE_ROOT_DIR=/tmp/lab_backup
+
+0 4 15 * * root ${ELISE_ROOT_DIR}/scripts/lab_backup.sh &>> /home/austin/backup_cron.log
