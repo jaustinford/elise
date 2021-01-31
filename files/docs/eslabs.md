@@ -45,10 +45,10 @@ elysian skies is a 3-node kubernetes cluster comprising of :
     - networking
         | interface  | description                                                                               | ipv4          | netmask         | gateway       | speed  |
         |------------|-------------------------------------------------------------------------------------------|---------------|-----------------|---------------|--------|
-        | `bond0`    | round robin bond master for : `enp4s0`, `enp1s0f0`, `enp1s0f1`                            | `172.16.17.6` | `255.255.255.0` | `172.16.17.1` | 1 gbps |
-        | `enp4s0`   | Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller |               |                 |               |        |
-        | `enp1s0f0` | Intel Corporation 82571EB/82571GB Gigabit Ethernet Controller                             |               |                 |               |        |
-        | `enp1s0f1` | Intel Corporation 82571EB/82571GB Gigabit Ethernet Controller                             |               |                 |               |        |
+        | `bond0`    | round robin bond master for : `enp4s0`, `enp1s0f0`, `enp1s0f1`                            | `172.16.17.6` | `255.255.255.0` | `172.16.17.1` |        |
+        | `enp4s0`   | Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller |               |                 |               | 1 gbps |
+        | `enp1s0f0` | Intel Corporation 82571EB/82571GB Gigabit Ethernet Controller                             |               |                 |               | 1 gbps |
+        | `enp1s0f1` | Intel Corporation 82571EB/82571GB Gigabit Ethernet Controller                             |               |                 |               | 1 gbps |
 
 2. `kube02.labs.elysianskies.com`
     - specs
@@ -66,10 +66,10 @@ elysian skies is a 3-node kubernetes cluster comprising of :
     - networking
         | interface  | description                                                                               | ipv4          | netmask         | gateway       | speed  |
         |------------|-------------------------------------------------------------------------------------------|---------------|-----------------|---------------|--------|
-        | `bond0`    | round robin bond master for : `enp3s0`, `enp1s0f0`, `enp1s0f1`                            | `172.16.17.7` | `255.255.255.0` | `172.16.17.1` | 1 gbps |
-        | `enp3s0`   | Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller |               |                 |               |        |
-        | `enp1s0f0` | Intel Corporation 82571EB/82571GB Gigabit Ethernet Controller                             |               |                 |               |        |
-        | `enp1s0f1` | Intel Corporation 82571EB/82571GB Gigabit Ethernet Controller                             |               |                 |               |        |
+        | `bond0`    | round robin bond master for : `enp3s0`, `enp1s0f0`, `enp1s0f1`                            | `172.16.17.7` | `255.255.255.0` | `172.16.17.1` |        |
+        | `enp3s0`   | Realtek Semiconductor Co., Ltd. RTL8111/8168/8411 PCI Express Gigabit Ethernet Controller |               |                 |               | 1 gbps |
+        | `enp1s0f0` | Intel Corporation 82571EB/82571GB Gigabit Ethernet Controller                             |               |                 |               | 1 gbps |
+        | `enp1s0f1` | Intel Corporation 82571EB/82571GB Gigabit Ethernet Controller                             |               |                 |               | 1 gbps |
 
 3. `tvault.labs.elysianskies.com`
     - specs
@@ -91,9 +91,9 @@ elysian skies is a 3-node kubernetes cluster comprising of :
     - networking
         | interface | description                                      | ipv4          | netmask         | gateway       | speed  |
         |-----------|--------------------------------------------------|---------------|-----------------|---------------|--------|
-        | `bond0`   | round robin bond master for : `egiga0`, `egiga1` | `172.16.17.4` | `255.255.255.0` | `172.16.17.1` | 1 gbps |
-        | `egiga0`  |                                                  |               |                 |               |        |
-        | `egiga1`  |                                                  |               |                 |               |        |
+        | `bond0`   | round robin bond master for : `egiga0`, `egiga1` | `172.16.17.4` | `255.255.255.0` | `172.16.17.1` |        |
+        | `egiga0`  |                                                  |               |                 |               | 1 gbps |
+        | `egiga1`  |                                                  |               |                 |               | 1 gbps |
  
 4. `kube00.labs.elysianskies.com`
     - specs
