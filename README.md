@@ -84,4 +84,4 @@ git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
 
 ### references
 ---
-- [lab hardware](https://github.com/jaustinford/elise/blob/main/files/docs/eslabs.md)
+- [lab hardware](https://github.com/jaustinford/elise/blob/main/files/docs/hardware.md)
