@@ -37,8 +37,8 @@ export ELISE_ROOT_DIR='/path/to/this/project'
 | SHELL_USER_PROMPT_COLOR       | str  |                                             |        |
 | SHELL_HOST_PROMPT_COLOR       | str  |                                             |        |
 | SHELL_CWD_PROMPT_COLOR        | str  |                                             |        |
-| SHELL_STDERR_COLOR            | str  | `green`                                     |        |
-| SHELL_STDOUT_COLOR            | str  | `red`                                       |        |
+| SHELL_STDERR_COLOR            | str  | `red`                                     |        |
+| SHELL_STDOUT_COLOR            | str  | `green`                                       |        |
 | GITHUB_DEFAULT_COMMIT_MESSAGE | str  |                                             |        |
 | GITHUB_DEFAULT_COMMIT_BRANCH  | str  | `main`                                      |        |
 | ISCSI_CHAP_SESSION_USERNAME   | str  |                                             |        |
