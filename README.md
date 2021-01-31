@@ -1,7 +1,7 @@
 ## elise - eslabs wrapper shell and custom scripts
 <br />
 
-> **NOTE**: if you are using a Windows platform, clone project with Windows CRLF line endings
+> **NOTE** : if you are using a Windows platform, clone project with Windows CRLF line endings
 ```
 git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
 ```
@@ -26,7 +26,9 @@ export ELISE_ROOT_DIR='/path/to/this/project'
 <br />
 
 - ensure bash variables file exists with the following values assigned in it
-> **NOTE**: available color codes : `white`, `blue`, `green`, `cyan`, `red`, `purple`, `yellow`, `darkgray`, `lightgray`
+> **NOTE** : available color codes : `white`, `blue`, `green`, `cyan`, `red`, `purple`, `yellow`, `darkgray`, `lightgray`
+
+> **NOTE** : assign `KHARON_EXPRESSVPN_SERVER` with one of the [expressvpn servers](https://github.com/jaustinford/elise/blob/main/files/expressvpn_servers.txt)
 
 <br />
 
