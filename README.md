@@ -26,8 +26,11 @@ export ELISE_ROOT_DIR='/path/to/this/project'
 <br />
 
 - ensure bash variables file exists with the following values assigned in it
-`${ELISE_ROOT_DIR}/src/elise.sh` :
 > **NOTE**: available color codes : `white`, `blue`, `green`, `cyan`, `red`, `purple`, `yellow`, `darkgray`, `lightgray`
+
+<br />
+
+`${ELISE_ROOT_DIR}/src/elise.sh` :
 
 | name                          | type | default value                              | base64 |
 |-------------------------------|------|--------------------------------------------| -------|
