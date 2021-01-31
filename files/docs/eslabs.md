@@ -1,6 +1,6 @@
 # elysian skies - home kubernetes cluster
 
-<img src="eslabs-front.jpg" width="25%"> <img src="eslabs-back.jpg" width="19.6%"><br />
+<img src="eslabs-front.jpg" width="50%"> <img src="eslabs-back.jpg" width="39.2%"><br />
 *elysian skies lab*
 
 ### general information
