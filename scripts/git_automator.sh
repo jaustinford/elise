@@ -13,8 +13,8 @@ if [ "$#" -ge 1 ]; then
     check_if_anything_to_add
     find_remote_git_project
     count_commits
-    print_message 'stdout' 'username' "${GITHUB_COMMIT_USERNAME}"
-    print_message 'stdout' 'email' "${GITHUB_COMMIT_EMAIL}"
+    print_message 'stdout' 'username' "$(git config -l | egrep ^user.name | cut -d'=' -f2)"
+    print_message 'stdout' 'email' "$(git config -l | egrep ^user.email | cut -d'=' -f2)"
     print_message 'stdout' 'remote url' "$remote_url"
 
     if [ "${MODE}" == "add" ]; then
