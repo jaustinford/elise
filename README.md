@@ -25,7 +25,7 @@ export ELISE_ROOT_DIR='/path/to/elise'
 ```
 
 - ensure bash variables file exists with the following values assigned in it
-<br />
+
 `${ELISE_ROOT_DIR}/src/elise.sh` :
 ```
 SHELL_USER_PROMPT_COLOR
