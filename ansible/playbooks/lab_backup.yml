@@ -62,9 +62,12 @@
 
     - name: remove lab_backup
       file:
-        path: "{{ ELISE_ROOT_DIR }}"
+        path: "{{ item }}"
         state: absent
         owner: root
         group: root
         mode: 0750
       when: option == "remove"
+      with_items:
+        - "{{ ELISE_ROOT_DIR }}"
+        - /root/.kube
