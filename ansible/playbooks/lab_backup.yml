@@ -51,10 +51,7 @@
       when: option == "copy"
 
     - name: generate new remote elise.sh vars
-      shell: |
-        if [ -z "$(egrep ^'{{ item.stdout }}' {{ ELISE_ROOT_DIR }}/src/elise.sh)" ]; then
-            echo '{{ item.stdout }}' >> {{ ELISE_ROOT_DIR }}/src/elise.sh
-        fi
+      shell: echo '{{ item.stdout }}' >> {{ ELISE_ROOT_DIR }}/src/elise.sh
       no_log: true
       when: option == "copy"
       with_items:
