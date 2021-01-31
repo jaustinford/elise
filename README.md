@@ -1,5 +1,4 @@
 ## elise - eslabs wrapper shell and custom scripts
-<br />
 
 ### components
 ---
