@@ -81,13 +81,13 @@ elysian skies is a 3-node kubernetes cluster comprising of :
         | os    | **MyCloud**                                   |
         | role  | **nas**                                       |
     - storage
-        | device     | size      | type | disk           |
-        |------------|-----------|------|----------------|
-        | `/dev/md1` | **12 TB** | raid |                |
-        |            | **4 TB**  | ata  | WD Red Nas HDD |
-        |            | **4 TB**  | ata  | WD Red Nas HDD |
-        |            | **4 TB**  | ata  | WD Red Nas HDD |
-        |            | **4 TB**  | ata  | WD Red Nas HDD |
+        | device     | size      | type  | disk           |
+        |------------|-----------|-------|----------------|
+        | `/dev/md1` | **12 TB** | raid5 |                |
+        |            | **4 TB**  | ata   | WD Red Nas HDD |
+        |            | **4 TB**  | ata   | WD Red Nas HDD |
+        |            | **4 TB**  | ata   | WD Red Nas HDD |
+        |            | **4 TB**  | ata   | WD Red Nas HDD |
     - networking
         | interface | description                                      | ipv4          | netmask         | gateway       | speed  |
         |-----------|--------------------------------------------------|---------------|-----------------|---------------|--------|
