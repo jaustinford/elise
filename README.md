@@ -21,7 +21,7 @@ git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
 
 - export system variable with the location to the project directory
 ```
-export ELISE_ROOT_DIR='/path/to/elise'
+export ELISE_ROOT_DIR='/path/to/this/project'
 ```
 
 - ensure bash variables file exists with the following values assigned in it
