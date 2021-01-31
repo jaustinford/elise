@@ -138,11 +138,13 @@ elysian skies is a 3-node kubernetes cluster comprising of :
         | ram   | **8 GB**                           |
         | os    | **Ubuntu 20.10**                   |
         | role  | **pihole dns server**              |
+
     - storage
 
         | device           | size      | type        | disk        |
         |------------------|-----------|-------------|-------------|
         | `/dev/mmcblk0p2` | **16 GB** | **MicroSD** | **MicroSD** |
+
     - networking
 
         | interface | description                  | ipv4           | netmask         | gateway       | speed  |
