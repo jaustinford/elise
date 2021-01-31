@@ -15,7 +15,6 @@ git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
 - git
 - youtube-dl
 - certbot
-<br />
 
 ### variables
 ---
@@ -63,7 +62,6 @@ export ELISE_ROOT_DIR='/path/to/this/project'
 | LAB_FQDN                      | str  | `labs.elysianskies.com`                    |        |
 | LAB_USER_AUSTIN_SSH_KEY       | str  |                                            | `true` |
 | YOUDOWN_AUDIO_QUALITY         | str  | `320`                                      |        |
-<br />
 
 ### deploy
 ---
