@@ -20,7 +20,7 @@
 - [ntopng traffic monitor](https://labs.elysianskies.com/ntopng/lua/pro/dashboard.lua)
 - [pihole console](https://labs.elysianskies.com/pihole/admin/index.php)
 - [tautulli plex monitor](https://labs.elysianskies.com/tautulli/home)
-- [bigbrother home security](https://labs.elysianskies.com/zm)
+- [bigbrother home security](https://labs.elysianskies.com/zm/)
 - [deluge web torrent server](https://labs.elysianskies.com/deluge)
 
 <br />
