@@ -156,7 +156,9 @@ elysian skies is a 3-node kubernetes cluster comprising of :
         | model | **Netgear GS108Ev3 - 8-Port Gigabit Ethernet Smart Managed Plus Switch** |
         | role  | **managed network switch**                                               |
     - networking
-      <br />*described below*
+        | interface | description | ipv4           | netmask         | gateway       | speed  |
+        |-----------|-------------|----------------|-----------------|---------------|--------|
+        |           |             | `172.16.17.16` | `255.255.255.0` | `172.16.17.1` | 1 gbps |
 
 8. `manswitch02.labs.elysianskies.com`
     - specs
@@ -165,7 +167,9 @@ elysian skies is a 3-node kubernetes cluster comprising of :
         | model | **Netgear GS108Ev3 - 8-Port Gigabit Ethernet Smart Managed Plus Switch** |
         | role  | **managed network switch**    
     - networking
-      <br />*described below*
+        | interface | description | ipv4           | netmask         | gateway       | speed  |
+        |-----------|-------------|----------------|-----------------|---------------|--------|
+        |           |             | `172.16.17.17` | `255.255.255.0` | `172.16.17.1` | 1 gbps |
 
 9. `gw.labs.elysianskies.com`
     - specs
