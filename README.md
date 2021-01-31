@@ -50,7 +50,7 @@ export ELISE_ROOT_DIR='/path/to/this/project'
 | ISCSI_IQN                     | str  |                                             |        |
 | ISCSI_BACKUP_VOLUMES          | list |                                             |        |
 | DOCKER_TIMEZONE               | str  | `America/Denver`                            |        |
-| KUBE_CONFIG_FILE              | str  |                                             |        |
+| KUBE_CONFIG_FILE              | str  |                                             | `true` |
 | KUBE_MANIFESTS_DIR            | str  | `${ELISE_ROOT_DIR}/manifests`               |        |
 | KHARON_EXPRESSVPN_SERVER      | str  | `usa-denver`                                |        |
 | KHARON_EXPRESSVPN_USERNAME    | str  |                                             | `true` |
