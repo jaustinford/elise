@@ -19,12 +19,12 @@ git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
 ### variables
 ---
 
-Export system variable with the location to the project directory
+- export system variable with the location to the project directory
 ```
 export ELISE_ROOT_DIR='/path/to/elise'
 ```
 
-Ensure bash variables file exists with the following values assigned in it
+- ensure bash variables file exists with the following values assigned in it
 <br />
 `${ELISE_ROOT_DIR}/src/elise.sh` :
 ```
@@ -68,7 +68,7 @@ YOUDOWN_AUDIO_QUALITY
 ### deploy
 ---
 
-Build and deploy docker [container](https://github.com/jaustinford/elise/blob/main/scripts/container.sh) then drop into bash shell
+- build and deploy docker [container](https://github.com/jaustinford/elise/blob/main/scripts/container.sh) then drop into bash shell
 ```
 ${ELISE_ROOT_DIR}/scripts/container.sh deploy
 ```
