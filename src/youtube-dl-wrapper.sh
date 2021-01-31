@@ -4,6 +4,13 @@ grab_download_name () {
         | sed -E 's/ - YouTube$//g'
 }
 
+ensure_dropoff () {
+    if [ ! -d "$1" ]; then
+        print_message 'stdout' 'creating dropoff directory' "$1"
+
+    fi
+}
+
 download_file () {
     if [ "$1" == "audio" ]; then
         youtube-dl \

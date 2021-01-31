@@ -10,6 +10,7 @@ DOWNLOAD_DIR="$2"
 DOWNLOAD_URL="$3"
 
 if [ "$#" == 3 ]; then
+    ensure_dropoff '/root/dropoff'
     DOWNLOAD_NAME=$(grab_download_name "${DOWNLOAD_URL}")
 
     download_file \
