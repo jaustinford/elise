@@ -7,7 +7,7 @@ set -eu
 . "${ELISE_ROOT_DIR}/src/general.sh"
 
 OPTION="$1"
-EMAIL="${GITHUB_COMMIT_EMAIL}"
+EMAIL="$(git config -l | egrep ^user.email | cut -d'=' -f2)"
 DOMAIN="${LAB_FQDN}"
 SANS=(
     "kube00"
