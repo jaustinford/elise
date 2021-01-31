@@ -37,14 +37,14 @@ export ELISE_ROOT_DIR='/path/to/this/project'
 | SHELL_USER_PROMPT_COLOR       | str  |                                             |        |
 | SHELL_HOST_PROMPT_COLOR       | str  |                                             |        |
 | SHELL_CWD_PROMPT_COLOR        | str  |                                             |        |
-| SHELL_STDERR_COLOR            | str  | `red`                                     |        |
-| SHELL_STDOUT_COLOR            | str  | `green`                                       |        |
+| SHELL_STDERR_COLOR            | str  | `red`                                       |        |
+| SHELL_STDOUT_COLOR            | str  | `green`                                     |        |
 | GITHUB_DEFAULT_COMMIT_MESSAGE | str  |                                             |        |
 | GITHUB_DEFAULT_COMMIT_BRANCH  | str  | `main`                                      |        |
 | ISCSI_CHAP_SESSION_USERNAME   | str  |                                             |        |
 | ISCSI_CHAP_SESSION_PASSWORD   | str  |                                             |        |
 | ISCSI_CRON_HOST               | str  | `kube02.labs.elysianskies.com`              |        |
-| ISCSI_PORTAL                  | str  |                                             |        |
+| ISCSI_PORTAL                  | str  | `172.16.17.4`                               |        |
 | ISCSI_LOCAL_MOUNT_DIR         | str  | `/mnt/iscsi`                                |        |
 | ISCSI_BACKUP_DIR              | str  | `/mnt/tvault/es-labs/backups/iscsi_volumes` |        |
 | ISCSI_IQN                     | str  |                                             |        |
