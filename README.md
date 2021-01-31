@@ -1,4 +1,10 @@
 ## elise - eslabs wrapper shell and custom scripts
+<br />
+
+> **NOTE**: If you are using a Windows platform, clone project with Windows CRLF line endings
+```
+git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
+```
 
 ### components
 ---
@@ -10,23 +16,16 @@
 - youtube-dl
 - certbot
 
-### cloning
----
-
-> **NOTE**: If you are using a Windows platform, clone project with Windows CRLF line endings
-```
-git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
-```
-
 ### variables
 ---
 
-Export system variable with the location to the project directory:
+Export system variable with the location to the project directory
 ```
 export ELISE_ROOT_DIR='/path/to/elise'
 ```
 
-Ensure bash variables file exists with the following values assigned in it<br />
+Ensure bash variables file exists with the following values assigned in it
+<br />
 `${ELISE_ROOT_DIR}/src/elise.sh` :
 ```
 SHELL_USER_PROMPT_COLOR
@@ -69,7 +68,7 @@ YOUDOWN_AUDIO_QUALITY
 ### installation
 ---
 
+Build and deploy docker container
 ```
-export ELISE_ROOT_DIR='/path/to/elise'
 ${ELISE_ROOT_DIR}/scripts/container.sh deploy
 ```
