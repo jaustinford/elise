@@ -30,6 +30,8 @@ export ELISE_ROOT_DIR='/path/to/this/project'
 
 > **NOTE** : assign `KHARON_EXPRESSVPN_SERVER` with one of the [expressvpn servers](https://github.com/jaustinford/elise/blob/main/files/expressvpn_servers.txt)
 
+> **NOTE** : `base64` must be base64 encoded string
+
 <br />
 
 `${ELISE_ROOT_DIR}/src/elise.sh` :
