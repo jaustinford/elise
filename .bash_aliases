@@ -69,6 +69,9 @@ alias a_playbook_haproxy_stopped="ansible-playbook ${ELISE_ROOT_DIR}/ansible/pla
 alias a_playbook_k8s_cluster_destroy="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/k8s_cluster_destroy.yml"
 alias a_playbook_k8s_cluster_init="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/k8s_cluster_init.yml"
 alias a_playbook_kubernetes="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/kubernetes.yml"
+alias a_playbook_lab_backup_copy="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/lab_backup.yml --extra-vars option=copy"
+alias a_playbook_lab_backup_execute="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/lab_backup.yml --extra-vars option=execute"
+alias a_playbook_lab_backup_remove="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/lab_backup.yml --extra-vars option=remove"
 alias a_playbook_mount_tvault="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/mount_tvault.yml"
 alias a_playbook_ntopng="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/ntopng.yml"
 alias a_playbook_pihole="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/pihole.yml"
@@ -77,9 +80,6 @@ alias a_playbook_sudoers="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/s
 alias a_playbook_watchers="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/watchers.yml"
 alias a_playbook_watchers_start="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/watchers_start.yml"
 alias a_playbook_watchers_stop="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/watchers_stop.yml"
-alias a_playbook_lab_backup_copy="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/lab_backup.yml --extra-vars option=copy"
-alias a_playbook_lab_backup_execute="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/lab_backup.yml --extra-vars option=execute"
-alias a_playbook_lab_backup_remove="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/lab_backup.yml --extra-vars option=remove"
 
 # misc
 alias _source="source ${ELISE_ROOT_DIR}/.bash_profile"
