@@ -1,7 +1,7 @@
 ## elise - eslabs wrapper shell and custom scripts
 <br />
 
-> **NOTE**: If you are using a Windows platform, clone project with Windows CRLF line endings
+> **NOTE**: if you are using a Windows platform, clone project with Windows CRLF line endings
 ```
 git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
 ```
