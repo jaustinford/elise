@@ -51,7 +51,7 @@ export ELISE_ROOT_DIR='/path/to/this/project'
 | ISCSI_PORTAL                  | str  | `172.16.17.4`                               |        |
 | ISCSI_LOCAL_MOUNT_DIR         | str  | `/mnt/iscsi`                                |        |
 | ISCSI_BACKUP_DIR              | str  | `/mnt/tvault/es-labs/backups/iscsi_volumes` |        |
-| ISCSI_IQN                     | str  |                                             |        |
+| ISCSI_IQN                     | str  | `iqn.2013-03.com.wdc:elysianskies`          |        |
 | ISCSI_BACKUP_VOLUMES          | list |                                             |        |
 | DOCKER_TIMEZONE               | str  | `America/Denver`                            |        |
 | KUBE_CONFIG_FILE              | str  |                                             | `true` |
