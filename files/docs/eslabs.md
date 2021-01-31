@@ -31,9 +31,8 @@ elysian skies is a 3-node kubernetes cluster comprising of :
 
 1. `kube01.labs.elysianskies.com`
     - specs
-        |       |                                             |
-        |-------|---------------------------------------------|
         | model | custom                                      |
+        |-------|---------------------------------------------|
         | cpu   | **Intel(R) Core(TM) i3-6100 CPU @ 3.70GHz** |
         | ram   | **32 GB**                                   |
         | os    | **Ubuntu 20.10**                            |
@@ -52,9 +51,8 @@ elysian skies is a 3-node kubernetes cluster comprising of :
 
 2. `kube02.labs.elysianskies.com`
     - specs
-        |       |                                             |
-        |-------|---------------------------------------------|
         | model | custom                                      |
+        |-------|---------------------------------------------|
         | cpu   | **Intel(R) Core(TM) i3-4370 CPU @ 3.80GHz** |
         | ram   | **32 GB**                                   |
         | os    | **Ubuntu 20.10**                            |
@@ -73,9 +71,8 @@ elysian skies is a 3-node kubernetes cluster comprising of :
 
 3. `tvault.labs.elysianskies.com`
     - specs
-        |       |                                               |
-        |-------|-----------------------------------------------|
         | model | **WD MyCloud PR4100**                         |
+        |-------|-----------------------------------------------|
         | cpu   | **Intel(R) Pentium(R) CPU  N3710  @ 1.60GHz** |
         | ram   | **4 GB**                                      |
         | os    | **MyCloud**                                   |
@@ -97,9 +94,8 @@ elysian skies is a 3-node kubernetes cluster comprising of :
  
 4. `kube00.labs.elysianskies.com`
     - specs
-        |       |                                    |
-        |-------|------------------------------------|
         | model | **Raspberry Pi 4 Model B Rev 1.4** |
+        |-------|------------------------------------|
         | cpu   | **Cortex-A72**                     |
         | ram   | **8 GB**                           |
         | os    | **Ubuntu 20.10**                   |
@@ -115,9 +111,8 @@ elysian skies is a 3-node kubernetes cluster comprising of :
 
 5. `dns.labs.elysianskies.com`
     - specs
-        |       |                                    |
-        |-------|------------------------------------|
         | model | **Raspberry Pi 4 Model B Rev 1.4** |
+        |-------|------------------------------------|
         | cpu   | **Cortex-A72**                     |
         | ram   | **8 GB**                           |
         | os    | **Ubuntu 20.10**                   |
@@ -133,9 +128,8 @@ elysian skies is a 3-node kubernetes cluster comprising of :
 
 6. `netmon.labs.elysianskies.com`
     - specs
-        |       |                                    |
-        |-------|------------------------------------|
         | model | **Raspberry Pi 4 Model B Rev 1.4** |
+        |-------|------------------------------------|
         | cpu   | **Cortex-A72**                     |
         | ram   | **8 GB**                           |
         | os    | **Ubuntu 20.10**                   |
@@ -151,9 +145,8 @@ elysian skies is a 3-node kubernetes cluster comprising of :
 
 7. `manswitch01.labs.elysianskies.com`
     - specs
-        |       |                                                                          |
-        |-------|--------------------------------------------------------------------------|
         | model | **Netgear GS108Ev3 - 8-Port Gigabit Ethernet Smart Managed Plus Switch** |
+        |-------|--------------------------------------------------------------------------|
         | role  | **managed network switch**                                               |
     - networking
         | interface | description | ipv4           | netmask         | gateway       | speed  |
@@ -162,9 +155,8 @@ elysian skies is a 3-node kubernetes cluster comprising of :
 
 8. `manswitch02.labs.elysianskies.com`
     - specs
-        |       |                                                                          |
-        |-------|--------------------------------------------------------------------------|
         | model | **Netgear GS108Ev3 - 8-Port Gigabit Ethernet Smart Managed Plus Switch** |
+        |-------|--------------------------------------------------------------------------|
         | role  | **managed network switch**    
     - networking
         | interface | description | ipv4           | netmask         | gateway       | speed  |
@@ -173,9 +165,8 @@ elysian skies is a 3-node kubernetes cluster comprising of :
 
 9. `gw.labs.elysianskies.com`
     - specs
-        |       |                                   |
-        |-------|-----------------------------------|
         | model | **ASUS RT-AC68U Wireless Router** |
+        |-------|-----------------------------------|
         | ram   | **256 MB**                        |
         | role  | **wan router**                    |
     - networking
@@ -189,16 +180,14 @@ elysian skies is a 3-node kubernetes cluster comprising of :
 
 10. 10-port battery backup with surge protection
     - specs
-        |       |                              |
-        |-------|------------------------------|
         | model | **APC UPS 1500VA BR1500MS2** |
+        |-------|------------------------------|
         | role  | **ups**                      |
 
 11. cable modem
     - specs
-        |       |                           |
-        |-------|---------------------------|
         | model | **ASUS CM-16 DOCSIS 3.0** |
+        |-------|---------------------------|
         | role  | **cable modem**           |
 
 <br />
