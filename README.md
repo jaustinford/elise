@@ -65,7 +65,7 @@ LAB_USER_AUSTIN_SSH_KEY
 YOUDOWN_AUDIO_QUALITY
 ```
 
-### installation
+### deploy
 ---
 
 Build and deploy docker container
