@@ -68,7 +68,7 @@ YOUDOWN_AUDIO_QUALITY
 ### deploy
 ---
 
-Build and deploy docker container then drop into bash shell
+Build and deploy docker [container](https://github.com/jaustinford/elise/blob/main/scripts/container.sh) then drop into bash shell
 ```
 ${ELISE_ROOT_DIR}/scripts/container.sh deploy
 ```
