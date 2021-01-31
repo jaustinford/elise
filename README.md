@@ -5,6 +5,9 @@
 - ansible
 - kubectl
 - bash
+- git
+- youtube-dl
+- certbot
 
 ### cloning
 ---
