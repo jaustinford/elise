@@ -58,7 +58,9 @@
       shell: /tmp/lab_backup/scripts/lab_backup.sh
       register: backup_output
       when: option == "execute"
+
     - debug: var=backup_output.stdout_lines
+      when: option == "execute"
 
     - name: remove lab_backup
       file:
