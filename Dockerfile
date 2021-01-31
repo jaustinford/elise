@@ -17,6 +17,7 @@ RUN \
         git \
         bc \
         nmap \
+        jq \
         net-tools \
         diffutils \
         bind-utils
