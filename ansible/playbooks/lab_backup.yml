@@ -28,6 +28,38 @@
         - "{{ ELISE_ROOT_DIR }}/src"
         - "{{ ELISE_ROOT_DIR }}/scripts"
 
+    - name: import lab_backup vars from localhost elise.sh
+      shell: "egrep ^{{ item }} ../../src/elise.sh"
+      register: elise_vars
+      when: option == "copy"
+      delegate_to: localhost
+      with_items:
+        - ISCSI_CHAP_SESSION_USERNAME
+        - ISCSI_CHAP_SESSION_PASSWORD
+        - ISCSI_CRON_HOST
+        - ISCSI_PORTAL
+        - ISCSI_LOCAL_MOUNT_DIR
+        - ISCSI_BACKUP_DIR
+        - ISCSI_IQN
+        - ISCSI_BACKUP_VOLUMES -A6
+        - KUBE_CONFIG_FILE
+
+    - name: reset remote elise.sh vars
+      file:
+        path: "{{ ELISE_ROOT_DIR }}/src/elise.sh"
+        state: absent
+      when: option == "copy"
+
+    - name: generate new remote elise.sh vars
+      shell: |
+        if [ -z "$(egrep ^'{{ item.stdout }}' {{ ELISE_ROOT_DIR }}/src/elise.sh)" ]; then
+            echo '{{ item.stdout }}' >> {{ ELISE_ROOT_DIR }}/src/elise.sh
+        fi
+      no_log: true
+      when: option == "copy"
+      with_items:
+        - "{{ elise_vars.results }}"
+
     - name: copy source files
       copy:
         src: "../../{{ item }}"
@@ -38,7 +70,6 @@
       when: option == "copy"
       with_items:
         - scripts/lab_backup.sh
-        - src/elise.sh
         - src/colors.sh
         - src/general.sh
         - src/iscsi.sh
@@ -55,7 +86,7 @@
       when: option == "copy"
 
     - name: execute lab_backup tasks
-      shell: /tmp/lab_backup/scripts/lab_backup.sh
+      shell: "{{ ELISE_ROOT_DIR }}/scripts/lab_backup.sh"
       register: backup_output
       when: option == "execute"
 
