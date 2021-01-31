@@ -1,19 +1,19 @@
 ## elise - eslabs wrapper shell and custom scripts
 
-### components
+### *components*
 ---
 - ansible
 - kubectl
 - bash
 
-### cloning
+### *cloning*
 ---
 > **NOTE**: If you are using a Windows platform, clone project with Windows CRLF line endings
 ```
 git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
 ```
 
-### installation
+### *installation*
 ---
 ```
 export ELISE_ROOT_DIR='/path/to/elise'
