@@ -27,12 +27,13 @@ export ELISE_ROOT_DIR='/path/to/this/project'
 - ensure bash variables file exists with the following values assigned in it
 
 `${ELISE_ROOT_DIR}/src/elise.sh` :
+> **NOTE**: available *_COLOR options : `white`, `blue`, `green`, `cyan`, `red`, `purple`, `yellow`, `darkgray`, `lightgray`
 
 | name                          | type | default value                  | base64 |
 |-------------------------------|------|--------------------------------| -------|
-| SHELL_USER_PROMPT_COLOR [^1]  | str  |                                |        |
-| SHELL_HOST_PROMPT_COLOR [^1]  | str  |                                |        |
-| SHELL_CWD_PROMPT_COLOR [^1]   | str  |                                |        |
+| SHELL_USER_PROMPT_COLOR       | str  |                                |        |
+| SHELL_HOST_PROMPT_COLOR       | str  |                                |        |
+| SHELL_CWD_PROMPT_COLOR        | str  |                                |        |
 | SHELL_STDERR_COLOR            | str  | `green`                        |        |
 | SHELL_STDOUT_COLOR            | str  | `red`                          |        |
 | GITHUB_DEFAULT_COMMIT_MESSAGE | str  |                                |        |
@@ -62,7 +63,6 @@ export ELISE_ROOT_DIR='/path/to/this/project'
 | LAB_USER_AUSTIN_SSH_KEY       | str  |                                | `true` |
 | YOUDOWN_AUDIO_QUALITY         | str  | `320`                          |        |
 
-[^1]: white blue green cyan red purple yellow darkgray lightgray
 
 ### deploy
 ---
