@@ -37,7 +37,7 @@ export ELISE_ROOT_DIR='/path/to/this/project'
 `${ELISE_ROOT_DIR}/src/elise.sh` :
 
 | name                          | type | default value                               | base64 |
-|-------------------------------|------|---------------------------------------------| -------|
+|-------------------------------|------|---------------------------------------------|--------|
 | SHELL_USER_PROMPT_COLOR       | str  |                                             |        |
 | SHELL_HOST_PROMPT_COLOR       | str  |                                             |        |
 | SHELL_CWD_PROMPT_COLOR        | str  |                                             |        |
