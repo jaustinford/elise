@@ -12,3 +12,4 @@ ssh_key
 ssh_client_config
 kube_config "${ELISE_ROOT_DIR}"
 add_local_dns_search "${LAB_FQDN}"
+greeting

@@ -43,3 +43,19 @@ check_cluster_from_wan_connectivity () {
 
     fi
 }
+
+greeting () {
+    user='austin'
+    chour=$(date | awk '{print $4}' | cut -d':' -f1)
+
+    if [ "$chour" -ge 0 ] && [ "$chour" -lt 12 ]; then
+        echo -e "\n good morning $user \n"
+
+    elif [ "$chour" -ge 12 ] && [ "$chour" -lt 17 ]; then
+        echo -e "\n good afternoon $user \n"
+
+    elif [ "$chour" -ge 17 ] && [ "$chour" -lt 24 ]; then
+        echo -e "\n good evening $user \n"
+
+    fi
+}
