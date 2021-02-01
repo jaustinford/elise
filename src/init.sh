@@ -48,14 +48,13 @@ greeting () {
     user='austin'
     chour=$(date | awk '{print $4}' | cut -d':' -f1)
 
-    if [ "$chour" -ge 0 ] && [ "$chour" -lt 12 ]; then
-        echo -e "\n good morning $user \n"
-
-    elif [ "$chour" -ge 12 ] && [ "$chour" -lt 17 ]; then
-        echo -e "\n good afternoon $user \n"
-
-    elif [ "$chour" -ge 17 ] && [ "$chour" -lt 24 ]; then
-        echo -e "\n good evening $user \n"
-
+    if [ "$chour" -ge 0 ] && [ "$chour" -lt 5 ]; then message='its way past your bed time'
+    elif [ "$chour" -ge 5 ] && [ "$chour" -lt 7 ]; then message='the early bird gets the worm'
+    elif [ "$chour" -ge 7 ] && [ "$chour" -lt 12 ]; then message='good morning'
+    elif [ "$chour" -ge 12 ] && [ "$chour" -lt 17 ]; then message='good afternoon'
+    elif [ "$chour" -ge 17 ] && [ "$chour" -lt 22 ]; then message='good evening'
+    elif [ "$chour" -ge 22 ] && [ "$chour" -lt 24 ]; then message='its getting late'
     fi
+
+    echo -e "\n        [$SHELL_USER_PROMPT_CODE * $ECHO_RESET] $message, $user [$SHELL_USER_PROMPT_CODE * $ECHO_RESET] \n"
 }
