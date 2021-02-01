@@ -78,7 +78,7 @@
         dest: /etc/cron.d/lab_backup
         owner: root
         group: root
-        mode: 0644
+        mode: 0640
       notify: systemctl restart cron
       when: option == "copy"
 
