@@ -41,7 +41,10 @@ sed_edit () {
 }
 
 permissions_and_dos_line_endings () {
-    chmod -R 750 /root
-    chown -R root:root /root
+    print_message 'stdout' 'setting permissions' "$1"
+    chmod -R 750 "$1"
+    chown -R root:root "$1"
+
+    print_message 'stdout' 'convert line endings' "$1"
     find "$1" -type f ! -path "*/.git/*" ! -path "*/.kube/*" -exec dos2unix {} \; &> /dev/null
 }
