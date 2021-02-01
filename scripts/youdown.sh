@@ -6,10 +6,10 @@ set -e
 . "${ELISE_ROOT_DIR}/src/youtube-dl-wrapper.sh"
 
 OPTION="$1"
-DOWNLOAD_DIR="$2"
-DOWNLOAD_URL="$3"
+DOWNLOAD_URL="$2"
+DOWNLOAD_DIR='/root/dropoff'
 
-if [ "$#" == 3 ]; then
+if [ "$#" == 2 ]; then
     ensure_dropoff '/root/dropoff'
     DOWNLOAD_NAME=$(grab_download_name "${DOWNLOAD_URL}")
 
@@ -23,7 +23,7 @@ if [ "$#" == 3 ]; then
 else
     echo \
     "[!] Usage:
-    youdown video /path/to/download/folder https://www.youtube.com/watch?v=xxxxxxxxxxxx
-    youdown audio /path/to/download/folder https://www.youtube.com/watch?v=xxxxxxxxxxxx"
+    youdown video https://www.youtube.com/watch?v=xxxxxxxxxxxx
+    youdown audio https://www.youtube.com/watch?v=xxxxxxxxxxxx"
 
 fi
