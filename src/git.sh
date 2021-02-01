@@ -38,5 +38,5 @@ count_commits () {
 permissions_and_dos_line_endings () {
     chmod -R 750 /root
     chown -R root:root /root
-    find /root -type f ! -path "*/.git/*" ! -path "*/.kube/*" -exec dos2unix {} \; &> /dev/null
+    find "$1" -type f ! -path "*/.git/*" ! -path "*/.kube/*" -exec dos2unix {} \; &> /dev/null
 }

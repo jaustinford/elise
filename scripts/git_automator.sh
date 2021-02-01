@@ -10,7 +10,8 @@ set -e
 MODE="$1"
 
 if [ "$#" -ge 1 ]; then
-    permissions_and_dos_line_endings
+    print_message 'stdout' 'convert permissions and line endings'
+    permissions_and_dos_line_endings '/root'
     check_if_anything_to_add
     find_remote_git_project
     count_commits
