@@ -27,5 +27,4 @@ echo -e \
  ${SHELL_HOST_PROMPT_CODE} total memory        $ECHO_RESET  ${SHELL_CWD_PROMPT_CODE} $total_memory_human                     $ECHO_RESET
  ${SHELL_HOST_PROMPT_CODE} free memory         $ECHO_RESET  ${SHELL_CWD_PROMPT_CODE} $free_memory_percent%                   $ECHO_RESET
  ${SHELL_HOST_PROMPT_CODE} root partition used $ECHO_RESET  ${SHELL_CWD_PROMPT_CODE} $root_partition_used                    $ECHO_RESET
-
 "
