@@ -18,6 +18,7 @@ RUN \
         bc \
         nmap \
         jq \
+        dos2unix \
         net-tools \
         diffutils \
         bind-utils

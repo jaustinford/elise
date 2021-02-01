@@ -74,11 +74,11 @@
 
     - name: copy cronjob
       copy:
-        src: ../../files/crons/lab_backup.crons
-        dest: /etc/cron.d/lab_backup.crons
+        src: ../../files/crons/lab_backup
+        dest: /etc/cron.d/lab_backup
         owner: root
         group: root
-        mode: 0750
+        mode: 0644
       notify: systemctl restart cron
       when: option == "copy"
 
