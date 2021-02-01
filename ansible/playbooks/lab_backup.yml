@@ -72,13 +72,31 @@
         - src/iscsi.sh
         - src/kubernetes.sh
 
-    - name: copy cronjob
-      copy:
-        src: ../../files/crons/lab_backup
-        dest: /etc/cron.d/lab_backup
-        owner: root
-        group: root
-        mode: 0644
+    - name: configure crontab - variables
+      cron:
+        name: "{{ item.name }}"
+        value: "{{ item.value }}"
+        env: yes
+      with_items:
+        - name: SHELL
+          value: /bin/bash
+        - name: PATH
+          value: /sbin:/bin:/usr/sbin:/usr/bin
+        - name: MAILTO
+          value: root
+        - name: ELISE_ROOT_DIR
+          value: "{{ ELISE_ROOT_DIR }}"
+      notify: systemctl restart cron
+      when: option == "copy"
+
+    - name: configure crontab - job
+      cron:
+        name: lab_backup
+        minute: '0'
+        hour: '4'
+        weekday: '3'
+        user: root
+        job: "${ELISE_ROOT_DIR}/scripts/lab_backup.sh >> /mnt/tvault/es-labs/backups/iscsi_volumes/backup_cron.log"
       notify: systemctl restart cron
       when: option == "copy"
 
