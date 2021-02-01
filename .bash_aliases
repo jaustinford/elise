@@ -94,3 +94,4 @@ alias scp='scp -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no'
 alias sed_edit="${ELISE_ROOT_DIR}/scripts/sed.sh replace"
 alias ssh='ssh -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no'
 alias youdown="${ELISE_ROOT_DIR}/scripts/youdown.sh"
+alias linux_the_everything="permissions_and_dos_line_endings ${ELISE_ROOT_DIR}"
