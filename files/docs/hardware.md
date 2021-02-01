@@ -287,9 +287,8 @@ ups power port assignments
 
 > **NOTE** facing back of ups 
 
-|                                       |                                  |
-|---------------------------------------|----------------------------------|
 | * `manswitch02.labs.elysianskies.com` | * `tvault.labs.elysianskies.com` |
+|---------------------------------------|----------------------------------|
 | * `dns.labs.elysianskies.com`         | `netmon.labs.elysianskies.com`   |
 | * `manswitch01.labs.elysianskies.com` | cable modem                      |
 | * `kube00.labs.elysianskies.com`      | `gw.labs.elysianskies.com`       |
