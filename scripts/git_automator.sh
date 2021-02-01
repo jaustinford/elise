@@ -10,7 +10,6 @@ set -e
 MODE="$1"
 
 if [ "$#" -ge 1 ]; then
-    chmod -R 750 /root
     check_if_anything_to_add
     find_remote_git_project
     count_commits
