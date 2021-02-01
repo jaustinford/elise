@@ -285,7 +285,7 @@ lan managed switch ethernet port assignments
 ups power port assignments
 > **NOTE** `*` denotes battery backup port
 
-> **NOTE** facing back of ups 
+> **NOTE** facing back of ups
 
 | * `manswitch02.labs.elysianskies.com` | * `tvault.labs.elysianskies.com` |
 |---------------------------------------|----------------------------------|
