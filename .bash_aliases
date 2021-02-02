@@ -86,12 +86,12 @@ alias _aliases="${EDITOR} ${ELISE_ROOT_DIR}/.bash_aliases"
 alias _profile="${EDITOR} ${ELISE_ROOT_DIR}/.bash_profile"
 alias _source="source ${ELISE_ROOT_DIR}/.bash_profile"
 alias _vars="${EDITOR} ${ELISE_ROOT_DIR}/src/elise.sh"
+alias _lines="${ELISE_ROOT_DIR}/scripts/files.sh lines"
+alias _sed="${ELISE_ROOT_DIR}/scripts/files.sh sed"
 
 # misc
 alias certbot_new="${ELISE_ROOT_DIR}/scripts/certbot.sh new"
 alias change_vpn_server="${ELISE_ROOT_DIR}/scripts/change_vpn_server.sh change"
-alias linux_the_everything="${ELISE_ROOT_DIR}/scripts/files.sh"
 alias scp='scp -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no'
-alias sed_edit="${ELISE_ROOT_DIR}/scripts/sed.sh replace"
 alias ssh='ssh -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no'
 alias youdown="${ELISE_ROOT_DIR}/scripts/youdown.sh"
