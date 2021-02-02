@@ -86,7 +86,7 @@ alias _aliases="${EDITOR} ${ELISE_ROOT_DIR}/.bash_aliases"
 alias _lines="${ELISE_ROOT_DIR}/scripts/files.sh lines"
 alias _profile="${EDITOR} ${ELISE_ROOT_DIR}/.bash_profile"
 alias _sed="${ELISE_ROOT_DIR}/scripts/files.sh sed"
-alias _source="source ${ELISE_ROOT_DIR}/.bash_profile"
+alias _source="clear; source ${ELISE_ROOT_DIR}/.bash_profile"
 alias _vars="${EDITOR} ${ELISE_ROOT_DIR}/src/elise.sh"
 
 # misc

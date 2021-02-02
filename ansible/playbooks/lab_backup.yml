@@ -34,6 +34,11 @@
       when: option == "copy"
       delegate_to: localhost
       with_items:
+        - SHELL_USER_PROMPT_COLOR
+        - SHELL_HOST_PROMPT_COLOR
+        - SHELL_CWD_PROMPT_COLOR
+        - SHELL_STDERR_COLOR
+        - SHELL_STDOUT_COLOR
         - ISCSI_CHAP_SESSION_USERNAME
         - ISCSI_CHAP_SESSION_PASSWORD
         - ISCSI_PORTAL
