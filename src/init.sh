@@ -45,7 +45,6 @@ check_cluster_from_wan_connectivity () {
 }
 
 greeting () {
-    user='austin'
     chour=$(date | awk '{print $4}' | cut -d':' -f1)
 
     if [ "$chour" -ge 0 ] && [ "$chour" -lt 5 ]; then message="it's way past your bed time"
@@ -56,5 +55,5 @@ greeting () {
     elif [ "$chour" -ge 22 ] && [ "$chour" -lt 24 ]; then message="it's getting late"
     fi
 
-    echo -e "          $message$SHELL_USER_PROMPT_CODE $user $ECHO_RESET\n"
+    echo -e "          $message$SHELL_USER_PROMPT_CODE $1 $ECHO_RESET\n"
 }
