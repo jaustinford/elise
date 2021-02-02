@@ -36,10 +36,10 @@
       with_items:
         - ISCSI_CHAP_SESSION_USERNAME
         - ISCSI_CHAP_SESSION_PASSWORD
-        - ISCSI_CRON_HOST
         - ISCSI_PORTAL
         - ISCSI_LOCAL_MOUNT_DIR
         - ISCSI_BACKUP_DIR
+        - ISCSI_BACKUP_ROTATE_DAYS
         - ISCSI_IQN
         - ISCSI_BACKUP_VOLUMES -A6
         - KUBE_CONFIG_FILE

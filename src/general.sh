@@ -48,3 +48,8 @@ permissions_and_dos_line_endings () {
     print_message 'stdout' 'convert line endings' "$1"
     find "$1" -type f ! -path "*/.git/*" ! -path "*/.kube/*" -exec dos2unix {} \; &> /dev/null
 }
+
+rotate_directory () {
+    print_message 'stdout' "rotate '.$3' older than" "$2 days"
+    find "$1" -type f -name \*"$3" -mtime +"$2" -exec rm -f {} \; 1> /dev/null
+}

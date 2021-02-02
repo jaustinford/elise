@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
- set -e
+set -e
 
 . "${ELISE_ROOT_DIR}/src/elise.sh"
 . "${ELISE_ROOT_DIR}/src/colors.sh"
@@ -8,53 +8,47 @@
 . "${ELISE_ROOT_DIR}/src/iscsi.sh"
 . "${ELISE_ROOT_DIR}/src/kubernetes.sh"
 
-if [ "$(hostname)" == "${ISCSI_CRON_HOST}" ]; then
-    ensure_root
-    kube_config '/root'
-    ensure_kubeconfig
-    ensure_iscsi_mountpath "${ISCSI_LOCAL_MOUNT_DIR}"
+print_message 'stdout' 'started' "$(date)"
+print_message 'stdout' 'processing host' "$(hostname)"
 
-    print_message 'stdout' 'started' "$(date)"
-    print_message 'stdout' 'processing host' "$(hostname)"
-    find_deployments_from_array "${ISCSI_BACKUP_VOLUMES[@]}"
+ensure_root
+kube_config '/root'
+ensure_kubeconfig
+ensure_iscsi_mountpath "${ISCSI_LOCAL_MOUNT_DIR}"
+rotate_directory "${ISCSI_BACKUP_DIR}" "${ISCSI_BACKUP_ROTATE_DAYS}" 'tgz'
+find_deployments_from_array "${ISCSI_BACKUP_VOLUMES[@]}"
 
-    for deployment in $unique_deployments; do
-        find_namespace_from_deployment "$deployment"
-        kube_stop_deployment  "$namespace" "$deployment"
+for deployment in $unique_deployments; do
+    find_namespace_from_deployment "$deployment"
+    kube_stop_deployment  "$namespace" "$deployment"
 
-    done
+done
 
-    for deployment in $unique_deployments; do
-        wait_for_deployment_to_terminate "$deployment"
+for deployment in $unique_deployments; do
+    wait_for_deployment_to_terminate "$deployment"
 
-    done
+done
 
-    for volume in "${ISCSI_BACKUP_VOLUMES[@]}"; do
-        check_if_k8s_is_using "$volume"
-        ensure_chap "${ISCSI_CHAP_SESSION_USERNAME}" "${ISCSI_CHAP_SESSION_PASSWORD}"
-        iscsi_discovery "${ISCSI_PORTAL}"
-        find_target_with_vol "$volume" "${ISCSI_IQN}"
-        check_if_volume_is_mounted "${ISCSI_LOCAL_MOUNT_DIR}"
-        interact_target 'login' "$volume" "${ISCSI_IQN}"
-        mount_disk "$volume" "${ISCSI_LOCAL_MOUNT_DIR}"
-        check_if_volume_is_not_mounted "${ISCSI_LOCAL_MOUNT_DIR}"
-        create_backup "$volume" "${ISCSI_LOCAL_MOUNT_DIR}" "${ISCSI_BACKUP_DIR}"
-        check_if_volume_is_not_mounted "${ISCSI_LOCAL_MOUNT_DIR}"
-        dismount_disk "${ISCSI_LOCAL_MOUNT_DIR}"
-        interact_target 'logout' "$volume" "${ISCSI_IQN}"
+for volume in "${ISCSI_BACKUP_VOLUMES[@]}"; do
+    check_if_k8s_is_using "$volume"
+    ensure_chap "${ISCSI_CHAP_SESSION_USERNAME}" "${ISCSI_CHAP_SESSION_PASSWORD}"
+    iscsi_discovery "${ISCSI_PORTAL}"
+    find_target_with_vol "$volume" "${ISCSI_IQN}"
+    check_if_volume_is_mounted "${ISCSI_LOCAL_MOUNT_DIR}"
+    interact_target 'login' "$volume" "${ISCSI_IQN}"
+    mount_disk "$volume" "${ISCSI_LOCAL_MOUNT_DIR}"
+    check_if_volume_is_not_mounted "${ISCSI_LOCAL_MOUNT_DIR}"
+    create_backup "$volume" "${ISCSI_LOCAL_MOUNT_DIR}" "${ISCSI_BACKUP_DIR}"
+    check_if_volume_is_not_mounted "${ISCSI_LOCAL_MOUNT_DIR}"
+    dismount_disk "${ISCSI_LOCAL_MOUNT_DIR}"
+    interact_target 'logout' "$volume" "${ISCSI_IQN}"
 
-    done
+done
 
-    for deployment in $unique_deployments; do
-        find_namespace_from_deployment "$deployment"
-        kube_start_deployment "$namespace" "$deployment" '1'
+for deployment in $unique_deployments; do
+    find_namespace_from_deployment "$deployment"
+    kube_start_deployment "$namespace" "$deployment" '1'
 
-    done
+done
 
-    print_message 'stdout' 'finished' "$(date)"
-
-else
-    print_message 'stderr' 'host match failed!'
-    exit 1
-
-fi
+print_message 'stdout' 'finished' "$(date)"
