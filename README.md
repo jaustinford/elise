@@ -41,7 +41,7 @@ git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
     | **SHELL_USER_PROMPT_COLOR**              | str  |                                             |        |
     | **SHELL_HOST_PROMPT_COLOR**              | str  |                                             |        |
     | **SHELL_CWD_PROMPT_COLOR**               | str  |                                             |        |
-    | **SHELL_STDOUT_COLOR**                   | str  | `green`                                     |        |
+    | **SHELL_STDOUT_COLOR**                   | str  | `${SHELL_USER_PROMPT_COLOR}`                |        |
     | **SHELL_STDERR_COLOR**                   | str  | `red`                                       |        |
     | **GITHUB_DEFAULT_COMMIT_MESSAGE**        | str  |                                             |        |
     | **GITHUB_DEFAULT_COMMIT_BRANCH**         | str  | `main`                                      |        |
