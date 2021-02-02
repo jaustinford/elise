@@ -18,8 +18,7 @@ if [ "$#" == 2 ]; then
         "${OPTION}" \
         "${DOWNLOAD_DIR}" \
         "${DOWNLOAD_NAME}" \
-        "${DOWNLOAD_URL}" \
-        "${YOUDOWN_AUDIO_QUALITY}"
+        "${DOWNLOAD_URL}"
 
 else
     echo \

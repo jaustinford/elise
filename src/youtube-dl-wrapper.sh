@@ -18,7 +18,7 @@ download_file () {
             --prefer-ffmpeg \
             --extract-audio \
             --audio-format mp3 \
-            --audio-quality "$5K" \
+            --audio-quality "320K" \
             --output "$2/$3.mp31" \
             "$4" 1> /dev/null
 
