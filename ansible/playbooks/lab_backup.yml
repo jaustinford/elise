@@ -67,7 +67,6 @@
       when: option == "copy"
       with_items:
         - scripts/lab_backup.sh
-        - src/colors.sh
         - src/general.sh
         - src/iscsi.sh
         - src/kubernetes.sh

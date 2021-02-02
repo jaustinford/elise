@@ -3,7 +3,6 @@
 set -e
 
 . "${ELISE_ROOT_DIR}/src/elise.sh"
-. "${ELISE_ROOT_DIR}/src/colors.sh"
 . "${ELISE_ROOT_DIR}/src/general.sh"
 
 MODE="$1"
