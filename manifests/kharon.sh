@@ -274,8 +274,6 @@ spec:
           env:
             - name: TZ
               value: "${DOCKER_TIMEZONE}"
-          stdin: true
-          tty: true
           command: ["/sbin/tini", "--", "/usr/bin/openvpn.sh", "-d"]
           securityContext:
             capabilities:
