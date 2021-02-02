@@ -2,6 +2,9 @@
 
 . "${ELISE_ROOT_DIR}/src/elise.sh"
 
+KHARON_DELUGE_SALT=$(cat /dev/urandom | tr -dc 'a-z0-9' | head -c 40)
+KHARON_DELUGE_PASSWORD_HASH=$(echo -n ${KHARON_DELUGE_SALT}${KHARON_DELUGE_PASSWORD} | sha1sum | awk '{print $1}')
+
 cat <<EOF | kubectl "$1" -f -
 ---
 apiVersion: v1
@@ -36,7 +39,7 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: kharon-config-map
+  name: kharon-configmap-expressvpn
   namespace: eslabs
 data:
   vpn.credentials: |
@@ -80,6 +83,13 @@ data:
     <ca>
     $(echo ${KHARON_EXPRESSVPN_CA} | base64 -d)
     </ca>
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kharon-configmap-squid
+  namespace: eslabs
+data:
   check-vpn.sh: |
     while [ ! -d '/sys/devices/virtual/net/tun0' ]; do
         sleep 2
@@ -93,6 +103,13 @@ data:
     refresh_pattern ^ftp:		1440	20%	10080
     refresh_pattern ^gopher:	1440	0%	1440
     refresh_pattern .		0	20%	4320
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kharon-configmap-deluge
+  namespace: eslabs
+data:
   core.conf: |
     {
         "file": 1,
@@ -109,7 +126,7 @@ data:
         "del_copy_torrent_file": false,
         "dht": true,
         "dont_count_slow_torrents": false,
-        "download_location": "/root/Downloads/downloading",
+        "download_location": "/downloads/incoming",
         "download_location_paths_list": [],
         "enabled_plugins": [],
         "enc_in_policy": 1,
@@ -123,11 +140,11 @@ data:
             6881,
             6891
         ],
-        "listen_random_port": 52199,
+        "listen_random_port": 63556,
         "listen_reuse_port": true,
         "listen_use_sys_port": false,
         "lsd": true,
-        "max_active_downloading": 3,
+        "max_active_downloading": ${KHARON_DELUGE_MAX_ACTIVE_DOWNLOADING},
         "max_active_limit": 8,
         "max_active_seeding": 5,
         "max_connections_global": 200,
@@ -141,7 +158,7 @@ data:
         "max_upload_speed": -1.0,
         "max_upload_speed_per_torrent": -1,
         "move_completed": true,
-        "move_completed_path": "/root/Downloads/completed",
+        "move_completed_path": "/downloads/completed",
         "move_completed_paths_list": [],
         "natpmp": true,
         "new_release_check": false,
@@ -185,10 +202,52 @@ data:
         "stop_seed_at_ratio": false,
         "stop_seed_ratio": 2.0,
         "super_seeding": false,
-        "torrentfiles_location": "/root/Downloads/torrents",
+        "torrentfiles_location": "/downloads/torrents",
         "upnp": true,
         "utpex": true
     }
+  web.conf: |
+    {
+        "file": 2,
+        "format": 1
+    }{
+        "base": "/",
+        "cert": "ssl/daemon.cert",
+        "default_daemon": "848a383a14b046a3995900613d4690c3",
+        "enabled_plugins": [],
+        "first_login": false,
+        "https": false,
+        "interface": "0.0.0.0",
+        "language": "",
+        "pkey": "ssl/daemon.pkey",
+        "port": 8112,
+        "pwd_salt": "${KHARON_DELUGE_SALT}",
+        "pwd_sha1": "${KHARON_DELUGE_PASSWORD_HASH}",
+        "session_timeout": 3600,
+        "sessions": {},
+        "show_session_speed": true,
+        "show_sidebar": false,
+        "sidebar_multiple_filters": true,
+        "sidebar_show_zero": false,
+        "theme": "gray"
+    }
+  hostlist.conf: |
+    {
+        "file": 3,
+        "format": 1
+    }{
+        "hosts": [
+            [
+                "848a383a14b046a3995900613d4690c3",
+                "127.0.0.1",
+                58846,
+                "localclient",
+                "f62fcc3650058b483a875a759b5ade21caec9325"
+            ]
+        ]
+    }
+  auth: |
+    localclient:f62fcc3650058b483a875a759b5ade21caec9325:10
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -226,10 +285,10 @@ spec:
           volumeMounts:
             - name: k8s-vol-tun-dev
               mountPath: /dev/net/tun
-            - name: kharon-config
+            - name: kharon-configmap-expressvpn
               mountPath: /vpn/vpn.conf
               subPath: vpn.conf
-            - name: kharon-config
+            - name: kharon-configmap-expressvpn
               mountPath: /vpn/vpn.credentials
               subPath: vpn.credentials
         - image: sameersbn/squid:latest
@@ -244,10 +303,10 @@ spec:
               /tmp/check-vpn.sh &&
               /sbin/entrypoint.sh
           volumeMounts:
-            - name: kharon-config
+            - name: kharon-configmap-squid
               mountPath: /etc/squid/squid.conf
               subPath: squid.conf
-            - name: kharon-config
+            - name: kharon-configmap-squid
               mountPath: /tmp/check-vpn.sh
               subPath: check-vpn.sh
         - image: linuxserver/deluge:latest
@@ -259,25 +318,38 @@ spec:
               value: "1000"
             - name: PGID
               value: "1000"
-          lifecycle:
-            postStart:
-              exec:
-                command: ['/bin/bash', '-c', 'chmod 755 /root']
           volumeMounts:
             - name: k8s-vol-deluge-downloads
-              mountPath: /root/Downloads
-            - name: kharon-config
+              mountPath: /downloads
+            - name: kharon-configmap-deluge
               mountPath: /config/core.conf
               subPath: core.conf
+            - name: kharon-configmap-deluge
+              mountPath: /config/web.conf
+              subPath: web.conf
+            - name: kharon-configmap-deluge
+              mountPath: /config/hostlist.conf
+              subPath: hostlist.conf
+            - name: kharon-configmap-deluge
+              mountPath: /config/auth
+              subPath: auth
       volumes:
         - name: k8s-vol-tun-dev
           hostPath:
             path: /dev/net/tun
             type: CharDevice
-        - name: kharon-config
+        - name: kharon-configmap-expressvpn
           configMap:
-            name: kharon-config-map
+            name: kharon-configmap-expressvpn
+            defaultMode: 0644
+        - name: kharon-configmap-squid
+          configMap:
+            name: kharon-configmap-squid
             defaultMode: 0755
+        - name: kharon-configmap-deluge
+          configMap:
+            name: kharon-configmap-deluge
+            defaultMode: 0644
         - name: k8s-vol-deluge-downloads
           hostPath:
             path: "${KHARON_DELUGE_DOWNLOAD_DIR}"
