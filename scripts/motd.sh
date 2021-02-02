@@ -16,7 +16,7 @@ root_partition_used=$(df -H | egrep '/root$' | awk '{print $5}')
 
 echo -e \
 "
- ${SHELL_USER_PROMPT_CODE}   system information                                                           $ECHO_RESET
+ ${SHELL_USER_PROMPT_CODE}   docker host information                                                      $ECHO_RESET
   -----------------------------------------------------------
  ${SHELL_HOST_PROMPT_CODE} hostname            $ECHO_RESET ${SHELL_CWD_PROMPT_CODE} $hostname             $ECHO_RESET
  ${SHELL_HOST_PROMPT_CODE} uptime              $ECHO_RESET ${SHELL_CWD_PROMPT_CODE} $uptime               $ECHO_RESET
