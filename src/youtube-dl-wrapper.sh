@@ -12,6 +12,7 @@ ensure_dropoff () {
 }
 
 download_file () {
+    print_message 'stdout' "downloading $1" "$2/$3"
     if [ "$1" == "audio" ]; then
         youtube-dl \
             --prefer-ffmpeg \
@@ -19,12 +20,12 @@ download_file () {
             --audio-format mp3 \
             --audio-quality "$5K" \
             --output "$2/$3.mp31" \
-            "$4"
+            "$4" 1> /dev/null
 
     elif [ "$1" == "video" ]; then
         youtube-dl \
             --output "$2/$3" \
-            "$4"
+            "$4" 1> /dev/null
 
     fi
 }
