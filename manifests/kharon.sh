@@ -3,7 +3,7 @@
 . "${ELISE_ROOT_DIR}/src/elise.sh"
 
 KHARON_DELUGE_SALT=$(cat /dev/urandom | tr -dc 'a-z0-9' | head -c 40)
-KHARON_DELUGE_PASSWORD_HASH=$(echo -n ${KHARON_DELUGE_SALT}${KHARON_DELUGE_PASSWORD} | sha1sum | awk '{print $1}')
+KHARON_DELUGE_HASH=$(echo -n ${KHARON_DELUGE_SALT}${KHARON_DELUGE_PASSWORD} | sha1sum | awk '{print $1}')
 
 cat <<EOF | kubectl "$1" -f -
 ---
@@ -222,7 +222,7 @@ data:
         "pkey": "ssl/daemon.pkey",
         "port": 8112,
         "pwd_salt": "${KHARON_DELUGE_SALT}",
-        "pwd_sha1": "${KHARON_DELUGE_PASSWORD_HASH}",
+        "pwd_sha1": "${KHARON_DELUGE_HASH}",
         "session_timeout": 3600,
         "sessions": {},
         "show_session_speed": true,
