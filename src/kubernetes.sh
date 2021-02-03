@@ -128,15 +128,17 @@ kube_edit () {
 }
 
 kube_describe () {
-    kubectl -n "$1" describe pod $(kubectl -n $1 get pods | grep $2 | awk '{print $1}')
+    if [ "$2" == "pod" ]; then
+        kubectl -n "$1" describe "$2" $(kubectl -n $1 get pods | grep $3 | awk '{print $1}')
+
+    else
+        kubectl -n "$1" describe "$2" "$3"
+
+    fi
 }
 
 kube_nodes () {
     kubectl get nodes -o wide
-}
-
-kube_events () {
-    kubectl -n "$1" get events
 }
 
 kube_config () {

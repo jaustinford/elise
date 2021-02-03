@@ -83,16 +83,14 @@ if [ "$#" -ge 1 ]; then
 
     elif [ "${MODE}" == "describe" ]; then
         NAMESPACE="$2"
-        APP="$3"
+        RESOURCE="$3"
+        APP="$4"
         kube_describe "${NAMESPACE}" \
+            "${RESOURCE}" \
             "${APP}"
 
     elif [ "${MODE}" == "nodes" ]; then
         kube_nodes
-
-    elif [ "${MODE}" == "events" ]; then
-        NAMESPACE="$2"
-        kube_events "${NAMESPACE}"
 
     elif [ "${MODE}" == "crash" ]; then
         NAMESPACE="$2"
