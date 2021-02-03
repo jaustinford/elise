@@ -113,7 +113,13 @@ print_message () {
         fi
 
     elif [ "$1" == 'stderr' ]; then
-        echo -e " [$SHELL_STDERR_CODE ERROR $ECHO_RESET]$SHELL_HOST_PROMPT_CODE $key $ECHO_RESET"
+        if [ ! -z "$3" ]; then
+            echo -e " [$SHELL_STDERR_CODE ERROR $ECHO_RESET]$SHELL_HOST_PROMPT_CODE $key $ECHO_RESET|$SHELL_CWD_PROMPT_CODE $3 $ECHO_RESET"
+
+        else
+            echo -e " [$SHELL_STDERR_CODE ERROR $ECHO_RESET]$SHELL_HOST_PROMPT_CODE $key $ECHO_RESET"
+
+        fi
 
     fi
 }
