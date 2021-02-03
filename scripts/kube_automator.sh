@@ -63,8 +63,8 @@ if [ "$#" -ge 1 ]; then
         CONTAINER="$5"
         kube_exec "${NAMESPACE}" \
             "${APP}" \
-            "${CMD}" \
-            "${CONTAINER}"
+            "${CONTAINER}" \
+            "${CMD}"
 
     elif [ "${MODE}" == "shell" ]; then
         NAMESPACE="$2"

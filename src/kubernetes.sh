@@ -112,13 +112,13 @@ $(kubectl -n $1 -o wide get events)
 }
 
 kube_exec () {
-    if [ ! -z "$4" ]; then
+    if [ ! -z "$3" ]; then
         kubectl -n "$1" exec --stdin --tty \
-            "$(kubectl -n $1 get pods | grep $2 | awk '{print $1}')" -c "$4" -- /bin/bash
+            "$(kubectl -n $1 get pods | grep $2 | awk '{print $1}')" -c "$3" -- "$4"
 
     else
         kubectl -n "$1" exec --stdin --tty \
-            "$(kubectl -n $1 get pods | grep $2 | awk '{print $1}')" -- /bin/bash
+            "$(kubectl -n $1 get pods | grep $2 | awk '{print $1}')" -- "$4"
 
     fi
 }
