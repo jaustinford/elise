@@ -70,7 +70,8 @@ git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
     | **PLEX_AFFINITY_NODE**                   | str  | `kube01.labs.elysianskies.com`              |        |
     | **LAB_FQDN**                             | str  | `labs.elysianskies.com`                     |        |
     | **LAB_USER_AUSTIN_SSH_KEY**              | str  |                                             | `true` |
-    | **YOUDOWN_AUDIO_QUALITY**                | str  | `320`                                       |        |
+    | **LAB_HAPROXY_CRT**                      | str  |                                             | `true` |
+    | **LAB_HAPROXY_KEY**                      | str  |                                             | `true` |
 
 <br />
 
