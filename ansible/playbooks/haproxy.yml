@@ -17,12 +17,12 @@
       delegate_to: localhost
       register: haproxy_key
 
-    - name: "configure haproxy container - {{ container_state }}"
+    - name: configure haproxy container
       docker_container:
           image: haproxy:latest
           name: haproxy
           state: "{{ container_state }}"
-          recreate: yes
+          recreate: "{{ recreate_container }}"
           command: |
             /bin/bash -c 'echo "{{ haproxy_cfg.stdout }}" > /usr/local/etc/haproxy/haproxy.cfg; \
                           echo "{{ haproxy_crt.stdout }}" | base64 -d > /usr/local/etc/haproxy/nginx.crt; \
