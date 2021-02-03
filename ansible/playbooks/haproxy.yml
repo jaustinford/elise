@@ -19,20 +19,20 @@
 
     - name: configure haproxy container
       docker_container:
-          image: haproxy:latest
-          name: haproxy
-          state: "{{ container_state }}"
-          recreate: "{{ recreate_container }}"
-          command: |
-            /bin/bash -c '\
-              echo "{{ haproxy_cfg.stdout }}" > /usr/local/etc/haproxy/haproxy.cfg; \
-              echo "{{ haproxy_crt.stdout }}" > /usr/local/etc/haproxy/nginx.crt; \
-              echo "{{ haproxy_key.stdout }}" > /usr/local/etc/haproxy/nginx.crt.key; \
-              chmod 755 /usr/local/etc/haproxy/haproxy.cfg; \
-              chmod 755 /usr/local/etc/haproxy/nginx.crt; \
-              chmod 600 /usr/local/etc/haproxy/nginx.crt.key; \
-              haproxy -f /usr/local/etc/haproxy/haproxy.cfg'
-          ports:
-            - '443:443'
-          network_mode: bridge
-          restart_policy: unless-stopped
+        image: haproxy:latest
+        name: haproxy
+        state: "{{ container_state }}"
+        recreate: "{{ recreate_container }}"
+        command: |
+          /bin/bash -c '\
+            echo "{{ haproxy_cfg.stdout }}" > /usr/local/etc/haproxy/haproxy.cfg; \
+            echo "{{ haproxy_crt.stdout }}" > /usr/local/etc/haproxy/nginx.crt; \
+            echo "{{ haproxy_key.stdout }}" > /usr/local/etc/haproxy/nginx.crt.key; \
+            chmod 755 /usr/local/etc/haproxy/haproxy.cfg; \
+            chmod 755 /usr/local/etc/haproxy/nginx.crt; \
+            chmod 600 /usr/local/etc/haproxy/nginx.crt.key; \
+            haproxy -f /usr/local/etc/haproxy/haproxy.cfg'
+        ports:
+          - '443:443'
+        network_mode: bridge
+        restart_policy: unless-stopped
