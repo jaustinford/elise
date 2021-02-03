@@ -2,14 +2,36 @@
   gather_facts: false
   become: true
   tasks:
+    - name: import haproxy.cfg
+      shell: cat ../../files/haproxy.cfg
+      delegate_to: localhost
+      register: haproxy_cfg
+
+    - name: import ssl crt
+      shell: egrep ^LAB_HAPROXY_CRT ../../src/elise.sh | cut -d"'" -f2
+      delegate_to: localhost
+      register: haproxy_crt
+
+    - name: import ssl key
+      shell: egrep ^LAB_HAPROXY_KEY ../../src/elise.sh | cut -d"'" -f2
+      delegate_to: localhost
+      register: haproxy_key
+
     - name: "configure haproxy container - {{ container_state }}"
       docker_container:
-        image: haproxy:latest
-        name: haproxy
-        state: "{{ container_state }}"
-        ports:
-          - '443:443'
-        network_mode: bridge
-        volumes:
-          - /mnt/tvault/es-labs/haproxy:/usr/local/etc/haproxy
-        restart_policy: unless-stopped
+          image: haproxy:latest
+          name: haproxy
+          state: "{{ container_state }}"
+          recreate: yes
+          command: |
+            /bin/bash -c 'echo "{{ haproxy_cfg.stdout }}" > /usr/local/etc/haproxy/haproxy.cfg; \
+                          echo "{{ haproxy_crt.stdout }}" | base64 -d > /usr/local/etc/haproxy/nginx.crt; \
+                          echo "{{ haproxy_key.stdout }}" | base64 -d > /usr/local/etc/haproxy/nginx.crt.key; \
+                          chmod 755 /usr/local/etc/haproxy/haproxy.cfg; \
+                          chmod 755 /usr/local/etc/haproxy/nginx.crt; \
+                          chmod 600 /usr/local/etc/haproxy/nginx.crt.key; \
+                          haproxy -f /usr/local/etc/haproxy/haproxy.cfg'
+          ports:
+            - '443:443'
+          network_mode: bridge
+          restart_policy: unless-stopped
