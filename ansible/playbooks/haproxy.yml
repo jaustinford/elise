@@ -8,12 +8,12 @@
       register: haproxy_cfg
 
     - name: import ssl crt
-      shell: egrep ^LAB_HAPROXY_CRT ../../src/elise.sh | cut -d"'" -f2
+      shell: egrep ^LAB_HAPROXY_CRT ../../src/elise.sh | cut -d"'" -f2 | base64 -d
       delegate_to: localhost
       register: haproxy_crt
 
     - name: import ssl key
-      shell: egrep ^LAB_HAPROXY_KEY ../../src/elise.sh | cut -d"'" -f2
+      shell: egrep ^LAB_HAPROXY_KEY ../../src/elise.sh | cut -d"'" -f2 | base64 -d
       delegate_to: localhost
       register: haproxy_key
 
@@ -25,8 +25,8 @@
           recreate: "{{ recreate_container }}"
           command: |
             /bin/bash -c 'echo "{{ haproxy_cfg.stdout }}" > /usr/local/etc/haproxy/haproxy.cfg; \
-                          echo "{{ haproxy_crt.stdout }}" | base64 -d > /usr/local/etc/haproxy/nginx.crt; \
-                          echo "{{ haproxy_key.stdout }}" | base64 -d > /usr/local/etc/haproxy/nginx.crt.key; \
+                          echo "{{ haproxy_crt.stdout }}" > /usr/local/etc/haproxy/nginx.crt; \
+                          echo "{{ haproxy_key.stdout }}" > /usr/local/etc/haproxy/nginx.crt.key; \
                           chmod 755 /usr/local/etc/haproxy/haproxy.cfg; \
                           chmod 755 /usr/local/etc/haproxy/nginx.crt; \
                           chmod 600 /usr/local/etc/haproxy/nginx.crt.key; \
