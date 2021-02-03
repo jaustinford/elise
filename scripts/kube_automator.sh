@@ -72,8 +72,8 @@ if [ "$#" -ge 1 ]; then
         CONTAINER="$4"
         kube_exec "${NAMESPACE}" \
             "${APP}" \
-            '/bin/bash' \
-            "${CONTAINER}"
+            "${CONTAINER}" \
+            '/bin/bash'
 
     elif [ "${MODE}" == "edit" ]; then
         NAMESPACE="$2"
