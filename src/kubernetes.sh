@@ -74,6 +74,10 @@ kube_tail_pod () {
     fi
 }
 
+kube_get () {
+    kubectl -n "$1" -o wide get "$2"
+}
+
 kube_display () {
     echo -e "
 

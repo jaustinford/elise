@@ -102,6 +102,12 @@ if [ "$#" -ge 1 ]; then
             "${APP}" \
             "${CONTAINER}"
 
+    elif [ "${MODE}" == "get" ]; then
+        NAMESPACE="$2"
+        RESOURCE="$3"
+        kube_get "${NAMESPACE}" \
+            "${RESOURCE}"
+
     fi
 
 fi
