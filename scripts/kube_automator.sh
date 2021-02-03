@@ -77,9 +77,11 @@ if [ "$#" -ge 1 ]; then
 
     elif [ "${MODE}" == "edit" ]; then
         NAMESPACE="$2"
-        APP="$3"
+        RESOURCE="$3"
+        OBJECT="$4"
         kube_edit "${NAMESPACE}" \
-            "${APP}"
+            "${RESOURCE}" \
+            "${OBJECT}"
 
     elif [ "${MODE}" == "describe" ]; then
         NAMESPACE="$2"

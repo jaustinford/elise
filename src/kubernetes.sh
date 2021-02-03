@@ -124,7 +124,7 @@ kube_exec () {
 }
 
 kube_edit () {
-    kubectl -n "$1" edit deployment/"$2"
+    kubectl -n "$1" edit "$2" "$3"
 }
 
 kube_describe () {
