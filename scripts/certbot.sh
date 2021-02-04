@@ -22,9 +22,8 @@ new_cert () {
     certbot certonly \
         -d "${DOMAINS}" \
         -m "${EMAIL}" \
-        --manual \
-        --agree-tos \
-        --preferred-challenges dns
+        --webroot \
+        --webroot-path='/'
 }
 
 if [ "${OPTION}" == "new" ]; then

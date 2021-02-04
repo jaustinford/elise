@@ -34,5 +34,6 @@
             haproxy -f /usr/local/etc/haproxy/haproxy.cfg'
         ports:
           - '443:443'
+          - '80:80'
         network_mode: bridge
         restart_policy: unless-stopped
