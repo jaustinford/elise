@@ -49,6 +49,7 @@ data:
   certbot.sh: |
     if [ ! -d '/etc/letsencrypt/live/${LAB_FQDN}' ]; then
         mkdir -p /usr/local/apache2/htdocs/.well-known/acme-challenge
+        chmod 777 /usr/local/apache2/htdocs/.well-known/acme-challenge
         cd /usr/local/apache2/htdocs/.well-known/acme-challenge
         certbot certonly -d '${DOMAINS}' -m '$(git config -l | egrep ^user.email | cut -d'=' -f2)' \
             --webroot --webroot-path='/usr/local/apache2/htdocs' --agree-tos --non-interactive
@@ -111,14 +112,22 @@ spec:
             - name: acme-configmap
               mountPath: /tmp/certbot.sh
               subPath: certbot.sh
-            - name: letsencrypt
+            - name: k8s-vol-acme-letsencrypt
               mountPath: /etc/letsencrypt
       volumes:
+        - name: k8s-vol-acme-letsencrypt
+          iscsi:
+            targetPortal: 172.16.17.4
+            iqn: iqn.2013-03.com.wdc:elysianskies:k8s-vol-acme-letsencrypt
+            lun: 0
+            fsType: ext4
+            readOnly: false
+            chapAuthDiscovery: false
+            chapAuthSession: true
+            secretRef:
+              name: tvault-iscsi-chap
         - name: acme-configmap
           configMap:
             name: acme-configmap
-            defaultMode: 0755
-        - name: letsencrypt
-          hostPath:
-            path: ${LAB_SSL_DIR}
+            defaultMode: 0777
 EOF
