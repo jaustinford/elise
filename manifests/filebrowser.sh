@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -eu
-
 . "${ELISE_ROOT_DIR}/src/elise.sh"
 
 cat <<EOF | kubectl "$1" -f -
