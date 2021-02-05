@@ -9,6 +9,11 @@
         daemon_reload: yes
 
   tasks:
+    - name: import ssl directory
+      shell: egrep '^LAB_SSL_DIR=' ../../src/elise.sh | cut -d"'" -f2
+      delegate_to: localhost
+      register: ssl_dir
+
     - name: configure crontab - variables
       cron:
         name: "{{ item.name }}"
@@ -28,5 +33,5 @@
         name: ssl_renew
         month: '2,4,6,8,10,12'
         user: root
-        job: "docker exec -it $(docker ps | egrep -o 'k8s_acme_acme-.*$') certbot renew"
+        job: "docker exec -it $(docker ps | egrep -o 'k8s_acme_acme-.*$') certbot renew >> {{ ssl_dir.stdout }}/certbot_renew.log"
       notify: systemctl restart cron
