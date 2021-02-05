@@ -46,7 +46,7 @@
         - ISCSI_BACKUP_DIR
         - ISCSI_BACKUP_ROTATE_DAYS
         - ISCSI_IQN
-        - ISCSI_BACKUP_VOLUMES -A6
+        - ISCSI_BACKUP_VOLUMES -A7
         - KUBE_CONFIG_FILE
 
     - name: reset remote elise.sh vars
