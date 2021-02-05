@@ -12,7 +12,7 @@
       delegate_to: localhost
       register: ssl_dir
 
-    - name: configure haproxy container
+    - name: "{{ message }} haproxy container"
       docker_container:
         image: haproxy:latest
         name: haproxy
