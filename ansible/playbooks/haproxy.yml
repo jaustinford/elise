@@ -7,6 +7,11 @@
       delegate_to: localhost
       register: haproxy_cfg
 
+    - name: import ssl directory
+      shell: egrep '^LAB_SSL_DIR=' ../../src/elise.sh | cut -d"'" -f2
+      delegate_to: localhost
+      register: ssl_dir
+
     - name: configure haproxy container
       docker_container:
         image: haproxy:latest
@@ -23,7 +28,7 @@
             chmod 755 /usr/local/etc/haproxy/haproxy.cfg; \
             haproxy -f /usr/local/etc/haproxy/haproxy.cfg'
         volumes:
-          - /mnt/tvault/es-labs/letsencrypt:/etc/letsencrypt
+          - "{{ ssl_dir.stdout }}:/etc/letsencrypt"
         ports:
           - '443:443'
           - '80:80'
