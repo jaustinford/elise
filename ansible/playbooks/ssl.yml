@@ -1,0 +1,32 @@
+- hosts: kube02.labs.elysianskies.com  # worker where `acme` pod is deployed
+  gather_facts: false
+  become: true
+  handlers:
+    - name: systemctl restart cron
+      systemd:
+        name: cron
+        state: restarted
+        daemon_reload: yes
+
+  tasks:
+    - name: configure crontab - variables
+      cron:
+        name: "{{ item.name }}"
+        value: "{{ item.value }}"
+        env: yes
+      with_items:
+        - name: SHELL
+          value: /bin/bash
+        - name: PATH
+          value: /sbin:/bin:/usr/sbin:/usr/bin
+        - name: MAILTO
+          value: root
+      notify: systemctl restart cron
+
+    - name: configure crontab - job
+      cron:
+        name: ssl_renew
+        month: '2,4,6,8,10,12'
+        user: root
+        job: "docker exec -it $(docker ps | egrep -o 'k8s_acme_acme-.*$') certbot renew"
+      notify: systemctl restart cron

@@ -80,6 +80,7 @@ alias a_playbook_mount_tvault="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbo
 alias a_playbook_ntopng="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/ntopng.yml"
 alias a_playbook_pihole="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/pihole.yml"
 alias a_playbook_rpi_temp="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/rpi_temp.yml"
+alias a_playbook_ssl="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/ssl.yml"
 alias a_playbook_sudoers="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/sudoers.yml --ask-become-pass"
 alias a_playbook_watchers="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/watchers.yml"
 alias a_playbook_watchers_start="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/watchers_start.yml"
