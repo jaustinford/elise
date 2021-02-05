@@ -1,4 +1,4 @@
-- hosts: kube02.labs.elysianskies.com  # worker where `acme` pod is deployed
+- hosts: worker_nodes
   gather_facts: false
   become: true
   handlers:
@@ -36,5 +36,7 @@
         day: '1'
         month: '2,4,6,8,10,12'
         user: root
-        job: "docker exec -it $(docker ps | egrep -o 'k8s_acme_acme-.*$') certbot renew &>> {{ ssl_dir.stdout }}/certbot_renew.log"
+        job: >
+          container=$(docker ps | egrep -o 'k8s_acme_acme-.*$');
+          if [ ! -z "$container" ]; then docker exec -it "$container" certbot renew &>> {{ ssl_dir.stdout }}/certbot_renew.log; fi
       notify: systemctl restart cron
