@@ -1,8 +1,19 @@
 #!/usr/bin/env bash
 
-set -eu
-
 . "${ELISE_ROOT_DIR}/src/elise.sh"
+
+# entries in SANS must have public DNS
+# record of some kind; using CNAME
+SANS=(
+  "kube00"
+)
+
+DOMAINS="${LAB_FQDN}"
+
+for host in ${SANS[@]}; do
+    DOMAINS+=",${host}.${LAB_FQDN}"
+
+done
 
 cat <<EOF | kubectl "$1" -f -
 ---
@@ -39,7 +50,7 @@ data:
     if [ ! -d '/etc/letsencrypt/live/${LAB_FQDN}' ]; then
         mkdir -p /usr/local/apache2/htdocs/.well-known/acme-challenge
         cd /usr/local/apache2/htdocs/.well-known/acme-challenge
-        certbot certonly -d ${LAB_FQDN} -m $(git config -l | egrep ^user.email | cut -d'=' -f2) \
+        certbot certonly -d '${DOMAINS}' -m '$(git config -l | egrep ^user.email | cut -d'=' -f2)' \
             --webroot --webroot-path='/usr/local/apache2/htdocs' --agree-tos --non-interactive
 
     fi
