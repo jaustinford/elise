@@ -15,10 +15,11 @@
         recreate: "{{ recreate_container }}"
         command: |
           /bin/bash -c '\
-            cat /etc/letsencrypt/live/labs.elysianskies.com/fullchain.pem > /usr/local/etc/haproxy/nginx.pem; \
-            cat /etc/letsencrypt/live/labs.elysianskies.com/privkey.pem >> /usr/local/etc/haproxy/nginx.pem; \
+            cat /etc/letsencrypt/live/labs.elysianskies.com/fullchain.pem > /usr/local/etc/haproxy/nginx.crt; \
+            cat /etc/letsencrypt/live/labs.elysianskies.com/privkey.pem > /usr/local/etc/haproxy/nginx.crt.key; \
             echo "{{ haproxy_cfg.stdout }}" > /usr/local/etc/haproxy/haproxy.cfg; \
-            chmod 640 /usr/local/etc/haproxy/nginx.pem; \
+            chmod 750 /usr/local/etc/haproxy/nginx.crt; \
+            chmod 600 /usr/local/etc/haproxy/nginx.crt.key; \
             chmod 755 /usr/local/etc/haproxy/haproxy.cfg; \
             haproxy -f /usr/local/etc/haproxy/haproxy.cfg'
         volumes:
