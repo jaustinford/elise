@@ -7,10 +7,23 @@
       delegate_to: localhost
       register: haproxy_cfg
 
-    - name: import ssl directory
+    - name: import ssl dir
       shell: egrep '^LAB_SSL_DIR=' ../../src/elise.sh | cut -d"'" -f2
       delegate_to: localhost
       register: ssl_dir
+
+    - name: import lab fqdn
+      shell: egrep '^LAB_FQDN=' ../../src/elise.sh | cut -d"'" -f2
+      delegate_to: localhost
+      register: lab_fqdn
+
+    - name: import haproxy crt
+      shell: "cat {{ ssl_dir.stdout }}/live/{{ lab_fqdn.stdout }}/fullchain.pem"
+      register: haproxy_crt
+
+    - name: import haproxy key
+      shell: "cat {{ ssl_dir.stdout }}/live/{{ lab_fqdn.stdout }}/privkey.pem"
+      register: haproxy_key
 
     - name: "{{ message }} haproxy container"
       docker_container:
@@ -20,15 +33,13 @@
         recreate: "{{ recreate_container }}"
         command: |
           /bin/bash -c '\
-            cat /etc/letsencrypt/live/labs.elysianskies.com/fullchain.pem > /usr/local/etc/haproxy/nginx.crt; \
-            cat /etc/letsencrypt/live/labs.elysianskies.com/privkey.pem > /usr/local/etc/haproxy/nginx.crt.key; \
             echo "{{ haproxy_cfg.stdout }}" > /usr/local/etc/haproxy/haproxy.cfg; \
+            echo "{{ haproxy_crt.stdout }}" > /usr/local/etc/haproxy/nginx.crt; \
+            echo "{{ haproxy_key.stdout }}" > /usr/local/etc/haproxy/nginx.crt.key; \
+            chmod 755 /usr/local/etc/haproxy/haproxy.cfg; \
             chmod 750 /usr/local/etc/haproxy/nginx.crt; \
             chmod 600 /usr/local/etc/haproxy/nginx.crt.key; \
-            chmod 755 /usr/local/etc/haproxy/haproxy.cfg; \
             haproxy -f /usr/local/etc/haproxy/haproxy.cfg'
-        volumes:
-          - "{{ ssl_dir.stdout }}:/etc/letsencrypt"
         ports:
           - '443:443'
           - '80:80'
