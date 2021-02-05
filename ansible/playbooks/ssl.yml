@@ -31,6 +31,9 @@
     - name: configure crontab - job
       cron:
         name: ssl_renew
+        minute: '0'
+        hour: '0'
+        day: '1'
         month: '2,4,6,8,10,12'
         user: root
         job: "docker exec -it $(docker ps | egrep -o 'k8s_acme_acme-.*$') certbot renew >> {{ ssl_dir.stdout }}/certbot_renew.log"
