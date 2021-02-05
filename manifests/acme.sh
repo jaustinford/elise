@@ -35,6 +35,13 @@ data:
         <h3>IE1hZGUgeWEgbG9vayEgTm93IGZ1Y2sgb2ZmIQo=</h3>
     </body>
     </html>
+  certbot.sh: |
+    if [ ! -d '/etc/letsencrypt/live/${LAB_FQDN}' ]; then
+        mkdir -p /usr/local/apache2/htdocs/.well-known/acme-challenge
+        certbot certonly -d ${LAB_FQDN} -m $(git config -l | egrep ^user.email | cut -d'=' -f2) \
+            --webroot --webroot-path='/usr/local/apache2/htdocs' --agree-tos --non-interactive
+
+    fi
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -55,25 +62,35 @@ spec:
       labels:
         app: acme
     spec:
-      securityContext:
-        fsGroup: 0
       containers:
         - image: httpd:latest
           name: acme
           env:
             - name: TZ
               value: "${DOCKER_TIMEZONE}"
+          command: ['/bin/bash']
+          args:
+            - '-c'
+            - >
+              apt-get update -y;
+              apt-get install -y certbot;
+              /tmp/certbot.sh;
+              httpd-foreground
           volumeMounts:
-            - name: acme-challenge
-              mountPath: /usr/local/apache2/htdocs/.well-known/acme-challenge
             - name: acme-configmap
               mountPath: /usr/local/apache2/htdocs/index.html
               subPath: index.html
-
+            - name: acme-configmap
+              mountPath: /tmp/certbot.sh
+              subPath: certbot.sh
+            - name: letsencrypt
+              mountPath: /etc/letsencrypt
       volumes:
-        - name: acme-challenge
-          emptyDir: {}
         - name: acme-configmap
           configMap:
             name: acme-configmap
+            defaultMode: 0755
+        - name: letsencrypt
+          hostPath:
+            path: ${LAB_SSL_DIR}
 EOF

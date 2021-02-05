@@ -7,16 +7,6 @@
       delegate_to: localhost
       register: haproxy_cfg
 
-    - name: import ssl crt
-      shell: egrep ^LAB_HAPROXY_CRT ../../src/elise.sh | cut -d"'" -f2 | base64 -d
-      delegate_to: localhost
-      register: haproxy_crt
-
-    - name: import ssl key
-      shell: egrep ^LAB_HAPROXY_KEY ../../src/elise.sh | cut -d"'" -f2 | base64 -d
-      delegate_to: localhost
-      register: haproxy_key
-
     - name: configure haproxy container
       docker_container:
         image: haproxy:latest
@@ -25,13 +15,14 @@
         recreate: "{{ recreate_container }}"
         command: |
           /bin/bash -c '\
+            cat /etc/letsencrypt/live/labs.elysianskies.com/fullchain.pem > /usr/local/etc/haproxy/nginx.pem; \
+            cat /etc/letsencrypt/live/labs.elysianskies.com/privkey.pem >> /usr/local/etc/haproxy/nginx.pem; \
             echo "{{ haproxy_cfg.stdout }}" > /usr/local/etc/haproxy/haproxy.cfg; \
-            echo "{{ haproxy_crt.stdout }}" > /usr/local/etc/haproxy/nginx.crt; \
-            echo "{{ haproxy_key.stdout }}" > /usr/local/etc/haproxy/nginx.crt.key; \
+            chmod 640 /usr/local/etc/haproxy/nginx.pem; \
             chmod 755 /usr/local/etc/haproxy/haproxy.cfg; \
-            chmod 755 /usr/local/etc/haproxy/nginx.crt; \
-            chmod 600 /usr/local/etc/haproxy/nginx.crt.key; \
             haproxy -f /usr/local/etc/haproxy/haproxy.cfg'
+        volumes:
+          - /mnt/tvault/es-labs/letsencrypt:/etc/letsencrypt
         ports:
           - '443:443'
           - '80:80'
