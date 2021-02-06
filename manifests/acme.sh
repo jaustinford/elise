@@ -2,18 +2,6 @@
 
 . "${ELISE_ROOT_DIR}/src/elise.sh"
 
-# entries in SANS must have public DNS
-# record of some kind; using CNAME
-SANS=(
-  "kube00"
-)
-
-DOMAINS="${LAB_FQDN}"
-
-for host in ${SANS[@]}; do
-    DOMAINS+=",${host}.${LAB_FQDN}"
-
-done
 
 cat <<EOF | kubectl "$1" -f -
 ---
@@ -48,19 +36,34 @@ data:
     </html>
   certbot.sh: |
     if [ "\$1" == "generate" ]; then
+        # create folder needed by acme for http challenge
         mkdir -p /usr/local/apache2/htdocs/.well-known/acme-challenge
         chmod 777 /usr/local/apache2/htdocs/.well-known/acme-challenge
 
+        # entries in SANS must have public DNS
+        # record of some kind; using CNAME
+        SANS=(
+          "kube00"
+        )
+
+        DOMAINS="\${LAB_FQDN}"
+
+        for host in \${SANS[@]}; do
+            DOMAINS+=",\${host}.\${LAB_FQDN}"
+
+        done
+
+        # use webroot plugin to pass http challenge
         certbot certonly \
-            --domains '${DOMAINS}' \
+            --domains "\${DOMAINS}" \
             --email '$(git config -l | egrep ^user.email | cut -d'=' -f2)' \
             --webroot --webroot-path='/usr/local/apache2/htdocs' \
             --agree-tos --non-interactive
 
     elif [ "\$1" == "display" ]; then
-        serial=\$(openssl x509 -in /etc/letsencrypt/live/${LAB_FQDN}/fullchain.pem -noout -serial | cut -d'=' -f2)
-        expiration=\$(openssl x509 -in /etc/letsencrypt/live/${LAB_FQDN}/fullchain.pem -noout -enddate | cut -d'=' -f2)
-        sans=\$(openssl x509 -in /etc/letsencrypt/live/${LAB_FQDN}/fullchain.pem -noout -text \
+        serial=\$(openssl x509 -in /etc/letsencrypt/live/\${LAB_FQDN}/fullchain.pem -noout -serial | cut -d'=' -f2)
+        expiration=\$(openssl x509 -in /etc/letsencrypt/live/\${LAB_FQDN}/fullchain.pem -noout -enddate | cut -d'=' -f2)
+        sans=\$(openssl x509 -in /etc/letsencrypt/live/\${LAB_FQDN}/fullchain.pem -noout -text \
             | grep 'X509v3 Subject Alternative Name' -A1 \
             | grep DNS\: \
             | sed 's/ DNS://g' \
@@ -68,7 +71,7 @@ data:
 
         if [ ! -z "\$serial" ]; then
             echo "----------------------------------------------------------------------"
-            echo "found certificate : ${LAB_FQDN}"
+            echo "found certificate : \${LAB_FQDN}"
             echo "serial number     : \$serial"
             echo "expiration date   : \$expiration"
             echo "configured sans   : \$sans"
@@ -103,6 +106,8 @@ spec:
           env:
             - name: TZ
               value: "${DOCKER_TIMEZONE}"
+            - name: LAB_FQDN
+              value: "${LAB_FQDN}"
           command: ['/bin/bash']
           args:
             - '-c'
