@@ -74,6 +74,7 @@ alias a_k8s_cluster_destroy="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbook
 alias a_k8s_cluster_init="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/k8s_cluster_init.yml"
 alias a_kubernetes="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/kubernetes.yml"
 alias a_lab_backup_copy="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/lab_backup.yml --extra-vars option=copy"
+alias a_lab_backup_cron="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/lab_backup.yml --extra-vars option=cron"
 alias a_lab_backup_execute="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/lab_backup.yml --extra-vars option=execute"
 alias a_lab_backup_remove="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/lab_backup.yml --extra-vars option=remove"
 alias a_mount_tvault="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/mount_tvault.yml"

@@ -59,4 +59,7 @@
       when: option == "display"
 
     - debug: var=display_current_certificate.stdout_lines
+      when: option == "display"
+
     - debug: var=generate_new_certificate.stdout_lines
+      when: option == "generate"

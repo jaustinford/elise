@@ -91,7 +91,7 @@
         - name: ELISE_ROOT_DIR
           value: "{{ ELISE_ROOT_DIR }}"
       notify: systemctl restart cron
-      when: option == "copy"
+      when: option == "cron"
 
     - name: configure crontab - job
       cron:
@@ -102,7 +102,7 @@
         user: root
         job: "${ELISE_ROOT_DIR}/scripts/lab_backup.sh >> /mnt/tvault/es-labs/backups/iscsi_volumes/backup_cron.log"
       notify: systemctl restart cron
-      when: option == "copy"
+      when: option == "cron"
 
     - name: execute lab_backup tasks
       shell: "{{ ELISE_ROOT_DIR }}/scripts/lab_backup.sh"
