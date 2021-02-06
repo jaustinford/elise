@@ -40,10 +40,10 @@ metadata:
 data:
   index.html: |
     <html>
-    <body>
+    <body style="background-color:LightGray;">
     <center>
-        <br /><br />
-        <h3>IE1hZGUgeWEgbG9vayEgTm93IGZ1Y2sgb2ZmIQo=</h3>
+        <br /><br /><br /><br />
+        <h1 style="color:green; font-family:Consolas;">IE1hZGUgeWEgbG9vayEgTm93IGZ1Y2sgb2ZmIQo=</h1>
     </body>
     </html>
   certbot.sh: |
