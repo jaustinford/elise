@@ -22,6 +22,7 @@
         - name: MAILTO
           value: root
       notify: systemctl restart cron
+      when: option == "cron"
 
     - name: configure crontab - job
       cron:
@@ -35,3 +36,27 @@
           container=$(docker ps | egrep -o 'k8s_acme_acme-.*$');
           if [ ! -z "$container" ]; then docker exec -it "$container" certbot renew; fi
       notify: systemctl restart cron
+      when: option == "cron"
+
+- hosts: localhost
+  gather_facts: false
+  become: true
+  tasks:
+    - name: generate new certificate
+      shell: |
+        kubectl -n eslabs exec --stdin --tty \
+            "$(kubectl -n eslabs get pods | grep acme | awk '{print $1}')" -- \
+            /bin/bash -c 'rm -rf /etc/letsencrypt/*; /tmp/certbot.sh generate'
+      register: generate_new_certificate
+      when: option == "generate"
+
+    - name: display current certificate
+      shell: |
+        kubectl -n eslabs exec --stdin --tty \
+            "$(kubectl -n eslabs get pods | grep acme | awk '{print $1}')" -- \
+            /bin/bash -c '/tmp/certbot.sh display'
+      register: display_current_certificate
+      when: option == "display"
+
+    - debug: var=display_current_certificate.stdout_lines
+    - debug: var=generate_new_certificate.stdout_lines

@@ -47,14 +47,14 @@ data:
     </body>
     </html>
   certbot.sh: |
-    if [ ! -d '/etc/letsencrypt/live/${LAB_FQDN}' ]; then
+    if [ "\$1" == "generate" ]; then
         mkdir -p /usr/local/apache2/htdocs/.well-known/acme-challenge
         chmod 777 /usr/local/apache2/htdocs/.well-known/acme-challenge
         cd /usr/local/apache2/htdocs/.well-known/acme-challenge
         certbot certonly -d '${DOMAINS}' -m '$(git config -l | egrep ^user.email | cut -d'=' -f2)' \
             --webroot --webroot-path='/usr/local/apache2/htdocs' --agree-tos --non-interactive
 
-    else
+    elif [ "\$1" == "display" ]; then
         serial=\$(openssl x509 -in /etc/letsencrypt/live/${LAB_FQDN}/fullchain.pem -noout -serial | cut -d'=' -f2)
         expiration=\$(openssl x509 -in /etc/letsencrypt/live/${LAB_FQDN}/fullchain.pem -noout -enddate | cut -d'=' -f2)
         sans=\$(openssl x509 -in /etc/letsencrypt/live/${LAB_FQDN}/fullchain.pem -noout -text \
@@ -103,7 +103,6 @@ spec:
             - >
               apt-get update -y;
               apt-get install -y certbot;
-              /tmp/certbot.sh;
               httpd-foreground
           volumeMounts:
             - name: acme-configmap
