@@ -43,7 +43,7 @@ data:
     <body style="background-color:LightGray;">
     <center>
         <br /><br /><br /><br />
-        <h1 style="color:green; font-family:Consolas;">IE1hZGUgeWEgbG9vayEgTm93IGZ1Y2sgb2ZmIQo=</h1>
+        <h1 style="color:green; font-family:Consolas;">${LAB_APACHE_MOTD}</h1>
     </body>
     </html>
   certbot.sh: |
