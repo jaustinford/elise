@@ -35,9 +35,12 @@ data:
     </html>
   certbot.sh: |
     if [ "\$1" == "generate" ]; then
+        # local apache webroot directory
+        WEBROOT='/usr/local/apache2/htdocs'
+
         # create folder needed by acme for http challenge
-        mkdir -p /usr/local/apache2/htdocs/.well-known/acme-challenge
-        chmod 777 /usr/local/apache2/htdocs/.well-known/acme-challenge
+        mkdir -p \${WEBROOT}/.well-known/acme-challenge
+        chmod 777 \${WEBROOT}/.well-known/acme-challenge
 
         # entries in SANS must have public DNS
         # record of some kind; using CNAME
@@ -55,7 +58,7 @@ data:
         certbot certonly \
             --domains "\${DOMAINS}" \
             --email '$(git config -l | egrep ^user.email | cut -d'=' -f2)' \
-            --webroot --webroot-path='/usr/local/apache2/htdocs' \
+            --webroot --webroot-path="\${WEBROOT}" \
             --agree-tos --non-interactive
 
     elif [ "\$1" == "display" ]; then
