@@ -2,7 +2,6 @@
 
 . "${ELISE_ROOT_DIR}/src/elise.sh"
 
-
 cat <<EOF | kubectl "$1" -f -
 ---
 apiVersion: v1
