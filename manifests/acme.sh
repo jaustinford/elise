@@ -50,8 +50,12 @@ data:
     if [ "\$1" == "generate" ]; then
         mkdir -p /usr/local/apache2/htdocs/.well-known/acme-challenge
         chmod 777 /usr/local/apache2/htdocs/.well-known/acme-challenge
-        certbot certonly -d '${DOMAINS}' -m '$(git config -l | egrep ^user.email | cut -d'=' -f2)' \
-            --webroot --webroot-path='/usr/local/apache2/htdocs' --agree-tos --non-interactive
+
+        certbot certonly \
+            --domains '${DOMAINS}' \
+            --email '$(git config -l | egrep ^user.email | cut -d'=' -f2)' \
+            --webroot --webroot-path='/usr/local/apache2/htdocs' \
+            --agree-tos --non-interactive
 
     elif [ "\$1" == "display" ]; then
         serial=\$(openssl x509 -in /etc/letsencrypt/live/${LAB_FQDN}/fullchain.pem -noout -serial | cut -d'=' -f2)
