@@ -50,7 +50,6 @@ data:
     if [ "\$1" == "generate" ]; then
         mkdir -p /usr/local/apache2/htdocs/.well-known/acme-challenge
         chmod 777 /usr/local/apache2/htdocs/.well-known/acme-challenge
-        cd /usr/local/apache2/htdocs/.well-known/acme-challenge
         certbot certonly -d '${DOMAINS}' -m '$(git config -l | egrep ^user.email | cut -d'=' -f2)' \
             --webroot --webroot-path='/usr/local/apache2/htdocs' --agree-tos --non-interactive
 

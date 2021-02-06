@@ -69,7 +69,6 @@ git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
     | **PLEX_CLAIM**                           | str  |                                             |        |
     | **PLEX_AFFINITY_NODE**                   | str  | `kube01.labs.elysianskies.com`              |        |
     | **LAB_FQDN**                             | str  | `labs.elysianskies.com`                     |        |
-    | **LAB_SSL_DIR**                          | str  |                                             |        |
     | **LAB_USER_AUSTIN_SSH_KEY**              | str  |                                             | `true` |
 
 <br />
