@@ -42,11 +42,10 @@ data:
 
         # entries in SANS must have public DNS
         # record of some kind; using CNAME
+        DOMAINS="\${LAB_FQDN}"
         SANS=(
           "kube00"
         )
-
-        DOMAINS="\${LAB_FQDN}"
 
         for host in \${SANS[@]}; do
             DOMAINS+=",\${host}.\${LAB_FQDN}"
