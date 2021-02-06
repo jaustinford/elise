@@ -62,12 +62,15 @@ data:
             | sed 's/ DNS://g' \
             | awk '{print \$1}')
 
-        echo "----------------------------------------------------------------------"
-        echo "found certificate : ${LAB_FQDN}"
-        echo "serial number     : \$serial"
-        echo "expiration date   : \$expiration"
-        echo "configured sans   : \$sans"
-        echo "----------------------------------------------------------------------"
+        if [ ! -z "\$serial" ]; then
+            echo "----------------------------------------------------------------------"
+            echo "found certificate : ${LAB_FQDN}"
+            echo "serial number     : \$serial"
+            echo "expiration date   : \$expiration"
+            echo "configured sans   : \$sans"
+            echo "----------------------------------------------------------------------"
+
+        fi
 
     fi
 ---
