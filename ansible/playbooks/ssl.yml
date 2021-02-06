@@ -32,9 +32,7 @@
         day: '1'
         month: '2,4,6,8,10,12'
         user: root
-        job: >
-          container=$(docker ps | egrep -o 'k8s_acme_acme-.*$');
-          if [ ! -z "$container" ]; then docker exec -it "$container" certbot renew; fi
+        job: docker exec -it $(docker ps | egrep -o 'k8s_acme_acme-.*$') certbot renew
       notify: systemctl restart cron
       when: option == "cron"
 
