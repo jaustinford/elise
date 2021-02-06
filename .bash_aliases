@@ -65,8 +65,8 @@ alias g_status="git status"
 alias g_spot="${ELISE_ROOT_DIR}/scripts/git_automator.sh all"
 
 # ansible - playbooks
-alias a_cron_ssl="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/ssl.yml --extra-vars option=cron"
 alias a_cron_lab_backup="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/lab_backup.yml --extra-vars option=cron"
+alias a_cron_ssl="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/ssl.yml --extra-vars option=cron"
 alias a_docker="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/docker.yml"
 alias a_general="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/general.yml"
 alias a_haproxy_restart="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/haproxy.yml --extra-vars \"container_state=started recreate_container=yes message=restarting\""
