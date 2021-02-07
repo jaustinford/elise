@@ -12,27 +12,26 @@ if [ "$#" -ge 1 ]; then
     if [ "${MODE}" == "start" ]; then
         NAMESPACE="$2"
         APP="$3"
-        kube_start_deployment "${NAMESPACE}" \
-            "${APP}" \
-            '1'
+
+        kube_start_deployment "${NAMESPACE}" "${APP}" '1'
+        wait_for_pod_to 'start' "${APP}"
  
     elif [ "${MODE}" == "stop" ]; then
         NAMESPACE="$2"
         APP="$3"
-        kube_stop_deployment "${NAMESPACE}" \
-            "${APP}"
+
+        kube_stop_deployment "${NAMESPACE}" "${APP}"
+        wait_for_pod_to 'stop' "${APP}"
 
     elif [ "${MODE}" == "restart" ]; then
         NAMESPACE="$2"
         APP="$3"
-        kube_stop_deployment "${NAMESPACE}" \
-            "${APP}"
 
-        wait_for_deployment_to_terminate "${APP}"
+        kube_stop_deployment "${NAMESPACE}" "${APP}"
+        wait_for_pod_to 'stop' "${APP}"
 
-        kube_start_deployment "${NAMESPACE}" \
-            "${APP}" \
-            '1'
+        kube_start_deployment "${NAMESPACE}" "${APP}" '1'
+        wait_for_pod_to 'start' "${APP}"
 
     elif [ "${MODE}" == "logs" ]; then
         NAMESPACE="$2"

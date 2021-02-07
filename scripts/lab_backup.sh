@@ -24,7 +24,7 @@ for deployment in $unique_deployments; do
 done
 
 for deployment in $unique_deployments; do
-    wait_for_deployment_to_terminate "$deployment"
+    wait_for_pod_to 'stop' "$deployment"
 
 done
 
@@ -47,6 +47,11 @@ done
 for deployment in $unique_deployments; do
     find_namespace_from_deployment "$deployment"
     kube_start_deployment "$namespace" "$deployment" '1'
+
+done
+
+for deployment in $unique_deployments; do
+    wait_for_pod_to 'start' "$deployment"
 
 done
 

@@ -1,3 +1,9 @@
+kube_config () {
+    print_message 'stdout' 'generating kubernetes config' "$1/.kube/config"
+    mkdir -p "$1/.kube"
+    echo "${KUBE_CONFIG_FILE}" | base64 -d > "$1/.kube/config"
+}
+
 ensure_kubeconfig () {
     if [ ! -f ~/.kube/config ]; then
         print_message 'stderr' 'missing ~/.kube/config'
@@ -6,11 +12,34 @@ ensure_kubeconfig () {
     fi
 }
 
-wait_for_deployment_to_terminate () {
-    while [ ! -z "$(kubectl get pods --all-namespaces | grep $1 | egrep '\-[a-z0-9]{1,}\-[a-z0-9]{1,}')" ]; do
-        sleep 5
+kube_nodes () {
+    kubectl get nodes -o wide
+}
 
-    done
+wait_for_pod_to () {
+    if [ "$1" == 'start' ]; then
+        while [ "$(kubectl get pods --all-namespaces | grep $2 | awk '{print $4}')" != 'Running' ]; do
+            sleep 2
+
+        done
+
+    elif [ "$1" == 'stop' ]; then
+        while [ ! -z "$(kubectl get pods --all-namespaces | grep $2 | egrep '\-[a-z0-9]{1,}\-[a-z0-9]{1,}')" ]; do
+            sleep 2
+
+        done
+
+    fi
+}
+
+kube_start_deployment () {
+    print_message 'stdout' "deploy pods ($3)" "$1/$2"
+    kubectl -n "$1" scale --replicas="$3" deployment/"$2" 1> /dev/null
+}
+
+kube_stop_deployment () {
+    print_message 'stdout' 'delete pods' "$1/$2"
+    kubectl -n "$1" scale --replicas=0 deployment/"$2" 1> /dev/null
 }
 
 check_if_k8s_is_using () {
@@ -42,16 +71,6 @@ find_deployments_from_array () {
         done
 
         unique_deployments=$(echo "${attached_deployments[@]}" | tr ' ' '\n' | sort -u)
-}
-
-kube_start_deployment () {
-    print_message 'stdout' "deploy pods ($3)" "$1/$2"
-    kubectl -n "$1" scale --replicas="$3" deployment/"$2" 1> /dev/null
-}
-
-kube_stop_deployment () {
-    print_message 'stdout' 'delete pods' "$1/$2"
-    kubectl -n "$1" scale --replicas=0 deployment/"$2" 1> /dev/null
 }
 
 kube_logs_pod () {
@@ -135,16 +154,6 @@ kube_describe () {
         kubectl -n "$1" describe "$2" "$3"
 
     fi
-}
-
-kube_nodes () {
-    kubectl get nodes -o wide
-}
-
-kube_config () {
-    print_message 'stdout' 'generating kubernetes config' "$1/.kube/config"
-    mkdir -p "$1/.kube"
-    echo "${KUBE_CONFIG_FILE}" | base64 -d > "$1/.kube/config"
 }
 
 crash_container () {
