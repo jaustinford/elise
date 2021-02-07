@@ -157,7 +157,7 @@ kube_edit () {
 
 kube_describe () {
     if [ "$2" == "pod" ]; then
-        kubectl -n "$1" describe "$2" "$(pod_from_deployment $1 $2)"
+        kubectl -n "$1" describe "$2" "$(pod_from_deployment $1 $3)"
 
     else
         kubectl -n "$1" describe "$2" "$3"
