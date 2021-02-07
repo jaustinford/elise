@@ -18,13 +18,9 @@ rotate_directory "${ISCSI_BACKUP_DIR}" "${ISCSI_BACKUP_ROTATE_DAYS}" 'tgz'
 find_deployments_from_array "${ISCSI_BACKUP_VOLUMES[@]}"
 
 for deployment in $unique_deployments; do
-    find_namespace_from_deployment "$deployment"
-    kube_stop_deployment  "$namespace" "$deployment"
-
-done
-
-for deployment in $unique_deployments; do
-    wait_for_pod_to 'stop' "$deployment"
+    kube_stop_deployment 'eslabs' $deployment
+    pod="$(pod_from_deployment 'eslabs' $deployment)"
+    wait_for_pod_to 'stop' 'eslabs' "$pod"
 
 done
 
@@ -45,13 +41,9 @@ for volume in "${ISCSI_BACKUP_VOLUMES[@]}"; do
 done
 
 for deployment in $unique_deployments; do
-    find_namespace_from_deployment "$deployment"
-    kube_start_deployment "$namespace" "$deployment" '1'
-
-done
-
-for deployment in $unique_deployments; do
-    wait_for_pod_to 'start' "$deployment"
+    kube_start_deployment 'eslabs' $deployment '1'
+    pod="$(pod_from_deployment 'eslabs' $deployment)"
+    wait_for_pod_to 'start' 'eslabs' "$pod"
 
 done
 

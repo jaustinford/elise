@@ -12,26 +12,22 @@ ensure_kubeconfig () {
     fi
 }
 
-kube_nodes () {
-    kubectl get nodes -o wide
-}
-
 pod_from_deployment () {
-    kubectl -n $1 get pods \
+    kubectl -n "$1" get pods \
         | egrep -o "^$2-[0-9a-z]{1,}-[0-9a-z]{1,}"
 }
 
 wait_for_pod_to () {
-    pod="$(pod_from_deployment $2 $3)"
-
     if [ "$1" == 'start' ]; then
-        while [ "$(kubectl -n $2 get pods | grep $pod | awk '{print $3}')" != 'Running' ]; do
+        print_message 'stdout' 'deploying pod' "$2/$3"
+        while [ "$(kubectl -n $2 get pods | grep $3 | awk '{print $3}')" != 'Running' ]; do
             sleep 2
 
         done
 
     elif [ "$1" == 'stop' ]; then
-        while [ ! -z "$(kubectl -n $2 get pods | grep $pod)" ]; do
+        print_message 'stdout' 'terminating pod' "$2/$3"
+        while [ ! -z "$(kubectl -n $2 get pods | grep $3)" ]; do
             sleep 2
 
         done
@@ -40,13 +36,59 @@ wait_for_pod_to () {
 }
 
 kube_start_deployment () {
-    print_message 'stdout' "deploy pods ($3)" "$1/$2"
     kubectl -n "$1" scale --replicas="$3" deployment/"$2" 1> /dev/null
 }
 
 kube_stop_deployment () {
-    print_message 'stdout' 'delete pods' "$1/$2"
     kubectl -n "$1" scale --replicas=0 deployment/"$2" 1> /dev/null
+}
+
+kube_nodes () {
+    kubectl get nodes -o wide
+}
+
+kube_get () {
+    kubectl -n "$1" -o wide get "$2"
+}
+
+kube_exec () {
+    if [ ! -z "$3" ]; then
+        kubectl -n "$1" exec --stdin --tty \
+            $2 -c "$3" -- "$4"
+
+    else
+        kubectl -n "$1" exec --stdin --tty \
+            $2 -- "$4"
+
+    fi
+}
+
+kube_edit () {
+    kubectl -n "$1" edit "$2" "$3"
+}
+
+kube_describe () {
+    kubectl -n "$1" describe "$2" "$3"
+}
+
+kube_logs_deployment () {
+    if [ -z "$3" ]; then
+        kubectl -n "$1" logs "deployment/$2"
+
+    else
+        kubectl -n "$1" logs "deployment/$2" -c "$3"
+
+    fi
+}
+
+kube_tail_deployment () {
+    if [ -z "$3" ]; then
+        kubectl -n "$1" logs -f --tail=50 "deployment/$2"
+
+    else
+        kubectl -n "$1" logs -f --tail=50 "deployment/$2" -c "$3"
+
+    fi
 }
 
 check_if_k8s_is_using () {
@@ -57,51 +99,21 @@ check_if_k8s_is_using () {
     fi
 }
 
-find_namespace_from_deployment () {
-    namespace=$(kubectl get deployments --all-namespaces \
-        | grep "$1" \
-        | awk '{print $1}')
-}
-
 find_deployments_from_array () {
     iscsi_backup_volumes=("$@")
         for vol in "${iscsi_backup_volumes[@]}"; do
-            deployment=$(kubectl describe pods --all-namespaces \
+            active_deployment=$(kubectl describe pods --all-namespaces \
                 | egrep "^Name\:|$vol" \
                 | egrep "$vol\ \(r(o|w)\)$" -B1 \
                 | egrep '^Name\:' \
                 | awk '{print $2}' \
                 | sed -E 's/\-[0-9a-z]{1,}\-[0-9a-z]{1,}$//g')
 
-                attached_deployments+=("$deployment")
+                active_deployments+=("$active_deployment")
 
         done
 
-        unique_deployments=$(echo "${attached_deployments[@]}" | tr ' ' '\n' | sort -u)
-}
-
-kube_logs_pod () {
-    if [ -z "$3" ]; then
-        kubectl -n "$1" logs "deployment/$2"
-
-    else
-        kubectl -n "$1" logs "deployment/$2" -c "$3"
-
-    fi
-}
-
-kube_tail_pod () {
-    if [ -z "$3" ]; then
-        kubectl -n "$1" logs -f --tail=50 "deployment/$2"
-
-    else
-        kubectl -n "$1" logs -f --tail=50 "deployment/$2" -c "$3"
-
-    fi
-}
-
-kube_get () {
-    kubectl -n "$1" -o wide get "$2"
+        unique_deployments=$(echo "${active_deployments[@]}" | tr ' ' '\n' | sort -u)
 }
 
 kube_display () {
@@ -137,45 +149,17 @@ $(kubectl -n $1 -o wide get events)
 "
 }
 
-kube_exec () {
-    pod="$(pod_from_deployment $1 $2)"
-
-    if [ ! -z "$3" ]; then
-        kubectl -n "$1" exec --stdin --tty \
-            $pod -c "$3" -- "$4"
-
-    else
-        kubectl -n "$1" exec --stdin --tty \
-            $pod -- "$4"
-
-    fi
-}
-
-kube_edit () {
-    kubectl -n "$1" edit "$2" "$3"
-}
-
-kube_describe () {
-    if [ "$2" == "pod" ]; then
-        kubectl -n "$1" describe "$2" "$(pod_from_deployment $1 $3)"
-
-    else
-        kubectl -n "$1" describe "$2" "$3"
-
-    fi
-}
-
 crash_container () {
     # meant as a way to force kubernetes to restart containers by crashing them internally
     # as opposed to using kubernetes to kill the pod. useful in troubleshooting boot order
     # issues with pods that have multiple containers.
     print_message 'stdout' 'crashing container' "$1/$2:$3"
-    kubectl -n "$1" exec "$(pod_from_deployment $1 $2)" -c "$3" -- /sbin/killall5
+    kubectl -n "$1" exec "$2" -c "$3" -- /sbin/killall5
 }
 
 grab_loaded_vpn_server () {
     kubectl -n eslabs exec \
-        "$(pod_from_deployment 'eslabs' 'kharon')" -c expressvpn -- \
+        "$1" -c expressvpn -- \
         egrep '^remote\ ' /vpn/vpn.conf \
             | awk '{print $2}' \
             | sed 's/-ca-version-2.expressnetw.com//g'

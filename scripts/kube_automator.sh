@@ -10,102 +10,95 @@ MODE="$1"
 
 if [ "$#" -ge 1 ]; then
     if [ "${MODE}" == "start" ]; then
-        NAMESPACE="$2"
-        APP="$3"
-
-        kube_start_deployment "${NAMESPACE}" "${APP}" '1'
-        wait_for_pod_to 'start' "${NAMESPACE}" "${APP}"
+        ns="$2"
+        deployment="$3"
+        kube_start_deployment "$ns" "$deployment" '1'
+        pod="$(pod_from_deployment $ns $deployment)"
+        wait_for_pod_to 'start' "$ns" "$pod"
  
     elif [ "${MODE}" == "stop" ]; then
-        NAMESPACE="$2"
-        APP="$3"
-
-        kube_stop_deployment "${NAMESPACE}" "${APP}"
-        wait_for_pod_to 'stop' "${NAMESPACE}" "${APP}"
+        ns="$2"
+        deployment="$3"
+        kube_stop_deployment "$ns" "$deployment"
+        pod="$(pod_from_deployment $ns $deployment)"
+        wait_for_pod_to 'stop' "$ns" "$pod"
 
     elif [ "${MODE}" == "restart" ]; then
-        NAMESPACE="$2"
-        APP="$3"
-
-        kube_stop_deployment "${NAMESPACE}" "${APP}"
-        wait_for_pod_to 'stop' "${NAMESPACE}" "${APP}"
-
-        kube_start_deployment "${NAMESPACE}" "${APP}" '1'
-        wait_for_pod_to 'start' "${NAMESPACE}" "${APP}"
+        ns="$2"
+        deployment="$3"
+        kube_stop_deployment "$ns" "$deployment"
+        pod="$(pod_from_deployment $ns $deployment)"
+        wait_for_pod_to 'stop' "$ns" "$pod"
+        kube_start_deployment "$ns" "$deployment" '1'
+        pod="$(pod_from_deployment $ns $deployment)"
+        wait_for_pod_to 'start' "$ns" "$pod"
 
     elif [ "${MODE}" == "logs" ]; then
-        NAMESPACE="$2"
-        APP="$3"
-        CONTAINER="$4"
-        kube_logs_pod "${NAMESPACE}" \
-            "${APP}" \
-            "${CONTAINER}"
+        ns="$2"
+        deployment="$3"
+        container="$4"
+        kube_logs_deployment "$ns" "$deployment" "$container"
 
     elif [ "${MODE}" == "tail" ]; then
-        NAMESPACE="$2"
-        APP="$3"
-        CONTAINER="$4"
-        kube_tail_pod "${NAMESPACE}" \
-            "${APP}" \
-            "${CONTAINER}"
+        ns="$2"
+        deployment="$3"
+        container="$4"
+        kube_tail_deployment "$ns" "$deployment" "$container"
 
     elif [ "${MODE}" == "display" ]; then
-        NAMESPACE="$2"
-        kube_display "${NAMESPACE}" \
-            "${SHELL_KUBE_DISPLAY_BANNER_CODE}" \
-            "${SHELL_KUBE_DISPLAY_KEY_CODE}" 2> /dev/null
+        ns="$2"
+        color_1="${SHELL_KUBE_DISPLAY_BANNER_CODE}"
+        color_2="${SHELL_KUBE_DISPLAY_KEY_CODE}"
+        kube_display "$ns" "$color_1" "$color_2"
 
     elif [ "${MODE}" == "exec" ]; then
-        NAMESPACE="$2"
-        APP="$3"
-        CMD="$4"
-        CONTAINER="$5"
-        kube_exec "${NAMESPACE}" \
-            "${APP}" \
-            "${CONTAINER}" \
-            "${CMD}"
+        ns="$2"
+        deployment="$3"
+        cmd="$4"
+        container="$5"
+        pod="$(pod_from_deployment $ns $deployment)"
+        kube_exec "$ns" "$pod" "$container" "$cmd"
 
     elif [ "${MODE}" == "shell" ]; then
-        NAMESPACE="$2"
-        APP="$3"
-        CONTAINER="$4"
-        kube_exec "${NAMESPACE}" \
-            "${APP}" \
-            "${CONTAINER}" \
-            '/bin/bash'
+        ns="$2"
+        deployment="$3"
+        container="$4"
+        pod="$(pod_from_deployment $ns $deployment)"
+        kube_exec "$ns" "$pod" "$container" '/bin/bash'
 
     elif [ "${MODE}" == "edit" ]; then
-        NAMESPACE="$2"
-        RESOURCE="$3"
-        OBJECT="$4"
-        kube_edit "${NAMESPACE}" \
-            "${RESOURCE}" \
-            "${OBJECT}"
+        ns="$2"
+        resource="$3"
+        object="$4"
+        kube_edit "$ns" "$resource" "$object"
 
     elif [ "${MODE}" == "describe" ]; then
-        NAMESPACE="$2"
-        RESOURCE="$3"
-        APP="$4"
-        kube_describe "${NAMESPACE}" \
-            "${RESOURCE}" \
-            "${APP}"
+        ns="$2"
+        resource="$3"
+
+        if [ "$resource" == 'pod' ]; then
+            object="$(pod_from_deployment 'eslabs' $4)"
+
+        else
+            object="$4"
+        fi
+
+        kube_describe "$ns" "$resource" "$object"
 
     elif [ "${MODE}" == "nodes" ]; then
         kube_nodes
 
     elif [ "${MODE}" == "crash" ]; then
-        NAMESPACE="$2"
-        APP="$3"
-        CONTAINER="$4"
-        crash_container "${NAMESPACE}" \
-            "${APP}" \
-            "${CONTAINER}"
+        ns="$2"
+        deployment="$3"
+        container="$4"
+        pod="$(pod_from_deployment $ns $deployment)"
+        crash_container "$ns" "$pod" "$container"
 
     elif [ "${MODE}" == "get" ]; then
-        NAMESPACE="$2"
-        RESOURCE="$3"
-        kube_get "${NAMESPACE}" \
-            "${RESOURCE}"
+        ns="$2"
+        resource="$3"
+        kube_get "$ns" "$resource"
 
     fi
 

@@ -96,9 +96,9 @@
     - name: configure crontab - job
       cron:
         name: lab_backup
-        minute: '20'
-        hour: '4'
-        weekday: '2'
+        minute: '5'
+        hour: '13'
+        weekday: '0'
         user: root
         job: "${ELISE_ROOT_DIR}/scripts/lab_backup.sh >> /mnt/tvault/es-labs/backups/iscsi_volumes/backup_cron.log"
       notify: systemctl restart cron
