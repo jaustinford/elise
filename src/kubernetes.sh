@@ -114,10 +114,24 @@ find_active_deployments_from_array () {
 }
 
 find_volumes_from_deployment () {
-    volumes+=($(kubectl describe pods --all-namespaces \
+    all_volumes=()
+    volumes=()
+
+    all_volumes+=($(kubectl describe pods --all-namespaces \
         | grep $1 \
         | grep 'IQN\:' \
         | cut -d':' -f4))
+
+    for vol in "${ISCSI_BACKUP_VOLUMES[@]}"; do
+        for item in "${all_volumes[@]}"; do
+            if [ "$vol" == "$item" ]; then
+                volumes+=("$item")
+
+            fi
+
+        done
+
+    done
 }
 
 kube_display () {
