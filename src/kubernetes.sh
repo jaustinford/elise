@@ -16,15 +16,22 @@ kube_nodes () {
     kubectl get nodes -o wide
 }
 
+pod_from_deployment () {
+    kubectl -n $1 get pods \
+        | egrep -o "^$2-[0-9a-z]{1,}-[0-9a-z]{1,}"
+}
+
 wait_for_pod_to () {
+    pod="$(pod_from_deployment $2 $3)"
+
     if [ "$1" == 'start' ]; then
-        while [ "$(kubectl get pods --all-namespaces | grep $2 | awk '{print $4}')" != 'Running' ]; do
+        while [ "$(kubectl -n $2 get pods | grep $pod | awk '{print $3}')" != 'Running' ]; do
             sleep 2
 
         done
 
     elif [ "$1" == 'stop' ]; then
-        while [ ! -z "$(kubectl get pods --all-namespaces | grep $2 | egrep '\-[a-z0-9]{1,}\-[a-z0-9]{1,}')" ]; do
+        while [ ! -z "$(kubectl -n $2 get pods | grep $pod)" ]; do
             sleep 2
 
         done
@@ -131,13 +138,15 @@ $(kubectl -n $1 -o wide get events)
 }
 
 kube_exec () {
+    pod="$(pod_from_deployment $1 $2)"
+
     if [ ! -z "$3" ]; then
         kubectl -n "$1" exec --stdin --tty \
-            "$(kubectl -n $1 get pods | grep $2 | awk '{print $1}')" -c "$3" -- "$4"
+            $pod -c "$3" -- "$4"
 
     else
         kubectl -n "$1" exec --stdin --tty \
-            "$(kubectl -n $1 get pods | grep $2 | awk '{print $1}')" -- "$4"
+            $pod -- "$4"
 
     fi
 }
@@ -148,7 +157,7 @@ kube_edit () {
 
 kube_describe () {
     if [ "$2" == "pod" ]; then
-        kubectl -n "$1" describe "$2" $(kubectl -n $1 get pods | grep $3 | awk '{print $1}')
+        kubectl -n "$1" describe "$2" "$(pod_from_deployment $1 $2)"
 
     else
         kubectl -n "$1" describe "$2" "$3"
@@ -161,10 +170,13 @@ crash_container () {
     # as opposed to using kubernetes to kill the pod. useful in troubleshooting boot order
     # issues with pods that have multiple containers.
     print_message 'stdout' 'crashing container' "$1/$2:$3"
-    kubectl -n "$1" exec $(kubectl -n $1 get pods | grep $2 | awk '{print $1}') -c "$3" -- /sbin/killall5
+    kubectl -n "$1" exec "$(pod_from_deployment $1 $2)" -c "$3" -- /sbin/killall5
 }
 
 grab_loaded_vpn_server () {
-    vpn_server=$(kubectl -n eslabs exec $(kubectl -n eslabs get pods | grep kharon | awk '{print $1}') -c expressvpn -- \
-        egrep '^remote\ ' /vpn/vpn.conf | awk '{print $2}' | sed 's/-ca-version-2.expressnetw.com//g')
+    kubectl -n eslabs exec \
+        "$(pod_from_deployment 'eslabs' 'kharon')" -c expressvpn -- \
+            egrep '^remote\ ' /vpn/vpn.conf \
+                | awk '{print $2}' \
+                | sed 's/-ca-version-2.expressnetw.com//g'
 }
