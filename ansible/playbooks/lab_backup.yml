@@ -96,8 +96,8 @@
     - name: configure crontab - job
       cron:
         name: lab_backup
-        minute: '5'
-        hour: '13'
+        minute: '30'
+        hour: '14'
         weekday: '0'
         user: root
         job: "${ELISE_ROOT_DIR}/scripts/lab_backup.sh >> /mnt/tvault/es-labs/backups/iscsi_volumes/backup_cron.log"

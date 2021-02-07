@@ -99,21 +99,25 @@ check_if_k8s_is_using () {
     fi
 }
 
-find_deployments_from_array () {
-    iscsi_backup_volumes=("$@")
-        for vol in "${iscsi_backup_volumes[@]}"; do
-            active_deployment=$(kubectl describe pods --all-namespaces \
-                | egrep "^Name\:|$vol" \
-                | egrep "$vol\ \(r(o|w)\)$" -B1 \
-                | egrep '^Name\:' \
-                | awk '{print $2}' \
-                | sed -E 's/\-[0-9a-z]{1,}\-[0-9a-z]{1,}$//g')
+find_active_deployments_from_array () {
+    for vol in "${ISCSI_BACKUP_VOLUMES[@]}"; do
+        active_deployments+=($(kubectl describe pods --all-namespaces \
+            | egrep "^Name\:|$vol" \
+            | egrep "$vol\ \(r(o|w)\)$" -B1 \
+            | egrep '^Name\:' \
+            | awk '{print $2}' \
+            | sed -E 's/\-[0-9a-z]{1,}\-[0-9a-z]{1,}$//g'))
 
-                active_deployments+=("$active_deployment")
+    done
 
-        done
+    deployments=$(echo "${active_deployments[@]}" | tr ' ' '\n' | sort -u)
+}
 
-        unique_deployments=$(echo "${active_deployments[@]}" | tr ' ' '\n' | sort -u)
+find_volumes_from_deployment () {
+    volumes+=($(kubectl describe pods --all-namespaces \
+        | grep $1 \
+        | grep 'IQN\:' \
+        | cut -d':' -f4))
 }
 
 kube_display () {
