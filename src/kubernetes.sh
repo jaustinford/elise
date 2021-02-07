@@ -176,7 +176,7 @@ crash_container () {
 grab_loaded_vpn_server () {
     kubectl -n eslabs exec \
         "$(pod_from_deployment 'eslabs' 'kharon')" -c expressvpn -- \
-            egrep '^remote\ ' /vpn/vpn.conf \
-                | awk '{print $2}' \
-                | sed 's/-ca-version-2.expressnetw.com//g'
+        egrep '^remote\ ' /vpn/vpn.conf \
+            | awk '{print $2}' \
+            | sed 's/-ca-version-2.expressnetw.com//g'
 }
