@@ -151,5 +151,11 @@ permissions_and_dos_line_endings () {
 
 rotate_directory () {
     print_message 'stdout' "rotate '.$3' older than" "$2 days"
-    find "$1" -type f -name \*"$3" -mtime +"$2" -exec rm -f {} \; 1> /dev/null
+
+    IFS=$'\n'
+    for item in $(find $1 -type f -name \*$3 -mtime +$2); do
+        print_message 'stdout' 'deleting file' "$item"
+        rm -f "$item"
+
+    done
 }
