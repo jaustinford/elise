@@ -77,10 +77,12 @@ if [ "$#" -ge 1 ]; then
         resource="$3"
 
         if [ "$resource" == 'pod' ]; then
-            object="$(pod_from_deployment 'eslabs' $4)"
+            pod_from_deployment $ns $deployment
+            object="$pod"
 
         else
             object="$4"
+
         fi
 
         kube_describe "$ns" "$resource" "$object"
@@ -92,7 +94,7 @@ if [ "$#" -ge 1 ]; then
         ns="$2"
         deployment="$3"
         container="$4"
-        pod="$(pod_from_deployment $ns $deployment)"
+        pod_from_deployment $ns $deployment
         crash_container "$ns" "$pod" "$container"
 
     elif [ "${MODE}" == "get" ]; then
