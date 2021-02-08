@@ -13,22 +13,26 @@ ensure_kubeconfig () {
 }
 
 pod_from_deployment () {
-    kubectl -n "$1" get pods \
-        | egrep -o "^$2-[0-9a-z]{1,}-[0-9a-z]{1,}"
+    while [ -z "$(kubectl -n $1 get pods | egrep -o "^$2-[0-9a-z]{1,}-[0-9a-z]{1,}")" ]; do
+        sleep 1
+
+    done
+
+    pod=$(kubectl -n "$1" get pods | egrep -o "^$2-[0-9a-z]{1,}-[0-9a-z]{1,}")
 }
 
 wait_for_pod_to () {
     if [ "$1" == 'start' ]; then
         print_message 'stdout' 'deploying pod' "$2/$3"
         while [ "$(kubectl -n $2 get pods | grep $3 | awk '{print $3}')" != 'Running' ]; do
-            sleep 2
+            sleep 1
 
         done
 
     elif [ "$1" == 'stop' ]; then
         print_message 'stdout' 'terminating pod' "$2/$3"
         while [ ! -z "$(kubectl -n $2 get pods | grep $3)" ]; do
-            sleep 2
+            sleep 1
 
         done
 

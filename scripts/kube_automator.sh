@@ -13,24 +13,24 @@ if [ "$#" -ge 1 ]; then
         ns="$2"
         deployment="$3"
         kube_start_deployment "$ns" "$deployment" '1'
-        pod="$(pod_from_deployment $ns $deployment)"
+        pod_from_deployment $ns $deployment
         wait_for_pod_to 'start' "$ns" "$pod"
  
     elif [ "${MODE}" == "stop" ]; then
         ns="$2"
         deployment="$3"
         kube_stop_deployment "$ns" "$deployment"
-        pod="$(pod_from_deployment $ns $deployment)"
+        pod_from_deployment $ns $deployment
         wait_for_pod_to 'stop' "$ns" "$pod"
 
     elif [ "${MODE}" == "restart" ]; then
         ns="$2"
         deployment="$3"
         kube_stop_deployment "$ns" "$deployment"
-        pod="$(pod_from_deployment $ns $deployment)"
+        pod_from_deployment $ns $deployment
         wait_for_pod_to 'stop' "$ns" "$pod"
         kube_start_deployment "$ns" "$deployment" '1'
-        pod="$(pod_from_deployment $ns $deployment)"
+        pod_from_deployment $ns $deployment
         wait_for_pod_to 'start' "$ns" "$pod"
 
     elif [ "${MODE}" == "logs" ]; then
