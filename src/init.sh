@@ -59,12 +59,12 @@ greeting () {
 }
 
 curl_test () {
-    http_response=$(curl -i $1://$2$3 2> /dev/null | egrep ^HTTP\/ | awk '{print $2}')
+    http_response=$(curl -k -i $2://$3$4 2> /dev/null | egrep ^HTTP\/ | awk '{print $2}')
     if [ "$http_response" == '200' ]; then
-        print_message 'stdout' "$1 curl returned $http_response" "$1://$2$3"
+        print_message 'stdout' "curl $http_response $1" "$2://$3$4"
 
     else
-        print_message 'stderr' "$1 curl returned $http_response" "$1://$2$3"
+        print_message 'stderr' "curl $http_response $1" "$2://$3$4"
 
     fi
 }
