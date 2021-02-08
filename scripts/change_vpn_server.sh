@@ -17,7 +17,7 @@ if [ "${MODE}" == 'change' ]; then
         echo $vpn_server
 
     else
-        print_message 'stderr' "'${KHARON_EXPRESSVPN_SERVER}' already connected!"
+        print_message 'stderr' 'server already connected!' "${KHARON_EXPRESSVPN_SERVER}"
         exit 1
 
     fi
