@@ -1,5 +1,5 @@
 kube_config () {
-    print_message 'stdout' 'generating kubernetes config' "$1/.kube/config"
+    print_message 'stdout' 'generate kubernetes config' "$1/.kube/config"
     mkdir -p "$1/.kube"
     echo "${KUBE_CONFIG_FILE}" | base64 -d > "$1/.kube/config"
 }

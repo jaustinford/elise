@@ -5,7 +5,7 @@ ssh_key () {
 }
 
 ssh_client_config () {
-    print_message 'stdout' 'configure client ssh config' '/tmp/ssh_config'
+    print_message 'stdout' 'generate client ssh config' '/tmp/ssh_config'
     cat <<EOF > /tmp/ssh_config
 Host kube0* dns
     User ubuntu
@@ -27,7 +27,7 @@ EOF
 }
 
 add_local_dns_search () {
-    print_message 'stdout' 'generating local dns search' "$1"
+    print_message 'stdout' 'generate local dns search' "/etc/resolv.conf"
     if [ -z "$(grep $1 /etc/resolv.conf)" ]; then
         echo "search $1" >> /etc/resolv.conf
 
@@ -56,4 +56,15 @@ greeting () {
     fi
 
     echo -e "          $message$SHELL_USER_PROMPT_CODE $1 $ECHO_RESET\n"
+}
+
+curl_http () {
+    http_response=$(curl -i $1://$3$2 2> /dev/null | egrep ^HTTP\/ | awk '{print $2}')
+    if [ "$http_response" == '200' ]; then
+        print_message 'stdout' "$1 curl returned $http_response" "$1://$3$2"
+
+    else
+        print_message 'stderr' "$1 curl returned $http_response" "$1://$3$2"
+
+    fi
 }
