@@ -7,13 +7,6 @@
   environment:
     ELISE_ROOT_DIR: "{{ ELISE_ROOT_DIR }}"
 
-  handlers:
-    - name: systemctl restart cron
-      systemd:
-        name: cron
-        state: restarted
-        daemon_reload: yes
-
   tasks:
     - name: ensure lab_backup dir
       file:
@@ -75,34 +68,6 @@
         - src/general.sh
         - src/iscsi.sh
         - src/kubernetes.sh
-
-    - name: configure crontab - variables
-      cron:
-        name: "{{ item.name }}"
-        value: "{{ item.value }}"
-        env: yes
-      with_items:
-        - name: SHELL
-          value: /bin/bash
-        - name: PATH
-          value: /sbin:/bin:/usr/sbin:/usr/bin
-        - name: MAILTO
-          value: root
-        - name: ELISE_ROOT_DIR
-          value: "{{ ELISE_ROOT_DIR }}"
-      notify: systemctl restart cron
-      when: option == "cron"
-
-    - name: configure crontab - job
-      cron:
-        name: lab_backup
-        minute: '20'
-        hour: '4'
-        weekday: '2'
-        user: root
-        job: "${ELISE_ROOT_DIR}/scripts/lab_backup.sh >> /mnt/tvault/es-labs/backups/iscsi_volumes/backup_cron.log"
-      notify: systemctl restart cron
-      when: option == "cron"
 
     - name: execute lab_backup tasks
       shell: "{{ ELISE_ROOT_DIR }}/scripts/lab_backup.sh"
