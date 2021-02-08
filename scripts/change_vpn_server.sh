@@ -9,7 +9,7 @@ set -e
 MODE="$1"
 
 if [ "${MODE}" == 'change' ]; then
-    pod="$(pod_from_deployment 'eslabs' 'kharon')"
+    pod_from_deployment 'eslabs' 'kharon'
     if [ "$(grab_loaded_vpn_server $pod)" != "${KHARON_EXPRESSVPN_SERVER}" ]; then
         print_message 'stdout' 'new expressvpn server' "${KHARON_EXPRESSVPN_SERVER}"
         "${ELISE_ROOT_DIR}/scripts/run_manifest.sh" apply kharon 1> /dev/null
