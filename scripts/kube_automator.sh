@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+ #!/usr/bin/env bash
 
 set -e
 
@@ -56,14 +56,14 @@ if [ "$#" -ge 1 ]; then
         deployment="$3"
         cmd="$4"
         container="$5"
-        pod="$(pod_from_deployment $ns $deployment)"
+        pod_from_deployment $ns $deployment
         kube_exec "$ns" "$pod" "$container" "$cmd"
 
     elif [ "${MODE}" == "shell" ]; then
         ns="$2"
         deployment="$3"
         container="$4"
-        pod="$(pod_from_deployment $ns $deployment)"
+        pod_from_deployment $ns $deployment
         kube_exec "$ns" "$pod" "$container" '/bin/bash'
 
     elif [ "${MODE}" == "edit" ]; then
