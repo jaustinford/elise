@@ -21,9 +21,17 @@
         - "{{ ELISE_ROOT_DIR }}/src"
         - "{{ ELISE_ROOT_DIR }}/scripts"
 
-    - name: import lab_backup vars from localhost elise.sh
-      shell: "egrep ^{{ item }} ../../src/elise.sh"
-      register: elise_vars
+    - name: reset remote elise.sh vars
+      file:
+        path: "{{ ELISE_ROOT_DIR }}/src/elise.sh"
+        state: absent
+      when: option == "copy"
+
+    - name: import lab_backup vars - constants
+      shell: |
+        source ../../src/elise.sh;
+        echo {{ item }}=\"${{ item }}\"
+      register: elise_constants
       when: option == "copy"
       delegate_to: localhost
       with_items:
@@ -39,21 +47,27 @@
         - ISCSI_BACKUP_DIR
         - ISCSI_BACKUP_ROTATE_DAYS
         - ISCSI_IQN
-        - ISCSI_BACKUP_VOLUMES -A7
         - KUBE_CONFIG_FILE
 
-    - name: reset remote elise.sh vars
-      file:
-        path: "{{ ELISE_ROOT_DIR }}/src/elise.sh"
-        state: absent
+    - name: import lab_backup vars - volumes
+      shell:
+        source ../../src/elise.sh;
+        echo ISCSI_BACKUP_VOLUMES=\(${ISCSI_BACKUP_VOLUMES[@]}\)
+      register: volume_vars
       when: option == "copy"
+      delegate_to: localhost
 
-    - name: generate new remote elise.sh vars
+    - name: copy lab_backup vars - constants
       shell: echo '{{ item.stdout }}' >> {{ ELISE_ROOT_DIR }}/src/elise.sh
       no_log: true
       when: option == "copy"
       with_items:
-        - "{{ elise_vars.results }}"
+        - "{{ elise_constants.results }}"
+
+    - name: copy lab_backup vars - volumes
+      shell: echo '{{ volume_vars.stdout }}' >> {{ ELISE_ROOT_DIR }}/src/elise.sh
+      no_log: true
+      when: option == "copy"
 
     - name: copy source files
       copy:
