@@ -117,7 +117,7 @@ find_active_deployments_from_array () {
     deployments=$(echo "${active_deployments[@]}" | tr ' ' '\n' | sort -u)
 }
 
-find_volumes_from_deployment () {
+find_volumes_from_active_deployment () {
     all_volumes=()
     volumes=()
 
