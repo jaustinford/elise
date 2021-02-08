@@ -28,6 +28,7 @@ elif [ "$1" == 'deploy' ]; then
         --network=host \
         --privileged \
         --env TZ=${DOCKER_TIMEZONE} \
+        --env HOST_HOSTNAME="$(hostname)" \
         --env ELISE_ROOT_DIR=${ROOT_MOUNT_PATH} \
         --volume ${ROOT_VOLUME}:rw \
         ${NAME}:${VERSION}

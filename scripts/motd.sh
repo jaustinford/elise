@@ -3,7 +3,7 @@
 . "${ELISE_ROOT_DIR}/src/elise.sh"
 . "${ELISE_ROOT_DIR}/src/general.sh"
 
-hostname="$(hostname)"
+hostname="${HOST_HOSTNAME}"
 uptime="$(uptime | awk '{print $3, $4}' | cut -d ',' -f1)"
 date="$(date)"
 install_date=$(rpm -qi basesystem | grep Install\ Date | cut -d":" -f2-4 | cut -d" " -f2-10)
