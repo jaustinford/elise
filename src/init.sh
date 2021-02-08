@@ -58,13 +58,13 @@ greeting () {
     echo -e "          $message$SHELL_USER_PROMPT_CODE $1 $ECHO_RESET\n"
 }
 
-curl_http () {
-    http_response=$(curl -i $1://$3$2 2> /dev/null | egrep ^HTTP\/ | awk '{print $2}')
+curl_test () {
+    http_response=$(curl -i $1://$2$3 2> /dev/null | egrep ^HTTP\/ | awk '{print $2}')
     if [ "$http_response" == '200' ]; then
-        print_message 'stdout' "$1 curl returned $http_response" "$1://$3$2"
+        print_message 'stdout' "$1 curl returned $http_response" "$1://$2$3"
 
     else
-        print_message 'stderr' "$1 curl returned $http_response" "$1://$3$2"
+        print_message 'stderr' "$1 curl returned $http_response" "$1://$2$3"
 
     fi
 }
