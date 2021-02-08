@@ -96,7 +96,7 @@
     - name: configure crontab - job
       cron:
         name: lab_backup
-        minute: '0'
+        minute: '10'
         hour: '18'
         weekday: '0'
         user: root
