@@ -164,10 +164,6 @@ $(kubectl -n $1 -o wide get endpoints)
 $3  ingresses                                                  $ECHO_RESET
 
 $(kubectl -n $1 -o wide get ingresses)
-
-$3  events                                                     $ECHO_RESET
-
-$(kubectl -n $1 -o wide get events)
 "
 }
 
