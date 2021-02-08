@@ -34,12 +34,6 @@ RUN \
     pip3 install \
         requests
 
-# certbot
-RUN \
-    yum install -y \
-        python3-certbot-nginx \
-        python3-certbot-dns-dnsimple
-
 COPY files/ansible.cfg /etc/ansible/ansible.cfg
 
 # kubernetes client
