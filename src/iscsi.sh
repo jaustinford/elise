@@ -88,3 +88,24 @@ create_backup () {
     print_message 'stdout' 'generating tarball' "$3/$backup_file"
     tar -C "$2" -czvf "$3/$backup_file" . 1> /dev/null
 }
+
+generate_remaining_items () {
+    completed_items="$@"
+    for total_item in ${ISCSI_BACKUP_VOLUMES[@]}; do
+        copy="true"
+        for completed_item in ${completed_items[@]}; do
+            if [ "$total_item" == "$completed_item" ]; then
+                copy="false"
+                break
+
+            fi
+
+        done
+
+        if [ "$copy" == "true" ]; then
+            remaining_items+=("$total_item")
+
+        fi
+
+    done
+}
