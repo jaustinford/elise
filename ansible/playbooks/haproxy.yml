@@ -15,7 +15,7 @@
     - name: import haproxy crt
       shell: |
         kubectl -n eslabs exec --stdin --tty \
-            "$(kubectl -n eslabs get pods | egrep -o "^acme-[0-9a-z]{1,}-[0-9a-z]{1,}")" -- \
+            "$(kubectl -n eslabs get pods | egrep -o '^acme-[0-9a-z]{1,}-[0-9a-z]{1,}')" -- \
             cat /etc/letsencrypt/live/{{ lab_fqdn.stdout }}/fullchain.pem
       delegate_to: localhost
       register: haproxy_crt
@@ -23,7 +23,7 @@
     - name: import haproxy key
       shell: |
         kubectl -n eslabs exec --stdin --tty \
-            "$(kubectl -n eslabs get pods | egrep -o "^acme-[0-9a-z]{1,}-[0-9a-z]{1,}")" -- \
+            "$(kubectl -n eslabs get pods | egrep -o '^acme-[0-9a-z]{1,}-[0-9a-z]{1,}')" -- \
             cat /etc/letsencrypt/live/{{ lab_fqdn.stdout }}/privkey.pem
       delegate_to: localhost
       register: haproxy_key
