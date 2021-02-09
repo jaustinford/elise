@@ -11,6 +11,8 @@ ssh_key
 ssh_client_config
 add_local_dns_search "${LAB_FQDN}"
 kube_config "${ELISE_ROOT_DIR}"
+pod_from_deployment 'eslabs' 'plex'
+display_tvault_stats "$pod"
 curl_test 'kubernetes ingress' 'https' "${LAB_FQDN}" '/tvault'
 curl_test 'plex media server' 'https' "${LAB_FQDN}" ':32400/web/index.html'
 curl_test 'acme apache' 'http' "${LAB_FQDN}" '/'

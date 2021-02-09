@@ -227,3 +227,19 @@ find_wan_from_pod () {
 
     fi
 }
+
+display_tvault_stats () {
+    tdata=$(kubectl -n eslabs exec \
+        --stdin --tty $1 -c plexserver -- \
+        df -h | egrep "^//${ISCSI_PORTAL}/tvault")
+
+    full=$(echo "$tdata" | awk '{print $2}')
+    used=$(echo "$tdata" | awk '{print $3}')
+    avail=$(echo "$tdata" | awk '{print $4}')
+    perc=$(echo "$tdata" | awk '{print $5}')
+
+    print_message 'stdout' 'tvault volume size' "$full"
+    print_message 'stdout' 'tvault volume available' "$avail"
+    print_message 'stdout' 'tvault volume used' "$used"
+    print_message 'stdout' 'tvault volume used percent' "$perc"
+}
