@@ -16,14 +16,14 @@ root_partition_used=$(df -H | egrep '/root$' | awk '{print $5}')
 
 echo -e \
 "
- ${SHELL_USER_PROMPT_CODE}   docker host information                                                      $ECHO_RESET
-  -----------------------------------------------------------
- ${SHELL_HOST_PROMPT_CODE} hostname            $ECHO_RESET ${SHELL_CWD_PROMPT_CODE} $hostname             $ECHO_RESET
- ${SHELL_HOST_PROMPT_CODE} uptime              $ECHO_RESET ${SHELL_CWD_PROMPT_CODE} $uptime               $ECHO_RESET
- ${SHELL_HOST_PROMPT_CODE} date                $ECHO_RESET ${SHELL_CWD_PROMPT_CODE} $date                 $ECHO_RESET
- ${SHELL_HOST_PROMPT_CODE} install date        $ECHO_RESET ${SHELL_CWD_PROMPT_CODE} $install_date         $ECHO_RESET
- ${SHELL_HOST_PROMPT_CODE} cpu                 $ECHO_RESET ${SHELL_CWD_PROMPT_CODE} $cpu                  $ECHO_RESET
- ${SHELL_HOST_PROMPT_CODE} total memory        $ECHO_RESET ${SHELL_CWD_PROMPT_CODE} $total_memory_human   $ECHO_RESET
- ${SHELL_HOST_PROMPT_CODE} free memory         $ECHO_RESET ${SHELL_CWD_PROMPT_CODE} $free_memory_percent% $ECHO_RESET
- ${SHELL_HOST_PROMPT_CODE} root partition used $ECHO_RESET ${SHELL_CWD_PROMPT_CODE} $root_partition_used  $ECHO_RESET
+  ${SHELL_USER_PROMPT_CODE}   docker host information                                                      $ECHO_RESET
+   ---------------------------------------------------------------
+  ${SHELL_HOST_PROMPT_CODE} hostname            $ECHO_RESET ${SHELL_CWD_PROMPT_CODE} $hostname             $ECHO_RESET
+  ${SHELL_HOST_PROMPT_CODE} uptime              $ECHO_RESET ${SHELL_CWD_PROMPT_CODE} $uptime               $ECHO_RESET
+  ${SHELL_HOST_PROMPT_CODE} date                $ECHO_RESET ${SHELL_CWD_PROMPT_CODE} $date                 $ECHO_RESET
+  ${SHELL_HOST_PROMPT_CODE} install date        $ECHO_RESET ${SHELL_CWD_PROMPT_CODE} $install_date         $ECHO_RESET
+  ${SHELL_HOST_PROMPT_CODE} cpu                 $ECHO_RESET ${SHELL_CWD_PROMPT_CODE} $cpu                  $ECHO_RESET
+  ${SHELL_HOST_PROMPT_CODE} total memory        $ECHO_RESET ${SHELL_CWD_PROMPT_CODE} $total_memory_human   $ECHO_RESET
+  ${SHELL_HOST_PROMPT_CODE} free memory         $ECHO_RESET ${SHELL_CWD_PROMPT_CODE} $free_memory_percent% $ECHO_RESET
+  ${SHELL_HOST_PROMPT_CODE} root partition used $ECHO_RESET ${SHELL_CWD_PROMPT_CODE} $root_partition_used  $ECHO_RESET
 "
