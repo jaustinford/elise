@@ -90,16 +90,14 @@ alias a_watchers_stop="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/watc
 
 # bash
 alias _aliases="${EDITOR} ${ELISE_ROOT_DIR}/.bash_aliases"
-alias _lines="${ELISE_ROOT_DIR}/scripts/files.sh lines"
+alias _lines="permissions_and_dos_line_endings ${ELISE_ROOT_DIR}"
 alias _profile="${EDITOR} ${ELISE_ROOT_DIR}/.bash_profile"
-alias _sed="${ELISE_ROOT_DIR}/scripts/files.sh sed"
 alias _source="clear; source ${ELISE_ROOT_DIR}/.bash_profile"
 alias _vars="${EDITOR} ${ELISE_ROOT_DIR}/src/elise.sh"
 
 # misc
 alias certbot_new="${ELISE_ROOT_DIR}/scripts/certbot.sh new"
 alias change_vpn_server="${ELISE_ROOT_DIR}/scripts/change_vpn_server.sh change"
-alias portscan="${ELISE_ROOT_DIR}/scripts/portscan.sh"
 alias scp='scp -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no'
 alias ssh='ssh -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no'
 alias youdown="${ELISE_ROOT_DIR}/scripts/youdown.sh"
