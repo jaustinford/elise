@@ -1,5 +1,5 @@
 kube_config () {
-    print_message 'stdout' 'generate kubernetes config' "$1/.kube/config"
+    print_message 'stdout' 'generate kubernetes config' "https://${LAB_FQDN}:6443"
     mkdir -p "$1/.kube"
     cat <<EOF > "$1/.kube/config"
 apiVersion: v1

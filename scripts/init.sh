@@ -9,8 +9,8 @@
 greeting 'austin'
 ssh_key
 ssh_client_config
-kube_config "${ELISE_ROOT_DIR}"
 add_local_dns_search "${LAB_FQDN}"
+kube_config "${ELISE_ROOT_DIR}"
 curl_test 'kubernetes ingress' 'https' "${LAB_FQDN}" '/tvault'
 curl_test 'plex media server' 'https' "${LAB_FQDN}" ':32400/web/index.html'
 curl_test 'acme apache' 'http' "${LAB_FQDN}" '/'
