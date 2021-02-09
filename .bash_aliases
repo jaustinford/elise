@@ -26,7 +26,7 @@ alias k_manifest_apply="${ELISE_ROOT_DIR}/scripts/run_manifest.sh apply"
 alias k_manifest_delete="${ELISE_ROOT_DIR}/scripts/run_manifest.sh delete"
 alias k_manifest_diff="${ELISE_ROOT_DIR}/scripts/run_manifest.sh diff"
 alias k_manifest_edit="${ELISE_ROOT_DIR}/scripts/run_manifest.sh edit"
-alias k_manifest_list="ls -m1 ${KUBE_MANIFESTS_DIR} | cut -d'.' -f1"
+alias k_manifest_list="ls -m1 ${ELISE_ROOT_DIR}/manifests | cut -d'.' -f1"
 
 # kubernetes - kube-system namespace
 alias k_system_describe="${ELISE_ROOT_DIR}/scripts/kube_automator.sh describe kube-system"

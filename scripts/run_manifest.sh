@@ -8,9 +8,9 @@ MODE="$1"
 MANIFEST="$2"
 
 if [ "${MODE}" == "edit" ]; then
-    ${EDITOR} ${KUBE_MANIFESTS_DIR}/${MANIFEST}.sh
+    ${EDITOR} ${ELISE_ROOT_DIR}/manifests/${MANIFEST}.sh
     exit 0
 
 fi
 
-${KUBE_MANIFESTS_DIR}/${MANIFEST}.sh ${MODE}
+${ELISE_ROOT_DIR}/manifests/${MANIFEST}.sh ${MODE}
