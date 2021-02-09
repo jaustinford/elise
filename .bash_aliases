@@ -81,8 +81,6 @@ alias a_mount_tvault="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/mount
 alias a_ntopng="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/ntopng.yml"
 alias a_pihole="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/pihole.yml"
 alias a_rpi_temp="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/rpi_temp.yml"
-alias a_ssl_display="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/ssl.yml --extra-vars option=display"
-alias a_ssl_generate="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/ssl.yml --extra-vars option=generate"
 alias a_sudoers="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/sudoers.yml --ask-become-pass"
 alias a_watchers="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/watchers.yml"
 alias a_watchers_start="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/watchers_start.yml"
@@ -100,4 +98,6 @@ alias certbot_new="${ELISE_ROOT_DIR}/scripts/certbot.sh new"
 alias change_vpn_server="${ELISE_ROOT_DIR}/scripts/change_vpn_server.sh change"
 alias scp='scp -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no'
 alias ssh='ssh -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no'
+alias ssl_display="${ELISE_ROOT_DIR}/scripts/ssl.sh display"
+alias ssl_generate="${ELISE_ROOT_DIR}/scripts/ssl.sh generate"
 alias youdown="${ELISE_ROOT_DIR}/scripts/youdown.sh"
