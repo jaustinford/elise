@@ -14,7 +14,7 @@ ensure_root
 kube_config '/root'
 ensure_kubeconfig
 ensure_iscsi_mountpath "${ISCSI_LOCAL_MOUNT_DIR}"
-rotate_directory "${ISCSI_BACKUP_DIR}" "${ISCSI_BACKUP_ROTATE_DAYS}" 'tgz'
+rotate_directory "${ISCSI_BACKUP_DIR}" 'tgz' "${ISCSI_BACKUP_ROTATE_DAYS}"
 
 find_active_deployments_from_array
 

@@ -150,14 +150,8 @@ permissions_and_dos_line_endings () {
 }
 
 rotate_directory () {
-    print_message 'stdout' "rotate '.$3' older than" "$2 days"
-
-    IFS=$'\n'
-    for item in $(find $1 -type f -name \*$3 -mtime +$2); do
-        print_message 'stdout' 'deleting file' "$item"
-        rm -f "$item"
-
-    done
+    print_message 'stdout' "deleting files after $3 days" "$1/*.$2"
+    find $1 -type f -name \*$2 -mtime +$3 -exec rm -f {} \;
 }
 
 ssh_key () {
