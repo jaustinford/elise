@@ -36,7 +36,7 @@ alias k_system_get="${ELISE_ROOT_DIR}/scripts/kube_automator.sh get kube-system"
 alias k_system_tail="${ELISE_ROOT_DIR}/scripts/kube_automator.sh tail kube-system"
 alias k_system_watch="watch -n 5 -t -c ${ELISE_ROOT_DIR}/scripts/kube_automator.sh display kube-system"
 
-# kubernetes - kube-system namespace
+# kubernetes - ingress-nginx namespace
 alias k_ingress_describe="${ELISE_ROOT_DIR}/scripts/kube_automator.sh describe ingress-nginx"
 alias k_ingress_display="${ELISE_ROOT_DIR}/scripts/kube_automator.sh display ingress-nginx"
 alias k_ingress_events="${ELISE_ROOT_DIR}/scripts/kube_automator.sh get ingress-nginx events"
