@@ -55,7 +55,7 @@ greeting () {
     elif [ "$chour" -ge 22 ] && [ "$chour" -lt 24 ]; then message="it's getting late"
     fi
 
-    echo -e "          $message$SHELL_USER_PROMPT_CODE $1 $ECHO_RESET\n"
+    echo -e "                  $message$SHELL_USER_PROMPT_CODE $1 $ECHO_RESET\n"
 }
 
 curl_test () {
