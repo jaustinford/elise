@@ -180,10 +180,6 @@ Host netmon
 
 Host tvault
     User sshd
-
-Host labs.elysianskies.com
-    User ubuntu
-    Port 6945
 EOF
     chmod 600 /tmp/ssh_config
 }

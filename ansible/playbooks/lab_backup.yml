@@ -47,7 +47,10 @@
         - ISCSI_BACKUP_DIR
         - ISCSI_BACKUP_ROTATE_DAYS
         - ISCSI_IQN
-        - KUBE_CONFIG_FILE
+        - LAB_FQDN
+        - KUBE_CONFIG_CERTIFICATE_AUTHORITY_DATA
+        - KUBE_CONFIG_CLIENT_CERTIFICATE_DATA
+        - KUBE_CONFIG_CLIENT_KEY_DATA
 
     - name: import lab_backup vars - volumes
       shell:

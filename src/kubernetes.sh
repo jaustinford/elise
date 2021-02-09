@@ -1,7 +1,27 @@
 kube_config () {
     print_message 'stdout' 'generate kubernetes config' "$1/.kube/config"
     mkdir -p "$1/.kube"
-    echo "${KUBE_CONFIG_FILE}" | base64 -d > "$1/.kube/config"
+    cat <<EOF > "$1/.kube/config"
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: ${KUBE_CONFIG_CERTIFICATE_AUTHORITY_DATA}
+    server: https://${LAB_FQDN}:6443
+  name: kubernetes
+contexts:
+- context:
+    cluster: kubernetes
+    user: kubernetes-admin
+  name: kubernetes-admin@kubernetes
+current-context: kubernetes-admin@kubernetes
+kind: Config
+preferences: {}
+users:
+- name: kubernetes-admin
+  user:
+    client-certificate-data: ${KUBE_CONFIG_CLIENT_CERTIFICATE_DATA}
+    client-key-data: ${KUBE_CONFIG_CLIENT_KEY_DATA}
+EOF
 }
 
 ensure_kubeconfig () {
