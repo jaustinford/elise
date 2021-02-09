@@ -3,9 +3,11 @@
   become: true
   tasks:
     - name: import lab fqdn
-      shell: egrep '^LAB_FQDN=' ../../src/elise.sh | cut -d"'" -f2
+      shell: |
+        source ../../src/elise.sh;
+        echo "${LAB_FQDN}"
       delegate_to: localhost
-      register: lab_fqdn
+      register: lab_fqdn_var
 
     - name: import haproxy.cfg
       shell: cat ../../files/haproxy.cfg
@@ -16,7 +18,7 @@
       shell: |
         kubectl -n eslabs exec --stdin --tty \
             "$(kubectl -n eslabs get pods | egrep -o '^acme-[0-9a-z]{1,}-[0-9a-z]{1,}')" -- \
-            cat /etc/letsencrypt/live/{{ lab_fqdn.stdout }}/fullchain.pem
+            cat /etc/letsencrypt/live/{{ lab_fqdn_var.stdout }}/fullchain.pem
       delegate_to: localhost
       register: haproxy_crt
 
@@ -24,7 +26,7 @@
       shell: |
         kubectl -n eslabs exec --stdin --tty \
             "$(kubectl -n eslabs get pods | egrep -o '^acme-[0-9a-z]{1,}-[0-9a-z]{1,}')" -- \
-            cat /etc/letsencrypt/live/{{ lab_fqdn.stdout }}/privkey.pem
+            cat /etc/letsencrypt/live/{{ lab_fqdn_var.stdout }}/privkey.pem
       delegate_to: localhost
       register: haproxy_key
 
