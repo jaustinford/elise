@@ -239,5 +239,12 @@ display_tvault_stats () {
     avail=$(echo "$tdata" | awk '{print $4}')
     perc=$(echo "$tdata" | awk '{print $5}')
 
-    print_message 'stdout' 'tvault volume statistics' "size $full - avail $avail - used $used ($perc)"
+    if [ ! -z "$full" ]; then
+        print_message 'stdout' 'tvault volume statistics' "size $full - avail $avail - used $used ($perc)"
+
+    else
+        print_message 'stderr' 'cant pull from plex pod for tvault volume statistics'
+
+    fi
+
 }
