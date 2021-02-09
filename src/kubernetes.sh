@@ -144,10 +144,11 @@ find_volumes_from_active_deployment () {
     all_volumes=()
     volumes=()
 
-    all_volumes+=($(kubectl describe pods --all-namespaces \
-        | grep $1 \
-        | grep 'IQN\:' \
-        | cut -d':' -f4))
+    all_volumes+=($(kubectl -n $1 describe deployment $2 \
+        | egrep 'Type\:.*ISCSI\ ' -B1 \
+        | egrep -v 'Type\:|^--' \
+        | cut -d':' -f1 \
+        | awk '{print $1}'))
 
     for vol in "${ISCSI_BACKUP_VOLUMES[@]}"; do
         for item in "${all_volumes[@]}"; do

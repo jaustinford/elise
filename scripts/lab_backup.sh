@@ -19,7 +19,7 @@ rotate_directory "${ISCSI_BACKUP_DIR}" "${ISCSI_BACKUP_ROTATE_DAYS}" 'tgz'
 find_active_deployments_from_array
 
 for deployment in $deployments; do
-    find_volumes_from_active_deployment $deployment
+    find_volumes_from_active_deployment 'eslabs' $deployment
 
     kube_stop_deployment 'eslabs' $deployment
     pod_from_deployment 'eslabs' $deployment 'wait'
