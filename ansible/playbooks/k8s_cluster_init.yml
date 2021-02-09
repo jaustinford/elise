@@ -41,17 +41,6 @@
         dest: /tmp/join-command
       delegate_to: localhost
 
-    - name: base64 encode new kube config
-      shell: cat {{ ansible_env.HOME }}/.kube/config | base64 -w 0
-      register: new_kube_config
-
-    - name: update kube config in elise.sh
-      lineinfile:
-        path: ../../src/elise.sh
-        regexp: '^KUBE_CONFIG_FILE='
-        line: KUBE_CONFIG_FILE='{{ new_kube_config.stdout_lines[0] }}'
-      delegate_to: localhost
-
 - hosts: worker_nodes
   become: true
   tasks:
