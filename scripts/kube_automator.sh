@@ -37,13 +37,13 @@ if [ "$#" -ge 1 ]; then
         ns="$2"
         deployment="$3"
         container="$4"
-        kube_logs_deployment $ns $deployment "$container"
+        kube_logs_deployment $ns $deployment $container
 
     elif [ "${MODE}" == 'tail' ]; then
         ns="$2"
         deployment="$3"
         container="$4"
-        kube_tail_deployment $ns $deployment "$container"
+        kube_tail_deployment $ns $deployment $container
 
     elif [ "${MODE}" == 'display' ]; then
         ns="$2"
@@ -54,17 +54,17 @@ if [ "$#" -ge 1 ]; then
     elif [ "${MODE}" == 'exec' ]; then
         ns="$2"
         deployment="$3"
-        cmd="$4"
-        container="$5"
+        container="$4"
+        cmd="$5"
         pod_from_deployment $ns $deployment 'wait'
-        kube_exec $ns $pod "$container" $cmd
+        kube_exec $ns $pod $container "$cmd"
 
     elif [ "${MODE}" == 'shell' ]; then
         ns="$2"
         deployment="$3"
         container="$4"
         pod_from_deployment $ns $deployment 'wait'
-        kube_exec $ns $pod "$container" '/bin/bash'
+        kube_exec $ns $pod $container '/bin/bash'
 
     elif [ "${MODE}" == 'edit' ]; then
         ns="$2"

@@ -79,15 +79,8 @@ kube_get () {
 }
 
 kube_exec () {
-    if [ ! -z "$3" ]; then
-        kubectl -n "$1" exec --stdin --tty \
-            $2 -c "$3" -- "$4"
-
-    else
-        kubectl -n "$1" exec --stdin --tty \
-            $2 -- "$4"
-
-    fi
+    kubectl -n $1 exec --stdin --tty \
+        $2 -c $3 -- $4
 }
 
 kube_edit () {
@@ -99,23 +92,11 @@ kube_describe () {
 }
 
 kube_logs_deployment () {
-    if [ -z "$3" ]; then
-        kubectl -n "$1" logs "deployment/$2"
-
-    else
-        kubectl -n "$1" logs "deployment/$2" -c "$3"
-
-    fi
+    kubectl -n "$1" logs "deployment/$2" -c "$3"
 }
 
 kube_tail_deployment () {
-    if [ -z "$3" ]; then
-        kubectl -n "$1" logs -f --tail=50 "deployment/$2"
-
-    else
-        kubectl -n "$1" logs -f --tail=50 "deployment/$2" -c "$3"
-
-    fi
+    kubectl -n "$1" logs -f --tail=50 "deployment/$2" -c "$3"
 }
 
 check_if_k8s_is_using () {
@@ -196,15 +177,14 @@ crash_container () {
     # as opposed to using kubernetes to kill the pod. useful in troubleshooting boot order
     # issues with pods that have multiple containers.
     print_message 'stdout' 'crashing container' "$1/$2:$3"
-    kubectl -n "$1" exec "$2" -c "$3" -- /sbin/killall5
+    kube_exec "$1" "$2" "$3" '/sbin/killall5'
 }
 
 grab_loaded_vpn_server () {
-    loaded_vpn_server=$(kubectl -n eslabs exec \
-        "$1" -c expressvpn -- \
-        egrep '^remote\ ' /vpn/vpn.conf \
-            | awk '{print $2}' \
-            | sed 's/-ca-version-2.expressnetw.com//g')
+    loaded_vpn_config=$(kube_exec 'eslabs' $1 'expressvpn' 'egrep '^remote\ ' /vpn/vpn.conf')
+    loaded_vpn_server=$(echo "$loaded_vpn_config" \
+        | awk '{print $2}' \
+        | sed 's/-ca-version-2.expressnetw.com//g')
 
     if [ ! -z "$loaded_vpn_server" ]; then
         print_message 'stdout' 'expressvpn connected' "$loaded_vpn_server"
@@ -216,9 +196,7 @@ grab_loaded_vpn_server () {
 }
 
 find_wan_from_pod () {
-    pod_wan=$(kubectl -n eslabs exec \
-        "$1" -c expressvpn -- \
-        curl -s checkip.amazonaws.com)
+    pod_wan=$(kube_exec 'eslabs' $1 'expressvpn' 'curl -s checkip.amazonaws.com')
 
     if [ ! -z "$pod_wan" ]; then
         print_message 'stdout' 'expressvpn wan ip' "$pod_wan"
@@ -230,14 +208,11 @@ find_wan_from_pod () {
 }
 
 display_tvault_stats () {
-    tdata=$(kubectl -n eslabs exec \
-        --stdin --tty $1 -c plexserver -- \
-        df -h | egrep "^//${ISCSI_PORTAL}/tvault")
-
-    full=$(echo "$tdata" | awk '{print $2}')
-    used=$(echo "$tdata" | awk '{print $3}')
-    avail=$(echo "$tdata" | awk '{print $4}')
-    perc=$(echo "$tdata" | awk '{print $5}')
+    tdata=$(kube_exec 'eslabs' $1 'plexserver' 'df -h /shares/tvault/video')
+    full=$(echo "$tdata" | egrep '^//' | awk '{print $2}')
+    used=$(echo "$tdata" | egrep '^//' | awk '{print $3}')
+    avail=$(echo "$tdata" | egrep '^//' | awk '{print $4}')
+    perc=$(echo "$tdata" | egrep '^//' | awk '{print $5}')
 
     if [ ! -z "$full" ]; then
         print_message 'stdout' 'tvault volume statistics' "size $full - avail $avail - used $used ($perc)"
