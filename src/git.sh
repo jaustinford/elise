@@ -21,7 +21,7 @@ git_commit () {
 }
 
 git_push () {
-    git push -u origin "$1" 1> /dev/null
+    git push -u origin "$1" --quiet 1> /dev/null
 }
 
 find_last_commit_hash () {
