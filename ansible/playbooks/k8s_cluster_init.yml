@@ -4,7 +4,7 @@
 
     - name: import elise.sh vars
       shell: |
-        source ../../src/elise.sh;
+        source ../../src/elise.sh
         echo "${LAB_FQDN}"
       no_log: true
       register: lab_fqdn_var

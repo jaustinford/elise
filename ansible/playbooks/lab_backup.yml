@@ -29,7 +29,7 @@
 
     - name: import lab_backup vars - constants
       shell: |
-        source ../../src/elise.sh;
+        source ../../src/elise.sh
         echo {{ item }}=\"${{ item }}\"
       register: elise_constants
       when: option == "copy"
@@ -54,7 +54,7 @@
 
     - name: import lab_backup vars - volumes
       shell:
-        source ../../src/elise.sh;
+        source ../../src/elise.sh
         echo ISCSI_BACKUP_VOLUMES=\(${ISCSI_BACKUP_VOLUMES[@]}\)
       register: volume_vars
       when: option == "copy"
