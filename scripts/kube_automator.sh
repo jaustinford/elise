@@ -13,24 +13,24 @@ if [ "$#" -ge 1 ]; then
         ns="$2"
         deployment="$3"
         kube_start_deployment $ns $deployment '1'
-        pod_from_deployment $ns $deployment
+        pod_from_deployment $ns $deployment 'wait'
         wait_for_pod_to 'start' $ns $pod
 
     elif [ "${MODE}" == 'stop' ]; then
         ns="$2"
         deployment="$3"
         kube_stop_deployment $ns $deployment
-        pod_from_deployment $ns $deployment
+        pod_from_deployment $ns $deployment 'wait'
         wait_for_pod_to 'stop' $ns $pod
 
     elif [ "${MODE}" == 'restart' ]; then
         ns="$2"
         deployment="$3"
         kube_stop_deployment $ns $deployment
-        pod_from_deployment $ns $deployment
+        pod_from_deployment $ns $deployment 'wait'
         wait_for_pod_to 'stop' $ns $pod
         kube_start_deployment $ns $deployment '1'
-        pod_from_deployment $ns $deployment
+        pod_from_deployment $ns $deployment 'wait'
         wait_for_pod_to 'start' $ns $pod
 
     elif [ "${MODE}" == 'logs' ]; then
@@ -56,14 +56,14 @@ if [ "$#" -ge 1 ]; then
         deployment="$3"
         cmd="$4"
         container="$5"
-        pod_from_deployment $ns $deployment
+        pod_from_deployment $ns $deployment 'wait'
         kube_exec $ns $pod "$container" $cmd
 
     elif [ "${MODE}" == 'shell' ]; then
         ns="$2"
         deployment="$3"
         container="$4"
-        pod_from_deployment $ns $deployment
+        pod_from_deployment $ns $deployment 'wait'
         kube_exec $ns $pod "$container" '/bin/bash'
 
     elif [ "${MODE}" == 'edit' ]; then
@@ -77,7 +77,7 @@ if [ "$#" -ge 1 ]; then
         resource="$3"
 
         if [ "$resource" == 'pod' ]; then
-            pod_from_deployment $ns $4
+            pod_from_deployment $ns $4 'wait'
             object="$pod"
 
         else
@@ -94,7 +94,7 @@ if [ "$#" -ge 1 ]; then
         ns="$2"
         deployment="$3"
         container="$4"
-        pod_from_deployment $ns $deployment
+        pod_from_deployment $ns $deployment 'wait'
         crash_container $ns $pod "$container"
 
     elif [ "${MODE}" == 'get' ]; then

@@ -22,7 +22,7 @@ for deployment in $deployments; do
     find_volumes_from_active_deployment $deployment
 
     kube_stop_deployment 'eslabs' $deployment
-    pod_from_deployment 'eslabs' $deployment
+    pod_from_deployment 'eslabs' $deployment 'wait'
     wait_for_pod_to 'stop' 'eslabs' "$pod"
 
     for volume in "${volumes[@]}"; do
@@ -43,7 +43,7 @@ for deployment in $deployments; do
     done
 
     kube_start_deployment 'eslabs' $deployment '1'
-    pod_from_deployment 'eslabs' $deployment
+    pod_from_deployment 'eslabs' $deployment 'wait'
     wait_for_pod_to 'start' 'eslabs' "$pod"
 
 done

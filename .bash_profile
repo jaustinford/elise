@@ -4,7 +4,7 @@
 . "${ELISE_ROOT_DIR}/src/general.sh"
 
 "${ELISE_ROOT_DIR}/scripts/motd.sh"
-"${ELISE_ROOT_DIR}/scripts/init.sh"
+"${ELISE_ROOT_DIR}/scripts/init.sh" 2> /dev/null
 
 # shell prompt
 USER_PROMPT="\[${SHELL_USER_PROMPT_CODE}\]elise\[${ECHO_RESET}\]"

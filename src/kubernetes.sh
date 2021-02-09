@@ -13,10 +13,13 @@ ensure_kubeconfig () {
 }
 
 pod_from_deployment () {
-    while [ -z "$(kubectl -n $1 get pods | egrep -o "^$2-[0-9a-z]{1,}-[0-9a-z]{1,}")" ]; do
-        sleep 1
+    if [ "$3" == 'wait' ]; then
+        while [ -z "$(kubectl -n $1 get pods | egrep -o "^$2-[0-9a-z]{1,}-[0-9a-z]{1,}")" ]; do
+            sleep 1
 
-    done
+        done
+
+    fi
 
     pod=$(kubectl -n "$1" get pods | egrep -o "^$2-[0-9a-z]{1,}-[0-9a-z]{1,}")
 }
@@ -176,9 +179,31 @@ crash_container () {
 }
 
 grab_loaded_vpn_server () {
-    kubectl -n eslabs exec \
+    loaded_vpn_server=$(kubectl -n eslabs exec \
         "$1" -c expressvpn -- \
         egrep '^remote\ ' /vpn/vpn.conf \
             | awk '{print $2}' \
-            | sed 's/-ca-version-2.expressnetw.com//g'
+            | sed 's/-ca-version-2.expressnetw.com//g')
+
+    if [ ! -z "$loaded_vpn_server" ]; then
+        print_message 'stdout' 'expressvpn connected' "$loaded_vpn_server"
+
+    else
+        print_message 'stderr' 'expressvpn not connected' "${KHARON_EXPRESSVPN_SERVER}"
+
+    fi
+}
+
+find_wan_from_pod () {
+    pod_wan=$(kubectl -n eslabs exec \
+        "$1" -c expressvpn -- \
+        curl -s checkip.amazonaws.com)
+
+    if [ ! -z "$pod_wan" ]; then
+        print_message 'stdout' 'expressvpn wan ip' "$pod_wan"
+
+    else
+        print_message 'stderr' 'wan ip exposed' "$(curl -s checkip.amazonaws.com)"
+
+    fi
 }

@@ -146,7 +146,7 @@ permissions_and_dos_line_endings () {
     chown -R root:root "$1"
 
     print_message 'stdout' 'convert line endings' "$1"
-    find "$1" -type f ! -path "*/.git/*" ! -path "*/.kube/*" -exec dos2unix {} \; &> /dev/null
+    find "$1" -type f ! -path "*/.git/*" ! -path "*/.kube/*" -exec dos2unix {} \; 1> /dev/null
 }
 
 rotate_directory () {
