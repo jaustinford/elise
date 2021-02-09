@@ -185,6 +185,8 @@ grab_loaded_vpn_server () {
         | awk '{print \$2}' \
         | sed 's/-ca-version-2.expressnetw.com//g'")
 
+    loaded_vpn_server=$(echo "$loaded_vpn_server" | sed 's/\r//g')
+
     if [ ! -z "$loaded_vpn_server" ]; then
         print_message 'stdout' 'expressvpn connected' "$loaded_vpn_server"
 
