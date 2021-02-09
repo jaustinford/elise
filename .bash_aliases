@@ -36,6 +36,14 @@ alias k_system_get="${ELISE_ROOT_DIR}/scripts/kube_automator.sh get kube-system"
 alias k_system_tail="${ELISE_ROOT_DIR}/scripts/kube_automator.sh tail kube-system"
 alias k_system_watch="watch -n 5 -t -c ${ELISE_ROOT_DIR}/scripts/kube_automator.sh display kube-system"
 
+# kubernetes - kube-system namespace
+alias k_ingress_describe="${ELISE_ROOT_DIR}/scripts/kube_automator.sh describe ingress-nginx"
+alias k_ingress_display="${ELISE_ROOT_DIR}/scripts/kube_automator.sh display ingress-nginx"
+alias k_ingress_events="${ELISE_ROOT_DIR}/scripts/kube_automator.sh get ingress-nginx events"
+alias k_ingress_get="${ELISE_ROOT_DIR}/scripts/kube_automator.sh get ingress-nginx"
+alias k_ingress_tail="${ELISE_ROOT_DIR}/scripts/kube_automator.sh tail ingress-nginx"
+alias k_ingress_watch="watch -n 5 -t -c ${ELISE_ROOT_DIR}/scripts/kube_automator.sh display ingress-nginx"
+
 # kubernetes - eslabs namespace
 alias k_eslabs_crash="${ELISE_ROOT_DIR}/scripts/kube_automator.sh crash eslabs"
 alias k_eslabs_crash_kharon_deluge="${ELISE_ROOT_DIR}/scripts/kube_automator.sh crash eslabs kharon deluge"
