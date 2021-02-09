@@ -1,7 +1,6 @@
 - hosts: master_node
   become: true
   tasks:
-
     - name: import elise.sh vars
       shell: |
         source ../../src/elise.sh;
@@ -19,11 +18,10 @@
           --apiserver-cert-extra-sans="{{ lab_fqdn_var.stdout }}"
 
     - name: setup kubeconfig
-      shell: "{{ item }}"
-      with_items:
-        - mkdir -p {{ ansible_env.HOME }}/.kube
-        - cp -i /etc/kubernetes/admin.conf {{ ansible_env.HOME }}/.kube/config
-        - chown $(id -u):$(id -g) {{ ansible_env.HOME }}/.kube/config
+      shell: |
+        mkdir -p {{ ansible_env.HOME }}/.kube;
+        cp -i /etc/kubernetes/admin.conf {{ ansible_env.HOME }}/.kube/config;
+        chown $(id -u):$(id -g) {{ ansible_env.HOME }}/.kube/config
 
     - name: deploy flannel pod network
       shell: /root/manifests/kube-flannel.sh apply
