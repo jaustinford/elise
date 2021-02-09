@@ -216,3 +216,17 @@ curl_test () {
 
     fi
 }
+
+nmap_scan () {
+    state=$(nmap -Pn -p "$2" "$1" \
+        | egrep "^$2\/(tcp|udp)" \
+        | awk '{print $2}')
+
+    if [ "$state" == 'open' ]; then
+        print_message 'stdout' 'nmap reports port is open' "$1:$2"
+
+    else
+        print_message 'stderr' "nmap reports port is $state" "$1:$2"
+
+    fi
+}
