@@ -4,7 +4,7 @@
   tasks:
     - name: import lab fqdn
       shell: |
-        source ../../src/elise.sh
+        source ../../src/elise.sh;
         echo "${LAB_FQDN}"
       delegate_to: localhost
       register: lab_fqdn_var
@@ -16,8 +16,8 @@
 
     - name: import haproxy crt
       shell: |
-        source ../../src/kubernetes.sh
-        pod_from_deployment 'eslabs' 'acme' 'wait'
+        source ../../src/kubernetes.sh;
+        pod_from_deployment 'eslabs' 'acme' 'wait';
         kube_exec 'eslabs' "$pod" 'acme' 'cat /etc/letsencrypt/live/{{ lab_fqdn_var.stdout }}/fullchain.pem'
 
       delegate_to: localhost
@@ -25,8 +25,8 @@
 
     - name: import haproxy key
       shell: |
-        source ../../src/kubernetes.sh
-        pod_from_deployment 'eslabs' 'acme' 'wait'
+        source ../../src/kubernetes.sh;
+        pod_from_deployment 'eslabs' 'acme' 'wait';
         kube_exec 'eslabs' "$pod" 'acme' 'cat /etc/letsencrypt/live/{{ lab_fqdn_var.stdout }}/privkey.pem'
       delegate_to: localhost
       register: haproxy_key

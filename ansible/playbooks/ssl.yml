@@ -4,16 +4,16 @@
   tasks:
     - name: generate new certificate
       shell: |
-        source ../../src/kubernetes.sh
-        pod_from_deployment 'eslabs' 'acme' 'wait'
+        source ../../src/kubernetes.sh;
+        pod_from_deployment 'eslabs' 'acme' 'wait';
         kube_exec 'eslabs' "$pod" 'acme' 'rm -rf /etc/letsencrypt/*; /tmp/certbot.sh generate'
       register: generate_new_certificate
       when: option == "generate"
 
     - name: display current certificate
       shell: |
-        source ../../src/kubernetes.sh
-        pod_from_deployment 'eslabs' 'acme' 'wait'
+        source ../../src/kubernetes.sh;
+        pod_from_deployment 'eslabs' 'acme' 'wait';
         kube_exec 'eslabs' "$pod" 'acme' '/tmp/certbot.sh display'
       register: display_current_certificate
       when: option == "display"
