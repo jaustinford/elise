@@ -80,7 +80,7 @@ kube_get () {
 
 kube_exec () {
     kubectl -n $1 exec --stdin --tty \
-        $2 -c $3 -- $4
+        $2 -c $3 -- /bin/bash -c "$4"
 }
 
 kube_edit () {
@@ -181,10 +181,9 @@ crash_container () {
 }
 
 grab_loaded_vpn_server () {
-    loaded_vpn_config=$(kube_exec 'eslabs' $1 'expressvpn' 'egrep '^remote\ ' /vpn/vpn.conf')
-    loaded_vpn_server=$(echo "$loaded_vpn_config" \
-        | awk '{print $2}' \
-        | sed 's/-ca-version-2.expressnetw.com//g')
+    loaded_vpn_server=$(kube_exec 'eslabs' $1 'expressvpn' "egrep ^remote\  /vpn/vpn.conf \
+        | awk '{print \$2}' \
+        | sed 's/-ca-version-2.expressnetw.com//g'")
 
     if [ ! -z "$loaded_vpn_server" ]; then
         print_message 'stdout' 'expressvpn connected' "$loaded_vpn_server"
@@ -208,11 +207,11 @@ find_wan_from_pod () {
 }
 
 display_tvault_stats () {
-    tdata=$(kube_exec 'eslabs' $1 'plexserver' 'df -h /shares/tvault/video')
-    full=$(echo "$tdata" | egrep '^//' | awk '{print $2}')
-    used=$(echo "$tdata" | egrep '^//' | awk '{print $3}')
-    avail=$(echo "$tdata" | egrep '^//' | awk '{print $4}')
-    perc=$(echo "$tdata" | egrep '^//' | awk '{print $5}')
+    tdata=$(kube_exec 'eslabs' $1 'plexserver' "df -h | egrep ^//${ISCSI_PORTAL}/tvault")
+    full=$(echo "$tdata" | awk '{print $2}')
+    used=$(echo "$tdata" | awk '{print $3}')
+    avail=$(echo "$tdata" | awk '{print $4}')
+    perc=$(echo "$tdata" | awk '{print $5}')
 
     if [ ! -z "$full" ]; then
         print_message 'stdout' 'tvault volume statistics' "size $full - avail $avail - used $used ($perc)"
@@ -221,5 +220,4 @@ display_tvault_stats () {
         print_message 'stderr' 'cant pull from plex pod for tvault volume statistics'
 
     fi
-
 }
