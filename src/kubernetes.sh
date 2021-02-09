@@ -239,8 +239,5 @@ display_tvault_stats () {
     avail=$(echo "$tdata" | awk '{print $4}')
     perc=$(echo "$tdata" | awk '{print $5}')
 
-    print_message 'stdout' 'tvault volume size' "$full"
-    print_message 'stdout' 'tvault volume available' "$avail"
-    print_message 'stdout' 'tvault volume used' "$used"
-    print_message 'stdout' 'tvault volume used percent' "$perc"
+    print_message 'stdout' 'tvault volume statistics' "size $full - avail $avail - used $used ($perc)"
 }
