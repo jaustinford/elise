@@ -74,27 +74,28 @@ EOF
 
 pod_from_deployment () {
     if [ "$3" == 'wait' ]; then
-        while [ -z "$(kubectl -n $1 get pods | egrep -o "^$2-[0-9a-z]{1,}-[0-9a-z]{1,}")" ]; do
+        while [ -z $(kubectl -n eslabs get pods -o json | jq -r ".items[] | select(.metadata.labels.app == \"$2\") | .metadata.name") ]; do
             sleep 1
 
         done
 
     fi
 
-    pod=$(kubectl -n "$1" get pods | egrep -o "^$2-[0-9a-z]{1,}-[0-9a-z]{1,}")
+    pod=$(kubectl -n eslabs get pods -o json | jq -r ".items[] | select(.metadata.labels.app == \"$2\") | .metadata.name")
 }
 
 wait_for_pod_to () {
     if [ "$1" == 'start' ]; then
         print_message 'stdout' 'deploying pod' "$2/$3"
-        while [ "$(kubectl -n $2 get pods | grep $3 | awk '{print $3}')" != 'Running' ]; do
+        while [ $(kubectl -n $2 get pods -o json | jq -r ".items[] | select(.metadata.name == \"$3\") | .status.phase") != 'Running' ]; do
             sleep 1
 
         done
 
     elif [ "$1" == 'stop' ]; then
         print_message 'stdout' 'terminating pod' "$2/$3"
-        while [ ! -z "$(kubectl -n $2 get pods | grep $3)" ]; do
+
+        while [ ! -z $(kubectl -n $2 get pods -o json | jq -r ".items[] | select(.metadata.name == \"$3\") | .metadata.name") ]; do
             sleep 1
 
         done
