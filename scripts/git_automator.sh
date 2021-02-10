@@ -18,17 +18,17 @@ if [ "$#" -ge 1 ]; then
     print_message 'stdout' 'remote url' "$remote_url"
 
     if [ "${MODE}" == "add" ]; then
-        git_add
+        git_add 1> /dev/null
 
     elif [ "${MODE}" == "commit" ]; then
         MESSAGE="$2"
         print_message 'stdout' 'message' "${MESSAGE}"
-        git_commit "${MESSAGE}"
+        git_commit "${MESSAGE}" 1> /dev/null
 
     elif [ "${MODE}" == "push" ]; then
         BRANCH="$2"
         print_message 'stdout' 'branch' "${BRANCH}"
-        git_push "${BRANCH}"
+        git_push "${BRANCH}" 1> /dev/null
 
     elif [ "${MODE}" == "all" ]; then
         BRANCH="${GITHUB_DEFAULT_COMMIT_BRANCH}"
@@ -44,9 +44,9 @@ if [ "$#" -ge 1 ]; then
         print_message 'stdout' 'branch' "${BRANCH}"
         print_message 'stdout' 'message' "${MESSAGE}"
         print_message 'stdout' 'commit number' "$(echo $number_of_commits+1 | bc -l)"
-        git_add
-        git_commit "${MESSAGE}"
-        git_push "${BRANCH}"
+        git_add 1> /dev/null
+        git_commit "${MESSAGE}" 1> /dev/null
+        git_push "${BRANCH}" 1> /dev/null
 
     fi
 
