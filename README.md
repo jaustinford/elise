@@ -54,6 +54,7 @@ git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
     | **ISCSI_IQN**                              | str  | `iqn.2013-03.com.wdc:elysianskies`          |        |
     | **ISCSI_BACKUP_VOLUMES**                   | list |                                             |        |
     | **DOCKER_TIMEZONE**                        | str  | `America/Denver`                            |        |
+    | **KUBE_DISPLAY_BANNER**                    | str  |                                             |        |
     | **KUBE_CONFIG_CERTIFICATE_AUTHORITY_DATA** | str  |                                             | `true` |
     | **KUBE_CONFIG_CLIENT_CERTIFICATE_DATA**    | str  |                                             | `true` |
     | **KUBE_CONFIG_CLIENT_KEY_DATA**            | str  |                                             | `true` |

@@ -109,7 +109,7 @@ wait_for_pod_to () {
 kube_display () {
     echo -e "
 
-$2    K U B E R N E T E S    O N    E L Y S I A N    S K I E S $ECHO_RESET
+$2    ${KUBE_DISPLAY_BANNER}                                   $ECHO_RESET
 
       namespace : $3 $1                                        $ECHO_RESET
 
