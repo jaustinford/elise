@@ -14,6 +14,7 @@
           - htop
           - vim
           - cron
+          - jq
 
     - name: configure general services
       systemd:
