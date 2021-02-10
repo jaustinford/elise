@@ -139,17 +139,17 @@ $(kube_get $1 ingresses)
 # error handles
 ####################################################
 
-check_if_k8s_is_using () {
-    if [ ! -z "$(kubectl describe pod --all-namespaces | egrep "from\ $1\ \(r(w|o)\)")" ]; then
-        print_message 'stderr' 'cant proceed while kubernetes has volume'
+ensure_kubeconfig () {
+    if [ ! -f ~/.kube/config ]; then
+        print_message 'stderr' 'missing ~/.kube/config'
         exit 1
 
     fi
 }
 
-ensure_kubeconfig () {
-    if [ ! -f ~/.kube/config ]; then
-        print_message 'stderr' 'missing ~/.kube/config'
+check_if_k8s_is_using () {
+    if [ ! -z "$(kubectl describe pod --all-namespaces | egrep "from\ $1\ \(r(w|o)\)")" ]; then
+        print_message 'stderr' 'cant proceed while kubernetes has volume'
         exit 1
 
     fi
