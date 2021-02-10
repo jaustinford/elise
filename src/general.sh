@@ -136,6 +136,11 @@ print_message () {
 # project management
 ####################################################
 
+rotate_directory () {
+    print_message 'stdout' "deleting files after $3 days" "$1/*.$2"
+    find $1 -type f -name \*$2 -mtime +$3 -exec rm -f {} \;
+}
+
 sed_edit () {
     print_message 'stdout' "switching $1" "$2"
     for file in $(grep -R --exclude-dir=.git "$1" . | cut -d':' -f1); do
@@ -206,11 +211,6 @@ greeting () {
 ####################################################
 # connection tests
 ####################################################
-
-rotate_directory () {
-    print_message 'stdout' "deleting files after $3 days" "$1/*.$2"
-    find $1 -type f -name \*$2 -mtime +$3 -exec rm -f {} \;
-}
 
 curl_test () {
     http_response=$(curl -s -k -i $2://$3$4 | egrep ^HTTP\/ | awk '{print $2}')
