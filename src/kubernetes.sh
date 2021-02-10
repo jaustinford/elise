@@ -94,7 +94,6 @@ wait_for_pod_to () {
 
     elif [ "$1" == 'stop' ]; then
         print_message 'stdout' 'terminating pod' "$2/$3"
-
         while [ ! -z $(kubectl -n $2 get pods -o json | jq -r ".items[] | select(.metadata.name == \"$3\") | .metadata.name") ]; do
             sleep 1
 
