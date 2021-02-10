@@ -12,24 +12,24 @@ if [ "$#" -ge 1 ]; then
     if [ "${MODE}" == 'start' ]; then
         ns="$2"
         deployment="$3"
-        kube_start_deployment $ns $deployment '1'
+        kube_start_deployment $ns $deployment '1' 1> /dev/null
         pod_from_deployment $ns $deployment 'wait'
         wait_for_pod_to 'start' $ns $pod
 
     elif [ "${MODE}" == 'stop' ]; then
         ns="$2"
         deployment="$3"
-        kube_stop_deployment $ns $deployment
+        kube_stop_deployment $ns $deployment 1> /dev/null
         pod_from_deployment $ns $deployment 'wait'
         wait_for_pod_to 'stop' $ns $pod
 
     elif [ "${MODE}" == 'restart' ]; then
         ns="$2"
         deployment="$3"
-        kube_stop_deployment $ns $deployment
+        kube_stop_deployment $ns $deployment 1> /dev/null
         pod_from_deployment $ns $deployment 'wait'
         wait_for_pod_to 'stop' $ns $pod
-        kube_start_deployment $ns $deployment '1'
+        kube_start_deployment $ns $deployment '1' 1> /dev/null
         pod_from_deployment $ns $deployment 'wait'
         wait_for_pod_to 'start' $ns $pod
 

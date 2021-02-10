@@ -1,3 +1,47 @@
+####################################################
+# command wrappers
+####################################################
+
+kube_start_deployment () {
+    kubectl -n $1 scale --replicas=$3 deployment/$2
+}
+
+kube_stop_deployment () {
+    kubectl -n $1 scale --replicas=0 deployment/$2
+}
+
+kube_nodes () {
+    kubectl get nodes -o wide
+}
+
+kube_get () {
+    kubectl -n $1 -o wide get $2
+}
+
+kube_exec () {
+    kubectl -n $1 exec --stdin --tty $2 -c $3 -- /bin/bash -c "$4"
+}
+
+kube_edit () {
+    kubectl -n $1 edit $2 $3
+}
+
+kube_describe () {
+    kubectl -n $1 describe $2 $3
+}
+
+kube_logs_deployment () {
+    kubectl -n $1 logs deployment/$2 -c $3
+}
+
+kube_tail_deployment () {
+    kubectl -n $1 logs -f --tail=50 deployment/$2 -c $3
+}
+
+####################################################
+# kubeconfig
+####################################################
+
 kube_config () {
     print_message 'stdout' 'generate kubernetes config' "https://${LAB_FQDN}:6443"
     mkdir -p "$1/.kube"
@@ -24,13 +68,9 @@ users:
 EOF
 }
 
-ensure_kubeconfig () {
-    if [ ! -f ~/.kube/config ]; then
-        print_message 'stderr' 'missing ~/.kube/config'
-        exit 1
-
-    fi
-}
+####################################################
+# pod power cycling
+####################################################
 
 pod_from_deployment () {
     if [ "$3" == 'wait' ]; then
@@ -62,42 +102,42 @@ wait_for_pod_to () {
     fi
 }
 
-kube_start_deployment () {
-    kubectl -n "$1" scale --replicas="$3" deployment/"$2" 1> /dev/null
+####################################################
+# kube display
+####################################################
+
+kube_display () {
+    echo -e "
+
+$2    K U B E R N E T E S    O N    E L Y S I A N    S K I E S $ECHO_RESET
+
+      namespace : $3 $1                                        $ECHO_RESET
+
+$3  nodes                                                      $ECHO_RESET
+
+$(kube_get $1 nodes)
+
+$3  pods                                                       $ECHO_RESET
+
+$(kube_get $1 pods)
+
+$3  services                                                   $ECHO_RESET
+
+$(kube_get $1 services)
+
+$3  endpoints                                                  $ECHO_RESET
+
+$(kube_get $1 endpoints)
+
+$3  ingresses                                                  $ECHO_RESET
+
+$(kube_get $1 ingresses)
+"
 }
 
-kube_stop_deployment () {
-    kubectl -n "$1" scale --replicas=0 deployment/"$2" 1> /dev/null
-}
-
-kube_nodes () {
-    kubectl get nodes -o wide
-}
-
-kube_get () {
-    kubectl -n "$1" -o wide get "$2"
-}
-
-kube_exec () {
-    kubectl -n $1 exec --stdin --tty \
-        $2 -c $3 -- /bin/bash -c "$4"
-}
-
-kube_edit () {
-    kubectl -n "$1" edit "$2" "$3"
-}
-
-kube_describe () {
-    kubectl -n "$1" describe "$2" "$3"
-}
-
-kube_logs_deployment () {
-    kubectl -n "$1" logs "deployment/$2" -c "$3"
-}
-
-kube_tail_deployment () {
-    kubectl -n "$1" logs -f --tail=50 "deployment/$2" -c "$3"
-}
+####################################################
+# error handles
+####################################################
 
 check_if_k8s_is_using () {
     if [ ! -z "$(kubectl describe pod --all-namespaces | egrep "from\ $1\ \(r(w|o)\)")" ]; then
@@ -106,6 +146,18 @@ check_if_k8s_is_using () {
 
     fi
 }
+
+ensure_kubeconfig () {
+    if [ ! -f ~/.kube/config ]; then
+        print_message 'stderr' 'missing ~/.kube/config'
+        exit 1
+
+    fi
+}
+
+####################################################
+# lab_backup
+####################################################
 
 find_active_deployments_from_array () {
     for vol in "${ISCSI_BACKUP_VOLUMES[@]}"; do
@@ -143,34 +195,9 @@ find_volumes_from_active_deployment () {
     done
 }
 
-kube_display () {
-    echo -e "
-
-$2    K U B E R N E T E S    O N    E L Y S I A N    S K I E S $ECHO_RESET
-
-      namespace : $3 $1                                        $ECHO_RESET
-
-$3  nodes                                                      $ECHO_RESET
-
-$(kubectl get nodes -o wide)
-
-$3  pods                                                       $ECHO_RESET
-
-$(kubectl -n $1 -o wide get pods)
-
-$3  services                                                   $ECHO_RESET
-
-$(kubectl -n $1 -o wide get services)
-
-$3  endpoints                                                  $ECHO_RESET
-
-$(kubectl -n $1 -o wide get endpoints)
-
-$3  ingresses                                                  $ECHO_RESET
-
-$(kubectl -n $1 -o wide get ingresses)
-"
-}
+####################################################
+# pod-executed shell
+####################################################
 
 crash_container () {
     # meant as a way to force kubernetes to restart containers by crashing them internally
