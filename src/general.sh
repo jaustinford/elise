@@ -1,3 +1,7 @@
+####################################################
+# shell coloring
+####################################################
+
 ECHO_TYPE='bold'
 
 if [ "${ECHO_TYPE}" == 'bold' ]; then ECHO_START='\033['
@@ -92,6 +96,10 @@ elif [ "${SHELL_KUBE_DISPLAY_KEY_COLOR}" == 'darkgray' ]; then SHELL_KUBE_DISPLA
 elif [ "${SHELL_KUBE_DISPLAY_KEY_COLOR}" == 'lightgray' ]; then SHELL_KUBE_DISPLAY_KEY_CODE=$ECHO_LIGHTGRAY
 fi
 
+####################################################
+# messages
+####################################################
+
 print_message () {
     TOTAL_LENGTH='30'
     KEY_LENGTH=$(echo "$2" | wc -c)
@@ -124,13 +132,9 @@ print_message () {
     fi
 }
 
-ensure_root () {
-    if [ $(whoami) != "root" ]; then
-        print_message 'stderr' 'must be run as root'
-        exit 1
-
-    fi
-}
+####################################################
+# project management
+####################################################
 
 sed_edit () {
     print_message 'stdout' "switching $1" "$2"
@@ -149,10 +153,9 @@ permissions_and_dos_line_endings () {
     find "$1" -type f ! -path "*/.git/*" ! -path "*/.kube/*" -exec dos2unix -q {} \; 1> /dev/null
 }
 
-rotate_directory () {
-    print_message 'stdout' "deleting files after $3 days" "$1/*.$2"
-    find $1 -type f -name \*$2 -mtime +$3 -exec rm -f {} \;
-}
+####################################################
+# init tasks
+####################################################
 
 ssh_key () {
     print_message 'stdout' 'configure user ssh key' '/tmp/id_rsa'
@@ -200,6 +203,15 @@ greeting () {
     echo -e "                  $message$SHELL_USER_PROMPT_CODE $1 $ECHO_RESET\n"
 }
 
+####################################################
+# connection tests
+####################################################
+
+rotate_directory () {
+    print_message 'stdout' "deleting files after $3 days" "$1/*.$2"
+    find $1 -type f -name \*$2 -mtime +$3 -exec rm -f {} \;
+}
+
 curl_test () {
     http_response=$(curl -s -k -i $2://$3$4 | egrep ^HTTP\/ | awk '{print $2}')
     if [ "$http_response" == '200' ]; then
@@ -221,6 +233,18 @@ nmap_scan () {
 
     else
         print_message 'stderr' "nmap reports port is $state" "$1:$2"
+
+    fi
+}
+
+####################################################
+# error handles
+####################################################
+
+ensure_root () {
+    if [ $(whoami) != "root" ]; then
+        print_message 'stderr' 'must be run as root'
+        exit 1
 
     fi
 }
