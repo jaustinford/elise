@@ -61,25 +61,6 @@ data:
             --webroot --webroot-path="\${WEBROOT}" \
             --agree-tos --non-interactive
 
-    elif [ "\$1" == "display" ]; then
-        serial=\$(openssl x509 -in /etc/letsencrypt/live/\${LAB_FQDN}/fullchain.pem -noout -serial | cut -d'=' -f2)
-        expiration=\$(openssl x509 -in /etc/letsencrypt/live/\${LAB_FQDN}/fullchain.pem -noout -enddate | cut -d'=' -f2)
-        sans=\$(openssl x509 -in /etc/letsencrypt/live/\${LAB_FQDN}/fullchain.pem -noout -text \
-            | grep 'X509v3 Subject Alternative Name' -A1 \
-            | grep DNS\: \
-            | sed 's/ DNS://g' \
-            | awk '{print \$1}')
-
-        if [ ! -z "\$serial" ]; then
-            echo "----------------------------------------------------------------------"
-            echo "found certificate : \${LAB_FQDN}"
-            echo "serial number     : \$serial"
-            echo "expiration date   : \$expiration"
-            echo "configured sans   : \$sans"
-            echo "----------------------------------------------------------------------"
-
-        fi
-
     fi
 ---
 apiVersion: apps/v1
