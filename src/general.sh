@@ -237,7 +237,7 @@ nmap_scan () {
     fi
 }
 
-ssl_info () {
+ssl_reader () {
     ssl_crt=$(echo | openssl s_client -connect $1:$2 2> /dev/null | openssl x509 2> /dev/null)
 
     if [ ! -z "$ssl_crt" ]; then
