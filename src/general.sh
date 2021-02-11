@@ -256,7 +256,7 @@ ssl_reader () {
 
     else
 
-        print_message 'stderr' 'no certificate found for' "$1"
+        print_message 'stderr' 'no certificate found for' "https://$1:$2"
 
     fi
 }
