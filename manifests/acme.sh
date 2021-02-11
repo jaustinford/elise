@@ -34,34 +34,24 @@ data:
     </body>
     </html>
   certbot.sh: |
-    if [ "\$1" == "generate" ]; then
-        # local apache webroot directory
-        WEBROOT='/usr/local/apache2/htdocs'
+    #!/usr/bin/env bash
 
-        # create folder needed by acme for http challenge
-        mkdir -p \${WEBROOT}/.well-known/acme-challenge
-        chmod 777 \${WEBROOT}/.well-known/acme-challenge
+    WEBROOT='/usr/local/apache2/htdocs'
+    mkdir -p \${WEBROOT}/.well-known/acme-challenge
+    chmod 777 \${WEBROOT}/.well-known/acme-challenge
 
-        # entries in SANS must have public DNS
-        # record of some kind; using CNAME
-        DOMAINS="\${LAB_FQDN}"
-        SANS=(
-          "kube00"
-        )
+    for item in \${LAB_SSL_DOMAINS[@]}; do
+        DOMAINS+="\$item,"
 
-        for host in \${SANS[@]}; do
-            DOMAINS+=",\${host}.\${LAB_FQDN}"
+    done
 
-        done
+    DOMAINS=\$(echo "\${DOMAINS}" | sed -E 's/,$//g')
 
-        # use webroot plugin to pass http challenge
-        certbot certonly \
-            --domains "\${DOMAINS}" \
-            --email '$(git config -l | egrep ^user.email | cut -d'=' -f2)' \
-            --webroot --webroot-path="\${WEBROOT}" \
-            --agree-tos --non-interactive
-
-    fi
+    certbot certonly \
+        --domains "\${DOMAINS}" \
+        --email '$(git config -l | egrep ^user.email | cut -d'=' -f2)' \
+        --webroot --webroot-path="\${WEBROOT}" \
+        --agree-tos --non-interactive
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -90,6 +80,8 @@ spec:
               value: "${DOCKER_TIMEZONE}"
             - name: LAB_FQDN
               value: "${LAB_FQDN}"
+            - name: LAB_SSL_DOMAINS
+              value: "${LAB_SSL_DOMAINS[@]}"
           command: ['/bin/bash']
           args:
             - '-c'

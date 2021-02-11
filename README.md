@@ -73,6 +73,7 @@ git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
     | **LAB_FQDN**                               | str  | `labs.elysianskies.com`                     |        |
     | **LAB_APACHE_MOTD**                        | str  |                                             |        |
     | **LAB_USER_AUSTIN_SSH_KEY**                | str  |                                             | `true` |
+    | **LAB_SSL_DOMAINS**                        | list |                                             |        |
 
 <br />
 
