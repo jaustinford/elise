@@ -143,6 +143,7 @@ rotate_directory () {
 
 sed_edit () {
     print_message 'stdout' "switching $1" "$2"
+
     for file in $(grep -R --exclude-dir=.git "$1" . | cut -d':' -f1); do
         sed -i "s/$1/$2/g" "$file"
 
@@ -188,6 +189,7 @@ EOF
 
 add_local_dns_search () {
     print_message 'stdout' 'generate local dns search' "/etc/resolv.conf"
+
     if [ -z "$(grep $1 /etc/resolv.conf)" ]; then
         echo "search $1" >> /etc/resolv.conf
 
@@ -214,6 +216,7 @@ greeting () {
 
 curl_test () {
     http_response=$(curl -s -k -i $2://$3$4 | egrep ^HTTP\/ | awk '{print $2}')
+
     if [ "$http_response" == '200' ]; then
         print_message 'stdout' "curl $http_response $1" "$2://$3$4"
 
