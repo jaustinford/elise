@@ -74,7 +74,7 @@ EOF
 
 pod_from_deployment () {
     if [ "$3" == 'wait' ]; then
-        while [ -z $(kubectl -n eslabs get pods -o json \
+        while [ -z $(kubectl get pods --all-namespaces -o json \
             | jq -r ".items[] | select(.metadata.labels.app == \"$2\") | .metadata.name") ]; do
             sleep 1
 
@@ -82,7 +82,7 @@ pod_from_deployment () {
 
     fi
 
-    pod=$(kubectl -n eslabs get pods -o json \
+    pod=$(kubectl get pods --all-namespaces -o json \
         | jq -r ".items[] | select(.metadata.labels.app == \"$2\") | .metadata.name")
 }
 
