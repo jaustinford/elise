@@ -237,6 +237,30 @@ nmap_scan () {
     fi
 }
 
+ssl_info () {
+    ssl_crt=$(echo | openssl s_client -connect $1:$2 2> /dev/null | openssl x509 2> /dev/null)
+
+    if [ ! -z "$ssl_crt" ]; then
+        issuer=$(echo "$ssl_crt" | openssl x509 -noout -issuer)
+        serial=$(echo "$ssl_crt" | openssl x509 -noout -serial)
+        enddate=$(echo "$ssl_crt" | openssl x509 -noout -enddate)
+        subject=$(echo "$ssl_crt" | openssl x509 -noout -subject)
+        subjectAltName=$(echo "$ssl_crt" | openssl x509 -noout -ext subjectAltName | egrep -o 'DNS:.*$')
+
+        print_message 'stdout' 'ssl certificate found for' "https://$1:$2"
+        print_message 'stdout' 'ssl ca author' "$issuer"
+        print_message 'stdout' 'ssl serial number' "$serial"
+        print_message 'stdout' 'ssl expiration date' "$enddate"
+        print_message 'stdout' 'ssl subject cn' "$subject"
+        print_message 'stdout' 'ssl subject alt names' "$subjectAltName"
+
+    else
+
+        print_message 'stderr' 'no certificate found for' "$1"
+
+    fi
+}
+
 ####################################################
 # error handles
 ####################################################
