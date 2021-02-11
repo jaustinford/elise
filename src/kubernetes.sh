@@ -74,27 +74,31 @@ EOF
 
 pod_from_deployment () {
     if [ "$3" == 'wait' ]; then
-        while [ -z $(kubectl -n eslabs get pods -o json | jq -r ".items[] | select(.metadata.labels.app == \"$2\") | .metadata.name") ]; do
+        while [ -z $(kubectl -n eslabs get pods -o json \
+            | jq -r ".items[] | select(.metadata.labels.app == \"$2\") | .metadata.name") ]; do
             sleep 1
 
         done
 
     fi
 
-    pod=$(kubectl -n eslabs get pods -o json | jq -r ".items[] | select(.metadata.labels.app == \"$2\") | .metadata.name")
+    pod=$(kubectl -n eslabs get pods -o json \
+        | jq -r ".items[] | select(.metadata.labels.app == \"$2\") | .metadata.name")
 }
 
 wait_for_pod_to () {
     if [ "$1" == 'start' ]; then
         print_message 'stdout' 'deploying pod' "$2/$3"
-        while [ $(kubectl -n $2 get pods -o json | jq -r ".items[] | select(.metadata.name == \"$3\") | .status.phase") != 'Running' ]; do
+        while [ $(kubectl -n $2 get pods -o json \
+            | jq -r ".items[] | select(.metadata.name == \"$3\") | .status.phase") != 'Running' ]; do
             sleep 1
 
         done
 
     elif [ "$1" == 'stop' ]; then
         print_message 'stdout' 'terminating pod' "$2/$3"
-        while [ ! -z $(kubectl -n $2 get pods -o json | jq -r ".items[] | select(.metadata.name == \"$3\") | .metadata.name") ]; do
+        while [ ! -z $(kubectl -n $2 get pods -o json \
+            | jq -r ".items[] | select(.metadata.name == \"$3\") | .metadata.name") ]; do
             sleep 1
 
         done
@@ -148,7 +152,8 @@ ensure_kubeconfig () {
 }
 
 check_if_k8s_is_using () {
-    if [ ! -z "$(kubectl describe pod --all-namespaces | egrep "from\ $1\ \(r(w|o)\)")" ]; then
+    if [ ! -z $(kubectl get pods --all-namespaces -o json \
+        | jq -r ".items[].spec.containers[].volumeMounts[] | select (.name == \"$1\") | .name") ]; then
         print_message 'stderr' 'cant proceed while kubernetes has volume'
         exit 1
 
@@ -160,13 +165,11 @@ check_if_k8s_is_using () {
 ####################################################
 
 find_active_deployments_from_array () {
+    active_deployments=()
+
     for vol in "${ISCSI_BACKUP_VOLUMES[@]}"; do
-        active_deployments+=($(kubectl describe pods --all-namespaces \
-            | egrep "^Name\:|$vol" \
-            | egrep "$vol\ \(r(o|w)\)$" -B1 \
-            | egrep '^Name\:' \
-            | awk '{print $2}' \
-            | sed -E 's/\-[0-9a-z]{1,}\-[0-9a-z]{1,}$//g'))
+        active_deployments+=($(kubectl get pods --all-namespaces -o json \
+            | jq -r ".items[] | select (.spec.containers[].volumeMounts[].name == \"$vol\") | .metadata.labels.app"))
 
     done
 
@@ -177,11 +180,8 @@ find_volumes_from_active_deployment () {
     all_volumes=()
     volumes=()
 
-    all_volumes+=($(kubectl -n $1 describe deployment $2 \
-        | egrep 'Type\:.*ISCSI\ ' -B1 \
-        | egrep -v 'Type\:|^--' \
-        | cut -d':' -f1 \
-        | awk '{print $1}'))
+    all_volumes+=($(kubectl get pods --all-namespaces -o json \
+        | jq -r ".items[] | select (.metadata.labels.app == \"$1\") | .spec.volumes[] | select (.iscsi.targetPortal == \"${ISCSI_PORTAL}\") | .name"))
 
     for vol in "${ISCSI_BACKUP_VOLUMES[@]}"; do
         for item in "${all_volumes[@]}"; do
