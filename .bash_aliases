@@ -102,10 +102,9 @@ alias _source="clear; source ${ELISE_ROOT_DIR}/.bash_profile"
 alias _vars="${EDITOR} ${ELISE_ROOT_DIR}/src/elise.sh"
 
 # misc
-alias certbot_new="${ELISE_ROOT_DIR}/scripts/certbot.sh new"
 alias change_vpn_server="${ELISE_ROOT_DIR}/scripts/change_vpn_server.sh change"
 alias scp='scp -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no'
 alias ssh='ssh -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no'
 alias ssl_display="ssl_reader ${LAB_FQDN} 443"
-alias ssl_generate="${ELISE_ROOT_DIR}/scripts/ssl.sh generate"
+alias ssl_generate="${ELISE_ROOT_DIR}/scripts/ssl.sh"
 alias youdown="${ELISE_ROOT_DIR}/scripts/youdown.sh"
