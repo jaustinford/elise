@@ -75,7 +75,7 @@ EOF
 pod_from_deployment () {
     if [ "$3" == 'wait' ]; then
         while [ -z $(kubectl get pods --all-namespaces -o json \
-            | jq -r ".items[] | select(.metadata.labels.app == \"$2\") | .metadata.name") ]; do
+            | jq -r ".items[] | select (.metadata.labels.app == \"$2\") | .metadata.name") ]; do
             sleep 1
 
         done
@@ -83,14 +83,14 @@ pod_from_deployment () {
     fi
 
     pod=$(kubectl get pods --all-namespaces -o json \
-        | jq -r ".items[] | select(.metadata.labels.app == \"$2\") | .metadata.name")
+        | jq -r ".items[] | select (.metadata.labels.app == \"$2\") | .metadata.name")
 }
 
 wait_for_pod_to () {
     if [ "$1" == 'start' ]; then
         print_message 'stdout' 'deploying pod' "$2/$3"
         while [ $(kubectl -n $2 get pods -o json \
-            | jq -r ".items[] | select(.metadata.name == \"$3\") | .status.phase") != 'Running' ]; do
+            | jq -r ".items[] | select (.metadata.name == \"$3\") | .status.phase") != 'Running' ]; do
             sleep 1
 
         done
@@ -98,7 +98,7 @@ wait_for_pod_to () {
     elif [ "$1" == 'stop' ]; then
         print_message 'stdout' 'terminating pod' "$2/$3"
         while [ ! -z $(kubectl -n $2 get pods -o json \
-            | jq -r ".items[] | select(.metadata.name == \"$3\") | .metadata.name") ]; do
+            | jq -r ".items[] | select (.metadata.name == \"$3\") | .metadata.name") ]; do
             sleep 1
 
         done
