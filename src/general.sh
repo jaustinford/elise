@@ -255,7 +255,6 @@ ssl_reader () {
         print_message 'stdout' 'ssl subject alt names' "$subjectAltName"
 
     else
-
         print_message 'stderr' 'no certificate found for' "https://$1:$2"
 
     fi
