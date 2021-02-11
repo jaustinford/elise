@@ -236,7 +236,7 @@ find_wan_from_pod () {
 }
 
 display_tvault_stats () {
-    tdata=$(kube_exec 'eslabs' $1 'plexserver' "df -h | egrep ^//${ISCSI_PORTAL}/tvault")
+    tdata=$(kube_exec 'eslabs' $1 'plexserver' "df -H | egrep ^//${ISCSI_PORTAL}/tvault")
     full=$(echo "$tdata" | awk '{print $2}')
     used=$(echo "$tdata" | awk '{print $3}')
     avail=$(echo "$tdata" | awk '{print $4}')
