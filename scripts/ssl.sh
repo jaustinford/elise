@@ -13,7 +13,4 @@ pod_from_deployment 'eslabs' 'acme' 'wait'
 if [ "${MODE}" == 'generate' ]; then
     kube_exec 'eslabs' "$pod" 'acme' 'rm -rf /etc/letsencrypt/*; /tmp/certbot.sh generate'
 
-elif [ "${MODE}" == 'display' ]; then
-    ssl_reader "${LAB_FQDN}" '443'
-
 fi
