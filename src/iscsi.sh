@@ -1,3 +1,7 @@
+####################################################
+# dependencies
+####################################################
+
 ensure_chap () {
     print_message 'stdout' 'chap session user' "$1"
     if [ -z "$(egrep $1$ /etc/iscsi/iscsid.conf)" ]; then
@@ -16,10 +20,9 @@ ensure_iscsi_mountpath () {
     fi
 }
 
-iscsi_discovery () {
-    print_message 'stdout' 'discover portal' "$1"
-    iscsiadm -m discovery -t sendtargets -p "$1" 1> /dev/null
-}
+####################################################
+# error handles
+####################################################
 
 check_if_volume_is_mounted () {
     if [ ! -z "$(df | grep $1)" ]; then
@@ -37,13 +40,9 @@ check_if_volume_is_not_mounted () {
     fi
 }
 
-find_target_with_vol () {
-    if [ -z "$(iscsiadm -m node | cut -d ":" -f4 | egrep ^$1$)" ]; then
-        print_message 'stderr' "target $1 not found"
-        exit 1
-
-    fi
-}
+####################################################
+# open-iscsi
+####################################################
 
 interact_target () {
     if [ "$1" == 'login' ]; then
@@ -56,6 +55,19 @@ interact_target () {
 
     print_message 'stdout' "$action" "$3:$2"
     iscsiadm -m node --"$1" --target "$3:$2" 1> /dev/null
+}
+
+iscsi_discovery () {
+    print_message 'stdout' 'discover portal' "$1"
+    iscsiadm -m discovery -t sendtargets -p "$1" 1> /dev/null
+}
+
+find_target_with_vol () {
+    if [ -z "$(iscsiadm -m node | cut -d ":" -f4 | egrep ^$1$)" ]; then
+        print_message 'stderr' "target $1 not found"
+        exit 1
+
+    fi
 }
 
 mount_disk () {
@@ -77,6 +89,9 @@ mount_disk () {
     mount "/dev/$target_disk" "$2" 1> /dev/null
 }
 
+####################################################
+# lab_backup
+####################################################
 
 dismount_disk () {
     print_message 'stdout' 'unmounting' "$1"
