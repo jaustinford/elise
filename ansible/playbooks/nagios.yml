@@ -1,0 +1,36 @@
+- hosts: "~(rpi|worker_nodes)"
+  gather_facts: false
+  become: true
+  handlers:
+    - name: systemctl restart nrpe-ng
+      systemd:
+        name: nrpe-ng
+        state: restarted
+
+  tasks:
+    - name: copy nrpe.cfg
+      copy:
+        src: ../../files/nagios/nrpe-ng.cfg
+        dest: /etc/nagios/nrpe-ng.cfg
+        owner: root
+        group: root
+        mode: 0644
+      notify: systemctl restart nrpe-ng
+
+    - name: install nrpe binaries
+      apt:
+        name: 
+        state: present
+        update_cache: yes
+      vars:
+        packages:
+          - monitoring-plugins
+          - nagios-nrpe-plugin
+
+    # - name: configure nrpe-ng service
+    #   systemd:
+    #     name: nrpe-ng
+    #     state: started
+    #     enabled: true
+
+# sudo apt-get install -y autoconf gcc libc6 libmcrypt-dev make libssl-dev wget bc gawk dc build-essential snmp libnet-snmp-perl gettext
