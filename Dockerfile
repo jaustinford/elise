@@ -21,7 +21,8 @@ RUN \
         dos2unix \
         net-tools \
         diffutils \
-        bind-utils
+        bind-utils \
+        httpd-tools
 
 # ansible
 RUN \

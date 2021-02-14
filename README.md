@@ -74,6 +74,9 @@ git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
     | **LAB_APACHE_MOTD**                        | str  |                                             |        |
     | **LAB_USER_AUSTIN_SSH_KEY**                | str  |                                             | `true` |
     | **LAB_SSL_DOMAINS**                        | list |                                             |        |
+    | **NAGIOS_USER**                            | str  |                                             |        |
+    | **NAGIOS_PASSWORD**                        | str  |                                             |        |
+    | **NAGIOS_CHECK_INTERVAL**                  | str  | `60`                                        |        |
 
 <br />
 

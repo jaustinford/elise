@@ -16,6 +16,7 @@
       vars:
         packages:
           - nagios-nrpe-server
+          - nagios-nrpe-plugin
           - monitoring-plugins
 
     - name: configure nagios-nrpe-server service
