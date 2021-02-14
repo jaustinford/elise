@@ -2,34 +2,34 @@
   gather_facts: false
   become: true
   handlers:
-    - name: systemctl restart nrpe-ng
+    - name: systemctl restart nagios-nrpe
       systemd:
-        name: nrpe-ng
+        name: nagios-nrpe
         state: restarted
 
   tasks:
     - name: copy nrpe.cfg
       copy:
-        src: ../../files/nagios/nrpe-ng.cfg
-        dest: /etc/nagios/nrpe-ng.cfg
+        src: ../../files/nagios/nrpe.cfg
+        dest: /etc/nagios/nrpe.cfg
         owner: root
         group: root
         mode: 0644
-      notify: systemctl restart nrpe-ng
+      notify: systemctl restart nagios-nrpe
 
     - name: install nrpe binaries
       apt:
         name:
-        state: absent
+        state: present
         update_cache: yes
       vars:
         packages:
           - monitoring-plugins
           - nagios-nrpe-plugin
-          - nrpe-ng
+          - nagios-nrpe-server
 
-    - name: configure nrpe-ng service
+    - name: configure nagios-nrpe service
       systemd:
-        name: nrpe-ng
-        state: stopped
+        name: nagios-nrpe
+        state: started
         enabled: true
