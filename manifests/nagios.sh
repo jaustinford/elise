@@ -58,7 +58,7 @@ data:
     cfg_file=/opt/nagios/etc/objects/contacts.cfg
     cfg_file=/opt/nagios/etc/objects/timeperiods.cfg
     cfg_file=/opt/nagios/etc/objects/templates.cfg
-    cfg_file=/opt/nagios/etc/objects/localhost.cfg
+    cfg_file=/opt/nagios/etc/services.cfg
     object_cache_file=/opt/nagios/var/objects.cache
     precached_object_file=/opt/nagios/var/objects.precache
     resource_file=/opt/nagios/etc/resource.cfg
@@ -171,7 +171,7 @@ data:
     cfg_dir=/opt/nagios/etc/conf.d
     cfg_dir=/opt/nagios/etc/monitor
     cfg_dir=/opt/nagios/etc/servers
-    use_timezone=UTC
+    use_timezone=${DOCKER_TIMEZONE}
   resource.cfg: |
     \$USER1\$=/opt/nagios/libexec
   contacts.cfg: |
@@ -244,6 +244,10 @@ data:
         command_line    \$USER1\$/check_udp -H \$HOSTADDRESS\$ -p \$ARG1\$ \$ARG2\$
     }
     define command {
+        command_name    check_time
+        command_line    \$USER1\$/check_time -H \$HOSTADDRESS\$
+    }
+    define command {
         command_name    process-service-perfdata
         command_line    /opt/nagiosgraph/bin/insert.pl
     }
@@ -256,7 +260,7 @@ data:
       contacts           ${NAGIOS_USER}
       max_check_attempts 3
       check_interval     ${NAGIOS_CHECK_INTERVAL}
-      retry_interval     30
+      retry_interval     ${NAGIOS_RETRY_INTERVAL}
       check_command      check-host-alive
     }
     define host {
@@ -267,7 +271,7 @@ data:
       contacts           ${NAGIOS_USER}
       max_check_attempts 3
       check_interval     ${NAGIOS_CHECK_INTERVAL}
-      retry_interval     30
+      retry_interval     ${NAGIOS_RETRY_INTERVAL}
       check_command      check-host-alive
     }
     define host {
@@ -278,7 +282,7 @@ data:
       contacts           ${NAGIOS_USER}
       max_check_attempts 3
       check_interval     ${NAGIOS_CHECK_INTERVAL}
-      retry_interval     30
+      retry_interval     ${NAGIOS_RETRY_INTERVAL}
       check_command      check-host-alive
     }
     define host {
@@ -289,7 +293,7 @@ data:
       contacts           ${NAGIOS_USER}
       max_check_attempts 3
       check_interval     ${NAGIOS_CHECK_INTERVAL}
-      retry_interval     30
+      retry_interval     ${NAGIOS_RETRY_INTERVAL}
       check_command      check-host-alive
     }
     define host {
@@ -300,7 +304,7 @@ data:
       contacts           ${NAGIOS_USER}
       max_check_attempts 3
       check_interval     ${NAGIOS_CHECK_INTERVAL}
-      retry_interval     30
+      retry_interval     ${NAGIOS_RETRY_INTERVAL}
       check_command      check-host-alive
     }
     define host {
@@ -311,7 +315,7 @@ data:
       contacts           ${NAGIOS_USER}
       max_check_attempts 3
       check_interval     ${NAGIOS_CHECK_INTERVAL}
-      retry_interval     30
+      retry_interval     ${NAGIOS_RETRY_INTERVAL}
       check_command      check-host-alive
     }
     define host {
@@ -322,8 +326,51 @@ data:
       contacts           ${NAGIOS_USER}
       max_check_attempts 3
       check_interval     ${NAGIOS_CHECK_INTERVAL}
-      retry_interval     30
+      retry_interval     ${NAGIOS_RETRY_INTERVAL}
       check_command      check-host-alive
+    }
+  services.cfg: |
+    define service {
+        use                             generic-service
+        host_name                       *
+        service_description             ping
+        check_command                   check_ping!100.0,20%!500.0,60%
+        register                        1
+    }
+    define service {
+        use                             generic-service
+        host_name                       *
+        service_description             hdd
+        check_command                   check_local_disk!20%!10%!/
+        register                        1
+    }
+    define service {
+        use                             generic-service
+        host_name                       *
+        service_description             users
+        check_command                   check_local_users!20!50
+        register                        1
+    }
+    define service {
+        use                             generic-service
+        host_name                       *
+        service_description             procs
+        check_command                   check_local_procs!250!400!RSZDT
+        register                        1
+    }
+    define service {
+        use                             generic-service
+        host_name                       *
+        service_description             cpu
+        check_command                   check_local_load!5.0,4.0,3.0!10.0,6.0,4.0
+        register                        1
+    }
+    define service {
+        use                             generic-service
+        host_name                       *
+        service_description             cpu
+        check_command                   check_time
+        register                        1
     }
 ---
 apiVersion: apps/v1
@@ -373,6 +420,9 @@ spec:
             - name: nagios-config
               mountPath: /opt/nagios/etc/servers/servers.cfg
               subPath: servers.cfg
+            - name: nagios-config
+              mountPath: /opt/nagios/etc/services.cfg
+              subPath: services.cfg
       volumes:
         - name: nagios-config
           configMap:
