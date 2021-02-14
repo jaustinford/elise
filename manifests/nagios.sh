@@ -58,6 +58,7 @@ data:
     cfg_file=/opt/nagios/etc/objects/contacts.cfg
     cfg_file=/opt/nagios/etc/objects/timeperiods.cfg
     cfg_file=/opt/nagios/etc/objects/templates.cfg
+    cfg_file=/opt/nagios/etc/hosts.cfg
     cfg_file=/opt/nagios/etc/services.cfg
     object_cache_file=/opt/nagios/var/objects.cache
     precached_object_file=/opt/nagios/var/objects.precache
@@ -170,7 +171,6 @@ data:
     allow_empty_hostgroup_assignment=0
     cfg_dir=/opt/nagios/etc/conf.d
     cfg_dir=/opt/nagios/etc/monitor
-    cfg_dir=/opt/nagios/etc/servers
     use_timezone=${DOCKER_TIMEZONE}
   resource.cfg: |
     \$USER1\$=/opt/nagios/libexec
@@ -188,10 +188,6 @@ data:
     }
   commands.cfg: |
     define command {
-        command_name    check_nrpe
-        command_line    \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c \$ARG1\$ \$ARG2\$
-    }
-    define command {
         command_name    notify-host-by-email
         command_line    /usr/bin/printf "%b" "***** Nagios *****\n\nNotification Type: \$NOTIFICATIONTYPE\$\nHost: \$HOSTNAME\$\nState: \$HOSTSTATE\$\nAddress: \$HOSTADDRESS\$\nInfo: \$HOSTOUTPUT\$\n\nDate/Time: \$LONGDATETIME\$\n" | /usr/bin/mail -s "** \$NOTIFICATIONTYPE\$ Host Alert: \$HOSTNAME\$ is \$HOSTSTATE\$ **" \$CONTACTEMAIL\$
     }
@@ -200,32 +196,28 @@ data:
         command_line    /usr/bin/printf "%b" "***** Nagios *****\n\nNotification Type: \$NOTIFICATIONTYPE\$\n\nService: \$SERVICEDESC\$\nHost: \$HOSTALIAS\$\nAddress: \$HOSTADDRESS\$\nState: \$SERVICESTATE\$\n\nDate/Time: \$LONGDATETIME\$\n\nAdditional Info:\n\n\$SERVICEOUTPUT\$\n" | /usr/bin/mail -s "** \$NOTIFICATIONTYPE\$ Service Alert: \$HOSTALIAS\$/\$SERVICEDESC\$ is \$SERVICESTATE\$ **" \$CONTACTEMAIL\$
     }
     define command {
+        command_name    check_nrpe
+        command_line    \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c \$ARG1\$
+    }
+    define command {
         command_name    check-host-alive
         command_line    \$USER1\$/check_ping -H \$HOSTADDRESS\$ -w 3000.0,80% -c 5000.0,100% -p 5
     }
     define command {
-        command_name    check_local_disk
-        command_line    \$USER1\$/check_disk -w \$ARG1\$ -c \$ARG2\$ -p \$ARG3\$
+        command_name    check_disk
+        command_line    \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_disk
     }
     define command {
-        command_name    check_local_load
-        command_line    \$USER1\$/check_load -w \$ARG1\$ -c \$ARG2\$
+        command_name    check_load
+        command_line    \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_load
     }
     define command {
-        command_name    check_local_procs
-        command_line    \$USER1\$/check_procs -w \$ARG1\$ -c \$ARG2\$ -s \$ARG3\$
+        command_name    check_procs
+        command_line    \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_procs
     }
     define command {
-        command_name    check_local_users
-        command_line    \$USER1\$/check_users -w \$ARG1\$ -c \$ARG2\$
-    }
-    define command {
-        command_name    check_local_swap
-        command_line    \$USER1\$/check_swap -w \$ARG1\$ -c \$ARG2\$
-    }
-    define command {
-        command_name    check_http
-        command_line    \$USER1\$/check_http -I \$HOSTADDRESS\$ \$ARG1\$
+        command_name    check_users
+        command_line    \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_users
     }
     define command {
         command_name    check_ssh
@@ -236,22 +228,10 @@ data:
         command_line    \$USER1\$/check_ping -H \$HOSTADDRESS\$ -w \$ARG1\$ -c \$ARG2\$ -p 5
     }
     define command {
-        command_name    check_tcp
-        command_line    \$USER1\$/check_tcp -H \$HOSTADDRESS\$ -p \$ARG1\$ \$ARG2\$
-    }
-    define command {
-        command_name    check_udp
-        command_line    \$USER1\$/check_udp -H \$HOSTADDRESS\$ -p \$ARG1\$ \$ARG2\$
-    }
-    define command {
-        command_name    check_time
-        command_line    \$USER1\$/check_time -H \$HOSTADDRESS\$
-    }
-    define command {
         command_name    process-service-perfdata
         command_line    /opt/nagiosgraph/bin/insert.pl
     }
-  servers.cfg: |
+  hosts.cfg: |
     define host {
       host_name          kube00.labs.elysianskies.com
       alias              kube00.labs.elysianskies.com
@@ -341,35 +321,28 @@ data:
         use                             generic-service
         host_name                       *
         service_description             hdd
-        check_command                   check_local_disk!20%!10%!/
+        check_command                   check_disk!20%!10%!/
         register                        1
     }
     define service {
         use                             generic-service
         host_name                       *
         service_description             users
-        check_command                   check_local_users!20!50
+        check_command                   check_users!20!50
         register                        1
     }
     define service {
         use                             generic-service
         host_name                       *
         service_description             procs
-        check_command                   check_local_procs!250!400!RSZDT
+        check_command                   check_procs!250!400!RSZDT
         register                        1
     }
     define service {
         use                             generic-service
         host_name                       *
         service_description             cpu
-        check_command                   check_local_load!5.0,4.0,3.0!10.0,6.0,4.0
-        register                        1
-    }
-    define service {
-        use                             generic-service
-        host_name                       *
-        service_description             time
-        check_command                   check_time
+        check_command                   check_load!5.0,4.0,3.0!10.0,6.0,4.0
         register                        1
     }
   nagios.conf: |
@@ -464,8 +437,8 @@ spec:
               mountPath: /opt/nagios/etc/objects/commands.cfg
               subPath: commands.cfg
             - name: nagios-config
-              mountPath: /opt/nagios/etc/servers/servers.cfg
-              subPath: servers.cfg
+              mountPath: /opt/nagios/etc/hosts.cfg
+              subPath: hosts.cfg
             - name: nagios-config
               mountPath: /opt/nagios/etc/services.cfg
               subPath: services.cfg
