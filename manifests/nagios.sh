@@ -368,10 +368,56 @@ data:
     define service {
         use                             generic-service
         host_name                       *
-        service_description             cpu
+        service_description             time
         check_command                   check_time
         register                        1
     }
+  nagios.conf: |
+    ScriptAlias /nagios/cgi-bin "/opt/nagios/sbin"
+    <Directory "/opt/nagios/sbin">
+      SetEnv TZ "${DOCKER_TIMEZONE}"
+      Options ExecCGI
+      AllowOverride None
+      <IfVersion >= 2.3>
+          <RequireAll>
+            Require all granted
+            AuthName "Nagios Access"
+            AuthType Basic
+            AuthUserFile /opt/nagios/etc/htpasswd.users
+            Require valid-user
+          </RequireAll>
+      </IfVersion>
+      <IfVersion < 2.3>
+          Order allow,deny
+          Allow from all
+          AuthName "Nagios Access"
+          AuthType Basic
+          AuthUserFile /opt/nagios/etc/htpasswd.users
+          Require valid-user
+      </IfVersion>
+    </Directory>
+    Alias /nagios "/opt/nagios/share"
+    <Directory "/opt/nagios/share">
+      Options None
+      AllowOverride None
+      <IfVersion >= 2.3>
+          <RequireAll>
+            Require all granted
+            AuthName "Nagios Access"
+            AuthType Basic
+            AuthUserFile /opt/nagios/etc/htpasswd.users
+            Require valid-user
+          </RequireAll>
+      </IfVersion>
+      <IfVersion < 2.3>
+          Order allow,deny
+          Allow from all
+          AuthName "Nagios Access"
+          AuthType Basic
+          AuthUserFile /opt/nagios/etc/htpasswd.users
+          Require valid-user
+      </IfVersion>
+    </Directory>
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -423,6 +469,9 @@ spec:
             - name: nagios-config
               mountPath: /opt/nagios/etc/services.cfg
               subPath: services.cfg
+            - name: nagios-config
+              mountPath: /etc/apache2/sites-available/nagios.conf
+              subPath: nagios.conf
       volumes:
         - name: nagios-config
           configMap:
