@@ -26,126 +26,10 @@ metadata:
   name: nagios-configmap
   namespace: eslabs
 data:
-  htpasswd.users:
+  htpasswd.users: |
     ${NAGIOS_CREDENTIALS}
-  nagios.cfg: |
-    log_file=/opt/nagios/var/nagios.log
-    cfg_file=/opt/nagios/etc/objects/commands.cfg
-    cfg_file=/opt/nagios/etc/objects/contacts.cfg
-    cfg_file=/opt/nagios/etc/objects/timeperiods.cfg
-    cfg_file=/opt/nagios/etc/objects/templates.cfg
-    object_cache_file=/opt/nagios/var/objects.cache
-    precached_object_file=/opt/nagios/var/objects.precache
-    resource_file=/opt/nagios/etc/resource.cfg
-    status_file=/opt/nagios/var/status.dat
-    status_update_interval=10
-    nagios_user=nagios
-    nagios_group=nagios
-    check_external_commands=1
-    command_file=/opt/nagios/var/rw/nagios.cmd
-    lock_file=/opt/nagios/var/nagios.lock
-    temp_file=/opt/nagios/var/nagios.tmp
-    temp_path=/tmp
-    event_broker_options=-1
-    log_rotation_method=d
-    log_archive_path=/opt/nagios/var/archives
-    use_syslog=1
-    log_notifications=1
-    log_service_retries=1
-    log_host_retries=1
-    log_event_handlers=1
-    log_initial_states=0
-    log_current_states=1
-    log_external_commands=1
-    log_passive_checks=1
-    service_inter_check_delay_method=s
-    max_service_check_spread=30
-    service_interleave_factor=s
-    host_inter_check_delay_method=s
-    max_host_check_spread=30
-    max_concurrent_checks=0
-    check_result_reaper_frequency=10
-    max_check_result_reaper_time=30
-    check_result_path=/opt/nagios/var/spool/checkresults
-    max_check_result_file_age=3600
-    cached_host_check_horizon=15
-    cached_service_check_horizon=15
-    enable_predictive_host_dependency_checks=1
-    enable_predictive_service_dependency_checks=1
-    soft_state_dependencies=0
-    auto_reschedule_checks=0
-    auto_rescheduling_interval=30
-    auto_rescheduling_window=180
-    service_check_timeout=60
-    host_check_timeout=30
-    event_handler_timeout=30
-    notification_timeout=30
-    ocsp_timeout=5
-    perfdata_timeout=5
-    retain_state_information=1
-    state_retention_file=/opt/nagios/var/retention.dat
-    retention_update_interval=60
-    use_retained_program_state=1
-    use_retained_scheduling_info=1
-    retained_host_attribute_mask=0
-    retained_service_attribute_mask=0
-    retained_process_host_attribute_mask=0
-    retained_process_service_attribute_mask=0
-    retained_contact_host_attribute_mask=0
-    retained_contact_service_attribute_mask=0
-    interval_length=60
-    check_for_updates=1
-    bare_update_check=0
-    use_aggressive_host_checking=0
-    execute_service_checks=1
-    accept_passive_service_checks=1
-    execute_host_checks=1
-    accept_passive_host_checks=1
-    enable_notifications=1
-    enable_event_handlers=1
-    process_performance_data=1
-    service_perfdata_file=/opt/nagios/var/perfdata.log
-    host_perfdata_file_template=empty
-    service_perfdata_file_template=\$LASTSERVICECHECK\$||\$HOSTNAME\$||\$SERVICEDESC\$||\$SERVICEOUTPUT\$||\$SERVICEPERFDATA\$
-    host_perfdata_file_mode=w
-    service_perfdata_file_mode=a
-    service_perfdata_file_processing_interval=10
-    service_perfdata_file_processing_command=process-service-perfdata
-    obsess_over_services=0
-    obsess_over_hosts=0
-    translate_passive_host_checks=0
-    passive_host_checks_are_soft=0
-    check_for_orphaned_services=1
-    check_for_orphaned_hosts=1
-    check_service_freshness=1
-    service_freshness_check_interval=60
-    service_check_timeout_state=c
-    check_host_freshness=0
-    host_freshness_check_interval=60
-    additional_freshness_latency=15
-    enable_flap_detection=1
-    low_service_flap_threshold=5.0
-    high_service_flap_threshold=20.0
-    low_host_flap_threshold=5.0
-    high_host_flap_threshold=20.0
-    date_format=us
-    illegal_object_name_chars=\`~!\$%^&*|'"<>?,()=
-    illegal_macro_output_chars=\`~\$&|'"<>
-    use_regexp_matching=0
-    use_true_regexp_matching=0
-    admin_email=nagios@localhost
-    admin_pager=pagenagios@localhost
-    daemon_dumps_core=0
-    use_large_installation_tweaks=0
-    enable_environment_macros=0
-    debug_level=256
-    debug_verbosity=1
-    debug_file=/opt/nagios/var/nagios.debug
-    max_debug_file_size=1000000
-    allow_empty_hostgroup_assignment=0
-    cfg_dir=/opt/nagios/etc/conf.d
-    cfg_dir=/opt/nagios/etc/monitor
-    use_timezone=${DOCKER_TIMEZONE}
+  localhost.cfg: |
+    # intentionally kept empty
   resource.cfg: |
     \$USER1\$=/opt/nagios/libexec
   contacts.cfg: |
@@ -443,8 +327,8 @@ spec:
               mountPath: /opt/nagios/etc/htpasswd.users
               subPath: htpasswd.users
             - name: nagios-config
-              mountPath: /opt/nagios/etc/nagios.cfg
-              subPath: nagios.cfg
+              mountPath: /opt/nagios/etc/objects/localhost.cfg
+              subPath: localhost.cfg
             - name: nagios-config
               mountPath: /opt/nagios/etc/resource.cfg
               subPath: resource.cfg
