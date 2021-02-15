@@ -46,7 +46,7 @@ data:
     default_statusmap_layout=5
     default_statuswrl_layout=4
     ping_syntax=/bin/ping -n -U -c 5 \$HOSTADDRESS\$
-    refresh_rate=90
+    refresh_rate=${NAGIOS_REFRESH_RATE_SECONDS}
     result_limit=100
     escape_html_tags=1
     action_url_target=_self
@@ -188,20 +188,24 @@ data:
     }
   commands.cfg: |
     define command {
-        command_name    notify-host-by-email
-        command_line    /usr/bin/printf "%b" "***** Nagios *****\n\nNotification Type: \$NOTIFICATIONTYPE\$\nHost: \$HOSTNAME\$\nState: \$HOSTSTATE\$\nAddress: \$HOSTADDRESS\$\nInfo: \$HOSTOUTPUT\$\n\nDate/Time: \$LONGDATETIME\$\n" | /usr/bin/mail -s "** \$NOTIFICATIONTYPE\$ Host Alert: \$HOSTNAME\$ is \$HOSTSTATE\$ **" \$CONTACTEMAIL\$
+      command_name    notify-host-by-email
+      command_line    /usr/bin/printf "%b" "***** Nagios *****\n\nNotification Type: \$NOTIFICATIONTYPE\$\nHost: \$HOSTNAME\$\nState: \$HOSTSTATE\$\nAddress: \$HOSTADDRESS\$\nInfo: \$HOSTOUTPUT\$\n\nDate/Time: \$LONGDATETIME\$\n" | /usr/bin/mail -s "** \$NOTIFICATIONTYPE\$ Host Alert: \$HOSTNAME\$ is \$HOSTSTATE\$ **" \$CONTACTEMAIL\$
     }
     define command {
-        command_name    notify-service-by-email
-        command_line    /usr/bin/printf "%b" "***** Nagios *****\n\nNotification Type: \$NOTIFICATIONTYPE\$\n\nService: \$SERVICEDESC\$\nHost: \$HOSTALIAS\$\nAddress: \$HOSTADDRESS\$\nState: \$SERVICESTATE\$\n\nDate/Time: \$LONGDATETIME\$\n\nAdditional Info:\n\n\$SERVICEOUTPUT\$\n" | /usr/bin/mail -s "** \$NOTIFICATIONTYPE\$ Service Alert: \$HOSTALIAS\$/\$SERVICEDESC\$ is \$SERVICESTATE\$ **" \$CONTACTEMAIL\$
-    }
-    define command {
-        command_name    check_nrpe
-        command_line    \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c \$ARG1\$
+      command_name    notify-service-by-email
+      command_line    /usr/bin/printf "%b" "***** Nagios *****\n\nNotification Type: \$NOTIFICATIONTYPE\$\n\nService: \$SERVICEDESC\$\nHost: \$HOSTALIAS\$\nAddress: \$HOSTADDRESS\$\nState: \$SERVICESTATE\$\n\nDate/Time: \$LONGDATETIME\$\n\nAdditional Info:\n\n\$SERVICEOUTPUT\$\n" | /usr/bin/mail -s "** \$NOTIFICATIONTYPE\$ Service Alert: \$HOSTALIAS\$/\$SERVICEDESC\$ is \$SERVICESTATE\$ **" \$CONTACTEMAIL\$
     }
     define command {
         command_name    check-host-alive
         command_line    \$USER1\$/check_ping -H \$HOSTADDRESS\$ -w 3000.0,80% -c 5000.0,100% -p 5
+    }
+    define command {
+        command_name    check_ping
+        command_line    \$USER1\$/check_ping -H \$HOSTADDRESS\$ -w \$ARG1\$ -c \$ARG2\$ -p 5
+    }
+    define command {
+        command_name    check_nrpe
+        command_line    \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c \$ARG1\$
     }
     define command {
         command_name    check_disk
@@ -223,18 +227,6 @@ data:
         command_name    check_mem
         command_line    \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_mem
     }
-    define command {
-        command_name    check_ssh
-        command_line    \$USER1\$/check_ssh \$ARG1\$ \$HOSTADDRESS\$
-    }
-    define command {
-        command_name    check_ping
-        command_line    \$USER1\$/check_ping -H \$HOSTADDRESS\$ -w \$ARG1\$ -c \$ARG2\$ -p 5
-    }
-    define command {
-        command_name    process-service-perfdata
-        command_line    /opt/nagiosgraph/bin/insert.pl
-    }
   hosts.cfg: |
     define host {
       host_name          kube00.labs.elysianskies.com
@@ -243,8 +235,8 @@ data:
       address            172.16.17.20
       contacts           ${NAGIOS_USER}
       max_check_attempts 3
-      check_interval     ${NAGIOS_CHECK_INTERVAL}
-      retry_interval     ${NAGIOS_RETRY_INTERVAL}
+      check_interval     ${NAGIOS_CHECK_INTERVAL_MINUTES}
+      retry_interval     ${NAGIOS_RETRY_INTERVAL_MINUTES}
       check_command      check-host-alive
     }
     define host {
@@ -254,8 +246,8 @@ data:
       address            172.16.17.6
       contacts           ${NAGIOS_USER}
       max_check_attempts 3
-      check_interval     ${NAGIOS_CHECK_INTERVAL}
-      retry_interval     ${NAGIOS_RETRY_INTERVAL}
+      check_interval     ${NAGIOS_CHECK_INTERVAL_MINUTES}
+      retry_interval     ${NAGIOS_RETRY_INTERVAL_MINUTES}
       check_command      check-host-alive
     }
     define host {
@@ -265,8 +257,8 @@ data:
       address            172.16.17.7
       contacts           ${NAGIOS_USER}
       max_check_attempts 3
-      check_interval     ${NAGIOS_CHECK_INTERVAL}
-      retry_interval     ${NAGIOS_RETRY_INTERVAL}
+      check_interval     ${NAGIOS_CHECK_INTERVAL_MINUTES}
+      retry_interval     ${NAGIOS_RETRY_INTERVAL_MINUTES}
       check_command      check-host-alive
     }
     define host {
@@ -276,8 +268,8 @@ data:
       address            172.16.17.10
       contacts           ${NAGIOS_USER}
       max_check_attempts 3
-      check_interval     ${NAGIOS_CHECK_INTERVAL}
-      retry_interval     ${NAGIOS_RETRY_INTERVAL}
+      check_interval     ${NAGIOS_CHECK_INTERVAL_MINUTES}
+      retry_interval     ${NAGIOS_RETRY_INTERVAL_MINUTES}
       check_command      check-host-alive
     }
     define host {
@@ -287,8 +279,8 @@ data:
       address            172.16.17.19
       contacts           ${NAGIOS_USER}
       max_check_attempts 3
-      check_interval     ${NAGIOS_CHECK_INTERVAL}
-      retry_interval     ${NAGIOS_RETRY_INTERVAL}
+      check_interval     ${NAGIOS_CHECK_INTERVAL_MINUTES}
+      retry_interval     ${NAGIOS_RETRY_INTERVAL_MINUTES}
       check_command      check-host-alive
     }
     define host {
@@ -298,8 +290,8 @@ data:
       address            172.16.17.13
       contacts           ${NAGIOS_USER}
       max_check_attempts 3
-      check_interval     ${NAGIOS_CHECK_INTERVAL}
-      retry_interval     ${NAGIOS_RETRY_INTERVAL}
+      check_interval     ${NAGIOS_CHECK_INTERVAL_MINUTES}
+      retry_interval     ${NAGIOS_RETRY_INTERVAL_MINUTES}
       check_command      check-host-alive
     }
     define host {
@@ -309,8 +301,8 @@ data:
       address            172.16.17.14
       contacts           ${NAGIOS_USER}
       max_check_attempts 3
-      check_interval     ${NAGIOS_CHECK_INTERVAL}
-      retry_interval     ${NAGIOS_RETRY_INTERVAL}
+      check_interval     ${NAGIOS_CHECK_INTERVAL_MINUTES}
+      retry_interval     ${NAGIOS_RETRY_INTERVAL_MINUTES}
       check_command      check-host-alive
     }
   services.cfg: |
@@ -319,42 +311,36 @@ data:
         host_name                       *
         service_description             ping
         check_command                   check_ping!100.0,20%!500.0,60%
-        register                        1
     }
     define service {
         use                             generic-service
         host_name                       *
         service_description             hdd
-        check_command                   check_disk!20%!10%!/
-        register                        1
+        check_command                   check_disk
     }
     define service {
         use                             generic-service
         host_name                       *
         service_description             users
-        check_command                   check_users!20!50
-        register                        1
+        check_command                   check_users
     }
     define service {
         use                             generic-service
         host_name                       *
         service_description             procs
-        check_command                   check_procs!250!400!RSZDT
-        register                        1
+        check_command                   check_procs
     }
     define service {
         use                             generic-service
         host_name                       *
         service_description             cpu
-        check_command                   check_load!5.0,4.0,3.0!10.0,6.0,4.0
-        register                        1
+        check_command                   check_load
     }
     define service {
         use                             generic-service
         host_name                       *
         service_description             memory
         check_command                   check_mem
-        register                        1
     }
   nagios.conf: |
     ScriptAlias /nagios/cgi-bin "/opt/nagios/sbin"
