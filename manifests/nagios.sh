@@ -243,6 +243,10 @@ data:
         command_name    check_date
         command_line    \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_date
     }
+    define command {
+        command_name    check_ssh
+        command_line    \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_ssh
+    }
   hosts.cfg: |
     define host {
       host_name          kube00.labs.elysianskies.com
@@ -381,6 +385,12 @@ data:
         host_name                       *
         service_description             date
         check_command                   check_date
+    }
+    define service {
+        use                             generic-service
+        host_name                       *
+        service_description             ssh
+        check_command                   check_ssh
     }
   nagios.conf: |
     ScriptAlias /nagios/cgi-bin "/opt/nagios/sbin"
