@@ -188,12 +188,12 @@ data:
     }
   commands.cfg: |
     define command {
-      command_name    notify-host-by-email
-      command_line    /usr/bin/printf "%b" "***** Nagios *****\n\nNotification Type: \$NOTIFICATIONTYPE\$\nHost: \$HOSTNAME\$\nState: \$HOSTSTATE\$\nAddress: \$HOSTADDRESS\$\nInfo: \$HOSTOUTPUT\$\n\nDate/Time: \$LONGDATETIME\$\n" | /usr/bin/mail -s "** \$NOTIFICATIONTYPE\$ Host Alert: \$HOSTNAME\$ is \$HOSTSTATE\$ **" \$CONTACTEMAIL\$
+        command_name    notify-host-by-email
+        command_line    /usr/bin/printf "%b" "***** Nagios *****\n\nNotification Type: \$NOTIFICATIONTYPE\$\nHost: \$HOSTNAME\$\nState: \$HOSTSTATE\$\nAddress: \$HOSTADDRESS\$\nInfo: \$HOSTOUTPUT\$\n\nDate/Time: \$LONGDATETIME\$\n" | /usr/bin/mail -s "** \$NOTIFICATIONTYPE\$ Host Alert: \$HOSTNAME\$ is \$HOSTSTATE\$ **" \$CONTACTEMAIL\$
     }
     define command {
-      command_name    notify-service-by-email
-      command_line    /usr/bin/printf "%b" "***** Nagios *****\n\nNotification Type: \$NOTIFICATIONTYPE\$\n\nService: \$SERVICEDESC\$\nHost: \$HOSTALIAS\$\nAddress: \$HOSTADDRESS\$\nState: \$SERVICESTATE\$\n\nDate/Time: \$LONGDATETIME\$\n\nAdditional Info:\n\n\$SERVICEOUTPUT\$\n" | /usr/bin/mail -s "** \$NOTIFICATIONTYPE\$ Service Alert: \$HOSTALIAS\$/\$SERVICEDESC\$ is \$SERVICESTATE\$ **" \$CONTACTEMAIL\$
+        command_name    notify-service-by-email
+        command_line    /usr/bin/printf "%b" "***** Nagios *****\n\nNotification Type: \$NOTIFICATIONTYPE\$\n\nService: \$SERVICEDESC\$\nHost: \$HOSTALIAS\$\nAddress: \$HOSTADDRESS\$\nState: \$SERVICESTATE\$\n\nDate/Time: \$LONGDATETIME\$\n\nAdditional Info:\n\n\$SERVICEOUTPUT\$\n" | /usr/bin/mail -s "** \$NOTIFICATIONTYPE\$ Service Alert: \$HOSTALIAS\$/\$SERVICEDESC\$ is \$SERVICESTATE\$ **" \$CONTACTEMAIL\$
     }
     define command {
         command_name    check-host-alive
