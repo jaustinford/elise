@@ -227,6 +227,22 @@ data:
         command_name    check_mem
         command_line    \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_mem
     }
+    define command {
+        command_name    check_int
+        command_line    \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_int
+    }
+    define command {
+        command_name    check_temp
+        command_line    \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_temp
+    }
+    define command {
+        command_name    check_uptime
+        command_line    \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_uptime
+    }
+    define command {
+        command_name    check_date
+        command_line    \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_date
+    }
   hosts.cfg: |
     define host {
       host_name          kube00.labs.elysianskies.com
@@ -341,6 +357,30 @@ data:
         host_name                       *
         service_description             memory
         check_command                   check_mem
+    }
+    define service {
+        use                             generic-service
+        host_name                       *
+        service_description             network traffic
+        check_command                   check_int
+    }
+    define service {
+        use                             generic-service
+        host_name                       *
+        service_description             cpu temperature
+        check_command                   check_temp
+    }
+    define service {
+        use                             generic-service
+        host_name                       *
+        service_description             uptime
+        check_command                   check_uptime
+    }
+    define service {
+        use                             generic-service
+        host_name                       *
+        service_description             date
+        check_command                   check_date
     }
   nagios.conf: |
     ScriptAlias /nagios/cgi-bin "/opt/nagios/sbin"

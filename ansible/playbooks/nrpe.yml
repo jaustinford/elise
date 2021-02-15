@@ -18,6 +18,7 @@
           - nagios-nrpe-server
           - nagios-nrpe-plugin
           - monitoring-plugins
+          - lm-sensors
 
     - name: configure nagios-nrpe-server service
       systemd:
@@ -44,3 +45,5 @@
         mode: 0755
       with_items:
         - check_mem
+        - check_int
+        - check_temp
