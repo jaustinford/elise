@@ -34,3 +34,13 @@
         group: root
         mode: 0644
       notify: systemctl restart nagios-nrpe-server
+
+    - name: copy custom plugins
+      copy:
+        src: "../../files/nagios/{{ item }}"
+        dest: "/usr/lib/nagios/plugins/{{ item }}"
+        owner: root
+        group: root
+        mode: 0755
+      with_items:
+        - check_mem

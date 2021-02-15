@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+CRITICAL="$1"
+WARNING="$2"
+
+total=$(free | egrep '^Mem:' | awk '{print $2}')
+used=$(free | egrep '^Mem:' | awk '{print $3}')
+used_percent=$(expr $used \* 100 / $total)
+
+if [ "$used_percent" -ge "${CRITICAL}" ]; then
+    echo "CRITICAL - memory usage : $used_percent%"
+    exit 2
+
+elif [ "$used_percent" -ge "${WARNING}" ] && \
+     [ "$used_percent" -lt "${CRITICAL}" ]; then
+    echo "WARNING - memory usage : $used_percent%"
+    exit 1
+
+else
+    echo "OK - memory usage : $used_percent%"
+    exit 0
+
+fi

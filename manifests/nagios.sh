@@ -220,6 +220,10 @@ data:
         command_line    \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_users
     }
     define command {
+        command_name    check_mem
+        command_line    \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_mem
+    }
+    define command {
         command_name    check_ssh
         command_line    \$USER1\$/check_ssh \$ARG1\$ \$HOSTADDRESS\$
     }
@@ -343,6 +347,13 @@ data:
         host_name                       *
         service_description             cpu
         check_command                   check_load!5.0,4.0,3.0!10.0,6.0,4.0
+        register                        1
+    }
+    define service {
+        use                             generic-service
+        host_name                       *
+        service_description             memory
+        check_command                   check_mem
         register                        1
     }
   nagios.conf: |
