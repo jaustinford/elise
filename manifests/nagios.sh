@@ -28,38 +28,12 @@ metadata:
 data:
   htpasswd.users:
     ${NAGIOS_CREDENTIALS}
-  cgi.cfg: |
-    main_config_file=/opt/nagios/etc/nagios.cfg
-    physical_html_path=/opt/nagios/share
-    url_html_path=/nagios
-    show_context_help=0
-    use_pending_states=1
-    use_authentication=1
-    use_ssl_authentication=0
-    authorized_for_system_information=nagiosadmin
-    authorized_for_configuration_information=nagiosadmin
-    authorized_for_system_commands=nagiosadmin
-    authorized_for_all_services=nagiosadmin
-    authorized_for_all_hosts=nagiosadmin
-    authorized_for_all_service_commands=nagiosadmin
-    authorized_for_all_host_commands=nagiosadmin
-    default_statusmap_layout=5
-    default_statuswrl_layout=4
-    ping_syntax=/bin/ping -n -U -c 5 \$HOSTADDRESS\$
-    refresh_rate=${NAGIOS_REFRESH_RATE_SECONDS}
-    result_limit=100
-    escape_html_tags=1
-    action_url_target=_self
-    notes_url_target=_self
-    lock_author_names=1
   nagios.cfg: |
     log_file=/opt/nagios/var/nagios.log
     cfg_file=/opt/nagios/etc/objects/commands.cfg
     cfg_file=/opt/nagios/etc/objects/contacts.cfg
     cfg_file=/opt/nagios/etc/objects/timeperiods.cfg
     cfg_file=/opt/nagios/etc/objects/templates.cfg
-    cfg_file=/opt/nagios/etc/hosts.cfg
-    cfg_file=/opt/nagios/etc/services.cfg
     object_cache_file=/opt/nagios/var/objects.cache
     precached_object_file=/opt/nagios/var/objects.precache
     resource_file=/opt/nagios/etc/resource.cfg
@@ -469,9 +443,6 @@ spec:
               mountPath: /opt/nagios/etc/htpasswd.users
               subPath: htpasswd.users
             - name: nagios-config
-              mountPath: /opt/nagios/etc/cgi.cfg
-              subPath: cgi.cfg
-            - name: nagios-config
               mountPath: /opt/nagios/etc/nagios.cfg
               subPath: nagios.cfg
             - name: nagios-config
@@ -484,10 +455,10 @@ spec:
               mountPath: /opt/nagios/etc/objects/commands.cfg
               subPath: commands.cfg
             - name: nagios-config
-              mountPath: /opt/nagios/etc/hosts.cfg
+              mountPath: /opt/nagios/etc/conf.d/hosts.cfg
               subPath: hosts.cfg
             - name: nagios-config
-              mountPath: /opt/nagios/etc/services.cfg
+              mountPath: /opt/nagios/etc/conf.d/services.cfg
               subPath: services.cfg
             - name: nagios-config
               mountPath: /etc/apache2/sites-available/nagios.conf
