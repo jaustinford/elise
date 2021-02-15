@@ -343,13 +343,13 @@ data:
     define service {
         use                             generic-service
         host_name                       *
-        service_description             procs
+        service_description             processes
         check_command                   check_procs
     }
     define service {
         use                             generic-service
         host_name                       *
-        service_description             cpu
+        service_description             load
         check_command                   check_load
     }
     define service {
