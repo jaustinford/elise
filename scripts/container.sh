@@ -37,6 +37,7 @@ elif [ "$1" == 'deploy' ]; then
 
 elif [ "$1" == 'start' ]; then
     docker start ${NAME}
+    ${SHELL_CMD}
 
 elif [ "$1" == 'stop' ]; then
     docker stop ${NAME}
