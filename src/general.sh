@@ -103,7 +103,7 @@ fi
 print_message () {
     TOTAL_LENGTH='30'
     KEY_LENGTH=$(echo "$2" | wc -c)
-    PAD_LENGTH=`expr $TOTAL_LENGTH - $KEY_LENGTH`
+    PAD_LENGTH=$(expr $TOTAL_LENGTH - $KEY_LENGTH)
 
     key="$2"
     for pad in $(seq 1 $PAD_LENGTH); do
