@@ -74,11 +74,15 @@ git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
     | **LAB_APACHE_MOTD**                        | str  |                                             |        |
     | **LAB_USER_AUSTIN_SSH_KEY**                | str  |                                             | `true` |
     | **LAB_SSL_DOMAINS**                        | list |                                             |        |
-    | **NAGIOS_USER**                            | str  |                                             |        |
+    | **NAGIOS_USERNAME**                        | str  |                                             |        |
     | **NAGIOS_PASSWORD**                        | str  |                                             |        |
     | **NAGIOS_CHECK_INTERVAL_MINUTES**          | str  | `3`                                         |        |
     | **NAGIOS_RETRY_INTERVAL_MINUTES**          | str  | `1`                                         |        |
     | **NAGIOS_REFRESH_RATE_SECONDS**            | str  | `90`                                        |        |
+    | **WATCHER_USERNAME**                       | str  |                                             |        |
+    | **WATCHER_PASSWORD**                       | str  |                                             |        |
+    | **TVAULT_USERNAME**                        | str  |                                             |        |
+    | **TVAULT_PASSWORD**                        | str  |                                             |        |
 
 <br />
 

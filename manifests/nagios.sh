@@ -2,7 +2,7 @@
 
 . "${ELISE_ROOT_DIR}/src/elise.sh"
 
-NAGIOS_CREDENTIALS=$(htpasswd -n -b "${NAGIOS_USER}" "${NAGIOS_PASSWORD}")
+NAGIOS_CREDENTIALS=$(htpasswd -n -b "${NAGIOS_USERNAME}" "${NAGIOS_PASSWORD}")
 
 cat <<EOF | kubectl "$1" -f -
 ---
@@ -34,7 +34,7 @@ data:
     \$USER1\$=/opt/nagios/libexec
   contacts.cfg: |
     define contact {
-        contact_name            ${NAGIOS_USER}
+        contact_name            ${NAGIOS_USERNAME}
         use                     generic-contact
         alias                   Nagios Admin
         email                   j.austin.ford@gmail.com
@@ -42,7 +42,7 @@ data:
     define contactgroup {
         contactgroup_name       admins
         alias                   Nagios Administrators
-        members                 ${NAGIOS_USER}
+        members                 ${NAGIOS_USERNAME}
     }
   commands.cfg: |
     define command {
@@ -111,7 +111,7 @@ data:
       alias              kube00.labs.elysianskies.com
       display_name       kube00.labs.elysianskies.com
       address            172.16.17.20
-      contacts           ${NAGIOS_USER}
+      contacts           ${NAGIOS_USERNAME}
       max_check_attempts 3
       check_interval     ${NAGIOS_CHECK_INTERVAL_MINUTES}
       retry_interval     ${NAGIOS_RETRY_INTERVAL_MINUTES}
@@ -122,7 +122,7 @@ data:
       alias              kube01.labs.elysianskies.com
       display_name       kube01.labs.elysianskies.com
       address            172.16.17.6
-      contacts           ${NAGIOS_USER}
+      contacts           ${NAGIOS_USERNAME}
       max_check_attempts 3
       check_interval     ${NAGIOS_CHECK_INTERVAL_MINUTES}
       retry_interval     ${NAGIOS_RETRY_INTERVAL_MINUTES}
@@ -133,7 +133,7 @@ data:
       alias              kube02.labs.elysianskies.com
       display_name       kube02.labs.elysianskies.com
       address            172.16.17.7
-      contacts           ${NAGIOS_USER}
+      contacts           ${NAGIOS_USERNAME}
       max_check_attempts 3
       check_interval     ${NAGIOS_CHECK_INTERVAL_MINUTES}
       retry_interval     ${NAGIOS_RETRY_INTERVAL_MINUTES}
@@ -144,7 +144,7 @@ data:
       alias              dns.labs.elysianskies.com
       display_name       dns.labs.elysianskies.com
       address            172.16.17.10
-      contacts           ${NAGIOS_USER}
+      contacts           ${NAGIOS_USERNAME}
       max_check_attempts 3
       check_interval     ${NAGIOS_CHECK_INTERVAL_MINUTES}
       retry_interval     ${NAGIOS_RETRY_INTERVAL_MINUTES}
@@ -155,7 +155,7 @@ data:
       alias              netmon.labs.elysianskies.com
       display_name       netmon.labs.elysianskies.com
       address            172.16.17.19
-      contacts           ${NAGIOS_USER}
+      contacts           ${NAGIOS_USERNAME}
       max_check_attempts 3
       check_interval     ${NAGIOS_CHECK_INTERVAL_MINUTES}
       retry_interval     ${NAGIOS_RETRY_INTERVAL_MINUTES}
@@ -166,7 +166,7 @@ data:
       alias              watcher01.labs.elysianskies.com
       display_name       watcher01.labs.elysianskies.com
       address            172.16.17.13
-      contacts           ${NAGIOS_USER}
+      contacts           ${NAGIOS_USERNAME}
       max_check_attempts 3
       check_interval     ${NAGIOS_CHECK_INTERVAL_MINUTES}
       retry_interval     ${NAGIOS_RETRY_INTERVAL_MINUTES}
@@ -177,7 +177,7 @@ data:
       alias              watcher02.labs.elysianskies.com
       display_name       watcher02.labs.elysianskies.com
       address            172.16.17.14
-      contacts           ${NAGIOS_USER}
+      contacts           ${NAGIOS_USERNAME}
       max_check_attempts 3
       check_interval     ${NAGIOS_CHECK_INTERVAL_MINUTES}
       retry_interval     ${NAGIOS_RETRY_INTERVAL_MINUTES}
