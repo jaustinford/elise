@@ -40,7 +40,7 @@ frontend https_front
     option forwardfor
     acl https ssl_fc
     http-request set-header X-Forwarded-Proto http if !https
-    http-request set-header	X-Forwarded-Proto https if https
+    http-request set-header X-Forwarded-Proto https if https
     default_backend kubernetes_ingress_http
 
 backend kubernetes_apache_http
