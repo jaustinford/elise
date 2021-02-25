@@ -1,3 +1,8 @@
+#!/usr/bin/env bash
+
+. "${ELISE_ROOT_DIR}/src/elise.sh"
+
+HAPROXY_CFG=$(cat <<EOF
 global
     maxconn 20
     log /dev/log local0
@@ -21,6 +26,11 @@ defaults
 frontend http_front
     bind *:80
     mode http
+    stats enable
+    stats realm eslabs\ haproxy\ statistics
+    stats hide-version
+    stats uri ${HAPROXY_STATS_URI}
+    stats auth ${HAPROXY_STATS_USERNAME}:${HAPROXY_STATS_PASSWORD}
     option forwardfor
     default_backend kubernetes_apache_http
 
@@ -44,3 +54,5 @@ backend kubernetes_ingress_http
     default-server check maxconn 20
     server kube01.labs.elysianskies.com 172.16.17.6:32566 check fall 3 rise 2
     server kube02.labs.elysianskies.com 172.16.17.7:32566 check fall 3 rise 2
+EOF
+)

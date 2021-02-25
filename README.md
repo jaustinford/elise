@@ -83,6 +83,9 @@ git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
     | **WATCHER_PASSWORD**                       | str  |                                             |        |
     | **TVAULT_USERNAME**                        | str  |                                             |        |
     | **TVAULT_PASSWORD**                        | str  |                                             |        |
+    | **HAPROXY_STATS_USERNAME**                 | str  |                                             |        |
+    | **HAPROXY_STATS_PASSWORD**                 | str  |                                             |        |
+    | **HAPROXY_STATS_URI**                      | str  | `/haproxy`                                  |        |
 
 <br />
 
