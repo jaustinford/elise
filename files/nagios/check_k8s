@@ -55,10 +55,7 @@ elif [ "${DEPLOYMENT}" == 'plex' ] && [ "${SERVICE}" == 'tautulli' ]; then
 
 fi
 
-if [ -z "$http_response" ]; then
-    http_response=$(curl -sIL $url | egrep ^HTTP\/ | tail -1 | awk '{print $2}')
-
-fi
+http_response=$(curl -siL $url | egrep ^HTTP\/ | tail -1 | awk '{print $2}')
 
 if [ "$http_response" == '200' ]; then
     echo "OK - $http_response ${DEPLOYMENT}/${SERVICE} - $url"
