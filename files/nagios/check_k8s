@@ -48,15 +48,15 @@ elif [ "${DEPLOYMENT}" == 'kharon' ] && [ "${SERVICE}" == 'deluge' ]; then
     url='https://labs.elysianskies.com/deluge'
 
 elif [ "${DEPLOYMENT}" == 'plex' ] && [ "${SERVICE}" == 'plexserver' ]; then
-    url='http://labs.elysianskies.com:32400/web/index.html'
+    url='http://labs.elysianskies.com:32400/web'
 
 elif [ "${DEPLOYMENT}" == 'plex' ] && [ "${SERVICE}" == 'tautulli' ]; then
-    url='https://labs.elysianskies.com/tautulli/auth/login'
+    url='https://labs.elysianskies.com/tautulli'
 
 fi
 
 if [ -z "$http_response" ]; then
-    http_response=$(curl -s -k -i $url | egrep ^HTTP\/ | awk '{print $2}')
+    http_response=$(curl -sIL $url | egrep ^HTTP\/ | tail -1 | awk '{print $2}')
 
 fi
 
