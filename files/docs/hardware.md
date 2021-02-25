@@ -15,7 +15,7 @@
 ### kubernetes services
 ---
 
-- [plex server](https://labs.elysianskies.com:32400)
+- [plex server](http://labs.elysianskies.com:32400)
 - [nagios host monitoring](https://labs.elysianskies.com/nagios/)
 - [tvault filebrowser](https://labs.elysianskies.com/tvault)
 - [ntopng traffic monitor](https://labs.elysianskies.com/ntopng)
