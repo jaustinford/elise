@@ -224,13 +224,13 @@ grab_loaded_vpn_server () {
 }
 
 find_wan_from_pod () {
-    pod_wan=$(kube_exec 'eslabs' $1 'expressvpn' 'curl -s checkip.amazonaws.com')
+    pod_wan=$(kube_exec 'eslabs' $1 'expressvpn' 'curl -s ifconfig.me')
 
     if [ ! -z "$pod_wan" ]; then
         print_message 'stdout' 'expressvpn wan ip' "$pod_wan"
 
     else
-        print_message 'stderr' 'wan ip exposed' "$(curl -s checkip.amazonaws.com)"
+        print_message 'stderr' 'wan ip exposed' "$(curl -s ifconfig.me)"
 
     fi
 }

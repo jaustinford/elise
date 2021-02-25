@@ -47,3 +47,4 @@
         - check_mem
         - check_int
         - check_temp
+        - check_k8s

@@ -105,6 +105,38 @@ data:
         command_name    check_ssh
         command_line    \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_ssh
     }
+    define command {
+        command_name    check_k8s_acme
+        command_line    \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_k8s_acme
+    }
+    define command {
+        command_name    check_k8s_bigbrother
+        command_line    \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_k8s_bigbrother
+    }
+    define command {
+        command_name    check_k8s_filebrowser
+        command_line    \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_k8s_filebrowser
+    }
+    define command {
+        command_name    check_k8s_kharon_expressvpn
+        command_line    \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_k8s_kharon_expressvpn
+    }
+    define command {
+        command_name    check_k8s_kharon_deluge
+        command_line    \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_k8s_kharon_deluge
+    }
+    define command {
+        command_name    check_k8s_kharon_squid
+        command_line    \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_k8s_kharon_squid
+    }
+    define command {
+        command_name    check_k8s_plex_plexserver
+        command_line    \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_k8s_plex_plexserver
+    }
+    define command {
+        command_name    check_k8s_plex_tautulli
+        command_line    \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_k8s_plex_tautulli
+    }
   hosts.cfg: |
     define host {
       host_name          kube00.labs.elysianskies.com
@@ -249,6 +281,54 @@ data:
         host_name                       *
         service_description             ssh
         check_command                   check_ssh
+    }
+    define service {
+        use                             generic-service
+        host_name                       kube00.labs.elysianskies.com
+        service_description             kubernetes service - acme/apache
+        check_command                   check_k8s_acme
+    }
+    define service {
+        use                             generic-service
+        host_name                       kube00.labs.elysianskies.com
+        service_description             kubernetes service - bigbrother/zoneminder
+        check_command                   check_k8s_bigbrother
+    }
+    define service {
+        use                             generic-service
+        host_name                       kube00.labs.elysianskies.com
+        service_description             kubernetes service - filebrowser/apache
+        check_command                   check_k8s_filebrowser
+    }
+    define service {
+        use                             generic-service
+        host_name                       kube00.labs.elysianskies.com
+        service_description             kubernetes service - kharon/expressvpn
+        check_command                   check_k8s_kharon_expressvpn
+    }
+    define service {
+        use                             generic-service
+        host_name                       kube00.labs.elysianskies.com
+        service_description             kubernetes service - kharon/deluge
+        check_command                   check_k8s_kharon_deluge
+    }
+    define service {
+        use                             generic-service
+        host_name                       kube00.labs.elysianskies.com
+        service_description             kubernetes service - kharon/squid
+        check_command                   check_k8s_kharon_squid
+    }
+    define service {
+        use                             generic-service
+        host_name                       kube00.labs.elysianskies.com
+        service_description             kubernetes service - plex/plexserver
+        check_command                   check_k8s_plex_plexserver
+    }
+    define service {
+        use                             generic-service
+        host_name                       kube00.labs.elysianskies.com
+        service_description             kubernetes service - plex/tautulli
+        check_command                   check_k8s_plex_tautulli
     }
   nagios.conf: |
     ScriptAlias /nagios/cgi-bin "/opt/nagios/sbin"
