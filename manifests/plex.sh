@@ -122,6 +122,9 @@ kind: Ingress
 metadata:
   name: ingress-eslabs-tautulli
   namespace: eslabs
+  annotations:
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+        proxy_set_header X-Forwarded-Proto https;
 spec:
   rules:
     - http:

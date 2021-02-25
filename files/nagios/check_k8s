@@ -51,7 +51,7 @@ elif [ "${DEPLOYMENT}" == 'plex' ] && [ "${SERVICE}" == 'plexserver' ]; then
     url='http://labs.elysianskies.com:32400/web/index.html'
 
 elif [ "${DEPLOYMENT}" == 'plex' ] && [ "${SERVICE}" == 'tautulli' ]; then
-    url='https://labs.elysianskies.com/tautulli/admin/'
+    url='https://labs.elysianskies.com/tautulli/auth/login'
 
 fi
 
