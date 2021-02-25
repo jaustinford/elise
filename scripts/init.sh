@@ -15,7 +15,7 @@ pod_from_deployment 'eslabs' 'plex'
 display_tvault_stats "$pod"
 ssl_reader "${LAB_FQDN}" '443'
 curl_test 'kubernetes ingress' 'https' "${LAB_FQDN}" '/tvault'
-curl_test 'plex media server' 'https' "${LAB_FQDN}" ':32400/web/index.html'
+curl_test 'plex media server' 'http' "${LAB_FQDN}" ':32400/web'
 curl_test 'acme apache' 'http' "${LAB_FQDN}" '/'
 pod_from_deployment 'eslabs' 'kharon'
 grab_loaded_vpn_server "$pod"
