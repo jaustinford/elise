@@ -4,7 +4,7 @@
 
 HAPROXY_CFG=$(cat <<EOF
 global
-    maxconn 20
+    maxconn 100
     log /dev/log local0
     user root
     group root
@@ -21,7 +21,7 @@ defaults
     log global
     mode http
     option httplog
-    maxconn 20
+    maxconn 100
 
 frontend kubernetes_apache
     bind *:80
@@ -49,6 +49,12 @@ frontend kubernetes_plexserver
     option tcplog
     default_backend kubernetes_plexserver
 
+frontend kubernetes_squid
+    bind *:3128
+    mode tcp
+    option tcplog
+    default_backend kubernetes_squid
+
 backend kubernetes_apache
     balance roundrobin
     default-server check maxconn 20
@@ -67,5 +73,12 @@ backend kubernetes_plexserver
     default-server check maxconn 20
     server kube01.labs.elysianskies.com 172.16.17.6:${KUBE_NODEPORT_PLEXSERVER} check fall 3 rise 2
     server kube02.labs.elysianskies.com 172.16.17.7:${KUBE_NODEPORT_PLEXSERVER} check fall 3 rise 2
+
+backend kubernetes_squid
+    mode tcp
+    balance roundrobin
+    default-server check maxconn 20
+    server kube01.labs.elysianskies.com 172.16.17.6:${KUBE_NODEPORT_SQUID} check fall 3 rise 2
+    server kube02.labs.elysianskies.com 172.16.17.7:${KUBE_NODEPORT_SQUID} check fall 3 rise 2
 EOF
 )

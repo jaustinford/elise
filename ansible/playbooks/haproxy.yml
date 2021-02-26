@@ -56,5 +56,6 @@
           - '443:443'
           - '80:80'
           - '32401:32401'
+          - '3128:3128'
         network_mode: bridge
         restart_policy: unless-stopped
