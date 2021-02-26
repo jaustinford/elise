@@ -73,7 +73,6 @@ git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
     | **KHARON_DELUGE_MAX_ACTIVE_DOWNLOADING**   | str  | `3`                                         |        |
     | **KHARON_DELUGE_PASSWORD**                 | str  |                                             |        |
     | **PLEX_CLAIM**                             | str  |                                             |        |
-    | **PLEX_AFFINITY_NODE**                     | str  | `kube01.labs.elysianskies.com`              |        |
     | **LAB_FQDN**                               | str  | `labs.elysianskies.com`                     |        |
     | **LAB_APACHE_MOTD**                        | str  |                                             |        |
     | **LAB_USER_AUSTIN_SSH_KEY**                | str  |                                             | `true` |

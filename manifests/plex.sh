@@ -114,8 +114,6 @@ spec:
         - name: k8s-vol-plexserver-content
           hostPath:
             path: /mnt/tvault/video
-      nodeSelector:
-          kubernetes.io/hostname: ${PLEX_AFFINITY_NODE}
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress

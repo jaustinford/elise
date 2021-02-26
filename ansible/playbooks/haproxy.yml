@@ -55,5 +55,6 @@
         ports:
           - '443:443'
           - '80:80'
+          - '32401:32401'
         network_mode: bridge
         restart_policy: unless-stopped

@@ -23,7 +23,7 @@ defaults
     option httplog
     maxconn 20
 
-frontend http_front
+frontend kubernetes_apache
     bind *:80
     mode http
     stats enable
@@ -32,27 +32,40 @@ frontend http_front
     stats uri ${HAPROXY_STATS_URI}
     stats auth ${HAPROXY_STATS_USERNAME}:${HAPROXY_STATS_PASSWORD}
     option forwardfor
-    default_backend kubernetes_apache_http
+    default_backend kubernetes_apache
 
-frontend https_front
+frontend kubernetes_ingress
     bind *:443 ssl crt /usr/local/etc/haproxy/nginx.crt
     mode http
     option forwardfor
     acl https ssl_fc
-    http-request set-header X-Forwarded-Proto http if !https
     http-request set-header X-Forwarded-Proto https if https
-    default_backend kubernetes_ingress_http
+    http-request set-header X-Forwarded-Proto http if !https
+    default_backend kubernetes_ingress
 
-backend kubernetes_apache_http
+frontend kubernetes_plexserver
+    bind *:32401
+    mode tcp
+    option tcplog
+    default_backend kubernetes_plexserver
+
+backend kubernetes_apache
     balance roundrobin
     default-server check maxconn 20
     server kube01.labs.elysianskies.com 172.16.17.6:${KUBE_NODEPORT_ACME} check fall 3 rise 2
     server kube02.labs.elysianskies.com 172.16.17.7:${KUBE_NODEPORT_ACME} check fall 3 rise 2
 
-backend kubernetes_ingress_http
+backend kubernetes_ingress
     balance roundrobin
     default-server check maxconn 20
     server kube01.labs.elysianskies.com 172.16.17.6:${KUBE_NODEPORT_INGRESS} check fall 3 rise 2
     server kube02.labs.elysianskies.com 172.16.17.7:${KUBE_NODEPORT_INGRESS} check fall 3 rise 2
+
+backend kubernetes_plexserver
+    mode tcp
+    balance roundrobin
+    default-server check maxconn 20
+    server kube01.labs.elysianskies.com 172.16.17.6:${KUBE_NODEPORT_PLEXSERVER} check fall 3 rise 2
+    server kube02.labs.elysianskies.com 172.16.17.7:${KUBE_NODEPORT_PLEXSERVER} check fall 3 rise 2
 EOF
 )
