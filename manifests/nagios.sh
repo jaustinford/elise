@@ -71,6 +71,8 @@ data:
       address               172.16.17.20
       contacts              ${NAGIOS_USERNAME}
       max_check_attempts    3
+      check_interval        ${NAGIOS_CHECK_INTERVAL_MINUTES}
+      retry_interval        ${NAGIOS_RETRY_INTERVAL_MINUTES}
       check_command         check-host-alive
     }
     define host {
@@ -78,6 +80,8 @@ data:
       address               172.16.17.6
       contacts              ${NAGIOS_USERNAME}
       max_check_attempts    3
+      check_interval        ${NAGIOS_CHECK_INTERVAL_MINUTES}
+      retry_interval        ${NAGIOS_RETRY_INTERVAL_MINUTES}
       check_command         check-host-alive
     }
     define host {
@@ -85,6 +89,8 @@ data:
       address               172.16.17.7
       contacts              ${NAGIOS_USERNAME}
       max_check_attempts    3
+      check_interval        ${NAGIOS_CHECK_INTERVAL_MINUTES}
+      retry_interval        ${NAGIOS_RETRY_INTERVAL_MINUTES}
       check_command         check-host-alive
     }
     define host {
@@ -92,6 +98,8 @@ data:
       address               172.16.17.10
       contacts              ${NAGIOS_USERNAME}
       max_check_attempts    3
+      check_interval        ${NAGIOS_CHECK_INTERVAL_MINUTES}
+      retry_interval        ${NAGIOS_RETRY_INTERVAL_MINUTES}
       check_command         check-host-alive
     }
     define host {
@@ -99,6 +107,8 @@ data:
       address               172.16.17.19
       contacts              ${NAGIOS_USERNAME}
       max_check_attempts    3
+      check_interval        ${NAGIOS_CHECK_INTERVAL_MINUTES}
+      retry_interval        ${NAGIOS_RETRY_INTERVAL_MINUTES}
       check_command         check-host-alive
     }
     define host {
@@ -106,6 +116,8 @@ data:
       address               172.16.17.13
       contacts              ${NAGIOS_USERNAME}
       max_check_attempts    3
+      check_interval        ${NAGIOS_CHECK_INTERVAL_MINUTES}
+      retry_interval        ${NAGIOS_RETRY_INTERVAL_MINUTES}
       check_command         check-host-alive
     }
     define host {
@@ -113,6 +125,8 @@ data:
       address               172.16.17.14
       contacts              ${NAGIOS_USERNAME}
       max_check_attempts    3
+      check_interval        ${NAGIOS_CHECK_INTERVAL_MINUTES}
+      retry_interval        ${NAGIOS_RETRY_INTERVAL_MINUTES}
       check_command         check-host-alive
     }
   services.cfg: |
