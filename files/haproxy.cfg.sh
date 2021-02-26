@@ -21,7 +21,7 @@ defaults
     log global
     mode http
     option httplog
-    maxconn 100
+    maxconn 20
 
 frontend kubernetes_apache
     bind *:80
@@ -77,7 +77,7 @@ backend kubernetes_plexserver
 backend kubernetes_squid
     mode tcp
     balance roundrobin
-    default-server check maxconn 20
+    default-server check maxconn 100
     server kube01.labs.elysianskies.com 172.16.17.6:${KUBE_NODEPORT_SQUID} check fall 3 rise 2
     server kube02.labs.elysianskies.com 172.16.17.7:${KUBE_NODEPORT_SQUID} check fall 3 rise 2
 EOF
