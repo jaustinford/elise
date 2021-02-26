@@ -203,176 +203,116 @@ data:
     }
   services.cfg: |
     define service {
-        use                 generic-service
+        name                eslabs-service
         host_name           *
+        service_description default eslabs service
+        max_check_attempts  3
+        check_interval      ${NAGIOS_CHECK_INTERVAL_MINUTES}
+        retry_interval      ${NAGIOS_RETRY_INTERVAL_MINUTES}
+        register            0
+    }
+    define service {
+        use                 eslabs-service
         service_description ping
         check_command       check_ping!100.0,20%!500.0,60%
-        max_check_attempts  3
-        check_interval      ${NAGIOS_CHECK_INTERVAL_MINUTES}
-        retry_interval      ${NAGIOS_RETRY_INTERVAL_MINUTES}
     }
     define service {
-        use                 generic-service
-        host_name           *
+        use                 eslabs-service
         service_description hdd
         check_command       check_disk
-        max_check_attempts  3
-        check_interval      ${NAGIOS_CHECK_INTERVAL_MINUTES}
-        retry_interval      ${NAGIOS_RETRY_INTERVAL_MINUTES}
-
     }
     define service {
-        use                 generic-service
-        host_name           *
+        use                 eslabs-service
         service_description users
         check_command       check_users
-        max_check_attempts  3
-        check_interval      ${NAGIOS_CHECK_INTERVAL_MINUTES}
-        retry_interval      ${NAGIOS_RETRY_INTERVAL_MINUTES}
-
     }
     define service {
-        use                 generic-service
-        host_name           *
+        use                 eslabs-service
         service_description processes
         check_command       check_procs
-        max_check_attempts  3
-        check_interval      ${NAGIOS_CHECK_INTERVAL_MINUTES}
-        retry_interval      ${NAGIOS_RETRY_INTERVAL_MINUTES}
     }
     define service {
-        use                 generic-service
-        host_name           *
+        use                 eslabs-service
         service_description load
         check_command       check_load
-        max_check_attempts  3
-        check_interval      ${NAGIOS_CHECK_INTERVAL_MINUTES}
-        retry_interval      ${NAGIOS_RETRY_INTERVAL_MINUTES}
     }
     define service {
-        use                 generic-service
-        host_name           *
+        use                 eslabs-service
         service_description memory
         check_command       check_mem
-        max_check_attempts  3
-        check_interval      ${NAGIOS_CHECK_INTERVAL_MINUTES}
-        retry_interval      ${NAGIOS_RETRY_INTERVAL_MINUTES}
     }
     define service {
-        use                 generic-service
-        host_name           *
+        use                 eslabs-service
         service_description network traffic
         check_command       check_int
-        max_check_attempts  3
-        check_interval      ${NAGIOS_CHECK_INTERVAL_MINUTES}
-        retry_interval      ${NAGIOS_RETRY_INTERVAL_MINUTES}
     }
     define service {
-        use                 generic-service
-        host_name           *
+        use                 eslabs-service
         service_description cpu temperature
         check_command       check_temp
-        max_check_attempts  3
-        check_interval      ${NAGIOS_CHECK_INTERVAL_MINUTES}
-        retry_interval      ${NAGIOS_RETRY_INTERVAL_MINUTES}
     }
     define service {
-        use                 generic-service
-        host_name           *
+        use                 eslabs-service
         service_description uptime
         check_command       check_uptime
-        max_check_attempts  3
-        check_interval      ${NAGIOS_CHECK_INTERVAL_MINUTES}
-        retry_interval      ${NAGIOS_RETRY_INTERVAL_MINUTES}
     }
     define service {
-        use                 generic-service
-        host_name           *
+        use                 eslabs-service
         service_description date
         check_command       check_date
-        max_check_attempts  3
-        check_interval      ${NAGIOS_CHECK_INTERVAL_MINUTES}
-        retry_interval      ${NAGIOS_RETRY_INTERVAL_MINUTES}
     }
     define service {
-        use                 generic-service
-        host_name           *
+        use                 eslabs-service
         service_description ssh
         check_command       check_ssh
-        max_check_attempts  3
-        check_interval      ${NAGIOS_CHECK_INTERVAL_MINUTES}
-        retry_interval      ${NAGIOS_RETRY_INTERVAL_MINUTES}
     }
     define service {
-        use                 generic-service
+        use                 eslabs-service
         host_name           kube00.labs.elysianskies.com
         service_description kubernetes service - acme/apache
         check_command       check_k8s_acme
-        max_check_attempts  3
-        check_interval      ${NAGIOS_CHECK_INTERVAL_MINUTES}
-        retry_interval      ${NAGIOS_RETRY_INTERVAL_MINUTES}
     }
     define service {
-        use                 generic-service
+        use                 eslabs-service
         host_name           kube00.labs.elysianskies.com
         service_description kubernetes service - bigbrother/zoneminder
         check_command       check_k8s_bigbrother
         max_check_attempts  3
-        check_interval      ${NAGIOS_CHECK_INTERVAL_MINUTES}
-        retry_interval      ${NAGIOS_RETRY_INTERVAL_MINUTES}
     }
     define service {
-        use                 generic-service
+        use                 eslabs-service
         host_name           kube00.labs.elysianskies.com
         service_description kubernetes service - filebrowser/apache
         check_command       check_k8s_filebrowser
-        max_check_attempts  3
-        check_interval      ${NAGIOS_CHECK_INTERVAL_MINUTES}
-        retry_interval      ${NAGIOS_RETRY_INTERVAL_MINUTES}
     }
     define service {
-        use                 generic-service
+        use                 eslabs-service
         host_name           kube00.labs.elysianskies.com
         service_description kubernetes service - kharon/expressvpn
         check_command       check_k8s_kharon_expressvpn
-        max_check_attempts  3
-        check_interval      ${NAGIOS_CHECK_INTERVAL_MINUTES}
-        retry_interval      ${NAGIOS_RETRY_INTERVAL_MINUTES}
     }
     define service {
-        use                 generic-service
+        use                 eslabs-service
         host_name           kube00.labs.elysianskies.com
         service_description kubernetes service - kharon/deluge
         check_command       check_k8s_kharon_deluge
-        max_check_attempts  3
-        check_interval      ${NAGIOS_CHECK_INTERVAL_MINUTES}
-        retry_interval      ${NAGIOS_RETRY_INTERVAL_MINUTES}
     }
     define service {
-        use                 generic-service
+        use                 eslabs-service
         host_name           kube00.labs.elysianskies.com
         service_description kubernetes service - kharon/squid
-        max_check_attempts  3
-        check_interval      ${NAGIOS_CHECK_INTERVAL_MINUTES}
-        retry_interval      ${NAGIOS_RETRY_INTERVAL_MINUTES}
         check_command       check_k8s_kharon_squid
     }
     define service {
-        use                 generic-service
+        use                 eslabs-service
         host_name           kube00.labs.elysianskies.com
         service_description kubernetes service - plex/plexserver
-        max_check_attempts  3
-        check_interval      ${NAGIOS_CHECK_INTERVAL_MINUTES}
-        retry_interval      ${NAGIOS_RETRY_INTERVAL_MINUTES}
         check_command       check_k8s_plex_plexserver
     }
     define service {
-        use                 generic-service
+        use                 eslabs-service
         host_name           kube00.labs.elysianskies.com
         service_description kubernetes service - plex/tautulli
-        max_check_attempts  3
-        check_interval      ${NAGIOS_CHECK_INTERVAL_MINUTES}
-        retry_interval      ${NAGIOS_RETRY_INTERVAL_MINUTES}
         check_command       check_k8s_plex_tautulli
     }
   nagios.conf: |
