@@ -34,7 +34,7 @@ spec:
     - protocol: TCP
       port: 3128
       targetPort: 3128
-      nodePort: 30526
+      nodePort: ${KUBE_NODEPORT_SQUID}
 ---
 apiVersion: v1
 kind: ConfigMap
