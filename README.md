@@ -58,6 +58,9 @@ git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
     | **KUBE_CONFIG_CERTIFICATE_AUTHORITY_DATA** | str  |                                             | `true` |
     | **KUBE_CONFIG_CLIENT_CERTIFICATE_DATA**    | str  |                                             | `true` |
     | **KUBE_CONFIG_CLIENT_KEY_DATA**            | str  |                                             | `true` |
+    | **KUBE_NODEPORT_ACME**                     | str  |                                             |        |
+    | **KUBE_NODEPORT_INGRESS**                  | str  |                                             |        |
+    | **KUBE_NODEPORT_PLEXSERVER**               | str  | `32400`                                     |        |
     | **KHARON_EXPRESSVPN_SERVER**               | str  | `usa-denver`                                |        |
     | **KHARON_EXPRESSVPN_USERNAME**             | str  |                                             | `true` |
     | **KHARON_EXPRESSVPN_PASSWORD**             | str  |                                             | `true` |
