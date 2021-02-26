@@ -32,40 +32,17 @@ data:
     # intentionally kept empty
   resource.cfg: |
     \$USER1\$=/opt/nagios/libexec
-  contacts.cfg: |
+  eslabs.cfg: |
     define contact {
         contact_name        ${NAGIOS_USERNAME}
         use                 generic-contact
         alias               Nagios Admin
         email               j.austin.ford@gmail.com
     }
-    define contactgroup {
-        contactgroup_name   admins
-        alias               Nagios Administrators
-        members             ${NAGIOS_USERNAME}
-    }
-  commands.cfg: |
-    define command {
-        command_name        notify-host-by-email
-        command_line        /usr/bin/printf "%b" "***** Nagios *****\n\nNotification Type: \$NOTIFICATIONTYPE\$\nHost: \$HOSTNAME\$\nState: \$HOSTSTATE\$\nAddress: \$HOSTADDRESS\$\nInfo: \$HOSTOUTPUT\$\n\nDate/Time: \$LONGDATETIME\$\n" | /usr/bin/mail -s "** \$NOTIFICATIONTYPE\$ Host Alert: \$HOSTNAME\$ is \$HOSTSTATE\$ **" \$CONTACTEMAIL\$
-    }
-    define command {
-        command_name        notify-service-by-email
-        command_line        /usr/bin/printf "%b" "***** Nagios *****\n\nNotification Type: \$NOTIFICATIONTYPE\$\n\nService: \$SERVICEDESC\$\nHost: \$HOSTALIAS\$\nAddress: \$HOSTADDRESS\$\nState: \$SERVICESTATE\$\n\nDate/Time: \$LONGDATETIME\$\n\nAdditional Info:\n\n\$SERVICEOUTPUT\$\n" | /usr/bin/mail -s "** \$NOTIFICATIONTYPE\$ Service Alert: \$HOSTALIAS\$/\$SERVICEDESC\$ is \$SERVICESTATE\$ **" \$CONTACTEMAIL\$
-    }
-    define command {
-        command_name        check-host-alive
-        command_line        \$USER1\$/check_ping -H \$HOSTADDRESS\$ -w 3000.0,80% -c 5000.0,100% -p 5
-    }
-    define command {
-        command_name        check_ping
-        command_line        \$USER1\$/check_ping -H \$HOSTADDRESS\$ -w \$ARG1\$ -c \$ARG2\$ -p 5
-    }
     define command {
         command_name        check_nrpe
         command_line        \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c \$ARG1\$
     }
-  hosts.cfg: |
     define host {
         host_name           kube00.labs.elysianskies.com
         address             172.16.17.20
@@ -129,7 +106,6 @@ data:
         retry_interval      ${NAGIOS_RETRY_INTERVAL_MINUTES}
         check_command       check-host-alive
     }
-  services.cfg: |
     define service {
         name                eslabs-service
         host_name           *
@@ -352,17 +328,8 @@ spec:
               mountPath: /opt/nagios/etc/resource.cfg
               subPath: resource.cfg
             - name: nagios-config
-              mountPath: /opt/nagios/etc/objects/contacts.cfg
-              subPath: contacts.cfg
-            - name: nagios-config
-              mountPath: /opt/nagios/etc/objects/commands.cfg
-              subPath: commands.cfg
-            - name: nagios-config
-              mountPath: /opt/nagios/etc/conf.d/hosts.cfg
-              subPath: hosts.cfg
-            - name: nagios-config
-              mountPath: /opt/nagios/etc/conf.d/services.cfg
-              subPath: services.cfg
+              mountPath: /opt/nagios/etc/conf.d/eslabs.cfg
+              subPath: eslabs.cfg
             - name: nagios-config
               mountPath: /etc/apache2/sites-available/nagios.conf
               subPath: nagios.conf
