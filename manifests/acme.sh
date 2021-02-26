@@ -17,7 +17,7 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
-      nodePort: 32565
+      nodePort: ${KUBE_NODEPORT_ACME}
 ---
 apiVersion: v1
 kind: ConfigMap

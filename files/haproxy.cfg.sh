@@ -46,13 +46,13 @@ frontend https_front
 backend kubernetes_apache_http
     balance roundrobin
     default-server check maxconn 20
-    server kube01.labs.elysianskies.com 172.16.17.6:32565 check fall 3 rise 2
-    server kube02.labs.elysianskies.com 172.16.17.7:32565 check fall 3 rise 2
+    server kube01.labs.elysianskies.com 172.16.17.6:${KUBE_NODEPORT_ACME} check fall 3 rise 2
+    server kube02.labs.elysianskies.com 172.16.17.7:${KUBE_NODEPORT_ACME} check fall 3 rise 2
 
 backend kubernetes_ingress_http
     balance roundrobin
     default-server check maxconn 20
-    server kube01.labs.elysianskies.com 172.16.17.6:32566 check fall 3 rise 2
-    server kube02.labs.elysianskies.com 172.16.17.7:32566 check fall 3 rise 2
+    server kube01.labs.elysianskies.com 172.16.17.6:${KUBE_NODEPORT_INGRESS} check fall 3 rise 2
+    server kube02.labs.elysianskies.com 172.16.17.7:${KUBE_NODEPORT_INGRESS} check fall 3 rise 2
 EOF
 )

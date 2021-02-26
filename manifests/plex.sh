@@ -16,9 +16,9 @@ spec:
     app: plex
   ports:
     - protocol: TCP
-      port: 32400
-      targetPort: 32400
-      nodePort: 32400
+      port: ${KUBE_NODEPORT_PLEXSERVER}
+      targetPort: ${KUBE_NODEPORT_PLEXSERVER}
+      nodePort: ${KUBE_NODEPORT_PLEXSERVER}
 ---
 apiVersion: v1
 kind: Service

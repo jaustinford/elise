@@ -296,7 +296,7 @@ spec:
       port: 80
       protocol: TCP
       targetPort: http
-      nodePort: 32566
+      nodePort: ${KUBE_NODEPORT_INGRESS}
     - name: https
       port: 443
       protocol: TCP
