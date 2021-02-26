@@ -65,83 +65,9 @@ data:
         command_name        check_nrpe
         command_line        \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c \$ARG1\$
     }
-    define command {
-        command_name        check_disk
-        command_line        \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_disk
-    }
-    define command {
-        command_name        check_load
-        command_line        \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_load
-    }
-    define command {
-        command_name        check_procs
-        command_line        \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_procs
-    }
-    define command {
-        command_name        check_users
-        command_line        \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_users
-    }
-    define command {
-        command_name        check_mem
-        command_line        \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_mem
-    }
-    define command {
-        command_name        check_int
-        command_line        \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_int
-    }
-    define command {
-        command_name        check_temp
-        command_line        \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_temp
-    }
-    define command {
-        command_name        check_uptime
-        command_line        \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_uptime
-    }
-    define command {
-        command_name        check_date
-        command_line        \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_date
-    }
-    define command {
-        command_name        check_ssh
-        command_line        \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_ssh
-    }
-    define command {
-        command_name        check_k8s_acme
-        command_line        \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_k8s_acme
-    }
-    define command {
-        command_name        check_k8s_bigbrother
-        command_line        \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_k8s_bigbrother
-    }
-    define command {
-        command_name        check_k8s_filebrowser
-        command_line        \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_k8s_filebrowser
-    }
-    define command {
-        command_name        check_k8s_kharon_expressvpn
-        command_line        \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_k8s_kharon_expressvpn
-    }
-    define command {
-        command_name        check_k8s_kharon_deluge
-        command_line        \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_k8s_kharon_deluge
-    }
-    define command {
-        command_name        check_k8s_kharon_squid
-        command_line        \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_k8s_kharon_squid
-    }
-    define command {
-        command_name        check_k8s_plex_plexserver
-        command_line        \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_k8s_plex_plexserver
-    }
-    define command {
-        command_name        check_k8s_plex_tautulli
-        command_line        \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c check_k8s_plex_tautulli
-    }
   hosts.cfg: |
     define host {
       host_name             kube00.labs.elysianskies.com
-      alias                 kube00.labs.elysianskies.com
-      display_name          kube00.labs.elysianskies.com
       address               172.16.17.20
       contacts              ${NAGIOS_USERNAME}
       max_check_attempts    3
@@ -149,8 +75,6 @@ data:
     }
     define host {
       host_name             kube01.labs.elysianskies.com
-      alias                 kube01.labs.elysianskies.com
-      display_name          kube01.labs.elysianskies.com
       address               172.16.17.6
       contacts              ${NAGIOS_USERNAME}
       max_check_attempts    3
@@ -158,8 +82,6 @@ data:
     }
     define host {
       host_name             kube02.labs.elysianskies.com
-      alias                 kube02.labs.elysianskies.com
-      display_name          kube02.labs.elysianskies.com
       address               172.16.17.7
       contacts              ${NAGIOS_USERNAME}
       max_check_attempts    3
@@ -167,8 +89,6 @@ data:
     }
     define host {
       host_name             dns.labs.elysianskies.com
-      alias                 dns.labs.elysianskies.com
-      display_name          dns.labs.elysianskies.com
       address               172.16.17.10
       contacts              ${NAGIOS_USERNAME}
       max_check_attempts    3
@@ -176,8 +96,6 @@ data:
     }
     define host {
       host_name             netmon.labs.elysianskies.com
-      alias                 netmon.labs.elysianskies.com
-      display_name          netmon.labs.elysianskies.com
       address               172.16.17.19
       contacts              ${NAGIOS_USERNAME}
       max_check_attempts    3
@@ -185,8 +103,6 @@ data:
     }
     define host {
       host_name             watcher01.labs.elysianskies.com
-      alias                 watcher01.labs.elysianskies.com
-      display_name          watcher01.labs.elysianskies.com
       address               172.16.17.13
       contacts              ${NAGIOS_USERNAME}
       max_check_attempts    3
@@ -194,8 +110,6 @@ data:
     }
     define host {
       host_name             watcher02.labs.elysianskies.com
-      alias                 watcher02.labs.elysianskies.com
-      display_name          watcher02.labs.elysianskies.com
       address               172.16.17.14
       contacts              ${NAGIOS_USERNAME}
       max_check_attempts    3
@@ -209,6 +123,9 @@ data:
         max_check_attempts  3
         check_interval      ${NAGIOS_CHECK_INTERVAL_MINUTES}
         retry_interval      ${NAGIOS_RETRY_INTERVAL_MINUTES}
+        check_period        24x7
+        notification_period 24x7
+        contacts            ${NAGIOS_USERNAME}
         register            0
     }
     define service {
@@ -219,101 +136,100 @@ data:
     define service {
         use                 eslabs-service
         service_description hdd
-        check_command       check_disk
+        check_command       check_nrpe!check_disk
     }
     define service {
         use                 eslabs-service
         service_description users
-        check_command       check_users
+        check_command       check_nrpe!check_users
     }
     define service {
         use                 eslabs-service
         service_description processes
-        check_command       check_procs
+        check_command       check_nrpe!check_procs
     }
     define service {
         use                 eslabs-service
         service_description load
-        check_command       check_load
+        check_command       check_nrpe!check_load
     }
     define service {
         use                 eslabs-service
         service_description memory
-        check_command       check_mem
+        check_command       check_nrpe!check_mem
     }
     define service {
         use                 eslabs-service
         service_description network traffic
-        check_command       check_int
+        check_command       check_nrpe!check_int
     }
     define service {
         use                 eslabs-service
         service_description cpu temperature
-        check_command       check_temp
+        check_command       check_nrpe!check_temp
     }
     define service {
         use                 eslabs-service
         service_description uptime
-        check_command       check_uptime
+        check_command       check_nrpe!check_uptime
     }
     define service {
         use                 eslabs-service
         service_description date
-        check_command       check_date
+        check_command       check_nrpe!check_date
     }
     define service {
         use                 eslabs-service
         service_description ssh
-        check_command       check_ssh
+        check_command       check_nrpe!check_ssh
     }
     define service {
         use                 eslabs-service
         host_name           kube00.labs.elysianskies.com
         service_description kubernetes service - acme/apache
-        check_command       check_k8s_acme
+        check_command       check_nrpe!check_k8s_acme
     }
     define service {
         use                 eslabs-service
         host_name           kube00.labs.elysianskies.com
         service_description kubernetes service - bigbrother/zoneminder
-        check_command       check_k8s_bigbrother
-        max_check_attempts  3
+        check_command       check_nrpe!check_k8s_bigbrother
     }
     define service {
         use                 eslabs-service
         host_name           kube00.labs.elysianskies.com
         service_description kubernetes service - filebrowser/apache
-        check_command       check_k8s_filebrowser
+        check_command       check_nrpe!check_k8s_filebrowser
     }
     define service {
         use                 eslabs-service
         host_name           kube00.labs.elysianskies.com
         service_description kubernetes service - kharon/expressvpn
-        check_command       check_k8s_kharon_expressvpn
+        check_command       check_nrpe!check_k8s_kharon_expressvpn
     }
     define service {
         use                 eslabs-service
         host_name           kube00.labs.elysianskies.com
         service_description kubernetes service - kharon/deluge
-        check_command       check_k8s_kharon_deluge
+        check_command       check_nrpe!check_k8s_kharon_deluge
     }
     define service {
         use                 eslabs-service
         host_name           kube00.labs.elysianskies.com
         service_description kubernetes service - kharon/squid
-        check_command       check_k8s_kharon_squid
+        check_command       check_nrpe!check_k8s_kharon_squid
     }
     define service {
         use                 eslabs-service
         host_name           kube00.labs.elysianskies.com
         service_description kubernetes service - plex/plexserver
-        check_command       check_k8s_plex_plexserver
+        check_command       check_nrpe!check_k8s_plex_plexserver
     }
     define service {
         use                 eslabs-service
         host_name           kube00.labs.elysianskies.com
         service_description kubernetes service - plex/tautulli
-        check_command       check_k8s_plex_tautulli
+        check_command       check_nrpe!check_k8s_plex_tautulli
     }
   nagios.conf: |
     ScriptAlias /nagios/cgi-bin "/opt/nagios/sbin"
