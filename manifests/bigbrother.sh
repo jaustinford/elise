@@ -75,8 +75,8 @@ spec:
       volumes:
         - name: k8s-vol-bigbrother-config
           iscsi:
-            targetPortal: 172.16.17.4
-            iqn: iqn.2013-03.com.wdc:elysianskies:k8s-vol-bigbrother-config
+            targetPortal: ${ISCSI_PORTAL}
+            iqn: ${ISCSI_IQN}:k8s-vol-bigbrother-config
             lun: 0
             fsType: ext4
             readOnly: false
@@ -86,8 +86,8 @@ spec:
               name: tvault-iscsi-chap
         - name: k8s-vol-bigbrother-cache
           iscsi:
-            targetPortal: 172.16.17.4
-            iqn: iqn.2013-03.com.wdc:elysianskies:k8s-vol-bigbrother-cache
+            targetPortal: ${ISCSI_PORTAL}
+            iqn: ${ISCSI_IQN}:k8s-vol-bigbrother-cache
             lun: 0
             fsType: ext4
             readOnly: false

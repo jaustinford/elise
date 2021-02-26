@@ -101,8 +101,8 @@ spec:
       volumes:
         - name: k8s-vol-acme-letsencrypt
           iscsi:
-            targetPortal: 172.16.17.4
-            iqn: iqn.2013-03.com.wdc:elysianskies:k8s-vol-acme-letsencrypt
+            targetPortal: ${ISCSI_PORTAL}
+            iqn: ${ISCSI_IQN}:k8s-vol-acme-letsencrypt
             lun: 0
             fsType: ext4
             readOnly: false

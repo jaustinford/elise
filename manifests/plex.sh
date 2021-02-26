@@ -80,8 +80,8 @@ spec:
       volumes:
         - name: k8s-vol-plexserver-config
           iscsi:
-            targetPortal: 172.16.17.4
-            iqn: iqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-config
+            targetPortal: ${ISCSI_PORTAL}
+            iqn: ${ISCSI_IQN}:k8s-vol-plexserver-config
             lun: 0
             fsType: ext4
             readOnly: false
@@ -91,8 +91,8 @@ spec:
               name: tvault-iscsi-chap
         - name: k8s-vol-plexserver-transcode
           iscsi:
-            targetPortal: 172.16.17.4
-            iqn: iqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-transcode
+            targetPortal: ${ISCSI_PORTAL}
+            iqn: ${ISCSI_IQN}:k8s-vol-plexserver-transcode
             lun: 0
             fsType: ext4
             readOnly: false
@@ -102,8 +102,8 @@ spec:
               name: tvault-iscsi-chap
         - name: k8s-vol-tautulli
           iscsi:
-            targetPortal: 172.16.17.4
-            iqn: iqn.2013-03.com.wdc:elysianskies:k8s-vol-tautulli
+            targetPortal: ${ISCSI_PORTAL}
+            iqn: ${ISCSI_IQN}:k8s-vol-tautulli
             lun: 0
             fsType: ext4
             readOnly: false
