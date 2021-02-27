@@ -3,6 +3,10 @@
 . "${ELISE_ROOT_DIR}/src/elise.sh"
 
 HAPROXY_CFG=$(cat <<EOF
+###########################################
+# haproxy
+###########################################
+
 global
     maxconn 100
     log /dev/log local0
@@ -23,7 +27,11 @@ defaults
     option httplog
     maxconn 20
 
-frontend kubernetes_apache
+###########################################
+# acme apache
+###########################################
+
+frontend acme_apache
     bind *:80
     mode http
     stats enable
@@ -32,49 +40,61 @@ frontend kubernetes_apache
     stats uri ${HAPROXY_STATS_URI}
     stats auth ${HAPROXY_STATS_USERNAME}:${HAPROXY_STATS_PASSWORD}
     option forwardfor
-    default_backend kubernetes_apache
+    default_backend acme_apache_nodeports
 
-frontend kubernetes_ingress
+backend acme_apache_nodeports
+    balance roundrobin
+    default-server check maxconn 20
+    server kube01.labs.elysianskies.com 172.16.17.6:${KUBE_NODEPORT_ACME} check fall 3 rise 2
+    server kube02.labs.elysianskies.com 172.16.17.7:${KUBE_NODEPORT_ACME} check fall 3 rise 2
+
+###########################################
+# nginx ingress controller
+###########################################
+
+frontend nginx_ingress_controller
     bind *:443 ssl crt /usr/local/etc/haproxy/nginx.crt
     mode http
     option forwardfor
     acl https ssl_fc
     http-request set-header X-Forwarded-Proto https if https
     http-request set-header X-Forwarded-Proto http if !https
-    default_backend kubernetes_ingress
+    default_backend nginx_ingress_controller_nodeports
 
-frontend kubernetes_plexserver
-    bind *:32401
-    mode tcp
-    option tcplog
-    default_backend kubernetes_plexserver
-
-frontend kubernetes_squid
-    bind *:3128
-    mode tcp
-    option tcplog
-    default_backend kubernetes_squid
-
-backend kubernetes_apache
-    balance roundrobin
-    default-server check maxconn 20
-    server kube01.labs.elysianskies.com 172.16.17.6:${KUBE_NODEPORT_ACME} check fall 3 rise 2
-    server kube02.labs.elysianskies.com 172.16.17.7:${KUBE_NODEPORT_ACME} check fall 3 rise 2
-
-backend kubernetes_ingress
+backend nginx_ingress_controller_nodeports
     balance roundrobin
     default-server check maxconn 20
     server kube01.labs.elysianskies.com 172.16.17.6:${KUBE_NODEPORT_INGRESS} check fall 3 rise 2
     server kube02.labs.elysianskies.com 172.16.17.7:${KUBE_NODEPORT_INGRESS} check fall 3 rise 2
 
-backend kubernetes_plexserver
+###########################################
+# plexserver
+###########################################
+
+frontend plexserver
+    bind *:32401
+    mode tcp
+    option tcplog
+    default_backend plexserver_nodeports
+
+backend plexserver_nodeports
     mode tcp
     balance roundrobin
     default-server check maxconn 20
     server kube01.labs.elysianskies.com 172.16.17.6:${KUBE_NODEPORT_PLEXSERVER} check fall 3 rise 2
     server kube02.labs.elysianskies.com 172.16.17.7:${KUBE_NODEPORT_PLEXSERVER} check fall 3 rise 2
 
-backend kubernetes_squid
+###########################################
+# squid proxy
+###########################################
+
+frontend squid_proxy
+    bind *:3128
+    mode tcp
+    option tcplog
+    default_backend squid_proxy_nodeports
+
+backend squid_proxy_nodeports
     mode tcp
     balance roundrobin
     default-server check maxconn 100
