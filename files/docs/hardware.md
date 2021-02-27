@@ -15,7 +15,7 @@
 ### kubernetes services
 ---
 
-- [haproxy stats](http://labs.elysianskies.com/haproxy)
+- [haproxy stats](https://labs.elysianskies.com/haproxy)
 - [plex server](https://plex.tv/web)
 - [nagios host monitoring](https://labs.elysianskies.com/nagios/)
 - [tvault filebrowser](https://labs.elysianskies.com/tvault)

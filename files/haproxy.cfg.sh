@@ -34,11 +34,6 @@ defaults
 frontend acme_apache
     bind *:80
     mode http
-    stats enable
-    stats realm eslabs\ haproxy\ statistics
-    stats hide-version
-    stats uri ${HAPROXY_STATS_URI}
-    stats auth ${HAPROXY_STATS_USERNAME}:${HAPROXY_STATS_PASSWORD}
     option forwardfor
     default_backend acme_apache_nodeports
 
@@ -55,6 +50,11 @@ backend acme_apache_nodeports
 frontend nginx_ingress_controller
     bind *:443 ssl crt /usr/local/etc/haproxy/nginx.crt
     mode http
+    stats enable
+    stats realm eslabs\ haproxy\ statistics
+    stats hide-version
+    stats uri ${HAPROXY_STATS_URI}
+    stats auth ${HAPROXY_STATS_USERNAME}:${HAPROXY_STATS_PASSWORD}
     option forwardfor
     acl https ssl_fc
     http-request set-header X-Forwarded-Proto https if https
