@@ -44,6 +44,42 @@ data:
         command_line        \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c \$ARG1\$
     }
     define host {
+        host_name           manswitch01.labs.elysianskies.com
+        address             172.16.17.16
+        contacts            ${NAGIOS_USERNAME}
+        max_check_attempts  ${NAGIOS_MAX_CHECK_ATTEMPTS}
+        check_interval      ${NAGIOS_CHECK_INTERVAL_MINUTES}
+        retry_interval      ${NAGIOS_RETRY_INTERVAL_MINUTES}
+        check_command       check-host-alive
+    }
+    define host {
+        host_name           manswitch02.labs.elysianskies.com
+        address             172.16.17.17
+        contacts            ${NAGIOS_USERNAME}
+        max_check_attempts  ${NAGIOS_MAX_CHECK_ATTEMPTS}
+        check_interval      ${NAGIOS_CHECK_INTERVAL_MINUTES}
+        retry_interval      ${NAGIOS_RETRY_INTERVAL_MINUTES}
+        check_command       check-host-alive
+    }
+    define host {
+        host_name           manswitch03.labs.elysianskies.com
+        address             172.16.17.18
+        contacts            ${NAGIOS_USERNAME}
+        max_check_attempts  ${NAGIOS_MAX_CHECK_ATTEMPTS}
+        check_interval      ${NAGIOS_CHECK_INTERVAL_MINUTES}
+        retry_interval      ${NAGIOS_RETRY_INTERVAL_MINUTES}
+        check_command       check-host-alive
+    }
+    define host {
+        host_name           tvault.labs.elysianskies.com
+        address             172.16.17.4
+        contacts            ${NAGIOS_USERNAME}
+        max_check_attempts  ${NAGIOS_MAX_CHECK_ATTEMPTS}
+        check_interval      ${NAGIOS_CHECK_INTERVAL_MINUTES}
+        retry_interval      ${NAGIOS_RETRY_INTERVAL_MINUTES}
+        check_command       check-host-alive
+    }
+    define host {
         host_name           kube00.labs.elysianskies.com
         address             172.16.17.20
         contacts            ${NAGIOS_USERNAME}
@@ -106,9 +142,12 @@ data:
         retry_interval      ${NAGIOS_RETRY_INTERVAL_MINUTES}
         check_command       check-host-alive
     }
+    define hostgroup {
+        hostgroup_name      eshosts
+        members             kube00.labs.elysianskies.com,kube01.labs.elysianskies.com,kube02.labs.elysianskies.com,dns.labs.elysianskies.com,netmon.labs.elysianskies.com,watcher01.labs.elysianskies.com,watcher02.labs.elysianskies.com
+    }
     define service {
         name                eslabs-service
-        host_name           *
         service_description default eslabs service
         max_check_attempts  ${NAGIOS_MAX_CHECK_ATTEMPTS}
         check_interval      ${NAGIOS_CHECK_INTERVAL_MINUTES}
@@ -120,56 +159,67 @@ data:
     }
     define service {
         use                 eslabs-service
+        hostgroup_name      eshosts
         service_description ping
         check_command       check_ping!100.0,20%!500.0,60%
     }
     define service {
         use                 eslabs-service
+        hostgroup_name      eshosts
         service_description hdd
         check_command       check_nrpe!check_disk
     }
     define service {
         use                 eslabs-service
+        hostgroup_name      eshosts
         service_description users
         check_command       check_nrpe!check_users
     }
     define service {
         use                 eslabs-service
+        hostgroup_name      eshosts
         service_description processes
         check_command       check_nrpe!check_procs
     }
     define service {
         use                 eslabs-service
+        hostgroup_name      eshosts
         service_description load
         check_command       check_nrpe!check_load
     }
     define service {
         use                 eslabs-service
+        hostgroup_name      eshosts
         service_description memory
         check_command       check_nrpe!check_mem
     }
     define service {
         use                 eslabs-service
+        hostgroup_name      eshosts
         service_description network traffic
         check_command       check_nrpe!check_int
     }
     define service {
         use                 eslabs-service
+        hostgroup_name      eshosts
         service_description cpu temperature
         check_command       check_nrpe!check_temp
     }
     define service {
         use                 eslabs-service
+        hostgroup_name      eshosts
         service_description uptime
         check_command       check_nrpe!check_uptime
     }
     define service {
         use                 eslabs-service
+        hostgroup_name      eshosts
         service_description date
         check_command       check_nrpe!check_date
     }
     define service {
         use                 eslabs-service
+        hostgroup_name      eshosts
         service_description ssh
         check_command       check_nrpe!check_ssh
     }
