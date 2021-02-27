@@ -48,7 +48,7 @@ elif [ "${DEPLOYMENT}" == 'kharon' ] && [ "${SERVICE}" == 'deluge' ]; then
     url='https://labs.elysianskies.com/deluge'
 
 elif [ "${DEPLOYMENT}" == 'plex' ] && [ "${SERVICE}" == 'plexserver' ]; then
-    url='https://labs.elysianskies.com:32400/web'
+    url='https://labs.elysianskies.com:32400/web/index.html'
 
 elif [ "${DEPLOYMENT}" == 'plex' ] && [ "${SERVICE}" == 'tautulli' ]; then
     url='https://labs.elysianskies.com/tautulli'
