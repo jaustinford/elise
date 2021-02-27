@@ -74,7 +74,6 @@ backend nginx_ingress_controller_nodeports
 frontend plexserver
     bind *:32401
     mode tcp
-    option tcplog
     default_backend plexserver_nodeports
 
 backend plexserver_nodeports
@@ -91,7 +90,6 @@ backend plexserver_nodeports
 frontend squid_proxy
     bind *:3128
     mode tcp
-    option tcplog
     default_backend squid_proxy_nodeports
 
 backend squid_proxy_nodeports
