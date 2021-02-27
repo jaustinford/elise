@@ -44,6 +44,15 @@ data:
         command_line        \$USER1\$/check_nrpe -H \$HOSTADDRESS\$ -c \$ARG1\$
     }
     define host {
+        host_name           gw.labs.elysianskies.com
+        address             172.16.17.1
+        contacts            ${NAGIOS_USERNAME}
+        max_check_attempts  ${NAGIOS_MAX_CHECK_ATTEMPTS}
+        check_interval      ${NAGIOS_CHECK_INTERVAL_MINUTES}
+        retry_interval      ${NAGIOS_RETRY_INTERVAL_MINUTES}
+        check_command       check-host-alive
+    }
+    define host {
         host_name           manswitch01.labs.elysianskies.com
         address             172.16.17.16
         contacts            ${NAGIOS_USERNAME}
