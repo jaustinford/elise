@@ -72,13 +72,13 @@ backend nginx_ingress_controller_nodeports
 ###########################################
 
 frontend plexserver
-    bind *:32401
-    mode tcp
-    option tcplog
+    bind *:32401 ssl crt /usr/local/etc/haproxy/nginx.crt
+    mode http
+    option forwardfor
     default_backend plexserver_nodeports
 
 backend plexserver_nodeports
-    mode tcp
+    mode http
     balance roundrobin
     default-server check maxconn 20
     server kube01.labs.elysianskies.com 172.16.17.6:${KUBE_NODEPORT_PLEXSERVER} check fall 3 rise 2
