@@ -10,6 +10,7 @@ metadata:
   name: plexserver
   namespace: eslabs
 spec:
+  externalTrafficPolicy: Local
   type: NodePort
   selector:
     app: plex
