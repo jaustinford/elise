@@ -8,7 +8,6 @@
         echo "${LAB_FQDN}"
       delegate_to: localhost
       register: lab_fqdn_var
-      when: haproxy_reload == "no"
 
     - name: import haproxy.cfg
       shell: |
@@ -24,7 +23,6 @@
         kube_exec 'eslabs' "$pod" 'acme' 'cat /etc/letsencrypt/live/{{ lab_fqdn_var.stdout }}/fullchain.pem'
       delegate_to: localhost
       register: haproxy_crt
-      when: haproxy_reload == "no"
 
     - name: import haproxy key
       shell: |
@@ -33,7 +31,6 @@
         kube_exec 'eslabs' "$pod" 'acme' 'cat /etc/letsencrypt/live/{{ lab_fqdn_var.stdout }}/privkey.pem'
       delegate_to: localhost
       register: haproxy_key
-      when: haproxy_reload == "no"
 
     - name: "{{ message }} haproxy container"
       docker_container:
@@ -62,10 +59,3 @@
           - '3128:3128'
         network_mode: bridge
         restart_policy: unless-stopped
-      when: haproxy_reload == "no"
-
-    - name: update and reload haproxy config
-      shell:
-        docker exec -it haproxy /bin/bash -c 'echo "{{ haproxy_cfg.stdout }}" >> /usr/local/etc/haproxy/haproxy.cfg';
-        docker kill -s HUP haproxy
-      when: haproxy_reload == "yes"
