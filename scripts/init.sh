@@ -10,7 +10,7 @@ greeting 'austin'
 ssh_key
 ssh_client_config
 add_local_dns_search "${LAB_FQDN}"
-kube_config "${ELISE_ROOT_DIR}"
+kube_config "${ELISE_ROOT_DIR}" "${LAB_FQDN}"
 pod_from_deployment 'eslabs' 'plex'
 display_tvault_stats "$pod"
 ssl_reader "${LAB_FQDN}" '443'

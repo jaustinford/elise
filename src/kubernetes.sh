@@ -43,14 +43,14 @@ kube_tail_deployment () {
 ####################################################
 
 kube_config () {
-    print_message 'stdout' 'generate kubernetes config' "https://${LAB_FQDN}:6443"
+    print_message 'stdout' 'generate kubernetes config' "https://$2:6443"
     mkdir -p "$1/.kube"
     cat <<EOF > "$1/.kube/config"
 apiVersion: v1
 clusters:
 - cluster:
     certificate-authority-data: ${KUBE_CONFIG_CERTIFICATE_AUTHORITY_DATA}
-    server: https://${LAB_FQDN}:6443
+    server: https://$2:6443
   name: kubernetes
 contexts:
 - context:
