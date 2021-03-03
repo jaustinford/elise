@@ -11,7 +11,7 @@ print_message 'stdout' 'started' "$(date)"
 print_message 'stdout' 'processing host' "$(hostname)"
 
 ensure_root
-kube_config '/root'
+kube_config '/root' "${LAB_FQDN}"
 ensure_kubeconfig
 ensure_iscsi_mountpath "${ISCSI_LOCAL_MOUNT_DIR}"
 rotate_directory "${ISCSI_BACKUP_DIR}" 'tgz' "${ISCSI_BACKUP_ROTATE_DAYS}"
