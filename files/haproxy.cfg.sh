@@ -25,7 +25,7 @@ defaults
     log global
     mode http
     option httplog
-    maxconn 20
+    maxconn 100
 
 ###########################################
 # acme apache
@@ -39,7 +39,7 @@ frontend acme_apache
 
 backend acme_apache_nodeports
     balance roundrobin
-    default-server check maxconn 20
+    default-server check maxconn 100
     server kube01.labs.elysianskies.com 172.16.17.6:${KUBE_NODEPORT_ACME} check fall 3 rise 2
     server kube02.labs.elysianskies.com 172.16.17.7:${KUBE_NODEPORT_ACME} check fall 3 rise 2
 
@@ -63,7 +63,7 @@ frontend nginx_ingress_controller
 
 backend nginx_ingress_controller_nodeports
     balance roundrobin
-    default-server check maxconn 20
+    default-server check maxconn 100
     server kube01.labs.elysianskies.com 172.16.17.6:${KUBE_NODEPORT_INGRESS} check fall 3 rise 2
     server kube02.labs.elysianskies.com 172.16.17.7:${KUBE_NODEPORT_INGRESS} check fall 3 rise 2
 
@@ -80,7 +80,7 @@ frontend plexserver
 backend plexserver_nodeports
     mode http
     balance roundrobin
-    default-server check maxconn 20
+    default-server check maxconn 100
     server kube01.labs.elysianskies.com 172.16.17.6:${KUBE_NODEPORT_PLEXSERVER} check fall 3 rise 2
     server kube02.labs.elysianskies.com 172.16.17.7:${KUBE_NODEPORT_PLEXSERVER} check fall 3 rise 2
 
