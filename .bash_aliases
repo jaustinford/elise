@@ -104,6 +104,8 @@ alias _vars="${EDITOR} ${ELISE_ROOT_DIR}/src/elise.sh"
 
 # misc
 alias change_vpn_server="${ELISE_ROOT_DIR}/scripts/change_vpn_server.sh change"
+alias eslabs_deploy="${ELISE_ROOT_DIR}/scripts/eslabs.sh deploy"
+alias eslabs_destroy="${ELISE_ROOT_DIR}/scripts/eslabs.sh destroy"
 alias scp='scp -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no'
 alias ssh='ssh -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no'
 alias ssl_display="ssl_reader ${LAB_FQDN} 443"

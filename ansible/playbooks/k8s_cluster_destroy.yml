@@ -85,6 +85,3 @@
         - iptables --table raw --zero
         - iptables --table raw --flush
         - iptables --table raw --delete-chain
-
-    - name: reboot
-      reboot:
