@@ -33,11 +33,20 @@ elif [ "${OPTION}" == 'deploy' ]; then
     print_message 'stdout' 'building cluster'
     ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/k8s_cluster_init.yml
 
+    print_message 'stdout' 'deploying pod network' "${KUBE_POD_NETWORK}"
+    ${ELISE_ROOT_DIR}/manifests/kube-flannel.sh apply
+
+    print_message 'stdout' 'joining workers'
+    ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/k8s_cluster_join.yml
+
     print_message 'stdout' 'waiting on kubernetes system'
     for item in $(kubectl -n kube-system get pods | grep -v ^NAME | awk '{print $1}'); do
         wait_for_pod_to 'start' 'kube-system' "$item"
 
     done
+
+    print_message 'stdout' 'deploying ingress controller'
+    ${ELISE_ROOT_DIR}/manifests/ingress-nginx.sh apply
 
     print_message 'stdout' 'deploying namespace and ssl'
     ${ELISE_ROOT_DIR}/manifests/eslabs.sh apply
