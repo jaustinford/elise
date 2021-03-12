@@ -98,6 +98,7 @@ if [ "$#" -ge 1 ]; then
         for item in ${ONE_POD_DEPLOYMENTS[@]}; do
             if [ "$deployment" == "$item" ]; then
                 container="$item"
+                cmd="$4"
 
             fi
 
