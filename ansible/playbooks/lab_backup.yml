@@ -8,99 +8,95 @@
     ELISE_ROOT_DIR: "{{ ELISE_ROOT_DIR }}"
 
   tasks:
-    - name: ensure lab_backup dir
-      file:
-        path: "{{ item }}"
-        state: directory
-        owner: root
-        group: root
-        mode: 0750
-      when: option == "copy"
-      with_items:
-        - "{{ ELISE_ROOT_DIR }}"
-        - "{{ ELISE_ROOT_DIR }}/src"
-        - "{{ ELISE_ROOT_DIR }}/scripts"
+    - block:
+      - name: ensure lab_backup dir
+        file:
+          path: "{{ item }}"
+          state: directory
+          owner: root
+          group: root
+          mode: 0750
+        with_items:
+          - "{{ ELISE_ROOT_DIR }}"
+          - "{{ ELISE_ROOT_DIR }}/src"
+          - "{{ ELISE_ROOT_DIR }}/scripts"
 
-    - name: reset remote elise.sh vars
-      file:
-        path: "{{ ELISE_ROOT_DIR }}/src/elise.sh"
-        state: absent
+      - name: reset remote elise.sh vars
+        file:
+          path: "{{ ELISE_ROOT_DIR }}/src/elise.sh"
+          state: absent
+
+      - name: import lab_backup vars - constants
+        shell: |
+          source ../../src/elise.sh;
+          echo {{ item }}=\"${{ item }}\"
+        register: elise_constants
+        delegate_to: localhost
+        with_items:
+          - SHELL_USER_PROMPT_COLOR
+          - SHELL_HOST_PROMPT_COLOR
+          - SHELL_CWD_PROMPT_COLOR
+          - SHELL_STDERR_COLOR
+          - SHELL_STDOUT_COLOR
+          - ISCSI_CHAP_SESSION_USERNAME
+          - ISCSI_CHAP_SESSION_PASSWORD
+          - ISCSI_PORTAL
+          - ISCSI_LOCAL_MOUNT_DIR
+          - ISCSI_BACKUP_DIR
+          - ISCSI_BACKUP_ROTATE_DAYS
+          - ISCSI_IQN
+          - LAB_FQDN
+          - KUBE_CONFIG_CERTIFICATE_AUTHORITY_DATA
+          - KUBE_CONFIG_CLIENT_CERTIFICATE_DATA
+          - KUBE_CONFIG_CLIENT_KEY_DATA
+
+      - name: import lab_backup vars - volumes
+        shell:
+          source ../../src/elise.sh;
+          echo ISCSI_BACKUP_VOLUMES=\(${ISCSI_BACKUP_VOLUMES[@]}\)
+        register: volume_vars
+        delegate_to: localhost
+
+      - name: copy lab_backup vars - constants
+        shell: echo '{{ item.stdout }}' >> {{ ELISE_ROOT_DIR }}/src/elise.sh
+        no_log: true
+        with_items:
+          - "{{ elise_constants.results }}"
+
+      - name: copy lab_backup vars - volumes
+        shell: echo '{{ volume_vars.stdout }}' >> {{ ELISE_ROOT_DIR }}/src/elise.sh
+
+      - name: copy source files
+        copy:
+          src: "../../{{ item }}"
+          dest: "{{ ELISE_ROOT_DIR }}/{{ item }}"
+          owner: root
+          group: root
+          mode: 0750
+        with_items:
+          - scripts/lab_backup.sh
+          - src/general.sh
+          - src/iscsi.sh
+          - src/kubernetes.sh
       when: option == "copy"
 
-    - name: import lab_backup vars - constants
-      shell: |
-        source ../../src/elise.sh;
-        echo {{ item }}=\"${{ item }}\"
-      register: elise_constants
-      when: option == "copy"
-      delegate_to: localhost
-      with_items:
-        - SHELL_USER_PROMPT_COLOR
-        - SHELL_HOST_PROMPT_COLOR
-        - SHELL_CWD_PROMPT_COLOR
-        - SHELL_STDERR_COLOR
-        - SHELL_STDOUT_COLOR
-        - ISCSI_CHAP_SESSION_USERNAME
-        - ISCSI_CHAP_SESSION_PASSWORD
-        - ISCSI_PORTAL
-        - ISCSI_LOCAL_MOUNT_DIR
-        - ISCSI_BACKUP_DIR
-        - ISCSI_BACKUP_ROTATE_DAYS
-        - ISCSI_IQN
-        - LAB_FQDN
-        - KUBE_CONFIG_CERTIFICATE_AUTHORITY_DATA
-        - KUBE_CONFIG_CLIENT_CERTIFICATE_DATA
-        - KUBE_CONFIG_CLIENT_KEY_DATA
+    - block:
+      - name: execute lab_backup tasks
+        shell: "{{ ELISE_ROOT_DIR }}/scripts/lab_backup.sh"
+        register: backup_output
 
-    - name: import lab_backup vars - volumes
-      shell:
-        source ../../src/elise.sh;
-        echo ISCSI_BACKUP_VOLUMES=\(${ISCSI_BACKUP_VOLUMES[@]}\)
-      register: volume_vars
-      when: option == "copy"
-      delegate_to: localhost
-
-    - name: copy lab_backup vars - constants
-      shell: echo '{{ item.stdout }}' >> {{ ELISE_ROOT_DIR }}/src/elise.sh
-      no_log: true
-      when: option == "copy"
-      with_items:
-        - "{{ elise_constants.results }}"
-
-    - name: copy lab_backup vars - volumes
-      shell: echo '{{ volume_vars.stdout }}' >> {{ ELISE_ROOT_DIR }}/src/elise.sh
-      when: option == "copy"
-
-    - name: copy source files
-      copy:
-        src: "../../{{ item }}"
-        dest: "{{ ELISE_ROOT_DIR }}/{{ item }}"
-        owner: root
-        group: root
-        mode: 0750
-      when: option == "copy"
-      with_items:
-        - scripts/lab_backup.sh
-        - src/general.sh
-        - src/iscsi.sh
-        - src/kubernetes.sh
-
-    - name: execute lab_backup tasks
-      shell: "{{ ELISE_ROOT_DIR }}/scripts/lab_backup.sh"
-      register: backup_output
+      - debug: var=backup_output.stdout_lines
       when: option == "execute"
 
-    - debug: var=backup_output.stdout_lines
-      when: option == "execute"
-
-    - name: remove lab_backup
-      file:
-        path: "{{ item }}"
-        state: absent
-        owner: root
-        group: root
-        mode: 0750
+    - block:
+      - name: remove lab_backup
+        file:
+          path: "{{ item }}"
+          state: absent
+          owner: root
+          group: root
+          mode: 0750
+        with_items:
+          - "{{ ELISE_ROOT_DIR }}"
+          - /root/.kube
       when: option == "remove"
-      with_items:
-        - "{{ ELISE_ROOT_DIR }}"
-        - /root/.kube
