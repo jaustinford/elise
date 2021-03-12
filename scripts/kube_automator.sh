@@ -8,6 +8,13 @@ set -e
 
 MODE="$1"
 
+ONE_POD_DEPLOYMENTS=(
+    'acme'
+    'bigbrother'
+    'filebrowser'
+    'nagios'
+)
+
 if [ "$#" -ge 1 ]; then
     if [ "${MODE}" == 'start' ]; then
         ns="$2"
@@ -50,12 +57,30 @@ if [ "$#" -ge 1 ]; then
         ns="$2"
         deployment="$3"
         container="$4"
+
+        for item in ${ONE_POD_DEPLOYMENTS[@]}; do
+            if [ "$deployment" == "$item" ]; then
+                container="$item"
+
+            fi
+
+        done
+
         kube_logs_deployment $ns $deployment $container
 
     elif [ "${MODE}" == 'tail' ]; then
         ns="$2"
         deployment="$3"
         container="$4"
+
+        for item in ${ONE_POD_DEPLOYMENTS[@]}; do
+            if [ "$deployment" == "$item" ]; then
+                container="$item"
+
+            fi
+
+        done
+
         kube_tail_deployment $ns $deployment $container
 
     elif [ "${MODE}" == 'display' ]; then
@@ -69,6 +94,15 @@ if [ "$#" -ge 1 ]; then
         deployment="$3"
         container="$4"
         cmd="$5"
+
+        for item in ${ONE_POD_DEPLOYMENTS[@]}; do
+            if [ "$deployment" == "$item" ]; then
+                container="$item"
+
+            fi
+
+        done
+
         pod_from_deployment $ns $deployment 'wait'
         kube_exec $ns $pod $container "$cmd"
 
@@ -76,6 +110,15 @@ if [ "$#" -ge 1 ]; then
         ns="$2"
         deployment="$3"
         container="$4"
+
+        for item in ${ONE_POD_DEPLOYMENTS[@]}; do
+            if [ "$deployment" == "$item" ]; then
+                container="$item"
+
+            fi
+
+        done
+
         pod_from_deployment $ns $deployment 'wait'
         kube_exec $ns $pod $container '/bin/bash'
 
@@ -107,6 +150,15 @@ if [ "$#" -ge 1 ]; then
         ns="$2"
         deployment="$3"
         container="$4"
+
+        for item in ${ONE_POD_DEPLOYMENTS[@]}; do
+            if [ "$deployment" == "$item" ]; then
+                container="$item"
+
+            fi
+
+        done
+
         pod_from_deployment $ns $deployment 'wait'
         crash_container $ns $pod "$container"
 
