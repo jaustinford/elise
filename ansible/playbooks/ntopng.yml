@@ -1,6 +1,9 @@
 - hosts: netmon
   gather_facts: false
   become: true
+  vars:
+    ntopng_package: apt-ntop_1.0.190416-469_all.deb
+
   handlers:
     - name: systemctl restart ntopng
       systemd:
@@ -9,15 +12,22 @@
         daemon_reload: yes
 
   tasks:
+    - name: import ntopng license
+      shell: |
+        source ../../src/elise.sh;
+        echo "${NTOPNG_LICENSE}"
+      delegate_to: localhost
+      register: ntopng_license
+
     - name: download ntopng apt raspbian repo
       get_url:
-        url: https://packages.ntop.org/RaspberryPI/apt-ntop_1.0.190416-469_all.deb
-        dest: /tmp/apt-ntop_1.0.190416-469_all.deb
+        url: "https://packages.ntop.org/RaspberryPI/{{ ntopng_package }}"
+        dest: "/tmp/{{ ntopng_package }}"
         mode: 0750
 
     - name: install ntopng repo
       apt:
-        deb: /tmp/apt-ntop_1.0.190416-469_all.deb
+        deb: "/tmp/{{ ntopng_package }}"
         state: present
         update_cache: yes
 
@@ -40,7 +50,7 @@
 
     - name: ensure ntopng license
       copy:
-        content: n2pwoI/o25l8omIUUancRc9EyyX8uLyuSxd0HYV4Yu2090XPZzSIqkG7G7sJe0E3t7t2I4I1Un3ByhTfX4OjS1fc1GhmVwE5inSoe/7kKeLiKzeoV42cQpKYQxJ+zt1RNb/bcMTGDQN41BsgZ0ikXG0j9fDhum7NZppZOxDdFjgg05a0HWcR594+WROq1Ouoox6Zb6HaPpoDsV/N4i6O03OZ2RIE7qy+4YL86QhGWpZlSt/J2CyrvRbkOAPz7wSyaKNX0XxeXu5CmDghnZPLyqP3mi7uQ8cXXFYpt8ctJK3CKf4VaH/9nO8JRUsv1TeumlGtdmQ22/VQ3I3q/bB/Hw==
+        content: "{{ ntopng_license.stdout }}"
         dest: /etc/ntopng.license
       notify: systemctl restart ntopng
 

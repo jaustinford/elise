@@ -91,6 +91,7 @@ git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
     | **HAPROXY_STATS_USERNAME**                 | str  |                                             |        |
     | **HAPROXY_STATS_PASSWORD**                 | str  |                                             |        |
     | **HAPROXY_STATS_URI**                      | str  | `/haproxy`                                  |        |
+    | **NTOPNG_LICENSE**                         | str  |                                             |        |
 
 <br />
 
