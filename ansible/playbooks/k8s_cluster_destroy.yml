@@ -39,6 +39,7 @@
         - /var/lib/systemd/deb-systemd-helper-enabled/kubelet.service.dsh-also
         - /var/lib/systemd/deb-systemd-helper-enabled/multi-user.target.wants/kubelet.service
         - /etc/default/kubelet
+        - /etc/cni
         - /etc/docker
         - /usr/libexec/docker
         - /var/lib/docker
