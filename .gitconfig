@@ -1,7 +1,0 @@
-[user]
-        name = Austin Ford
-        email = j.austin.ford@gmail.com
-[color]
-        ui = auto
-[core]
-        sshCommand = ssh -o StrictHostKeyChecking=no -i /tmp/id_rsa

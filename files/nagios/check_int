@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-DEFAULT_INTERFACE=$(route -n | egrep '^0.0.0.0' | awk '{print $8}')
-RX_TOTAL=$(ifconfig ${DEFAULT_INTERFACE} | grep RX\ packets | awk '{print $6,$7}')
-TX_TOTAL=$(ifconfig ${DEFAULT_INTERFACE} | grep TX\ packets | awk '{print $6,$7}')
-
-echo "OK - ${DEFAULT_INTERFACE} - rx ${RX_TOTAL} - tx ${TX_TOTAL}"
