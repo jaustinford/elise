@@ -1,4 +1,5 @@
 - hosts: watchers
+  gather_facts: true
   become: true
   tasks:
     - block:
