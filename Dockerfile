@@ -35,7 +35,9 @@ RUN \
     pip3 install \
         requests
 
-COPY files/ansible.cfg /etc/ansible/ansible.cfg
+RUN \
+    rm -f /etc/ansible/ansible.cfg && \
+    ln -s /root/files/ansible.cfg /etc/ansible/ansible.cfg
 
 # kubernetes client
 RUN \
