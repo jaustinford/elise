@@ -45,7 +45,7 @@ elif [ "$1" == 'remove' ]; then
 elif [ "$1" == 'destroy' ]; then
     docker stop ${CONTAINER_NAME}
     docker rm ${CONTAINER_NAME}
-    docker rmi ${IMAGE_NAME}:${IMAGE_NAME}
+    docker rmi ${IMAGE_NAME}:${IMAGE_VERSION}
 
 elif [ "$1" == 'shell' ]; then
     ${SHELL_CMD}
