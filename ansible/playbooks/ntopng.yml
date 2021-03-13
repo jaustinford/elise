@@ -1,5 +1,4 @@
 - hosts: netmon
-  gather_facts: false
   become: true
   vars:
     ntopng_package: apt-ntop_1.0.190416-469_all.deb

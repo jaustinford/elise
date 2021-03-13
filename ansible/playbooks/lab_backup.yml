@@ -1,5 +1,4 @@
 - hosts: kube02.labs.elysianskies.com
-  gather_facts: false
   become: true
   vars:
     ELISE_ROOT_DIR: /tmp/lab_backup

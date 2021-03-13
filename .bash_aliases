@@ -91,9 +91,9 @@ alias a_ntopng="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/ntopng.yml"
 alias a_pihole="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/pihole.yml"
 alias a_rpi_temp="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/rpi_temp.yml"
 alias a_sudoers="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/sudoers.yml --ask-become-pass"
-alias a_watchers="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/watchers.yml"
-alias a_watchers_start="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/watchers_start.yml"
-alias a_watchers_stop="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/watchers_stop.yml"
+alias a_watchers_install="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/watchers.yml --extra-vars \"option=install\""
+alias a_watchers_start="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/watchers.yml --extra-vars \"option=start\""
+alias a_watchers_stop="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/watchers.yml --extra-vars \"option=stop\""
 
 # bash
 alias _aliases="${EDITOR} ${ELISE_ROOT_DIR}/.bash_aliases"

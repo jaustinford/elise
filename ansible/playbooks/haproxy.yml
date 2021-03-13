@@ -1,5 +1,4 @@
 - hosts: master_node
-  gather_facts: false
   become: true
   tasks:
     - name: import lab fqdn

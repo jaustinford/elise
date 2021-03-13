@@ -1,5 +1,4 @@
 - hosts: k8s
-  gather_facts: false
   become: true
   handlers:
     - name: systemctl restart docker
@@ -61,7 +60,6 @@
         state: started
 
 - hosts: master_node
-  gather_facts: false
   become: true
   tasks:
     # needed so ansible can deploy containers

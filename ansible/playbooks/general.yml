@@ -1,5 +1,4 @@
 - hosts: "~(rpi|worker_nodes)"
-  gather_facts: false
   become: true
   tasks:
     - name: install apt packages
@@ -25,7 +24,6 @@
         - cron
 
 - hosts: rpi
-  gather_facts: false
   become: true
   tasks:
     - name: disable wireless interfaces

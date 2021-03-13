@@ -1,4 +1,5 @@
 - hosts: nrpe
+  gather_facts: true
   become: true
   handlers:
     - name: systemctl restart nagios-nrpe-server
