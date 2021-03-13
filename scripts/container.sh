@@ -4,7 +4,7 @@
 
 CONTAINER_NAME='elise'
 IMAGE_NAME='jamesaustin87/es-centos'
-IMAGE_VERSION='1.0'
+IMAGE_VERSION='latest'
 
 if [ "${MSYSTEM}" == 'MINGW64' ]; then
     ROOT_MOUNT_PATH='//root'
