@@ -3,7 +3,7 @@
 . "${ELISE_ROOT_DIR}/src/elise.sh"
 
 CONTAINER_NAME='elise'
-IMAGE_NAME='jamesaustin87/es-centos'
+IMAGE_NAME='jamesaustin87/elise'
 IMAGE_VERSION='latest'
 
 if [ "${MSYSTEM}" == 'MINGW64' ]; then
