@@ -294,10 +294,7 @@ vars_ensure () {
         attempt="$(ansible-vault decrypt --vault-password-file=~/.vault.txt ${ELISE_ROOT_DIR}/src/elise.sh 2>&1)"
         short=$(echo "$attempt" | awk '{print $2,$3}')
 
-        if [ "$short" == 'input is' ]; then
-            echo "[*] $(date '+%Y.%m.%d - %H:%M:%S') ${ELISE_ROOT_DIR}/src/elise.sh already decrypted"
-
-        elif [ "$short" == 'Decryption failed' ]; then
+        if [ "$short" == 'Decryption failed' ]; then
             echo "[!] $(date '+%Y.%m.%d - %H:%M:%S') incorrect password found in ${ELISE_ROOT_DIR}/.vault.txt"
             exit 1
 
@@ -306,7 +303,7 @@ vars_ensure () {
             exit 1
 
         else
-            echo "[*] $(date '+%Y.%m.%d - %H:%M:%S') ${ELISE_ROOT_DIR}/src/elise.sh successfully decrypted"
+            echo "[*] $(date '+%Y.%m.%d - %H:%M:%S') ${ELISE_ROOT_DIR}/src/elise.sh is decrypted"
 
         fi
 
