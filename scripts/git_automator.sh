@@ -16,7 +16,7 @@ SHELL_STDERR_COLOR='red'
 MODE="$1"
 
 if [ "$#" -ge 1 ]; then
-    ensure_vars_encrypted
+    vars_ensure 'encrypted'
     permissions_and_dos_line_endings "${ELISE_ROOT_DIR}"
     check_if_anything_to_add
     find_remote_git_project

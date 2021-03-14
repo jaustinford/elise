@@ -280,3 +280,35 @@ ensure_root () {
 
     fi
 }
+
+vars_ensure () {
+    if [ "$1" == 'encrypted' ]; then
+        if [ "$(head -1 ${ELISE_ROOT_DIR}/src/elise.sh)" != '$ANSIBLE_VAULT;1.1;AES256' ]; then
+            print_message 'stderr' "${ELISE_ROOT_DIR}/src/elise.sh is NOT encrypted"
+            exit 1
+
+        fi
+
+    elif [ "$1" == 'decrypted' ]; then
+        chmod 600 "${ELISE_ROOT_DIR}/.vault.txt" 2> /dev/null
+        attempt="$(ansible-vault decrypt --vault-password-file=~/.vault.txt ${ELISE_ROOT_DIR}/src/elise.sh 2>&1)"
+        short=$(echo "$attempt" | awk '{print $2,$3}')
+
+        if [ "$short" == 'input is' ]; then
+            echo "[*] ${ELISE_ROOT_DIR}/src/elise.sh already decrypted"
+
+        elif [ "$short" == 'Decryption failed' ]; then
+            echo "[!] incorrect password found in ${ELISE_ROOT_DIR}/.vault.txt"
+            exit 1
+
+        elif [ "$short" == 'The vault' ]; then
+            echo "[!] ${ELISE_ROOT_DIR}/.vault.txt not found"
+            exit 1
+
+        else
+            echo "[*] ${ELISE_ROOT_DIR}/src/elise.sh successfully decrypted"
+
+        fi
+
+    fi
+}

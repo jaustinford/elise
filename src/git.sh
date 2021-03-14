@@ -46,11 +46,3 @@ check_if_anything_to_add () {
 
     fi
 }
-
-ensure_vars_encrypted () {
-    if [ "$(head -1 ${ELISE_ROOT_DIR}/src/elise.sh)" != '$ANSIBLE_VAULT;1.1;AES256' ]; then
-        print_message 'stderr' "${ELISE_ROOT_DIR}/src/elise.sh is NOT encrypted"
-        exit 1
-
-    fi
-}
