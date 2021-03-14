@@ -37,6 +37,9 @@ elif [ "$1" == 'start' ]; then
 elif [ "$1" == 'stop' ]; then
     docker stop ${CONTAINER_NAME}
 
+elif [ "$1" == 'restart' ]; then
+    docker restart ${CONTAINER_NAME}
+
 elif [ "$1" == 'remove' ]; then
     docker stop ${CONTAINER_NAME}
     docker rm ${CONTAINER_NAME}
