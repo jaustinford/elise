@@ -8,12 +8,12 @@ DOCKER_TIMEZONE='America/Denver'
 if [ "${MSYSTEM}" == 'MINGW64' ]; then
     ROOT_MOUNT_PATH='//root'
     ROOT_VOLUME="/${ELISE_ROOT_DIR}://root"
-    SHELL_CMD="winpty docker exec -it ${CONTAINER_NAME} //bin/bash -c 'authed=1 /bin/bash'"
+    SHELL_CMD="winpty docker exec -it ${CONTAINER_NAME} //bin/bash -c 'elise_profile=1 /bin/bash'"
 
 else
     ROOT_MOUNT_PATH='/root'
     ROOT_VOLUME="${ELISE_ROOT_DIR}:/root"
-    SHELL_CMD="docker exec -it ${CONTAINER_NAME} /bin/bash -c 'authed=1 /bin/bash'"
+    SHELL_CMD="docker exec -it ${CONTAINER_NAME} /bin/bash -c 'elise_profile=1 /bin/bash'"
 
 fi
 
