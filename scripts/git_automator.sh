@@ -16,11 +16,11 @@ SHELL_STDERR_COLOR='red'
 MODE="$1"
 
 if [ "$#" -ge 1 ]; then
+    ensure_vars_encrypted
     permissions_and_dos_line_endings "${ELISE_ROOT_DIR}"
     check_if_anything_to_add
     find_remote_git_project
     count_commits
-    ensure_vars_encrypted
     print_message 'stdout' 'username' "$(git config -l | egrep ^user.name | cut -d'=' -f2)"
     print_message 'stdout' 'email' "$(git config -l | egrep ^user.email | cut -d'=' -f2)"
     print_message 'stdout' 'remote url' "$remote_url"

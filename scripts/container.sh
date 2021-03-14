@@ -39,6 +39,7 @@ elif [ "$1" == 'stop' ]; then
 
 elif [ "$1" == 'restart' ]; then
     docker restart ${CONTAINER_NAME}
+    ${SHELL_CMD}
 
 elif [ "$1" == 'remove' ]; then
     docker stop ${CONTAINER_NAME}
