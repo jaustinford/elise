@@ -17,7 +17,7 @@ if [ "${OPTION}" == 'destroy' ]; then
 
     print_message 'stdout' 'stopping all resources'
     ${ELISE_ROOT_DIR}/scripts/kube_automator.sh stop eslabs all
-    ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/watchers_stop.yml
+    ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/watchers --extra-vars "option=stop"
 
     print_message 'stdout' 'destroying cluster'
     ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/k8s_cluster_destroy.yml
@@ -59,14 +59,14 @@ elif [ "${OPTION}" == 'deploy' ]; then
     print_message 'stdout' 'deploying all other eslabs resources'
     ${ELISE_ROOT_DIR}/manifests/plex.sh apply; ${ELISE_ROOT_DIR}/scripts/kube_automator.sh start eslabs plex
     ${ELISE_ROOT_DIR}/manifests/kharon.sh apply; ${ELISE_ROOT_DIR}/scripts/kube_automator.sh start eslabs kharon
-    ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/watchers_start.yml
+    ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/watchers --extra-vars "option=start"
     ${ELISE_ROOT_DIR}/manifests/bigbrother.sh apply; ${ELISE_ROOT_DIR}/scripts/kube_automator.sh start eslabs bigbrother
     ${ELISE_ROOT_DIR}/manifests/filebrowser.sh apply; ${ELISE_ROOT_DIR}/scripts/kube_automator.sh start eslabs filebrowser
     ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/nrpe.yml
     ${ELISE_ROOT_DIR}/manifests/nagios.sh apply; ${ELISE_ROOT_DIR}/scripts/kube_automator.sh start eslabs nagios
     ${ELISE_ROOT_DIR}/manifests/pihole.sh apply
     ${ELISE_ROOT_DIR}/manifests/ntopng.sh apply
-    ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/lab_backup.yml --extra-vars option=copy
+    ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/lab_backup.yml --extra-vars "option=copy"
 
 fi
 
