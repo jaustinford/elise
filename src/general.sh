@@ -302,9 +302,6 @@ vars_ensure () {
             echo "[!] $(date '+%Y.%m.%d - %H:%M:%S') ${ELISE_ROOT_DIR}/.vault.txt not found"
             exit 1
 
-        else
-            echo "[*] $(date '+%Y.%m.%d - %H:%M:%S') ${ELISE_ROOT_DIR}/src/elise.sh is decrypted"
-
         fi
 
     fi
