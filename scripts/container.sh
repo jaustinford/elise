@@ -28,18 +28,14 @@ if [ "$1" == 'deploy' ]; then
         --volume ${ROOT_VOLUME}:rw \
         ${IMAGE_NAME}:${IMAGE_TAG}
 
-    ${SHELL_CMD}
-
 elif [ "$1" == 'start' ]; then
     docker start ${CONTAINER_NAME}
-    ${SHELL_CMD}
 
 elif [ "$1" == 'stop' ]; then
     docker stop ${CONTAINER_NAME}
 
 elif [ "$1" == 'restart' ]; then
     docker restart ${CONTAINER_NAME}
-    ${SHELL_CMD}
 
 elif [ "$1" == 'remove' ]; then
     docker stop ${CONTAINER_NAME}
