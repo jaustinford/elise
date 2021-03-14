@@ -49,7 +49,7 @@ git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
 > **NOTE** : `_vars_encrypt` - command to re-encrypt vars file
 
 
-`${ELISE_ROOT_DIR}/src/elise.sh` :
+`_vars_edit` :
 | name                                       | type | default value                               | base64 |
 |--------------------------------------------|------|---------------------------------------------|--------|
 | **SHELL_USER_PROMPT_COLOR**                | str  |                                             |        |
