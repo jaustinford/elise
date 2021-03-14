@@ -283,11 +283,11 @@ ensure_root () {
 
 vars_ensure () {
     if [ "$1" == 'encrypted' ]; then
-        if [ "$(head -1 ${ELISE_ROOT_DIR}/src/elise.sh)" != '$ANSIBLE_VAULT;1.1;AES256' ]; then
-            print_message 'stderr' "${ELISE_ROOT_DIR}/src/elise.sh is NOT encrypted"
-            exit 1
+        while [ "$(head -1 ${ELISE_ROOT_DIR}/src/elise.sh)" != '$ANSIBLE_VAULT;1.1;AES256' ]; do
+            print_message 'stdout' 'encrypting variables' "${ELISE_ROOT_DIR}/src/elise.sh"
+            ansible-vault encrypt --vault-password-file=~/.vault.txt ${ELISE_ROOT_DIR}/src/elise.sh 2> /dev/null
 
-        fi
+        done
 
     elif [ "$1" == 'decrypted' ]; then
         chmod 600 "${ELISE_ROOT_DIR}/.vault.txt" 2> /dev/null
