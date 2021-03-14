@@ -30,7 +30,7 @@ git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
 
 - ensure ansible-vault password file exists at `${ELISE_ROOT_DIR}/.vault.txt` with correct password inside
 
-- build and deploy docker [container](https://github.com/jaustinford/elise/blob/main/scripts/container.sh) then drop into bash shell
+- deploy docker [container](https://github.com/jaustinford/elise/blob/main/scripts/container.sh) then drop into bash shell
     ```
     ${ELISE_ROOT_DIR}/scripts/container.sh deploy
     ${ELISE_ROOT_DIR}/scripts/container.sh shell
