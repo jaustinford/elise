@@ -9,3 +9,4 @@ dropoff/*
 .cache/*
 .lesshst
 .ansible/*
+.vault.txt
