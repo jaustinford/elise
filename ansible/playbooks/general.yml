@@ -28,3 +28,36 @@
   tasks:
     - name: disable wireless interfaces
       shell: iwconfig wlan0 txpower off
+
+- hosts: k8s
+  become: true
+  tasks:
+    - name: import tvault_username
+      shell: |
+        source ../../src/elise.sh;
+        echo "${TVAULT_USERNAME}"
+      delegate_to: localhost
+      register: tvault_username
+
+    - name: import tvault_password
+      shell: |
+        source ../../src/elise.sh;
+        echo "${TVAULT_PASSWORD}"
+      delegate_to: localhost
+      register: tvault_password
+
+    - name: ensure mount path
+      file:
+        path: /mnt/tvault
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: mount tvault volume
+      mount:
+        fstype: cifs
+        src: //172.16.17.4/tvault
+        opts: username={{ tvault_username.stdout }},password={{ tvault_password.stdout }},uid=1000,gid=1000
+        path: /mnt/tvault
+        state: mounted

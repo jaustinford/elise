@@ -190,6 +190,11 @@ EOF
 add_local_dns_search () {
     print_message 'stdout' 'generate local dns search' "/etc/resolv.conf"
 
+    if [ -z "$(grep kube00 /etc/hosts)" ]; then
+        echo "172.16.17.20    kube00 kube00.labs.elysianskies.com" >> /etc/hosts
+
+    fi
+
     if [ -z "$(grep $1 /etc/resolv.conf)" ]; then
         echo -e "\nsearch $1" >> /etc/resolv.conf
 
