@@ -153,6 +153,7 @@ sed_edit () {
 permissions_and_dos_line_endings () {
     print_message 'stdout' 'setting permissions' "$1"
     chmod -R 750 "$1"
+    chmod 600 "${ELISE_ROOT_DIR}/.vault.txt"
     chown -R root:root "$1"
 
     print_message 'stdout' 'convert line endings' "$1"

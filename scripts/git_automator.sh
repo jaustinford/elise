@@ -2,7 +2,14 @@
 
 set -e
 
-. "${ELISE_ROOT_DIR}/src/elise.sh"
+GITHUB_DEFAULT_COMMIT_MESSAGE='automated debugging commit'
+GITHUB_DEFAULT_COMMIT_BRANCH='main'
+SHELL_USER_PROMPT_COLOR='green'
+SHELL_HOST_PROMPT_COLOR='lightgray'
+SHELL_CWD_PROMPT_COLOR='darkgray'
+SHELL_STDOUT_COLOR=${SHELL_USER_PROMPT_COLOR}
+SHELL_STDERR_COLOR='red'
+
 . "${ELISE_ROOT_DIR}/src/general.sh"
 . "${ELISE_ROOT_DIR}/src/git.sh"
 
@@ -13,6 +20,7 @@ if [ "$#" -ge 1 ]; then
     check_if_anything_to_add
     find_remote_git_project
     count_commits
+    ensure_vars_encrypted
     print_message 'stdout' 'username' "$(git config -l | egrep ^user.name | cut -d'=' -f2)"
     print_message 'stdout' 'email' "$(git config -l | egrep ^user.email | cut -d'=' -f2)"
     print_message 'stdout' 'remote url' "$remote_url"

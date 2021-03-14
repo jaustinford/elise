@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
-. "${ELISE_ROOT_DIR}/src/elise.sh"
-
 CONTAINER_NAME='elise'
 IMAGE_NAME='jamesaustin87/elise'
 IMAGE_TAG='latest'
+DOCKER_TIMEZONE='America/Denver'
 
 if [ "${MSYSTEM}" == 'MINGW64' ]; then
     ROOT_MOUNT_PATH='//root'
@@ -29,10 +28,16 @@ if [ "$1" == 'deploy' ]; then
         --volume ${ROOT_VOLUME}:rw \
         ${IMAGE_NAME}:${IMAGE_TAG}
 
+    docker exec -it ${CONTAINER_NAME} /bin/bash -c \
+        "ansible-vault decrypt --vault-password-file=~/.vault.txt ${ROOT_MOUNT_PATH}/src/elise.sh"
+
     ${SHELL_CMD}
 
 elif [ "$1" == 'start' ]; then
     docker start ${CONTAINER_NAME}
+    docker exec -it ${CONTAINER_NAME} /bin/bash -c \
+        "ansible-vault decrypt --vault-password-file=~/.vault.txt ${ROOT_MOUNT_PATH}/src/elise.sh"
+
     ${SHELL_CMD}
 
 elif [ "$1" == 'stop' ]; then
@@ -48,6 +53,9 @@ elif [ "$1" == 'destroy' ]; then
     docker rmi ${IMAGE_NAME}:${IMAGE_TAG}
 
 elif [ "$1" == 'shell' ]; then
+    docker exec -it ${CONTAINER_NAME} /bin/bash -c \
+        "ansible-vault decrypt --vault-password-file=~/.vault.txt ${ROOT_MOUNT_PATH}/src/elise.sh"
+
     ${SHELL_CMD}
 
 fi
