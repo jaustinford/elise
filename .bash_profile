@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+chmod 600 "${ELISE_ROOT_DIR}/.vault.txt"
 ansible-vault decrypt --vault-password-file=~/.vault.txt "${ELISE_ROOT_DIR}/src/elise.sh" 2> /dev/null
 
 . "${ELISE_ROOT_DIR}/src/elise.sh"
