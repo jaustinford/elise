@@ -100,7 +100,7 @@ alias _lines="permissions_and_dos_line_endings ${ELISE_ROOT_DIR}"
 alias _profile="${EDITOR} ${ELISE_ROOT_DIR}/.bash_profile"
 alias _source="clear; source ${ELISE_ROOT_DIR}/.bash_profile"
 alias _vars_decrypt="ansible-vault decrypt --vault-password-file=~/.vault.txt ${ELISE_ROOT_DIR}/src/elise.sh"
-alias _vars_edit="ansible-vault edit --vault-password-file=~/.vault.txt ${ELISE_ROOT_DIR}/src/elise.sh"
+alias _vars_edit="${EDITOR} ${ELISE_ROOT_DIR}/src/elise.sh"
 alias _vars_encrypt="ansible-vault encrypt --vault-password-file=~/.vault.txt ${ELISE_ROOT_DIR}/src/elise.sh"
 
 # misc
