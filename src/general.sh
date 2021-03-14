@@ -295,18 +295,18 @@ vars_ensure () {
         short=$(echo "$attempt" | awk '{print $2,$3}')
 
         if [ "$short" == 'input is' ]; then
-            echo "[*] ${ELISE_ROOT_DIR}/src/elise.sh already decrypted"
+            echo "[*] $(date '+%Y.%m.%d - %H:%M:%S') ${ELISE_ROOT_DIR}/src/elise.sh already decrypted"
 
         elif [ "$short" == 'Decryption failed' ]; then
-            echo "[!] incorrect password found in ${ELISE_ROOT_DIR}/.vault.txt"
+            echo "[!] $(date '+%Y.%m.%d - %H:%M:%S') incorrect password found in ${ELISE_ROOT_DIR}/.vault.txt"
             exit 1
 
         elif [ "$short" == 'The vault' ]; then
-            echo "[!] ${ELISE_ROOT_DIR}/.vault.txt not found"
+            echo "[!] $(date '+%Y.%m.%d - %H:%M:%S') ${ELISE_ROOT_DIR}/.vault.txt not found"
             exit 1
 
         else
-            echo "[*] ${ELISE_ROOT_DIR}/src/elise.sh successfully decrypted"
+            echo "[*] $(date '+%Y.%m.%d - %H:%M:%S') ${ELISE_ROOT_DIR}/src/elise.sh successfully decrypted"
 
         fi
 
