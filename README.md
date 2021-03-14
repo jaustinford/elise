@@ -33,6 +33,7 @@ git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
 - build and deploy docker [container](https://github.com/jaustinford/elise/blob/main/scripts/container.sh) then drop into bash shell
     ```
     ${ELISE_ROOT_DIR}/scripts/container.sh deploy
+    ${ELISE_ROOT_DIR}/scripts/container.sh shell
     ```
 
 <br />
