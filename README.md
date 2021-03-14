@@ -46,6 +46,9 @@ git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
 
 > **NOTE** : `base64` must be base64 encoded string
 
+> **NOTE** : `_vars_encrypt` - command to re-encrypt vars file
+
+
 `${ELISE_ROOT_DIR}/src/elise.sh` :
 | name                                       | type | default value                               | base64 |
 |--------------------------------------------|------|---------------------------------------------|--------|
