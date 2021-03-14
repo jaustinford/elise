@@ -1,4 +1,3 @@
-src/elise.sh
 .*_history
 .viminfo
 .python_history
@@ -10,3 +9,4 @@ dropoff/*
 .cache/*
 .lesshst
 .ansible/*
+.vault.txt
