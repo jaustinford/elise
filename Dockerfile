@@ -54,10 +54,6 @@ RUN \
     dnf install -y ffmpeg
 
 # source local profile
-RUN ln -s /root/.bash_profile /etc/profile.d/elise_shell.sh
+RUN ln -s /root/.bash_profile /etc/profile.d/elise_profile.sh
 
-# entrypoint ensures elise.sh file exists before /bin/bash
-# or container will exit with error
-COPY entrypoint.sh /tmp/entrypoint.sh
-RUN chmod +x /tmp/entrypoint.sh
-ENTRYPOINT ["/tmp/entrypoint.sh"]
+CMD ["/bin/bash"]
