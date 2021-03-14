@@ -191,7 +191,7 @@ add_local_dns_search () {
     print_message 'stdout' 'generate local dns search' "/etc/resolv.conf"
 
     if [ -z "$(grep $1 /etc/resolv.conf)" ]; then
-        echo "search $1" >> /etc/resolv.conf
+        echo -e "\nsearch $1" >> /etc/resolv.conf
 
     fi
 }
