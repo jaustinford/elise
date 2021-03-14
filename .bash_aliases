@@ -65,8 +65,8 @@ alias k_eslabs_watch="watch -n 5 -t -c ${ELISE_ROOT_DIR}/scripts/kube_automator.
 # git
 alias g_add="${ELISE_ROOT_DIR}/scripts/git_automator.sh add"
 alias g_commit="${ELISE_ROOT_DIR}/scripts/git_automator.sh commit"
-alias g_diff="git diff"
-alias g_log="git log --patch"
+alias g_diff="git diff -- ':(exclude)${ELISE_ROOT_DIR}/src/elise.sh'"
+alias g_log="git log --patch -- ':(exclude)${ELISE_ROOT_DIR}/src/elise.sh'"
 alias g_push="${ELISE_ROOT_DIR}/scripts/git_automator.sh push"
 alias g_reset="git reset --hard"
 alias g_status="git status"
