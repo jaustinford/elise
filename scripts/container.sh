@@ -4,7 +4,7 @@
 
 CONTAINER_NAME='elise'
 IMAGE_NAME='jamesaustin87/elise'
-IMAGE_VERSION='latest'
+IMAGE_TAG='latest'
 
 if [ "${MSYSTEM}" == 'MINGW64' ]; then
     ROOT_MOUNT_PATH='//root'
@@ -27,7 +27,7 @@ if [ "$1" == 'deploy' ]; then
         --env HOST_HOSTNAME="$(hostname)" \
         --env ELISE_ROOT_DIR=${ROOT_MOUNT_PATH} \
         --volume ${ROOT_VOLUME}:rw \
-        ${IMAGE_NAME}:${IMAGE_VERSION}
+        ${IMAGE_NAME}:${IMAGE_TAG}
 
     ${SHELL_CMD}
 
@@ -45,7 +45,7 @@ elif [ "$1" == 'remove' ]; then
 elif [ "$1" == 'destroy' ]; then
     docker stop ${CONTAINER_NAME}
     docker rm ${CONTAINER_NAME}
-    docker rmi ${IMAGE_NAME}:${IMAGE_VERSION}
+    docker rmi ${IMAGE_NAME}:${IMAGE_TAG}
 
 elif [ "$1" == 'shell' ]; then
     ${SHELL_CMD}
