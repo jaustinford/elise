@@ -1,5 +1,5 @@
-## elise - Bash Wrapper for managing Kubernetes on Elysian Skies
-<br />
+# elise
+Bash Wrapper for managing Kubernetes on Elysian Skies
 
 > **NOTE** : if you are using a windows platform, clone project with windows crlf line endings
 ```
