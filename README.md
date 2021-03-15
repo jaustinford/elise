@@ -99,9 +99,16 @@ git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
 
 <br />
 
+### docker
+---
+
+- [docker hub image](https://hub.docker.com/repository/docker/jamesaustin87/elise/general)
+- [Dockerfile](https://github.com/jaustinford/elise/blob/docker/Dockerfile)
+
+<br />
+
 ### resources
 ---
 
-- [docker image](https://hub.docker.com/repository/docker/jamesaustin87/elise/general)
 - [lab hardware](https://github.com/jaustinford/elise/blob/main/files/docs/hardware.md)
 - [local dns resolutions](https://github.com/jaustinford/elise/blob/main/files/pihole/custom.list)
