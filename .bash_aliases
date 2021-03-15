@@ -78,7 +78,8 @@ alias g_status="git status"
 alias g_spot="${GIT_AUTOMATOR} all"
 
 # ansible - playbooks
-alias a_crons="${ANSIBLE_PLAYBOOK}/crons.yml"
+alias a_crons_deploy="${ANSIBLE_PLAYBOOK}/crons.yml"
+alias a_crons_edit="${EDITOR} ${ELISE_ROOT_DIR}/ansible/playbooks/crons.yml"
 alias a_docker="${ANSIBLE_PLAYBOOK}/docker.yml"
 alias a_general="${ANSIBLE_PLAYBOOK}/general.yml"
 alias a_haproxy_restart="${ANSIBLE_PLAYBOOK}/haproxy.yml --extra-vars \"container_state=started recreate_container=yes message=restarting\""
