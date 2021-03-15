@@ -8,18 +8,6 @@ git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
 
 <br />
 
-### components
----
-
-- ansible
-- kubectl
-- bash
-- git
-- youtube-dl
-- certbot
-
-<br />
-
 ### deploy
 ---
 
@@ -41,16 +29,17 @@ git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
 ### variables
 ---
 
+- variables are stored in [`${ELISE_ROOT_DIR}/src/elise.sh`](https://github.com/jaustinford/elise/blob/main/src/elise.sh) as an encrypted ansible-vault file
+
+- deploying container will only succeed when this file successfully decrypts
+
 > **NOTE** : available color codes : `white`, `blue`, `green`, `cyan`, `red`, `purple`, `yellow`, `darkgray`, `lightgray`
 
 > **NOTE** : assign `KHARON_EXPRESSVPN_SERVER` with one of the [expressvpn servers](https://github.com/jaustinford/elise/blob/main/files/expressvpn_servers.txt)
 
 > **NOTE** : `base64` must be base64 encoded string
 
-> **NOTE** : `_vars_encrypt` - command to re-encrypt vars file
 
-
-`_vars_edit` :
 | name                                       | type | default value                               | base64 |
 |--------------------------------------------|------|---------------------------------------------|--------|
 | **SHELL_USER_PROMPT_COLOR**                | str  |                                             |        |
