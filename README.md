@@ -1,4 +1,4 @@
-## elise - eslabs wrapper shell and custom scripts
+## elise - Bash Wrapper for managing Kubernetes on Elysian Skies
 <br />
 
 > **NOTE** : if you are using a windows platform, clone project with windows crlf line endings
