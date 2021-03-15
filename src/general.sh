@@ -292,13 +292,12 @@ vars_ensure () {
     elif [ "$1" == 'decrypted' ]; then
         chmod 600 "${ELISE_ROOT_DIR}/.vault.txt" 2> /dev/null
         attempt="$(ansible-vault decrypt --vault-password-file=~/.vault.txt ${ELISE_ROOT_DIR}/src/elise.sh 2>&1)"
-        short=$(echo "$attempt" | awk '{print $2,$3}')
 
-        if [ "$short" == 'Decryption failed' ]; then
+        if [ "$attempt" == "ERROR! Decryption failed (no vault secrets were found that could decrypt) on ${ELISE_ROOT_DIR}/src/elise.sh for ${ELISE_ROOT_DIR}/src/elise.sh" ]; then
             echo "[!] $(date '+%Y.%m.%d - %H:%M:%S') incorrect password found in ${ELISE_ROOT_DIR}/.vault.txt"
             exit 1
 
-        elif [ "$short" == 'The vault' ]; then
+        elif [ "$attempt" == "ERROR! The vault password file ${ELISE_ROOT_DIR}/.vault.txt was not found" ]; then
             echo "[!] $(date '+%Y.%m.%d - %H:%M:%S') ${ELISE_ROOT_DIR}/.vault.txt not found"
             exit 1
 
