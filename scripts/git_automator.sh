@@ -2,14 +2,7 @@
 
 set -e
 
-GITHUB_DEFAULT_COMMIT_MESSAGE='automated debugging commit'
-GITHUB_DEFAULT_COMMIT_BRANCH='main'
-SHELL_USER_PROMPT_COLOR='green'
-SHELL_HOST_PROMPT_COLOR='lightgray'
-SHELL_CWD_PROMPT_COLOR='darkgray'
-SHELL_STDOUT_COLOR=${SHELL_USER_PROMPT_COLOR}
-SHELL_STDERR_COLOR='red'
-
+. "${ELISE_ROOT_DIR}/src/elise.sh"
 . "${ELISE_ROOT_DIR}/src/general.sh"
 . "${ELISE_ROOT_DIR}/src/git.sh"
 
