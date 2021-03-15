@@ -86,6 +86,7 @@ alias a_lab_backup_remove="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/
 alias a_nrpe="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/nrpe.yml"
 alias a_ntopng="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/ntopng.yml"
 alias a_pihole="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/pihole.yml"
+alias a_ping="ansible all -m ping"
 alias a_sudoers="ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/sudoers.yml --ask-become-pass"
 alias a_vault_decrypt="ansible-vault decrypt --vault-password-file=~/.vault.txt"
 alias a_vault_edit="ansible-vault edit --vault-password-file=~/.vault.txt"
