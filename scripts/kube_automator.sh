@@ -87,7 +87,7 @@ if [ "$#" -ge 1 ]; then
         ns="$2"
         color_1="${SHELL_KUBE_DISPLAY_BANNER_CODE}"
         color_2="${SHELL_KUBE_DISPLAY_KEY_CODE}"
-        kube_display $ns $color_1 $color_2
+        kube_display $ns $color_1 $color_2 2> /dev/null
 
     elif [ "${MODE}" == 'exec' ]; then
         ns="$2"
