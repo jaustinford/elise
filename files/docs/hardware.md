@@ -8,11 +8,11 @@
 | **maintainer_email** | `j.austin.ford@gmail.com` |
 | **public_domain**    | `labs.elysianskies.com`   |
 
-(services)[https://github.com/jaustinford/elise/blob/main/files/docs/hardware.md#kubernetes-services]
-(hardware)[https://github.com/jaustinford/elise/blob/main/files/docs/hardware.md#hardware]
-(ingress)[https://github.com/jaustinford/elise/blob/main/files/docs/hardware.md#ingress]
-(ethernet switching)[https://github.com/jaustinford/elise/blob/main/files/docs/hardware.md#ethernet-switching]
-(battery and power)[https://github.com/jaustinford/elise/blob/main/files/docs/hardware.md#battery-and-power]
+[services](https://github.com/jaustinford/elise/blob/main/files/docs/hardware.md#kubernetes-services)
+[hardware](https://github.com/jaustinford/elise/blob/main/files/docs/hardware.md#hardware)
+[ingress](https://github.com/jaustinford/elise/blob/main/files/docs/hardware.md#ingress)
+[ethernet switching](https://github.com/jaustinford/elise/blob/main/files/docs/hardware.md#ethernet-switching)
+[battery and power](https://github.com/jaustinford/elise/blob/main/files/docs/hardware.md#battery-and-power)
 
 <br />
 
