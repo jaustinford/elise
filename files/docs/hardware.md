@@ -3,12 +3,16 @@
 <img src="eslabs-front.jpg" width="50%"> <img src="eslabs-back.jpg" width="39.2%"><br />
 *elysian skies lab*
 
-### general information
-
 | **maintainer_name**  | `Austin Ford`             |
 |----------------------|---------------------------|
 | **maintainer_email** | `j.austin.ford@gmail.com` |
 | **public_domain**    | `labs.elysianskies.com`   |
+
+(services)[https://github.com/jaustinford/elise/blob/main/files/docs/hardware.md#kubernetes-services]
+(hardware)[https://github.com/jaustinford/elise/blob/main/files/docs/hardware.md#hardware]
+(ingress)[https://github.com/jaustinford/elise/blob/main/files/docs/hardware.md#ingress]
+(ethernet switching)[https://github.com/jaustinford/elise/blob/main/files/docs/hardware.md#ethernet-switching]
+(battery and power)[https://github.com/jaustinford/elise/blob/main/files/docs/hardware.md#battery-and-power]
 
 <br />
 
@@ -26,17 +30,6 @@
 - [deluge web torrent server](https://labs.elysianskies.com/deluge)
 
 <br />
-
-### ingress
----
-the only component to the kubernetes system not being managed by kubernetes is a standalone [`haproxy`](https://github.com/jaustinford/elise/blob/main/files/haproxy.cfg.sh) container, running on the same node as the kubernetes control plane, which handles all the inbound ingress and load balances across all the various kubernetes worker nodeports.
-
-| nodeport service         | inbound port | proxy mode | lb method   | tls termination | description                                                           |
-|--------------------------|--------------|------------|-------------|-----------------|-----------------------------------------------------------------------|
-| acme                     | 80           | http       | round robin | no              | used for cerbot http method challenges in automating ssl cert renewal |
-| nginx ingress controller | 443          | http       | round robin | yes             | main kubernetes ingress endpoint                                      |
-| plexserver               | 32401        | http       | round robin | yes             | plex media server                                                     |
-| squid                    | 3128         | tcp        | round robin | no              | squid proxy into the expressvpn tunnel                                |
 
 ### hardware
 ---
@@ -246,7 +239,22 @@ elysian skies is a 3-node kubernetes cluster comprising of :
 
 <br />
 
-### switching
+### ingress
+---
+> **NOTE** : if you are using a windows platform, clone project with windows crlf line endings
+
+the only component to the kubernetes system not being managed by kubernetes is a standalone [`haproxy`](https://github.com/jaustinford/elise/blob/main/files/haproxy.cfg.sh) container, running on the same node as the kubernetes control plane, which handles all the inbound ingress and load balances across all the various kubernetes worker nodeports.
+
+| nodeport service         | inbound port | proxy mode | lb method   | tls termination | description                                                           |
+|--------------------------|--------------|------------|-------------|-----------------|-----------------------------------------------------------------------|
+| acme                     | 80           | http       | round robin | no              | used for cerbot http method challenges in automating ssl cert renewal |
+| nginx ingress controller | 443          | http       | round robin | yes             | main kubernetes ingress endpoint                                      |
+| plexserver               | 32401        | http       | round robin | yes             | plex media server                                                     |
+| squid                    | 3128         | tcp        | round robin | no              | squid proxy into the expressvpn tunnel                                |
+
+<br />
+
+### ethernet switching
 ---
 
 lan managed switch ethernet port assignments
