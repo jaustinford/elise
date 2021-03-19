@@ -27,6 +27,17 @@
 
 <br />
 
+### ingress
+---
+the only component to the kubernetes system not being managed by kubernetes is a standalone [`haproxy`](https://github.com/jaustinford/elise/blob/main/files/haproxy.cfg.sh) container, running on the same node as the kubernetes control plane, which handles all the inbound ingress and load balances across all the various kubernetes worker nodeports.
+
+| nodeport service         | inbound port | proxy mode | lb method   | tls termination | description                                                           |
+|--------------------------|--------------|------------|-------------|-----------------|-----------------------------------------------------------------------|
+| acme                     | 80           | http       | round robin | no              | used for cerbot http method challenges in automating ssl cert renewal |
+| nginx ingress controller | 443          | http       | round robin | yes             | main kubernetes ingress endpoint                                      |
+| plexserver               | 32401        | http       | round robin | yes             | plex media server                                                     |
+| squid                    | 3128         | tcp        | round robin | no              | squid proxy into the expressvpn tunnel                                |
+
 ### hardware
 ---
 elysian skies is a 3-node kubernetes cluster comprising of :
@@ -112,12 +123,12 @@ elysian skies is a 3-node kubernetes cluster comprising of :
 4. `kube00.labs.elysianskies.com`
     - specs
 
-        | model | **Raspberry Pi 4 Model B Rev 1.4** |
-        |-------|------------------------------------|
-        | cpu   | **Cortex-A72**                     |
-        | ram   | **8 GB**                           |
-        | os    | **Ubuntu 20.10**                   |
-        | role  | **kubernetes control plane**       |
+        | model | **Raspberry Pi 4 Model B Rev 1.4**    |
+        |-------|---------------------------------------|
+        | cpu   | **Cortex-A72**                        |
+        | ram   | **8 GB**                              |
+        | os    | **Ubuntu 20.10**                      |
+        | role  | **kubernetes control plane, haproxy** |
 
     - storage
 
