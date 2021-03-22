@@ -1,15 +1,20 @@
 #!/usr/bin/env bash
 
-. "${ELISE_ROOT_DIR}/src/general.sh"
-vars_ensure 'decrypted'
+if [ -z ${ELISE_PROFILE} ]; then
+    . "${ELISE_ROOT_DIR}/src/general.sh"
+    vars_ensure 'decrypted'
 
-if [ ! -z ${ELISE_PROFILE} ] && \
-   [ ${ELISE_PROFILE} == 1 ]; then
+fi
+
+if [ ! -z ${ELISE_PROFILE} ]; then
     . "${ELISE_ROOT_DIR}/src/elise.sh"
     . "${ELISE_ROOT_DIR}/src/general.sh"
 
-    "${ELISE_ROOT_DIR}/scripts/motd.sh"
-    "${ELISE_ROOT_DIR}/scripts/init.sh" 2> /dev/null
+    if [ ! -z ${ENABLE_INIT} ]; then
+        "${ELISE_ROOT_DIR}/scripts/motd.sh"
+        "${ELISE_ROOT_DIR}/scripts/init.sh" 2> /dev/null
+
+    fi
 
     # shell prompt
     USER_PROMPT="\[${SHELL_USER_PROMPT_CODE}\]elise\[${ECHO_RESET}\]"

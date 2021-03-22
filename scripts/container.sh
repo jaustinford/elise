@@ -8,12 +8,12 @@ DOCKER_TIMEZONE='America/Denver'
 if [ "${MSYSTEM}" == 'MINGW64' ]; then
     ROOT_MOUNT_PATH='//root'
     ROOT_VOLUME="/${ELISE_ROOT_DIR}://root"
-    SHELL_CMD="winpty docker exec -it ${CONTAINER_NAME} //bin/bash -c 'ELISE_PROFILE=1 /bin/bash'"
+    SHELL_CMD="winpty docker exec -it ${CONTAINER_NAME} //bin/bash -c"
 
 else
     ROOT_MOUNT_PATH='/root'
     ROOT_VOLUME="${ELISE_ROOT_DIR}:/root"
-    SHELL_CMD="docker exec -it ${CONTAINER_NAME} /bin/bash -c 'ELISE_PROFILE=1 /bin/bash'"
+    SHELL_CMD="docker exec -it ${CONTAINER_NAME} /bin/bash -c"
 
 fi
 
@@ -46,8 +46,11 @@ elif [ "$1" == 'destroy' ]; then
     docker rm ${CONTAINER_NAME}
     docker rmi ${IMAGE_NAME}:${IMAGE_TAG}
 
-elif [ "$1" == 'shell' ]; then
-    /bin/bash -c "${SHELL_CMD}"
+elif [ "$1" == 'shell-min' ]; then
+    /bin/bash -c "${SHELL_CMD} 'ELISE_PROFILE=1 /bin/bash'"
+
+elif [ "$1" == 'shell-full' ]; then
+    /bin/bash -c "${SHELL_CMD} 'ELISE_PROFILE=1 ENABLE_INIT=1 /bin/bash'"
 
 elif [ "$1" == 'logs' ]; then
     docker logs ${CONTAINER_NAME}
