@@ -297,7 +297,7 @@ vars_ensure () {
 
             if [ -z ${ELISE_PROFILE} ]; then
                 if [ ! -z "$attempt" ]; then
-                    echo "$(date '+%Y.%m.%d - %H:%M:%S') - $attempt"
+                    echo "$(date '+%Y.%m.%d - %H:%M:%S') $attempt"
 
                 else
                     echo "$(date '+%Y.%m.%d - %H:%M:%S') successfully decrypted ${ELISE_ROOT_DIR}/src/elise.sh"

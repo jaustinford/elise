@@ -2,6 +2,7 @@
 
 . "${ELISE_ROOT_DIR}/src/general.sh"
 vars_ensure 'decrypted'
+PS1="$(date '+%Y.%m.%d - %H:%M:%S') "
 
 if [ ! -z ${ELISE_PROFILE} ]; then
     . "${ELISE_ROOT_DIR}/src/elise.sh"
