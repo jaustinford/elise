@@ -6,11 +6,18 @@ vars_ensure 'decrypted'
 if [ ! -z ${ELISE_PROFILE} ]; then
     . "${ELISE_ROOT_DIR}/src/elise.sh"
     . "${ELISE_ROOT_DIR}/src/general.sh"
+    . "${ELISE_ROOT_DIR}/src/kubernetes.sh"
 
     if [ ! -z ${ENABLE_INIT} ]; then
         clear
         "${ELISE_ROOT_DIR}/scripts/motd.sh"
         "${ELISE_ROOT_DIR}/scripts/init.sh" 2> /dev/null
+
+    else
+        ssh_key
+        ssh_client_config
+        add_local_dns_search "${LAB_FQDN}"
+        kube_config "${ELISE_ROOT_DIR}" "${LAB_FQDN}"
 
     fi
 
