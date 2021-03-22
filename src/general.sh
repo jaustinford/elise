@@ -282,6 +282,8 @@ ensure_root () {
 }
 
 vars_ensure () {
+    chmod 600 "${ELISE_ROOT_DIR}/.vault.txt" 2> /dev/null
+
     if [ "$1" == 'encrypted' ]; then
         while [ "$(head -1 ${ELISE_ROOT_DIR}/src/elise.sh)" != '$ANSIBLE_VAULT;1.1;AES256' ]; do
             print_message 'stdout' 'encrypting variables' "${ELISE_ROOT_DIR}/src/elise.sh"
@@ -290,20 +292,22 @@ vars_ensure () {
         done
 
     elif [ "$1" == 'decrypted' ]; then
-        chmod 600 "${ELISE_ROOT_DIR}/.vault.txt" 2> /dev/null
-        attempt="$(ansible-vault decrypt --vault-password-file=~/.vault.txt ${ELISE_ROOT_DIR}/src/elise.sh 2>&1)"
+        if [ "$(head -1 ${ELISE_ROOT_DIR}/src/elise.sh)" == '$ANSIBLE_VAULT;1.1;AES256' ]; then
+            attempt="$(ansible-vault decrypt --vault-password-file=~/.vault.txt ${ELISE_ROOT_DIR}/src/elise.sh 2>&1)"
 
-        if [ -z ${ELISE_PROFILE} ] && \
-           [ ! -z "$attempt" ]; then
-            echo "$(date '+%Y.%m.%d - %H:%M:%S') - $attempt"
+            if [ -z ${ELISE_PROFILE} ] && \
+               [ ! -z "$attempt" ]; then
+                echo "$(date '+%Y.%m.%d - %H:%M:%S') - $attempt"
 
-        fi
+            fi
 
-        if [ "$attempt" == "ERROR! Decryption failed (no vault secrets were found that could decrypt) on ${ELISE_ROOT_DIR}/src/elise.sh for ${ELISE_ROOT_DIR}/src/elise.sh" ] || \
-           [ "$attempt" == "ERROR! The vault password file ${ELISE_ROOT_DIR}/.vault.txt was not found" ]; then
-            exit 1
+            if [ "$attempt" == "ERROR! Decryption failed (no vault secrets were found that could decrypt) on ${ELISE_ROOT_DIR}/src/elise.sh for ${ELISE_ROOT_DIR}/src/elise.sh" ] || \
+               [ "$attempt" == "ERROR! The vault password file ${ELISE_ROOT_DIR}/.vault.txt was not found" ]; then
+                exit 1
 
-        fi
+            fi
+
+	fi
 
     fi
 }
