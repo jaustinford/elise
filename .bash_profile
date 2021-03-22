@@ -3,7 +3,8 @@
 . "${ELISE_ROOT_DIR}/src/general.sh"
 vars_ensure 'decrypted'
 
-if [ ${ELISE_PROFILE} == 1 ]; then
+if [ ! -z ${ELISE_PROFILE} ] && \
+   [ ${ELISE_PROFILE} == 1 ]; then
     . "${ELISE_ROOT_DIR}/src/elise.sh"
     . "${ELISE_ROOT_DIR}/src/general.sh"
 
