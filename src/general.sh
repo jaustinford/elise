@@ -295,9 +295,14 @@ vars_ensure () {
         if [ "$(head -1 ${ELISE_ROOT_DIR}/src/elise.sh)" == '$ANSIBLE_VAULT;1.1;AES256' ]; then
             attempt="$(ansible-vault decrypt --vault-password-file=~/.vault.txt ${ELISE_ROOT_DIR}/src/elise.sh 2>&1)"
 
-            if [ -z ${ELISE_PROFILE} ] && \
-               [ ! -z "$attempt" ]; then
-                echo "$(date '+%Y.%m.%d - %H:%M:%S') - $attempt"
+            if [ -z ${ELISE_PROFILE} ]; then
+                if [ ! -z "$attempt" ]; then
+                    echo "$(date '+%Y.%m.%d - %H:%M:%S') - $attempt"
+
+                else
+                    echo "$(date '+%Y.%m.%d - %H:%M:%S') successfully decrypted ${ELISE_ROOT_DIR}/src/elise.sh"
+
+                fi
 
             fi
 
