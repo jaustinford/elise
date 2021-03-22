@@ -1,16 +1,14 @@
 #!/usr/bin/env bash
 
-if [ -z ${ELISE_PROFILE} ]; then
-    . "${ELISE_ROOT_DIR}/src/general.sh"
-    vars_ensure 'decrypted'
-
-fi
+. "${ELISE_ROOT_DIR}/src/general.sh"
+vars_ensure 'decrypted'
 
 if [ ! -z ${ELISE_PROFILE} ]; then
     . "${ELISE_ROOT_DIR}/src/elise.sh"
     . "${ELISE_ROOT_DIR}/src/general.sh"
 
     if [ ! -z ${ENABLE_INIT} ]; then
+        clear
         "${ELISE_ROOT_DIR}/scripts/motd.sh"
         "${ELISE_ROOT_DIR}/scripts/init.sh" 2> /dev/null
 

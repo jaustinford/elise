@@ -105,7 +105,7 @@ alias a_watchers_stop="${ANSIBLE_PLAYBOOK}/watchers.yml --extra-vars \"option=st
 alias _aliases="${EDITOR} ${ELISE_ROOT_DIR}/.bash_aliases"
 alias _lines="permissions_and_dos_line_endings ${ELISE_ROOT_DIR}"
 alias _profile="${EDITOR} ${ELISE_ROOT_DIR}/.bash_profile"
-alias _source="clear; source ${ELISE_ROOT_DIR}/.bash_profile"
+alias _source="source ${ELISE_ROOT_DIR}/.bash_profile"
 alias _vars_decrypt="ansible-vault decrypt --vault-password-file=~/.vault.txt ${ELISE_ROOT_DIR}/src/elise.sh"
 alias _vars_edit="${EDITOR} ${ELISE_ROOT_DIR}/src/elise.sh"
 alias _vars_encrypt="ansible-vault encrypt --vault-password-file=~/.vault.txt ${ELISE_ROOT_DIR}/src/elise.sh"
@@ -115,6 +115,7 @@ alias change_vpn_server="${ELISE_ROOT_DIR}/scripts/change_vpn_server.sh change"
 alias countdown="${ELISE_ROOT_DIR}/scripts/countdown.sh"
 alias eslabs_deploy="${ELISE_ROOT_DIR}/scripts/eslabs.sh deploy"
 alias eslabs_destroy="${ELISE_ROOT_DIR}/scripts/eslabs.sh destroy"
+alias gen_kube_config=". ${ELISE_ROOT_DIR}/src/kubernetes.sh; kube_config ${ELISE_ROOT_DIR} ${LAB_FQDN}"
 alias nuke="${ELISE_ROOT_DIR}/scripts/countdown.sh \"${ELISE_ROOT_DIR}/scripts/eslabs.sh destroy; ${ELISE_ROOT_DIR}/scripts/eslabs.sh deploy\""
 alias scp='scp -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no -o LogLevel=ERROR'
 alias ssh='ssh -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no -o LogLevel=ERROR'
