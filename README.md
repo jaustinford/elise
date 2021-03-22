@@ -31,9 +31,9 @@ git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
 
 > **NOTE** : variables are stored in [`${ELISE_ROOT_DIR}/src/elise.sh`](https://github.com/jaustinford/elise/blob/main/src/elise.sh) as an encrypted ansible-vault file
 
-> **NOTE** : once decrypted, the values can be retrieved in bash via the alias : `_vars_edit`
-
 > **NOTE** : deploying container attempts to decrypt this file and will fail the container if it can't
+
+> **NOTE** : once decrypted, the values can be retrieved in bash via the alias : `_vars_edit`
 
 > **NOTE** : available color codes : `white`, `blue`, `green`, `cyan`, `red`, `purple`, `yellow`, `darkgray`, `lightgray`
 
