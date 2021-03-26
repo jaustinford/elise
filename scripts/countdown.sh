@@ -10,8 +10,8 @@ TIME="$2"
 
 if [ ! -z "${TIME}" ] && \
    [ ! -z "${COMMAND}" ]; then
-    print_message 'stdout' "command scheduled" "${TIME} - ${COMMAND}"
-    while [ "$(date +%H%M%S)" != "${TIME}" ]; do
+    print_message 'stdout' "scheduled for ${TIME}" "${COMMAND}"
+    while [ "$(date +%H:%M:%S)" != "${TIME}" ]; do
         sleep 1
 
     done
