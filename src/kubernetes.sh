@@ -82,18 +82,18 @@ pod_from_deployment () {
 
     fi
 
-    pod=$(kubectl -n "$1" get pods -o json \
-        | jq -r ".items[] | select (.metadata.labels.app == \"$2\") | .metadata.name")
+    kubectl -n "$1" get pods -o json \
+        | jq -r ".items[] | select (.metadata.labels.app == \"$2\") | .metadata.name"
 }
 
 pods_from_namespace () {
-    pods=$(kubectl -n "$1" get pods -o json \
-        | jq -r ".items[].metadata.name")
+    kubectl -n "$1" get pods -o json \
+        | jq -r ".items[].metadata.name"
 }
 
 pods_from_regex () {
-    regex_pods=$(kubectl -n "$1" get pods -o json \
-        | jq -r ".items[] | select (.metadata.name | test(\"$2\")) | .metadata.name")
+    kubectl -n "$1" get pods -o json \
+        | jq -r ".items[] | select (.metadata.name | test(\"$2\")) | .metadata.name"
 }
 
 ####################################################

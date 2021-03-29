@@ -9,11 +9,10 @@ set -e
 MODE="$1"
 
 if [ "${MODE}" == 'change' ]; then
-    pod_from_deployment 'eslabs' 'kharon'
     print_message 'stdout' 'new expressvpn server' "${KHARON_EXPRESSVPN_SERVER}"
 
-    if [ ! -z "$pod" ]; then
-        grab_loaded_vpn_server "$pod"
+    if [ ! -z $(pod_from_deployment 'eslabs' 'kharon') ]; then
+        grab_loaded_vpn_server $(pod_from_deployment 'eslabs' 'kharon')
 
         if [ "$loaded_vpn_server" != "${KHARON_EXPRESSVPN_SERVER}" ]; then
             "${ELISE_ROOT_DIR}/scripts/kube_automator.sh" stop 'eslabs' 'kharon'
@@ -32,8 +31,7 @@ if [ "${MODE}" == 'change' ]; then
 
     fi
 
-    pod_from_deployment 'eslabs' 'kharon'
-    grab_loaded_vpn_server "$pod"
-    find_wan_from_pod "$pod"
+    grab_loaded_vpn_server $(pod_from_deployment 'eslabs' 'kharon')
+    find_wan_from_pod $(pod_from_deployment 'eslabs' 'kharon')
 
 fi

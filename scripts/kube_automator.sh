@@ -20,8 +20,7 @@ if [ "$#" -ge 1 ]; then
         ns="$2"
         deployment="$3"
         kube_start_deployment $ns $deployment '1' 1> /dev/null
-        pod_from_deployment $ns $deployment 'wait'
-        ensure_pod 'start' $ns $pod
+        ensure_pod 'start' $ns $(pod_from_deployment $ns $deployment 'wait')
 
     elif [ "${MODE}" == 'stop' ]; then
         ns="$2"
@@ -31,27 +30,25 @@ if [ "$#" -ge 1 ]; then
            [ "$deployment" == 'all' ]; then
             for item in $(kubectl -n eslabs get deployments | grep -v '^NAME' | awk '{print $1}'); do
                 kube_stop_deployment 'eslabs' $item 1> /dev/null
-                pod_from_deployment 'eslabs' $item 'wait'
-                ensure_pod 'stop' 'eslabs' $pod
+                ensure_pod 'stop' 'eslabs' $(pod_from_deployment 'eslabs' $item 'wait')
 
             done
 
         else
             kube_stop_deployment $ns $deployment 1> /dev/null
-            pod_from_deployment $ns $deployment 'wait'
-            ensure_pod 'stop' $ns $pod
+            ensure_pod 'stop' $ns $(pod_from_deployment $ns $deployment 'wait')
 
         fi
 
     elif [ "${MODE}" == 'restart' ]; then
         ns="$2"
         deployment="$3"
+
         kube_stop_deployment $ns $deployment 1> /dev/null
-        pod_from_deployment $ns $deployment 'wait'
-        ensure_pod 'stop' $ns $pod
+        ensure_pod 'stop' $ns $(pod_from_deployment $ns $deployment 'wait')
+
         kube_start_deployment $ns $deployment '1' 1> /dev/null
-        pod_from_deployment $ns $deployment 'wait'
-        ensure_pod 'start' $ns $pod
+        ensure_pod 'start' $ns $(pod_from_deployment $ns $deployment 'wait')
 
     elif [ "${MODE}" == 'logs' ]; then
         ns="$2"
@@ -104,8 +101,7 @@ if [ "$#" -ge 1 ]; then
 
         done
 
-        pod_from_deployment $ns $deployment 'wait'
-        kube_exec $ns $pod $container "$cmd"
+        kube_exec $ns $(pod_from_deployment $ns $deployment 'wait') $container "$cmd"
 
     elif [ "${MODE}" == 'shell' ]; then
         ns="$2"
@@ -120,8 +116,7 @@ if [ "$#" -ge 1 ]; then
 
         done
 
-        pod_from_deployment $ns $deployment 'wait'
-        kube_exec $ns $pod $container '/bin/bash'
+        kube_exec $ns $(pod_from_deployment $ns $deployment 'wait') $container '/bin/bash'
 
     elif [ "${MODE}" == 'edit' ]; then
         ns="$2"
@@ -134,8 +129,7 @@ if [ "$#" -ge 1 ]; then
         resource="$3"
 
         if [ "$resource" == 'pod' ]; then
-            pod_from_deployment $ns $4 'wait'
-            object="$pod"
+            object=$(pod_from_deployment $ns $4 'wait')
 
         else
             object="$4"
@@ -160,8 +154,7 @@ if [ "$#" -ge 1 ]; then
 
         done
 
-        pod_from_deployment $ns $deployment 'wait'
-        crash_container $ns $pod "$container"
+        crash_container $ns $(pod_from_deployment $ns $deployment 'wait') "$container"
 
     elif [ "${MODE}" == 'get' ]; then
         ns="$2"
