@@ -138,15 +138,6 @@ ensure_pods () {
     done
 }
 
-ensure_flannel_pods_start () {
-    pods_from_regex 'kube-system' 'kube-flannel-ds-[0-9a-z].*$'
-
-    for item in $regex_pods; do
-        ensure_pod 'start' 'kube-system' "$item"
-
-    done
-}
-
 ####################################################
 # kube display
 ####################################################

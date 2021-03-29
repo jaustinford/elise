@@ -36,9 +36,6 @@ elif [ "${OPTION}" == 'deploy' ]; then
     print_message 'stdout' 'deploying pod network' "${KUBE_POD_NETWORK}"
     ${ELISE_ROOT_DIR}/manifests/kube-flannel.sh apply
 
-    print_message 'stdout' 'waiting for pod network'
-    ensure_flannel_pods_start
-
     print_message 'stdout' 'joining workers'
     ansible-playbook ${ELISE_ROOT_DIR}/ansible/playbooks/k8s_cluster_join.yml
 
