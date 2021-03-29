@@ -5,9 +5,10 @@ vars_ensure 'decrypted'
 PS1="$(date '+%Y.%m.%d - %H:%M:%S') "
 
 if [ ! -z ${ELISE_PROFILE} ]; then
-    . "${ELISE_ROOT_DIR}/src/elise.sh"
-    . "${ELISE_ROOT_DIR}/src/general.sh"
-    . "${ELISE_ROOT_DIR}/src/kubernetes.sh"
+    for item in $(find ${ELISE_ROOT_DIR}/src -type f); do
+        . "$item"
+
+    done
 
     if [ ! -z ${ENABLE_INIT} ]; then
         clear
