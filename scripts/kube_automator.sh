@@ -21,7 +21,7 @@ if [ "$#" -ge 1 ]; then
         deployment="$3"
         kube_start_deployment $ns $deployment '1' 1> /dev/null
         pod_from_deployment $ns $deployment 'wait'
-        wait_for_pod_to 'start' $ns $pod
+        ensure_pod 'start' $ns $pod
 
     elif [ "${MODE}" == 'stop' ]; then
         ns="$2"
@@ -32,14 +32,14 @@ if [ "$#" -ge 1 ]; then
             for item in $(kubectl -n eslabs get deployments | grep -v '^NAME' | awk '{print $1}'); do
                 kube_stop_deployment 'eslabs' $item 1> /dev/null
                 pod_from_deployment 'eslabs' $item 'wait'
-                wait_for_pod_to 'stop' 'eslabs' $pod
+                ensure_pod 'stop' 'eslabs' $pod
 
             done
 
         else
             kube_stop_deployment $ns $deployment 1> /dev/null
             pod_from_deployment $ns $deployment 'wait'
-            wait_for_pod_to 'stop' $ns $pod
+            ensure_pod 'stop' $ns $pod
 
         fi
 
@@ -48,10 +48,10 @@ if [ "$#" -ge 1 ]; then
         deployment="$3"
         kube_stop_deployment $ns $deployment 1> /dev/null
         pod_from_deployment $ns $deployment 'wait'
-        wait_for_pod_to 'stop' $ns $pod
+        ensure_pod 'stop' $ns $pod
         kube_start_deployment $ns $deployment '1' 1> /dev/null
         pod_from_deployment $ns $deployment 'wait'
-        wait_for_pod_to 'start' $ns $pod
+        ensure_pod 'start' $ns $pod
 
     elif [ "${MODE}" == 'logs' ]; then
         ns="$2"

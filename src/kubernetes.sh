@@ -69,12 +69,12 @@ EOF
 }
 
 ####################################################
-# pod power cycling
+# pod determination
 ####################################################
 
 pod_from_deployment () {
     if [ "$3" == 'wait' ]; then
-        while [ -z $(kubectl get pods --all-namespaces -o json \
+        while [ -z $(kubectl -n "$1" get pods -o json \
             | jq -r ".items[] | select (.metadata.labels.app == \"$2\") | .metadata.name") ]; do
             sleep 1
 
@@ -82,28 +82,69 @@ pod_from_deployment () {
 
     fi
 
-    pod=$(kubectl get pods --all-namespaces -o json \
+    pod=$(kubectl -n "$1" get pods -o json \
         | jq -r ".items[] | select (.metadata.labels.app == \"$2\") | .metadata.name")
 }
 
-wait_for_pod_to () {
+pods_from_namespace () {
+    pods=$(kubectl -n "$1" get pods -o json \
+        | jq -r ".items[].metadata.name")
+}
+
+pods_from_regex () {
+    regex_pods=$(kubectl -n "$1" get pods -o json \
+        | jq -r ".items[] | select (.metadata.name | test(\"$2\")) | .metadata.name")
+}
+
+####################################################
+# pod states
+####################################################
+
+ensure_pod () {
+    print_message 'stdout' 'ensuring pod state' "$1 - $2/$3"
+
     if [ "$1" == 'start' ]; then
-        print_message 'stdout' 'deploying pod' "$2/$3"
         while [ $(kubectl -n $2 get pods -o json \
-            | jq -r ".items[] | select (.metadata.name == \"$3\") | .status.phase") != 'Running' ]; do
+            | jq -r ".items[] | select (.metadata.name == \"$3\") | .status.phase") != 'Running' ] && \
+              [ $(kubectl -n $2 get pods -o json \
+            | jq -r ".items[] | select (.metadata.name == \"$3\") | .status.phase") != 'Succeeded' ]; do
             sleep 1
 
         done
 
+        pod_state=$(kubectl -n $2 get pods -o json \
+            | jq -r ".items[] | select (.metadata.name == \"$3\") | .status.phase")
+
+        print_message 'stdout' "pod is '$pod_state'"
+
     elif [ "$1" == 'stop' ]; then
-        print_message 'stdout' 'terminating pod' "$2/$3"
         while [ ! -z $(kubectl -n $2 get pods -o json \
             | jq -r ".items[] | select (.metadata.name == \"$3\") | .metadata.name") ]; do
             sleep 1
 
         done
 
+        print_message 'stdout' "pod is gone"
+
     fi
+}
+
+ensure_pods () {
+    pods_from_namespace "$2"
+
+    for item in $pods; do
+        ensure_pod "$1" "$2" "$item"
+
+    done
+}
+
+ensure_flannel_pods_start () {
+    pods_from_regex 'kube-system' 'kube-flannel-ds-[0-9a-z].*$'
+
+    for item in $regex_pods; do
+        ensure_pod 'start' 'kube-system' "$item"
+
+    done
 }
 
 ####################################################

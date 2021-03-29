@@ -23,7 +23,7 @@ for deployment in $deployments; do
 
     kube_stop_deployment 'eslabs' $deployment 1> /dev/null
     pod_from_deployment 'eslabs' $deployment 'wait'
-    wait_for_pod_to 'stop' 'eslabs' "$pod"
+    ensure_pod 'stop' 'eslabs' "$pod"
 
     for volume in "${volumes[@]}"; do
         check_if_k8s_is_using "$volume"
@@ -44,7 +44,7 @@ for deployment in $deployments; do
 
     kube_start_deployment 'eslabs' $deployment '1' 1> /dev/null
     pod_from_deployment 'eslabs' $deployment 'wait'
-    wait_for_pod_to 'start' 'eslabs' "$pod"
+    ensure_pod 'start' 'eslabs' "$pod"
 
 done
 
