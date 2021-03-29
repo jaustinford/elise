@@ -1,0 +1,10 @@
+GIT_AUTOMATOR="${ELISE_ROOT_DIR}/scripts/git_automator.sh"
+
+alias g_add="${GIT_AUTOMATOR} add"
+alias g_commit="${GIT_AUTOMATOR} commit"
+alias g_diff="git diff -- ':(exclude)${ELISE_ROOT_DIR}/src/elise.sh'"
+alias g_log="git log --patch -- ':(exclude)${ELISE_ROOT_DIR}/src/elise.sh'"
+alias g_push="${GIT_AUTOMATOR} push"
+alias g_reset="git reset --hard"
+alias g_status="git status"
+alias g_spot="${GIT_AUTOMATOR} all"
