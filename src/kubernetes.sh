@@ -130,9 +130,7 @@ ensure_pod () {
 }
 
 ensure_pods () {
-    pods_from_namespace "$2"
-
-    for item in $pods; do
+    for item in $(pods_from_namespace $2); do
         ensure_pod "$1" "$2" "$item"
 
     done
