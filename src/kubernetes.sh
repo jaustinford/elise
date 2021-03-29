@@ -112,10 +112,8 @@ ensure_pod () {
 
         done
 
-        pod_state=$(kubectl -n $2 get pods -o json \
-            | jq -r ".items[] | select (.metadata.name == \"$3\") | .status.phase")
-
-        print_message 'stdout' "pod is '$pod_state'"
+        print_message 'stdout' "pod is '$(kubectl -n $2 get pods -o json \
+            | jq -r ".items[] | select (.metadata.name == \"$3\") | .status.phase")'"
 
     elif [ "$1" == 'stop' ]; then
         while [ ! -z $(kubectl -n $2 get pods -o json \
