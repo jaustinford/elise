@@ -16,4 +16,5 @@ alias scp='scp -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no -o 
 alias ssh='ssh -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no -o LogLevel=ERROR'
 alias ssl_display="ssl_reader ${LAB_FQDN} 443"
 alias ssl_generate="${ELISE_ROOT_DIR}/scripts/ssl.sh"
+alias tree_project="tree -a -I '.git|*_history|.viminfo|.config|.vim|.kube|.ssh|dropoff|.cache|.lesshst|.ansible' ${ELISE_ROOT_DIR}"
 alias youdown="${ELISE_ROOT_DIR}/scripts/youdown.sh"
