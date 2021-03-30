@@ -112,6 +112,25 @@
 
     ```
 
+- indented blocks will also have a space before the starting statement and a space after the closing line, except when followed by a `print_message` command
+    ```
+    statement_1
+
+    for item in thing1 thing2; do
+        echo "$item"
+
+    done
+
+    statement_2
+    ```
+    ```
+    print_message stdout 'doing a thing'
+    for item in thing1 thing2; do
+        echo "$item"
+
+    done
+    ```
+
 - functions must indent four spaces and do not have an empty line before the closing brace
     ```
     function () {
