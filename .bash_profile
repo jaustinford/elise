@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 . "${ELISE_ROOT_DIR}/src/general.sh"
+
 vars_ensure decrypted
 PS1="$(date '+%Y.%m.%d - %H:%M:%S') "
 
