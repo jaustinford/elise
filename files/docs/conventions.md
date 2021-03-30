@@ -40,3 +40,24 @@
     ```
     function_in_some_file arg1 'this is arg 2' "$arg3"
     ```
+
+- variables that are defined as constants must be capitalized and called with braces
+    ```
+    ROOT_LEVEL_CONSTANT='something'
+    echo "${ROOT_LEVEL_CONSTANT}"
+    ```
+
+- variables that are not defined as constants are lower-cased and called without braces, this includes all positional variables
+    ```
+    var='something'
+    echo "$var"
+    ```
+
+    ```
+    test_function () {
+        pos_1="$1"
+        pos_2="$2"
+
+        echo "$pos_1 - $pos_2"
+    }
+    ```
