@@ -11,16 +11,25 @@ if [ ! -z "${ELISE_PROFILE}" ]; then
     done
 
     if [ ! -z "${ENABLE_INIT}" ]; then
-        clear
         "${ELISE_ROOT_DIR}/scripts/motd.sh"
-        "${ELISE_ROOT_DIR}/scripts/init.sh" 2> /dev/null
+        greeting austin
 
-    else
-        ssh_key
-        ssh_client_config
-        add_local_dns_search "${LAB_FQDN}"
-        kube_config "${ELISE_ROOT_DIR}" "${LAB_FQDN}"
-        ensure_dropoff_folder
+    fi
+
+    ssh_key
+    ssh_client_config
+    add_local_dns_search "${LAB_FQDN}"
+    kube_config "${ELISE_ROOT_DIR}" "${LAB_FQDN}"
+    ensure_dropoff_folder
+
+    if [ ! -z "${ENABLE_INIT}" ]; then
+        display_tvault_stats "$(pod_from_deployment eslabs plex)"
+        ssl_reader "${LAB_FQDN}" 443
+        curl_test 'kubernetes ingress' https "${LAB_FQDN}" '/tvault'
+        curl_test 'plex media server' https "${LAB_FQDN}" ':32400/web/index.html'
+        curl_test 'acme apache' http "${LAB_FQDN}" '/'
+        grab_loaded_vpn_server "$(pod_from_deployment eslabs kharon)"
+        find_wan_from_pod "$(pod_from_deployment eslabs kharon)"
 
     fi
 
