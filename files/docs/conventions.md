@@ -61,7 +61,7 @@
 
 - string arguments passed into functions are not single-quoted unless they contain spaces, special characters, and double-quoted if they contain variables or interpolated commands
     ```
-    function_in_some_file arg1 'this is arg 2' "$arg3"
+    function_in_some_file arg1 'this is arg 2' "$arg3" "$(arg4)"
     ```
 
 - variables that are defined as constants must be capitalized and called with braces
