@@ -8,7 +8,8 @@
 | **maintainer_email** | `j.austin.ford@gmail.com` |
 | **public_domain**    | `labs.elysianskies.com`   |
 
-[services](https://github.com/jaustinford/elise/blob/main/files/docs/hardware.md#kubernetes-services)<br />
+<br />
+
 [hardware](https://github.com/jaustinford/elise/blob/main/files/docs/hardware.md#hardware)<br />
 [ingress](https://github.com/jaustinford/elise/blob/main/files/docs/hardware.md#ingress)<br />
 [ethernet switching](https://github.com/jaustinford/elise/blob/main/files/docs/hardware.md#ethernet-switching)<br />
@@ -16,23 +17,9 @@
 
 <br />
 
-### kubernetes services
----
-
-- [haproxy stats](https://labs.elysianskies.com/haproxy)
-- [plex server](https://plex.tv/web)
-- [nagios host monitoring](https://labs.elysianskies.com/nagios/)
-- [tvault filebrowser](https://labs.elysianskies.com/tvault)
-- [ntopng traffic monitor](https://labs.elysianskies.com/ntopng)
-- [pihole console](https://labs.elysianskies.com/pihole/admin/)
-- [tautulli plex monitor](https://labs.elysianskies.com/tautulli/)
-- [bigbrother home security](https://labs.elysianskies.com/zm/)
-- [deluge web torrent server](https://labs.elysianskies.com/deluge)
-
-<br />
-
 ### hardware
 ---
+
 elysian skies is a 3-node kubernetes cluster comprising of :
 
 1. `kube01.labs.elysianskies.com`
@@ -241,6 +228,7 @@ elysian skies is a 3-node kubernetes cluster comprising of :
 
 ### ingress
 ---
+
 > **NOTE** : load balancing `plexserver` is not supported in any general sense so this is really more like a hack but essentially it works like this: the value for `Custom certificate domain` in the plex web server config (Settings -> Network) MUST contain a value matching the CN for the certificate being used to terminate the incoming connection at the haproxy. That field is published to plex.tv which tells plex to trust any custom certificate signed for that domain. However it's intended for custom certificates that plex expects to be managing itself, not by an external load balancer. The load balancer is actually forwarding decrypted http to plex server which reports in the logs that plex consumers have insecure connections when really it's encrypted down to the haproxy. This is fine as long as it's encrypted over the public internet. The other way to load balance plex would be to use a simple tcp frontend in haproxy but that actually drops all the client source headers which contain the client IP data used in Tautulli's GeoIP component so it became necessary to find a strictly http-method load balance to preserve that data.
 
 the only component to the kubernetes system not being managed by kubernetes is a standalone [`haproxy`](https://github.com/jaustinford/elise/blob/main/files/haproxy.cfg.sh) container, running on the same node as the kubernetes control plane, which handles all the inbound ingress and load balances across all the various kubernetes worker nodeports.

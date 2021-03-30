@@ -1,6 +1,24 @@
 # elise
 Bash Wrapper for managing Kubernetes on Elysian Skies
 
+### kubernetes services
+---
+
+- [haproxy stats](https://labs.elysianskies.com/haproxy)
+- [plex server](https://plex.tv/web)
+- [nagios host monitoring](https://labs.elysianskies.com/nagios/)
+- [tvault filebrowser](https://labs.elysianskies.com/tvault)
+- [ntopng traffic monitor](https://labs.elysianskies.com/ntopng)
+- [pihole console](https://labs.elysianskies.com/pihole/admin/)
+- [tautulli plex monitor](https://labs.elysianskies.com/tautulli/)
+- [bigbrother home security](https://labs.elysianskies.com/zm/)
+- [deluge web torrent server](https://labs.elysianskies.com/deluge)
+
+<br />
+
+### git
+---
+
 > **NOTE** : if you are using a windows platform, clone project with windows crlf line endings
 ```
 git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
