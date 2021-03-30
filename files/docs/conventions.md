@@ -154,3 +154,16 @@
         do_something_else
     }
     ````
+
+ - if piping is used, either in a command or through an interpolated command, each pipe will break out on a new line escaped with the unix `\` and is indented four spaces
+    ```
+    echo "$something" \
+        | grep 'string' \
+        | grep 'string_2'
+    ```
+    ```
+    var="$(echo "$something" \
+        | grep 'string' \
+        | grep 'string_2')"
+
+     ```
