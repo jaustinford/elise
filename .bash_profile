@@ -11,6 +11,7 @@ if [ ! -z "${ELISE_PROFILE}" ]; then
     done
 
     if [ ! -z "${ENABLE_INIT}" ]; then
+        clear
         "${ELISE_ROOT_DIR}/scripts/motd.sh"
         greeting austin
 
