@@ -8,7 +8,7 @@ youtube_video_name_from_url () {
         | sed -E 's/ - YouTube$//g'
 }
 
-youtube_download_file () {
+youtube_download_from_url () {
     print_message 'stdout' "downloading $1" "${ELISE_ROOT_DIR}/dropoff/$(youtube_video_name_from_url $2)"
     if [ "$1" == "audio" ]; then
         youtube-dl \
