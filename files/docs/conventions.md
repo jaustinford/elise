@@ -77,12 +77,10 @@
     ```
 
     ```
-    test_function () {
-        pos_1="$1"
-        pos_2="$2"
+    pos_1="$1"
+    pos_2="$2"
 
-        echo "$pos_1 - $pos_2"
-    }
+    echo "$pos_1 - $pos_2"
     ```
 
 - when using bash concepts that indent (for loops, while loops, if statements, etc), the convention is to ident 4 spaces and leave one blank line before either the next condition or the end of that block
