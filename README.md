@@ -136,5 +136,5 @@ once decrypted, the values can be retrieved in bash via the alias : `a_vars_edit
 ---
 
 - [lab hardware](https://github.com/jaustinford/elise/blob/main/files/docs/hardware.md)
-- [code styling and conventions](https://github.com/jaustinford/elise/blob/main/files/docs/conventions.md)
+- [code conventions and style guide](https://github.com/jaustinford/elise/blob/main/files/docs/conventions.md)
 - [local dns resolutions](https://github.com/jaustinford/elise/blob/main/files/pihole/custom.list)
