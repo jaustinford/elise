@@ -1,6 +1,16 @@
 ## Coding Conventions and Styling
 
 ### Bash
+- all functions and variables are defined within module files located within the `/src` directory, no main execution of any kind may be defined here
+
+- all scripts are located within the `/scripts` directory and retrieve functionality as needed via import lines which must always be at the top of the script
+    ```
+    #!/usr/bin/env bash
+
+    . "${ELISE_ROOT_DIR}/src/elise.sh"
+    . "${ELISE_ROOT_DIR}/src/general.sh"
+    ```
+
 - all functions and main execution that take positional parameters must define them within the first few declarations for readability
     ```
     test_function () {
