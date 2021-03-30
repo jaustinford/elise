@@ -19,7 +19,7 @@
     . "${ELISE_ROOT_DIR}/src/general.sh"
     ```
 
-- [`{ELISE_ROOT_DIR}/scripts/container.sh`](https://github.com/jaustinford/elise/blob/main/scripts/container.sh) is a special script meant to run independant of the `/src` modules, therefore is an exception where constants or main execution may be defined. 
+- [`{ELISE_ROOT_DIR}/scripts/container.sh`](https://github.com/jaustinford/elise/blob/main/scripts/container.sh) is a special script meant to run independant of the `/src` modules, therefore is an exception where constants or main execution may be defined.
 
 - the bash profile executes to import the functions inside `/src` which also makes it another exception where constants or main execution can be defined.
 
