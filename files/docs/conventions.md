@@ -17,7 +17,7 @@
     . "${ELISE_ROOT_DIR}/src/general.sh"
     ```
 
-### _built-ins_
+#### _built-ins_
 - the module [`${ELISE_ROOT_DIR}/src/elise.sh`](https://github.com/jaustinford/elise/blob/main/src/elise.sh) stores most of the constants and all of the secrets used for the project and is for that reason encrypted.
 
 - the module [`${ELISE_ROOT_DIR}/src/general.sh`](https://github.com/jaustinford/elise/blob/main/src/general.sh) defines general functions and variables which are imported frequently across the project
