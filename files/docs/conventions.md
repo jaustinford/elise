@@ -84,3 +84,33 @@
         echo "$pos_1 - $pos_2"
     }
     ```
+
+- when using bash concepts that indent (for loops, while loops, if statements, etc), the convention is to ident 4 spaces and leave one blank line before either the next condition or the end of that block
+    ```
+    for item in thing1 thing2; do
+        echo "$item"
+
+    done
+
+    while [ "$condition" == 'something' ]; do
+        sleep 1
+
+    done
+
+    if [ "$var" == 'value' ]; then
+        echo 'something'
+
+    else
+        echo 'something else'
+
+    fi
+
+    ```
+
+- functions must indent four spaces and do not have an empty line before the last curly brace
+    ```
+    function () {
+        do_something
+        do_something_else
+    }
+    ````
