@@ -7,9 +7,9 @@
 
 - all functions and variables are defined within module files located within the `/src` directory, no main execution of any kind may be defined here
 
-- all aliases must be defined within the `/aliases` directory, they are sourced in with the [bash profile](https://github.com/jaustinford/elise/blob/main/.bash_profile#L50) when executed with `ELISE_PROFILE=1`
+- all command aliases are stored in `/aliases`
 
-- the [bash profile](https://github.com/jaustinford/elise/blob/main/.bash_profile#L8) also sources everything within the `/src` directory when executed with `ELISE_PROFILE=1`
+- the bash profile sources everything within the `/src` and `/aliases` directories when executed with `ELISE_PROFILE=1`
 
 - most of the main execution is defined within scripts that are located within the `/scripts` directory and any script can retrieve functionality as needed via import lines which must always be at the top of the script
     ```
