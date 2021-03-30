@@ -1,4 +1,4 @@
-## Coding Conventions and Styling
+## Coding Conventions and Style Guide
 
 ### Bash
 
@@ -18,7 +18,7 @@
     ```
 
 #### _built-ins_
-- [`${ELISE_ROOT_DIR}/src/elise.sh`](https://github.com/jaustinford/elise/blob/main/src/elise.sh) is a special encrypted module which stores most of the constants and all of the secrets used for the project; the details for each variable can be found on the [README](https://github.com/jaustinford/elise/blob/main/README.md#variables)
+- [`${ELISE_ROOT_DIR}/src/elise.sh`](https://github.com/jaustinford/elise/blob/main/src/elise.sh) is a special encrypted module which stores most of the constants and all of the secrets used for the project; the details for each variable can be found in the [`README`](https://github.com/jaustinford/elise/blob/main/README.md#variables)
 
 - the module [`${ELISE_ROOT_DIR}/src/general.sh`](https://github.com/jaustinford/elise/blob/main/src/general.sh) defines general functions and variables which are imported frequently across the project
 
