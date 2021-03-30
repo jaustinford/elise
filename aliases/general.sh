@@ -10,7 +10,6 @@ alias change_vpn_server="${ELISE_ROOT_DIR}/scripts/change_vpn_server.sh change"
 alias countdown="${ELISE_ROOT_DIR}/scripts/countdown.sh"
 alias eslabs_deploy="${ELISE_ROOT_DIR}/scripts/eslabs.sh deploy"
 alias eslabs_destroy="${ELISE_ROOT_DIR}/scripts/eslabs.sh destroy"
-alias gen_kube_config="kube_config ${ELISE_ROOT_DIR} ${LAB_FQDN}"
 alias nuke="${ELISE_ROOT_DIR}/scripts/countdown.sh \"${ELISE_ROOT_DIR}/scripts/eslabs.sh destroy; ${ELISE_ROOT_DIR}/scripts/eslabs.sh deploy\""
 alias scp='scp -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no -o LogLevel=ERROR'
 alias ssh='ssh -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no -o LogLevel=ERROR'

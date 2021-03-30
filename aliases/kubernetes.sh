@@ -1,6 +1,13 @@
 KUBE_AUTOMATOR="${ELISE_ROOT_DIR}/scripts/kube_automator.sh"
 RUN_MANIFEST="${ELISE_ROOT_DIR}/scripts/run_manifest.sh"
 
+# kubernetes - manifests
+alias k_manifest_apply="${RUN_MANIFEST} apply"
+alias k_manifest_delete="${RUN_MANIFEST} delete"
+alias k_manifest_diff="${RUN_MANIFEST} diff"
+alias k_manifest_edit="${RUN_MANIFEST} edit"
+alias k_manifest_list="ls -m1 ${ELISE_ROOT_DIR}/manifests | cut -d'.' -f1"
+
 # kubernetes - general
 alias k_crash="${KUBE_AUTOMATOR} crash"
 alias k_describe="${KUBE_AUTOMATOR} describe"
@@ -16,13 +23,6 @@ alias k_start="${KUBE_AUTOMATOR} start"
 alias k_stop="${KUBE_AUTOMATOR} stop"
 alias k_tail="${KUBE_AUTOMATOR} tail"
 alias k_watch="watch -n 5 -t -c ${KUBE_AUTOMATOR} display"
-
-# kubernetes - manifests
-alias k_manifest_apply="${RUN_MANIFEST} apply"
-alias k_manifest_delete="${RUN_MANIFEST} delete"
-alias k_manifest_diff="${RUN_MANIFEST} diff"
-alias k_manifest_edit="${RUN_MANIFEST} edit"
-alias k_manifest_list="ls -m1 ${ELISE_ROOT_DIR}/manifests | cut -d'.' -f1"
 
 # kubernetes - kube-system namespace
 alias k_system_describe="${KUBE_AUTOMATOR} describe kube-system"
