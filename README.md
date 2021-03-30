@@ -14,8 +14,6 @@ Bash Wrapper for managing Kubernetes on Elysian Skies
 - [bigbrother home security](https://labs.elysianskies.com/zm/)
 - [deluge web torrent server](https://labs.elysianskies.com/deluge)
 
-<br />
-
 ### git
 ---
 
