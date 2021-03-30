@@ -21,6 +21,7 @@ git clone git@github.com:jaustinford/elise.git --config core.autocrlf=input
 - deploy docker [container](https://github.com/jaustinford/elise/blob/main/scripts/container.sh)
     ```
     ${ELISE_ROOT_DIR}/scripts/container.sh deploy
+    ```
 
 - the shell can be accessed in one of two modes: `shell-min` will execute just the functions needed to get to the shell and `shell-full` does all that plus prints motd and runs a series of connectivity checks against the kubernetes api server
     ```
