@@ -106,7 +106,7 @@
     echo "${ELISE_ROOT_DIR}/src/elise.sh is a file"
     ```
 
-- when using bash concepts that indent (for loops, while loops, if statements, etc), the convention is to ident 4 spaces and leave one blank line before either the next condition or the end of that block
+- when using bash concepts that indent (for loops, while loops, if statements, etc), the convention is to indent 4 spaces and leave one blank line before either the next condition or the end of that block
     ```
     for item in thing1 thing2; do
         echo "$item"
