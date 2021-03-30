@@ -17,6 +17,13 @@
     . "${ELISE_ROOT_DIR}/src/general.sh"
     ```
 
+### _built-ins_
+- the module [`${ELISE_ROOT_DIR}/src/elise.sh`](https://github.com/jaustinford/elise/blob/main/src/elise.sh) stores most of the constants and all of the secrets used for the project and is for that reason encrypted.
+
+- the module [`${ELISE_ROOT_DIR}/src/general.sh`](https://github.com/jaustinford/elise/blob/main/src/general.sh) defines general functions and variables which are imported frequently across the project
+
+- the function [`print_message`](https://github.com/jaustinford/elise/blob/main/src/general.sh#L103) inside of the `${ELISE_ROOT_DIR}/src/general.sh` module is used for all stdout and stderr message handling
+
 #### _conventions_
 
 - all functions and main execution that take positional parameters must define them within the first few declarations for readability
