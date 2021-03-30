@@ -105,7 +105,7 @@
 
     ```
 
-- functions must indent four spaces and do not have an empty line before the last curly brace
+- functions must indent four spaces and do not have an empty line before the closing brace
     ```
     function () {
         do_something
