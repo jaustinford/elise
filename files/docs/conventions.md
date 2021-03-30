@@ -17,6 +17,10 @@
     . "${ELISE_ROOT_DIR}/src/general.sh"
     ```
 
+- [`{ELISE_ROOT_DIR}/scripts/container.sh`](https://github.com/jaustinford/elise/blob/main/scripts/container.sh) is a special script meant to run independant of the `/src` modules, therefore is an exception where constants or main execution may be defined. 
+
+- the [bash profile](https://github.com/jaustinford/elise/blob/main/.bash_profile) executes to import the functions inside `/src` which also makes it another exception where constants or main execution can be defined.
+
 #### _built-ins_
 - [`${ELISE_ROOT_DIR}/src/elise.sh`](https://github.com/jaustinford/elise/blob/main/src/elise.sh) is a special encrypted module which stores most of the constants and all of the secrets used for the project; the details for each variable can be found in the [`README`](https://github.com/jaustinford/elise/blob/main/README.md#variables)
 
