@@ -3,6 +3,8 @@
 ### Bash
 
 #### _organization_
+---
+
 - all functions and variables are defined within module files located within the `/src` directory, no main execution of any kind may be defined here
 
 - all aliases must be defined within the `/aliases` directory, they are sourced in with the [bash profile](https://github.com/jaustinford/elise/blob/main/.bash_profile#L50) when executed with `ELISE_PROFILE=1`
@@ -22,6 +24,8 @@
 - the [bash profile](https://github.com/jaustinford/elise/blob/main/.bash_profile) executes to import the functions inside `/src` which also makes it another exception where constants or main execution can be defined.
 
 #### _built-ins_
+---
+
 - [`${ELISE_ROOT_DIR}/src/elise.sh`](https://github.com/jaustinford/elise/blob/main/src/elise.sh) is a special encrypted module which stores most of the constants and all of the secrets used for the project; the details for each variable can be found in the [`README`](https://github.com/jaustinford/elise/blob/main/README.md#variables)
 
 - the module [`${ELISE_ROOT_DIR}/src/general.sh`](https://github.com/jaustinford/elise/blob/main/src/general.sh) defines general functions and variables which are imported frequently across the project
@@ -29,6 +33,7 @@
 - the function [`print_message`](https://github.com/jaustinford/elise/blob/main/src/general.sh#L103) inside of the `${ELISE_ROOT_DIR}/src/general.sh` module is used for all stdout and stderr message handling
 
 #### _conventions_
+---
 
 - all functions and main execution that take positional parameters must define them within the first few declarations for readability
     ```
