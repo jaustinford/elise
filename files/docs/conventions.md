@@ -52,6 +52,11 @@
         do_something
 
     fi
+
+    if [ "$var" == "$(command)" ]; then
+        do_something_else
+
+    fi
     ```
 
 - string arguments passed into functions are not single-quoted unless they contain spaces, special characters, and double-quoted if they contain variables or interpolated commands
