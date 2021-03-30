@@ -160,6 +160,13 @@ permissions_and_dos_line_endings () {
     find "$1" -type f ! -path "*/.git/*" ! -path "*/.kube/*" -exec dos2unix -q {} \; 1> /dev/null
 }
 
+ensure_dropoff_folder () {
+    if [ ! -d "${ELISE_ROOT_DIR}/dropoff" ]; then
+        print_message 'stdout' 'creating dropoff directory' "${ELISE_ROOT_DIR}/dropoff"
+
+    fi
+}
+
 ####################################################
 # init tasks
 ####################################################

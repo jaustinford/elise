@@ -11,6 +11,7 @@ ssh_key
 ssh_client_config
 add_local_dns_search "${LAB_FQDN}"
 kube_config "${ELISE_ROOT_DIR}" "${LAB_FQDN}"
+ensure_dropoff_folder
 display_tvault_stats $(pod_from_deployment 'eslabs' 'plex')
 ssl_reader "${LAB_FQDN}" '443'
 curl_test 'kubernetes ingress' 'https' "${LAB_FQDN}" '/tvault'
