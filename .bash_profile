@@ -5,6 +5,9 @@ vars_ensure decrypted
 PS1="$(date '+%Y.%m.%d - %H:%M:%S') "
 
 if [ ! -z "${ELISE_PROFILE}" ]; then
+    . "${ELISE_ROOT_DIR}/src/elise.sh"
+    . "${ELISE_ROOT_DIR}/src/general.sh"
+
     if [ ! -z "${ENABLE_INIT}" ]; then
         clear
         "${ELISE_ROOT_DIR}/scripts/motd.sh"
@@ -12,14 +15,14 @@ if [ ! -z "${ELISE_PROFILE}" ]; then
 
     fi
 
-    print_message stdout 'importing src modules' "${ELISE_ROOT_DIR}/src"
-    for item in $(find ${ELISE_ROOT_DIR}/src -type f); do
+    for item in $(find "${ELISE_ROOT_DIR}/src" -type f); do
+        print_message stdout 'importing src module' "$item"
         . "$item"
 
     done
 
-    print_message stdout 'importing alias modules' "${ELISE_ROOT_DIR}/aliases"
-    for item in $(find ${ELISE_ROOT_DIR}/aliases -type f); do
+    for item in $(find "${ELISE_ROOT_DIR}/aliases" -type f); do
+        print_message stdout 'importing alias module' "$item"
         . "$item"
 
     done
