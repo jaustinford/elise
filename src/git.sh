@@ -7,11 +7,15 @@ git_add () {
 }
 
 git_commit () {
-    git commit -m "$1"
+    message="$1"
+
+    git commit -m "$message"
 }
 
 git_push () {
-    git push -u origin $1 --quiet
+    branch="$1"
+
+    git push -u origin "$branch" --quiet
 }
 
 ####################################################
@@ -19,20 +23,20 @@ git_push () {
 ####################################################
 
 find_remote_git_project () {
-    remote_url=$(git config -l \
+    remote_url="$(git config -l \
         | grep remote.origin.url \
-        | cut -d":" -f2)
+        | cut -d":" -f2)"
 }
 
 find_last_commit_hash () {
-    commit_hash=$(git log \
+    commit_hash="$(git log \
         | egrep '^commit' \
         | head -1 \
-        | awk '{print $2}')
+        | awk '{print $2}')"
 }
 
 count_commits () {
-    number_of_commits=$(git log | egrep '^commit\ ' | wc -l)
+    number_of_commits="$(git log | egrep '^commit\ ' | wc -l)"
 }
 
 ####################################################
@@ -41,7 +45,7 @@ count_commits () {
 
 check_if_anything_to_add () {
     if [ "$(git status | tail -1)" == 'nothing to commit, working tree clean' ]; then
-        print_message 'stderr' 'nothing to commit'
+        print_message stderr 'nothing to commit'
         exit 1
 
     fi

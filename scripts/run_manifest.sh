@@ -7,10 +7,10 @@ set -e
 MODE="$1"
 MANIFEST="$2"
 
-if [ "${MODE}" == "edit" ]; then
-    ${EDITOR} ${ELISE_ROOT_DIR}/manifests/${MANIFEST}.sh
+if [ "${MODE}" == 'edit' ]; then
+    "${EDITOR}" "${ELISE_ROOT_DIR}/manifests/${MANIFEST}.sh"
     exit 0
 
 fi
 
-${ELISE_ROOT_DIR}/manifests/${MANIFEST}.sh ${MODE}
+"${ELISE_ROOT_DIR}/manifests/${MANIFEST}.sh" "${MODE}"

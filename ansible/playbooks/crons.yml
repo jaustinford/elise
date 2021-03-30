@@ -69,5 +69,5 @@
         day: '1'
         month: '2,4,6,8,10,12'
         user: root
-        job: docker exec -it $(docker ps | egrep -o 'k8s_acme_acme-.*$') certbot renew
+        job: docker exec -it "$(docker ps | egrep -o 'k8s_acme_acme-.*$')" certbot renew
       notify: systemctl restart cron

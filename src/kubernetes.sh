@@ -3,11 +3,18 @@
 ####################################################
 
 kube_start_deployment () {
-    kubectl -n $1 scale --replicas=$3 deployment/$2
+    namespace="$1"
+    deployment="$2"
+    replicas="$3"
+
+    kubectl -n "$namespace" scale "--replicas=$replicas" "deployment/$deployment"
 }
 
 kube_stop_deployment () {
-    kubectl -n $1 scale --replicas=0 deployment/$2
+    namespace="$1"
+    deployment="$2"
+
+    kubectl -n "$namespace" scale --replicas=0 "deployment/$deployment"
 }
 
 kube_nodes () {
@@ -15,27 +22,51 @@ kube_nodes () {
 }
 
 kube_get () {
-    kubectl -n $1 -o wide get $2
+    namespace="$1"
+    resource="$2"
+
+    kubectl -n "$namespace" -o wide get "$resource"
 }
 
 kube_exec () {
-    kubectl -n $1 exec --stdin --tty $2 -c $3 -- /bin/bash -c "$4"
+    namespace="$1"
+    pod="$2"
+    container="$3"
+    command="$4"
+
+    kubectl -n "$namespace" exec --stdin --tty "$pod" -c "$container" -- /bin/bash -c "$command"
 }
 
 kube_edit () {
-    kubectl -n $1 edit $2 $3
+    namespace="$1"
+    resource="$2"
+    object="$3"
+
+    kubectl -n "$namespace" edit "$resource" "$object"
 }
 
 kube_describe () {
-    kubectl -n $1 describe $2 $3
+    namespace="$1" 
+    resource="$2"
+    object="$3"
+
+    kubectl -n "$namespace" describe "$resource" "$object"
 }
 
 kube_logs_deployment () {
-    kubectl -n $1 logs deployment/$2 -c $3
+    namespace="$1"
+    deployment="$2"
+    container="$3"
+
+    kubectl -n "$namespace" logs "deployment/$deployment" -c "$container"
 }
 
 kube_tail_deployment () {
-    kubectl -n $1 logs -f --tail=50 deployment/$2 -c $3
+    namespace="$1"
+    deployment="$2"
+    container="$3"
+
+    kubectl -n "$namespace" logs -f --tail=50 "deployment/$deployment" -c "$container"
 }
 
 ####################################################
@@ -43,14 +74,17 @@ kube_tail_deployment () {
 ####################################################
 
 kube_config () {
-    print_message 'stdout' 'generate kubernetes config' "https://$2:6443"
-    mkdir -p "$1/.kube"
-    cat <<EOF > "$1/.kube/config"
+    home_dir="$1"
+    apiserver_domain="$2"
+
+    print_message stdout 'generate kubernetes config' "https://$apiserver_domain:6443"
+    mkdir -p "$home_dir/.kube"
+    cat <<EOF > "$home_dir/.kube/config"
 apiVersion: v1
 clusters:
 - cluster:
     certificate-authority-data: ${KUBE_CONFIG_CERTIFICATE_AUTHORITY_DATA}
-    server: https://$2:6443
+    server: https://$apiserver_domain:6443
   name: kubernetes
 contexts:
 - context:
@@ -73,27 +107,36 @@ EOF
 ####################################################
 
 pod_from_deployment () {
-    if [ "$3" == 'wait' ]; then
-        while [ -z $(kubectl -n "$1" get pods -o json \
-            | jq -r ".items[] | select (.metadata.labels.app == \"$2\") | .metadata.name") ]; do
+    namespace="$1"
+    app="$2"
+    wait="$3"
+
+    if [ "$wait" == 'wait' ]; then
+        while [ -z "$(kubectl -n "$namespace" get pods -o json \
+            | jq -r ".items[] | select (.metadata.labels.app == \"$app\") | .metadata.name")" ]; do
             sleep 1
 
         done
 
     fi
 
-    kubectl -n "$1" get pods -o json \
-        | jq -r ".items[] | select (.metadata.labels.app == \"$2\") | .metadata.name"
+    kubectl -n "$namespace" get pods -o json \
+        | jq -r ".items[] | select (.metadata.labels.app == \"$app\") | .metadata.name"
 }
 
 pods_from_namespace () {
-    kubectl -n "$1" get pods -o json \
+    namespace="$1"
+
+    kubectl -n "$namespace" get pods -o json \
         | jq -r ".items[].metadata.name"
 }
 
 pods_from_regex () {
-    kubectl -n "$1" get pods -o json \
-        | jq -r ".items[] | select (.metadata.name | test(\"$2\")) | .metadata.name"
+    namespace="$1"
+    regex_string="$2"
+
+    kubectl -n "$namespace" get pods -o json \
+        | jq -r ".items[] | select (.metadata.name | test(\"$regex_string\")) | .metadata.name"
 }
 
 ####################################################
@@ -101,35 +144,42 @@ pods_from_regex () {
 ####################################################
 
 ensure_pod () {
-    print_message 'stdout' 'ensuring pod state' "$1 - $2/$3"
+    pod_mode="$1"
+    namespace="$2"
+    pod="$3"
 
-    if [ "$1" == 'start' ]; then
-        while [ $(kubectl -n $2 get pods -o json \
-            | jq -r ".items[] | select (.metadata.name == \"$3\") | .status.phase") != 'Running' ] && \
-              [ $(kubectl -n $2 get pods -o json \
-            | jq -r ".items[] | select (.metadata.name == \"$3\") | .status.phase") != 'Succeeded' ]; do
+    print_message stdout 'ensuring pod state' "$pod_mode - $namespace/$pod"
+
+    if [ "$pod_mode" == 'start' ]; then
+        while [ "$(kubectl -n "$namespace" get pods -o json \
+            | jq -r ".items[] | select (.metadata.name == \"$pod\") | .status.phase")" != 'Running' ] && \
+              [ "$(kubectl -n "$namespace" get pods -o json \
+            | jq -r ".items[] | select (.metadata.name == \"$pod\") | .status.phase")" != 'Succeeded' ]; do
             sleep 1
 
         done
 
-        print_message 'stdout' "pod is '$(kubectl -n $2 get pods -o json \
-            | jq -r ".items[] | select (.metadata.name == \"$3\") | .status.phase")'"
+        print_message stdout "pod is '$(kubectl -n "$namespace" get pods -o json \
+            | jq -r ".items[] | select (.metadata.name == \"$pod\") | .status.phase")'"
 
-    elif [ "$1" == 'stop' ]; then
-        while [ ! -z $(kubectl -n $2 get pods -o json \
-            | jq -r ".items[] | select (.metadata.name == \"$3\") | .metadata.name") ]; do
+    elif [ "$pod_mode" == 'stop' ]; then
+        while [ ! -z "$(kubectl -n "$namespace" get pods -o json \
+            | jq -r ".items[] | select (.metadata.name == \"$pod\") | .metadata.name")" ]; do
             sleep 1
 
         done
 
-        print_message 'stdout' "pod is gone"
+        print_message stdout 'pod is gone'
 
     fi
 }
 
 ensure_pods () {
-    for item in $(pods_from_namespace $2); do
-        ensure_pod "$1" "$2" "$item"
+    pod_mode="$1"
+    namespace="$2"
+
+    for item in $(pods_from_namespace "$namespace"); do
+        ensure_pod "$pod_mode" "$namespace" "$item"
 
     done
 }
@@ -139,31 +189,35 @@ ensure_pods () {
 ####################################################
 
 kube_display () {
+    namespace="$1"
+    color_1="$2"
+    color_2="$3"
+
     echo -e "
 
-$2    ${KUBE_DISPLAY_BANNER}                                   $ECHO_RESET
+$color_1    ${KUBE_DISPLAY_BANNER}                                   $ECHO_RESET
 
-      namespace : $3 $1                                        $ECHO_RESET
+      namespace : $color_2 $namespace                                $ECHO_RESET
 
-$3  nodes                                                      $ECHO_RESET
+$color_2  nodes                                                      $ECHO_RESET
 
-$(kube_get $1 nodes)
+$(kube_get $namespace nodes)
 
-$3  pods                                                       $ECHO_RESET
+$color_2  pods                                                       $ECHO_RESET
 
-$(kube_get $1 pods)
+$(kube_get $namespace pods)
 
-$3  services                                                   $ECHO_RESET
+$color_2  services                                                   $ECHO_RESET
 
-$(kube_get $1 services)
+$(kube_get $namespace services)
 
-$3  endpoints                                                  $ECHO_RESET
+$color_2  endpoints                                                  $ECHO_RESET
 
-$(kube_get $1 endpoints)
+$(kube_get $namespace endpoints)
 
-$3  ingresses                                                  $ECHO_RESET
+$color_2  ingresses                                                  $ECHO_RESET
 
-$(kube_get $1 ingresses)
+$(kube_get $namespace ingresses)
 "
 }
 
@@ -173,16 +227,18 @@ $(kube_get $1 ingresses)
 
 ensure_kubeconfig () {
     if [ ! -f ~/.kube/config ]; then
-        print_message 'stderr' 'missing ~/.kube/config'
+        print_message stderr 'missing ~/.kube/config'
         exit 1
 
     fi
 }
 
 check_if_k8s_is_using () {
-    if [ ! -z $(kubectl get pods --all-namespaces -o json \
-        | jq -r ".items[].spec.containers[].volumeMounts[] | select (.name == \"$1\") | .name") ]; then
-        print_message 'stderr' 'cant proceed while kubernetes has volume'
+    volume_name="$1"
+
+    if [ ! -z "$(kubectl get pods --all-namespaces -o json \
+        | jq -r ".items[].spec.containers[].volumeMounts[] | select (.name == \"$volume_name\") | .name")" ]; then
+        print_message stderr 'cant proceed while kubernetes has volume'
         exit 1
 
     fi
@@ -193,28 +249,34 @@ check_if_k8s_is_using () {
 ####################################################
 
 find_active_deployments_from_array () {
+    deployments=()
     active_deployments=()
 
     for vol in "${ISCSI_BACKUP_VOLUMES[@]}"; do
-        active_deployments+=($(kubectl get pods --all-namespaces -o json \
+        deployments+=($(kubectl get pods --all-namespaces -o json \
             | jq -r ".items[] | select (.spec.containers[].volumeMounts[].name == \"$vol\") | .metadata.labels.app"))
 
     done
 
-    deployments=$(echo "${active_deployments[@]}" | tr ' ' '\n' | sort -u)
+    for item in $(echo "${deployments[@]}" | tr ' ' '\n' | sort -u); do
+        active_deployments+=("$item")
+
+    done
 }
 
 find_volumes_from_active_deployment () {
+    active_deployment="$1"
+
     all_volumes=()
-    volumes=()
+    active_volumes=()
 
     all_volumes+=($(kubectl get pods --all-namespaces -o json \
-        | jq -r ".items[] | select (.metadata.labels.app == \"$1\") | .spec.volumes[] | select (.iscsi.targetPortal == \"${ISCSI_PORTAL}\") | .name"))
+        | jq -r ".items[] | select (.metadata.labels.app == \"$active_deployment\") | .spec.volumes[] | select (.iscsi.targetPortal == \"${ISCSI_PORTAL}\") | .name"))
 
     for vol in "${ISCSI_BACKUP_VOLUMES[@]}"; do
         for item in "${all_volumes[@]}"; do
             if [ "$vol" == "$item" ]; then
-                volumes+=("$item")
+                active_volumes+=("$item")
 
             fi
 
@@ -228,53 +290,63 @@ find_volumes_from_active_deployment () {
 ####################################################
 
 crash_container () {
+    namespace="$1"
+    pod="$2"
+    container="$3"
+
     # meant as a way to force kubernetes to restart containers by crashing them internally
     # as opposed to using kubernetes to kill the pod. useful in troubleshooting boot order
     # issues with pods that have multiple containers.
-    print_message 'stdout' 'crashing container' "$1/$2:$3"
-    kube_exec "$1" "$2" "$3" '/sbin/killall5'
+    print_message stdout 'crashing container' "$namespace/$pod:$container"
+    kube_exec "$namespace" "$pod" "$container" /sbin/killall5
 }
 
 grab_loaded_vpn_server () {
-    loaded_vpn_server=$(kube_exec 'eslabs' $1 'expressvpn' "egrep ^remote\  /vpn/vpn.conf \
-        | awk '{print \$2}' \
-        | sed 's/-ca-version-2.expressnetw.com//g'")
+    kharon_pod="$1"
 
-    loaded_vpn_server=$(echo "$loaded_vpn_server" | sed 's/\r$//g')
+    loaded_vpn_server="$(kube_exec eslabs "$kharon_pod" expressvpn "egrep ^remote\  /vpn/vpn.conf \
+        | awk '{print \$2}' \
+        | sed 's/-ca-version-2.expressnetw.com//g'")"
+
+    loaded_vpn_server="$(echo "$loaded_vpn_server" | sed 's/\r$//g')"
 
     if [ ! -z "$loaded_vpn_server" ]; then
-        print_message 'stdout' 'expressvpn connected' "$loaded_vpn_server"
+        print_message stdout 'expressvpn connected' "$loaded_vpn_server"
 
     else
-        print_message 'stderr' 'expressvpn not connected' "${KHARON_EXPRESSVPN_SERVER}"
+        print_message stderr 'expressvpn not connected' "${KHARON_EXPRESSVPN_SERVER}"
 
     fi
 }
 
 find_wan_from_pod () {
-    pod_wan=$(kube_exec 'eslabs' $1 'expressvpn' 'curl -s ifconfig.me')
+    kharon_pod="$1"
+
+    pod_wan="$(kube_exec eslabs "$kharon_pod" expressvpn 'curl -s ifconfig.me')"
 
     if [ ! -z "$pod_wan" ]; then
-        print_message 'stdout' 'expressvpn wan ip' "$pod_wan"
+        print_message stdout 'expressvpn wan ip' "$pod_wan"
 
     else
-        print_message 'stderr' 'wan ip exposed' "$(curl -s ifconfig.me)"
+        print_message stderr 'wan ip exposed' "$(curl -s ifconfig.me)"
 
     fi
 }
 
 display_tvault_stats () {
-    tdata=$(kube_exec 'eslabs' $1 'plexserver' "df -H | egrep ^//${ISCSI_PORTAL}/tvault")
-    full=$(echo "$tdata" | awk '{print $2}')
-    used=$(echo "$tdata" | awk '{print $3}')
-    avail=$(echo "$tdata" | awk '{print $4}')
-    perc=$(echo "$tdata" | awk '{print $5}')
+    plex_pod="$1"
+
+    tdata="$(kube_exec eslabs $plex_pod plexserver "df -H | egrep ^//${ISCSI_PORTAL}/tvault")"
+    full="$(echo "$tdata" | awk '{print $2}')"
+    used="$(echo "$tdata" | awk '{print $3}')"
+    avail="$(echo "$tdata" | awk '{print $4}')"
+    perc="$(echo "$tdata" | awk '{print $5}')"
 
     if [ ! -z "$full" ]; then
-        print_message 'stdout' 'tvault volume statistics' "total $full - available $avail - used $used ($perc)"
+        print_message stdout 'tvault volume statistics' "total $full - available $avail - used $used ($perc)"
 
     else
-        print_message 'stderr' 'cant pull from plex pod for tvault volume statistics'
+        print_message stderr 'cant pull from plex pod for tvault volume statistics'
 
     fi
 }
