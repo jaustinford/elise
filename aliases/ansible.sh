@@ -24,9 +24,7 @@ alias a_watchers_stop="${ANSIBLE_PLAYBOOK}/watchers.yml --extra-vars \"option=st
 alias a_decrypt="ansible-vault decrypt --vault-password-file=~/.vault.txt"
 alias a_edit="ansible-vault edit --vault-password-file=~/.vault.txt"
 alias a_encrypt="ansible-vault encrypt --vault-password-file=~/.vault.txt"
-alias a_vars_decrypt="ansible-vault decrypt --vault-password-file=~/.vault.txt ${ELISE_ROOT_DIR}/src/elise.sh"
 alias a_vars_edit="${EDITOR} ${ELISE_ROOT_DIR}/src/elise.sh"
-alias a_vars_encrypt="ansible-vault encrypt --vault-password-file=~/.vault.txt ${ELISE_ROOT_DIR}/src/elise.sh"
 
 # commands
 alias a_ping="ansible all -m ping"
