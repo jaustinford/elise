@@ -45,17 +45,22 @@
     }
     ```
 
-- all variables and interpolated commands must be double-quoted, can be nested if there are both, except when variables are being called between an EOF block
+- all variables and interpolated commands must be double-quoted and can be nested if there are both, except when variables are being called inside an EOF block or when it's being iterated over in a loop
     ```
     echo "$var1 $var2"
     echo "$var1"
     echo "$(echo "$var1")"
     ```
-
     ```
     cat << EOF
     No quotes in $var between EOF blocks
     EOF
+    ```
+    ```
+    for item in $(some_command); do
+        echo "$item"
+
+    done
     ```
 
 - value definitions or comparatives within conditional statements must be at least single-quoted, double-quoted if they contain variables or interpolated commands
@@ -153,9 +158,9 @@
         do_something
         do_something_else
     }
-    ````
+    ```
 
- - if piping is used, either in a command or through an interpolated command, each pipe will break out on a new line escaped with the unix `\` and is indented four spaces
+ - if piping is used, either in a command or through an interpolated command, each pipe will break out on a new line escaped with the unix `\` and is indented four spaces except if there's only one pipe, then the whole command must be on one line
     ```
     echo "$something" \
         | grep 'string' \
@@ -166,6 +171,20 @@
         | grep 'string' \
         | grep 'string_2')"
 
+    ```
+    ```
+    var="$(echo "something" | grep 'string')"
+    ```
+
+ - blocks containing piped commands have one empty line before and one empty line after the block, same as other blocks
+    ```
+    do_something
+
+    var="$(echo "$something" \
+        | grep 'string' \
+        | grep 'string_2')"
+    
+    do_something_else
     ```
 
  - when using conditionals that only have one line commands, the command is included on the previous line along with the condition and there are no empty lines
