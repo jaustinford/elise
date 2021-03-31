@@ -269,7 +269,6 @@ find_volumes_from_active_deployment () {
 
     all_volumes=()
     active_volumes=()
-
     all_volumes+=($(kubectl get pods --all-namespaces -o json \
         | jq -r ".items[] | select (.metadata.labels.app == \"$active_deployment\") | .spec.volumes[] | select (.iscsi.targetPortal == \"${ISCSI_PORTAL}\") | .name"))
 

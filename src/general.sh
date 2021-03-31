@@ -107,10 +107,10 @@ print_message () {
 
     TOTAL_LENGTH=30
     KEY_LENGTH="$(echo "$message_1" | wc -c)"
-    PAD_LENGTH="$(expr $TOTAL_LENGTH - $KEY_LENGTH)"
+    PAD_LENGTH="$(expr "${TOTAL_LENGTH}" - "${KEY_LENGTH}")"
 
-    for pad in $(seq 1 $PAD_LENGTH); do
-        message_1+=" "
+    for pad in $(seq 1 "${PAD_LENGTH}"); do
+        message_1+=' '
 
     done
 
@@ -153,7 +153,6 @@ sed_edit () {
     new_string="$2"
 
     print_message stdout "switching $old_string" "$new_string"
-
     for file in $(grep -R --exclude-dir=.git "$old_string" . | cut -d':' -f1); do
         sed -i "s/$old_string/$new_string/g" "$file"
 
@@ -167,7 +166,6 @@ permissions_and_dos_line_endings () {
     chmod -R 750 "$directory"
     chmod 600 "${ELISE_ROOT_DIR}/.vault.txt"
     chown -R root:root "$directory"
-
     print_message stdout 'convert line endings' "$directory"
     find "$directory" -type f ! -path "*/.git/*" ! -path "*/.kube/*" -exec dos2unix -q {} \; 1> /dev/null
 }
@@ -211,7 +209,6 @@ add_local_dns_search () {
     dns_search_domain="$1"
 
     print_message stdout 'generate local dns search' /etc/resolv.conf
-
     if [ -z "$(grep kube00 /etc/hosts)" ]; then
         echo '172.16.17.20    kube00 kube00.labs.elysianskies.com' >> /etc/hosts
 
@@ -226,7 +223,9 @@ add_local_dns_search () {
 greeting () {
     user="$1"
 
-    chour="$(date | awk '{print $4}' | cut -d':' -f1)"
+    chour="$(date \
+        | awk '{print $4}' \
+        | cut -d':' -f1)"
 
     if [ "$chour" -ge 0 ] && [ "$chour" -lt 5 ]; then message="it's way past your bed time"
     elif [ "$chour" -ge 5 ] && [ "$chour" -lt 7 ]; then message='the early bird gets the worm'
@@ -249,7 +248,10 @@ curl_test () {
     domain="$3"
     web_path="$4"
 
-    http_response="$(curl -siL "$http_mode://$domain$web_path" | egrep ^HTTP\/ | tail -1 | awk '{print $2}')"
+    http_response="$(curl -siL "$http_mode://$domain$web_path" \
+        | egrep ^HTTP\/ \
+        | tail -1 \
+        | awk '{print $2}')"
 
     if [ "$http_response" == '200' ]; then
         print_message stdout "curl $http_response $message" "$2://$3$4"
@@ -281,14 +283,18 @@ ssl_reader () {
     domain="$1"
     port="$2"
 
-    ssl_crt="$(echo | openssl s_client -connect "$domain:$port" 2> /dev/null | openssl x509 2> /dev/null)"
+    ssl_crt="$(echo \
+        | openssl s_client -connect "$domain:$port" 2> /dev/null \
+        | openssl x509 2> /dev/null)"
 
     if [ ! -z "$ssl_crt" ]; then
         issuer="$(echo "$ssl_crt" | openssl x509 -noout -issuer)"
         serial="$(echo "$ssl_crt" | openssl x509 -noout -serial)"
         enddate="$(echo "$ssl_crt" | openssl x509 -noout -enddate)"
         subject="$(echo "$ssl_crt" | openssl x509 -noout -subject)"
-        subjectAltName="$(echo "$ssl_crt" | openssl x509 -noout -ext subjectAltName | egrep -o 'DNS:.*$')"
+        subjectAltName="$(echo "$ssl_crt" \
+            | openssl x509 -noout -ext subjectAltName \
+            | egrep -o 'DNS:.*$')"
 
         print_message stdout 'ssl certificate found for' "https://$domain:$port"
         print_message stdout 'ssl ca author' "$issuer"
@@ -308,7 +314,7 @@ ssl_reader () {
 ####################################################
 
 ensure_root () {
-    if [ "$(whoami)" != "root" ]; then
+    if [ "$(whoami)" != 'root' ]; then
         print_message stderr 'must be run as root'
         exit 1
 
