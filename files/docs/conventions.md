@@ -34,6 +34,16 @@
 
 #### _conventions_
 ---
+ 
+ - all import statements are grouped together at the top with an empty line before and after the block
+    ```
+    #!/usr/bin/env bash
+
+    . "${ELISE_ROOT_DIR}/src/elise.sh"
+    . "${ELISE_ROOT_DIR}/src/general.sh"
+
+    start_of_script
+    ``` 
 
 - all functions and main execution that take positional parameters must define them within the first few declarations for readability
     ```

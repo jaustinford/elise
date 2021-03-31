@@ -9,18 +9,15 @@ set -e
 
 print_message stdout started "$(date)"
 print_message stdout 'processing host' "$(hostname)"
-
 ensure_root
 kube_config /root "${LAB_FQDN}"
 ensure_kubeconfig
 ensure_iscsi_mountpath "${ISCSI_LOCAL_MOUNT_DIR}"
 rotate_directory "${ISCSI_BACKUP_DIR}" tgz "${ISCSI_BACKUP_ROTATE_DAYS}"
-
 find_active_deployments_from_array
 
 for deployment in "${active_deployments[@]}"; do
     find_volumes_from_active_deployment "$deployment"
-
     kube_stop_deployment eslabs "$deployment" 1> /dev/null
     ensure_pod stop eslabs "$(pod_from_deployment eslabs $deployment wait)"
 
