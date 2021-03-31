@@ -56,7 +56,7 @@ variables are stored in [`${ELISE_ROOT_DIR}/src/elise.sh`](https://github.com/ja
 
 deploying container attempts to decrypt this file and will fail the container if it can't
 
-once decrypted, the values can be retrieved in bash via the alias : `a_vars_edit`
+once decrypted, the values can be retrieved in bash via the alias : `_vars_edit`
 
 > **NOTE** : available color codes : `white`, `blue`, `green`, `cyan`, `red`, `purple`, `yellow`, `darkgray`, `lightgray`
 
