@@ -36,12 +36,8 @@ if [ "$#" -ge 1 ]; then
     elif [ "${MODE}" == 'all' ]; then
         BRANCH="${GITHUB_DEFAULT_COMMIT_BRANCH}"
 
-        if [ ! -z "$2" ]; then
-            MESSAGE="$2"
-
-        else
-            MESSAGE="${GITHUB_DEFAULT_COMMIT_MESSAGE}"
-
+        if [ ! -z "$2" ]; then MESSAGE="$2"
+        else MESSAGE="${GITHUB_DEFAULT_COMMIT_MESSAGE}"
         fi
 
         print_message stdout branch "${BRANCH}"
