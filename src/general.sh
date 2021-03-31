@@ -105,7 +105,7 @@ print_message () {
     message_1="$2"
     message_2="$3"
 
-    TOTAL_LENGTH=30
+    TOTAL_LENGTH='30'
     KEY_LENGTH="$(echo "$message_1" | wc -c)"
     PAD_LENGTH="$(expr "${TOTAL_LENGTH}" - "${KEY_LENGTH}")"
 
