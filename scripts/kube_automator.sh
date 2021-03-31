@@ -55,7 +55,9 @@ if [ "$#" -ge 1 ]; then
         container="$4"
 
         for item in ${ONE_POD_DEPLOYMENTS[@]}; do
-            if [ "$deployment" == "$item" ]; then container="$item"
+            if [ "$deployment" == "$item" ]; then
+                container="$item"
+
             fi
 
         done
@@ -68,7 +70,9 @@ if [ "$#" -ge 1 ]; then
         container="$4"
 
         for item in ${ONE_POD_DEPLOYMENTS[@]}; do
-            if [ "$deployment" == "$item" ]; then container="$item"
+            if [ "$deployment" == "$item" ]; then
+                container="$item"
+
             fi
 
         done
@@ -105,7 +109,9 @@ if [ "$#" -ge 1 ]; then
         container="$4"
 
         for item in ${ONE_POD_DEPLOYMENTS[@]}; do
-            if [ "$deployment" == "$item" ]; then container="$item"
+            if [ "$deployment" == "$item" ]; then
+                container="$item"
+
             fi
 
         done
@@ -123,8 +129,12 @@ if [ "$#" -ge 1 ]; then
         namespace="$2"
         resource="$3"
 
-        if [ "$resource" == 'pod' ]; then object="$(pod_from_deployment $namespace $4 wait)"
-        else object="$4"
+        if [ "$resource" == 'pod' ]; then
+            object="$(pod_from_deployment $namespace $4 wait)"
+
+        else
+            object="$4"
+
         fi
 
         kube_describe "$namespace" "$resource" "$object"
@@ -138,7 +148,9 @@ if [ "$#" -ge 1 ]; then
         container="$4"
 
         for item in ${ONE_POD_DEPLOYMENTS[@]}; do
-            if [ "$deployment" == "$item" ]; then container="$item"
+            if [ "$deployment" == "$item" ]; then
+                container="$item"
+
             fi
 
         done

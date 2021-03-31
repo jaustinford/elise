@@ -10,7 +10,9 @@ MODE="$1"
 SERVER="$2"
 
 if [ "${MODE}" == 'change' ]; then
-    if [ -z "${SERVER}" ]; then SERVER="${KHARON_EXPRESSVPN_SERVER}"
+    if [ -z "${SERVER}" ]; then
+        SERVER="${KHARON_EXPRESSVPN_SERVER}"
+
     fi
 
     grab_loaded_vpn_server "$(pod_from_deployment eslabs kharon)"

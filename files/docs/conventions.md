@@ -145,7 +145,7 @@
     fi
     ```
 
-- **loop block spacing** - indented blocks will also have a space before the starting statement and a space after the closing line, except when following a single `print_message` command
+- **loop block spacing** - indented blocks will also have a space before the starting statement and a space after the closing line, except when following a single `print_message` command or when nested inside another block statement
     ```
     statement_1
 
@@ -160,6 +160,15 @@
     print_message stdout 'doing a thing'
     for item in thing1 thing2; do
         echo "$item"
+
+    done
+    ```
+    ```
+    for item in thing1 thing2; do
+        if [ "$var" == 'value' ]; then
+            do_something
+
+        fi
 
     done
     ```

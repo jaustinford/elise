@@ -324,7 +324,9 @@ grab_loaded_vpn_server () {
 find_wan_from_pod () {
     kharon_pod="$1"
 
-    if [ ! -z "$kharon_pod" ]; then pod_wan="$(kube_exec eslabs "$kharon_pod" expressvpn 'curl -s ifconfig.me')"
+    if [ ! -z "$kharon_pod" ]; then
+        pod_wan="$(kube_exec eslabs "$kharon_pod" expressvpn 'curl -s ifconfig.me')"
+
     fi
 
     if [ ! -z "$pod_wan" ]; then
