@@ -339,11 +339,14 @@ find_wan_from_pod () {
 display_tvault_stats () {
     plex_pod="$1"
 
-    tdata="$(kube_exec eslabs $plex_pod plexserver "df -H | egrep ^//${ISCSI_PORTAL}/tvault")"
-    full="$(echo "$tdata" | awk '{print $2}')"
-    used="$(echo "$tdata" | awk '{print $3}')"
-    avail="$(echo "$tdata" | awk '{print $4}')"
-    perc="$(echo "$tdata" | awk '{print $5}')"
+    if [ ! -z "$plex_pod" ]; then
+        tdata="$(kube_exec eslabs $plex_pod plexserver "df -H | egrep ^//${ISCSI_PORTAL}/tvault")"
+        full="$(echo "$tdata" | awk '{print $2}')"
+        used="$(echo "$tdata" | awk '{print $3}')"
+        avail="$(echo "$tdata" | awk '{print $4}')"
+        perc="$(echo "$tdata" | awk '{print $5}')"
+
+    fi
 
     if [ ! -z "$full" ]; then
         print_message stdout 'tvault volume statistics' "total $full - available $avail - used $used ($perc)"
