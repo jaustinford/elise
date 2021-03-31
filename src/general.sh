@@ -173,6 +173,7 @@ permissions_and_dos_line_endings () {
 ensure_dropoff_folder () {
     if [ ! -d "${ELISE_ROOT_DIR}/dropoff" ]; then
         print_message stdout 'creating dropoff directory' "${ELISE_ROOT_DIR}/dropoff"
+        mkdir -p "${ELISE_ROOT_DIR}/dropoff"
 
     fi
 }
