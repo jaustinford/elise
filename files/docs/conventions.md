@@ -115,7 +115,7 @@
     echo "$pos_1 - $pos_2"
     ```
 
-- if a string possesses a variable in it, then the whole string is double-quoted
+- if a string posesses a variable in it, then the whole string is double-quoted
     ```
     "${ELISE_ROOT_DIR}/src/elise.sh is a file"
     echo '/root/src/elise.sh is a file'
