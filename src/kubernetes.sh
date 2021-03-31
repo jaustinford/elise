@@ -303,11 +303,14 @@ crash_container () {
 grab_loaded_vpn_server () {
     kharon_pod="$1"
 
-    loaded_vpn_server="$(kube_exec eslabs "$kharon_pod" expressvpn "egrep ^remote\  /vpn/vpn.conf \
-        | awk '{print \$2}' \
-        | sed 's/-ca-version-2.expressnetw.com//g'")"
+    if [ ! -z "$kharon_pod" ]; then
+        loaded_vpn_server="$(kube_exec eslabs "$kharon_pod" expressvpn "egrep ^remote\  /vpn/vpn.conf \
+            | awk '{print \$2}' \
+            | sed 's/-ca-version-2.expressnetw.com//g'")"
 
-    loaded_vpn_server="$(echo "$loaded_vpn_server" | sed 's/\r$//g')"
+        loaded_vpn_server="$(echo "$loaded_vpn_server" | sed 's/\r$//g')"
+
+    fi
 
     if [ ! -z "$loaded_vpn_server" ]; then
         print_message stdout 'expressvpn connected' "$loaded_vpn_server"
@@ -321,7 +324,8 @@ grab_loaded_vpn_server () {
 find_wan_from_pod () {
     kharon_pod="$1"
 
-    pod_wan="$(kube_exec eslabs "$kharon_pod" expressvpn 'curl -s ifconfig.me')"
+    if [ ! -z "$kharon_pod" ]; then pod_wan="$(kube_exec eslabs "$kharon_pod" expressvpn 'curl -s ifconfig.me')"
+    fi
 
     if [ ! -z "$pod_wan" ]; then
         print_message stdout 'expressvpn wan ip' "$pod_wan"
