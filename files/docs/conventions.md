@@ -166,4 +166,11 @@
         | grep 'string' \
         | grep 'string_2')"
 
-     ```
+    ```
+
+ - when using conditionals that only have one line commands, the command is included on the previous line along with the condition and there are no empty lines
+    ```
+    if [ "$var" == 'value_1' ]; then something='something_1'
+    elif [ "$var" == 'value_2' ]; then something='something_2'
+    fi
+    ```

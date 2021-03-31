@@ -20,7 +20,7 @@ youtube_download_from_url () {
             --prefer-ffmpeg \
             --extract-audio \
             --audio-format mp3 \
-            --audio-quality "320K" \
+            --audio-quality 320K \
             --output "${ELISE_ROOT_DIR}/dropoff/$(youtube_video_name_from_url $download_url).mp31" \
             "$download_url" 1> /dev/null
 

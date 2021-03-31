@@ -7,7 +7,7 @@ ensure_chap () {
     chap_password="$2"
 
     print_message stdout 'chap session user' "$chap_user"
-    if [ -z "$(egrep "$chap_user"$ /etc/iscsi/iscsid.conf)" ]; then
+    if [ -z "$(egrep $chap_user$ /etc/iscsi/iscsid.conf)" ]; then
         cat <<EOF >> /etc/iscsi/iscsid.conf
 node.session.auth.username = $chap_user
 node.session.auth.password = $chap_password
@@ -67,7 +67,7 @@ interact_target () {
     fi
 
     print_message stdout "$action" "$iscsi_iqn:$iscsi_volume"
-    iscsiadm -m node --"$iscsi_mode" --target "$iscsi_iqn:$iscsi_volume" 1> /dev/null
+    iscsiadm -m node "--$iscsi_mode" --target "$iscsi_iqn:$iscsi_volume" 1> /dev/null
 }
 
 iscsi_discovery () {

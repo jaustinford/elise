@@ -36,7 +36,9 @@ find_last_commit_hash () {
 }
 
 count_commits () {
-    number_of_commits="$(git log | egrep '^commit\ ' | wc -l)"
+    number_of_commits="$(git log \
+        | egrep '^commit\ ' \
+        | wc -l)"
 }
 
 ####################################################
