@@ -117,12 +117,14 @@
         echo "$item"
 
     done
-
+    ```
+    ```
     while [ "$condition" == 'something' ]; do
         sleep 1
 
     done
-
+    ```
+    ```
     if [ "$var" == 'value' ]; then
         echo 'something'
 
@@ -130,7 +132,6 @@
         echo 'something else'
 
     fi
-
     ```
 
 - indented blocks will also have a space before the starting statement and a space after the closing line, except when following a single `print_message` command
