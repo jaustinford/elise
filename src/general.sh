@@ -206,19 +206,19 @@ EOF
     chmod 600 /tmp/ssh_config
 }
 
-add_local_dns_search () {
+add_local_dns () {
     dns_search_domain="$1"
 
-    print_message stdout 'generate local dns search' /etc/resolv.conf
+    print_message stdout 'generate local dns' /etc/resolv.conf
     if [ -z "$(grep kube00 /etc/hosts)" ]; then
         echo '172.16.17.20    kube00 kube00.labs.elysianskies.com' >> /etc/hosts
 
     fi
 
-    if [ -z "$(grep $dns_search_domain /etc/resolv.conf)" ]; then
-        echo -e "\nsearch $dns_search_domain" >> /etc/resolv.conf
-
-    fi
+    cat << EOF > /etc/resolv.conf
+nameserver 172.16.17.10
+search ${LAB_FQDN}
+EOF
 }
 
 greeting () {

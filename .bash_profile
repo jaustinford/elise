@@ -35,7 +35,7 @@ if [ ! -z "${ELISE_PROFILE}" ]; then
 
     ssh_key
     ssh_client_config
-    add_local_dns_search "${LAB_FQDN}"
+    add_local_dns "${LAB_FQDN}"
     kube_config "${ELISE_ROOT_DIR}" "${LAB_FQDN}"
     ensure_dropoff_folder
 
