@@ -34,9 +34,10 @@
         ca=$(echo "{{ kube_config.stdout }}" | grep certificate-authority-data\: | awk '{print $2}');
         crt=$(echo "{{ kube_config.stdout }}" | grep client-certificate-data\: | awk '{print $2}');
         key=$(echo "{{ kube_config.stdout }}" | grep client-key-data\: | awk '{print $2}');
-        sed -i -E "s/^KUBE_CONFIG_CERTIFICATE_AUTHORITY_DATA.*$/KUBE_CONFIG_CERTIFICATE_AUTHORITY_DATA='$ca'/g" ../../src/elise.sh;
-        sed -i -E "s/^KUBE_CONFIG_CLIENT_CERTIFICATE_DATA.*$/KUBE_CONFIG_CLIENT_CERTIFICATE_DATA='$crt'/g" ../../src/elise.sh;
-        sed -i -E "s/^KUBE_CONFIG_CLIENT_KEY_DATA.*$/KUBE_CONFIG_CLIENT_KEY_DATA='$key'/g" ../../src/elise.sh;
+        source ../../src/general.sh;
+        vars_update KUBE_CONFIG_CERTIFICATE_AUTHORITY_DATA "$ca";
+        vars_update KUBE_CONFIG_CLIENT_CERTIFICATE_DATA "$crt";
+        vars_update KUBE_CONFIG_CLIENT_KEY_DATA "$key";
         source ../../src/elise.sh;
         source ../../src/general.sh;
         source ../../src/kubernetes.sh;

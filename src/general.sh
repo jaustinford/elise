@@ -148,6 +148,29 @@ rotate_directory () {
     find "$rotate_directory" -type f -name \*"$file_extension" -mtime +"$rotate_in_days" -exec rm -f {} \;
 }
 
+vars_update () {
+    var_key="$1"
+    var_value="$2"
+    found='false'
+
+    for item in $(cat "${ELISE_ROOT_DIR}/src/elise.sh" | cut -d'=' -f1); do
+        if [ "$var_key" == "$item" ]; then
+            found='true'
+
+        fi
+
+    done
+
+    if [ "$found" == 'true' ]; then
+        print_message stdout 'updating variable' "$var_key='$var_value'"
+        sed -i -E "s/^$var_key.*$/$var_key='$var_value'/g" "${ELISE_ROOT_DIR}/src/elise.sh"
+
+    else
+        print_message stderr "key '$var_key' was not found in ${ELISE_ROOT_DIR}/src/elise.sh"
+
+    fi
+}
+
 sed_edit () {
     old_string="$1"
     new_string="$2"

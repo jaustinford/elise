@@ -16,7 +16,7 @@ if [ "${MODE}" == 'change' ]; then
     grab_loaded_vpn_server "$(pod_from_deployment eslabs kharon)"
 
     if [ "$loaded_vpn_server" != "${SERVER}" ]; then
-        sed -i -E "s/^KHARON_EXPRESSVPN_SERVER.*$/KHARON_EXPRESSVPN_SERVER='${SERVER}'/g" "${ELISE_ROOT_DIR}/src/elise.sh"
+        vars_update KHARON_EXPRESSVPN_SERVER "${SERVER}"
         . "${ELISE_ROOT_DIR}/src/elise.sh"
         "${ELISE_ROOT_DIR}/scripts/kube_automator.sh" stop eslabs kharon
         "${ELISE_ROOT_DIR}/scripts/run_manifest.sh" apply kharon 1> /dev/null
