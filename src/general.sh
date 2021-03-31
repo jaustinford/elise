@@ -178,6 +178,19 @@ ensure_dropoff_folder () {
     fi
 }
 
+print_expressvpn_servers () {
+    for item in $(cat "${ELISE_ROOT_DIR}/files/expressvpn_servers.txt"); do
+        if [ "$item" == "${KHARON_EXPRESSVPN_SERVER}" ]; then
+            print_message stdout "$item" 'configured server'
+
+        else
+            print_message stdout "$item"
+
+        fi
+
+    done
+}
+
 ####################################################
 # init tasks
 ####################################################

@@ -6,7 +6,6 @@ alias ls='ls --color '
 alias tree='tree -C'
 
 # general
-alias change_vpn_server="${ELISE_ROOT_DIR}/scripts/change_vpn_server.sh change"
 alias countdown="${ELISE_ROOT_DIR}/scripts/countdown.sh"
 alias eslabs_deploy="${ELISE_ROOT_DIR}/scripts/eslabs.sh deploy"
 alias eslabs_destroy="${ELISE_ROOT_DIR}/scripts/eslabs.sh destroy"
