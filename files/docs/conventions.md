@@ -192,3 +192,23 @@
     elif [ "$var" == 'value_2' ]; then something='something_2'
     fi
     ```
+
+ - when using conditionals that check for multiple conditions, each condition is broken out to new line using the unix `\` and indented however many spaces needed to align it with the previous condition, except when the condition has only one command, which is then printed on one line and has no empty lines
+    ```
+    if [ "$var_1" == 'value_1' ] && \
+       [ "$var_2" == 'value_2' ]; then
+        echo 'something'
+        do_something
+    
+    elif [ "$var_1" == 'value_3' ] && \
+         [ "$var_2" == 'value_4' ]; then
+         echo 'something else'
+         do_something_else
+
+    fi
+    ```
+    ```
+    if [ "$var_1" == 'value_1' ] && [ "$var_2" == 'value_2' ]; then echo 'something'
+    elif [ "$var_1" == 'value_3' ] && [ "$var_2" == 'value_4' ]; then echo 'something else'
+    fi
+    ```
