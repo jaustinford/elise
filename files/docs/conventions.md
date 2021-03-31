@@ -198,14 +198,29 @@
     do_something_else
     ```
 
- - **one line conditionals** - when using conditionals that only assign one line variables, the command is included on the previous line along with the condition and there are no empty lines
+ - **if elif statements** - when using `if / elif` statements which only assign one line variables, the command is included on the previous line along with the condition and there are no empty lines, for all other `if` or `if / else` statements, each command gets a new line
     ```
     if [ "$var" == 'value_1' ]; then something='something_1'
     elif [ "$var" == 'value_2' ]; then something='something_2'
     fi
     ```
+    ```
+    if [ "$var" == 'value_1' ]; then
+        something='something_1'
 
- - **conditionals with multiple conditions** - when using conditionals that check for multiple conditions, each condition is broken out to new line using the unix `\` and indented however many spaces needed to align it with the previous condition, except when the condition has only one command assigning a variable, which is then printed on one line and has no empty lines
+    fi
+    ```
+    ```
+    if [ "$var" == 'value_1' ]; then
+        something='something_1'
+
+    else
+        something='something_2'
+
+    fi
+    ```
+
+ - **multi-conditional if elif statements** - when using `if / elif` statements that check for multiple conditions, each condition is broken out to new line using the unix `\` and indented however many spaces needed to align it with the previous condition, except when using an `if / elif` assigning one line variables, then the command is printed on the same line as the condition and has no empty lines
     ```
     if [ "$var_1" == 'value_1' ] && \
        [ "$var_2" == 'value_2' ]; then
@@ -214,6 +229,16 @@
     elif [ "$var_1" == 'value_3' ] && \
          [ "$var_2" == 'value_4' ]; then
          echo 'something else'
+
+    fi
+    ```
+    ```
+    if [ "$var_1" == 'value_1' ] && \
+       [ "$var_2" == 'value_2' ]; then
+        echo 'something'
+
+    else
+        echo 'something else'
 
     fi
     ```
