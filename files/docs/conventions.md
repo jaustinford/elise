@@ -35,7 +35,7 @@
 #### _conventions_
 ---
  
- - all import statements are grouped together at the top with an empty line before and after the block
+ - **import statements** - all import statements are grouped together at the top with an empty line before and after the block
     ```
     #!/usr/bin/env bash
 
@@ -45,7 +45,7 @@
     start_of_script
     ``` 
 
-- all functions and main execution that take positional parameters must define them within the first few declarations for readability
+- **positional arguments** - all functions and main execution that take positional parameters must define them within the first few declarations for readability
     ```
     test_function () {
         pos_1="$1"
@@ -55,7 +55,7 @@
     }
     ```
 
-- all variables and interpolated commands must be double-quoted and can be nested if there are both, except when variables are being called inside an EOF block or when it's being iterated over in a loop
+- **quoting variables** - all variables and interpolated commands must be double-quoted and can be nested if there are both, except when variables are being called inside an EOF block or when it's being iterated over in a loop
     ```
     echo "$var1 $var2"
     echo "$var1"
@@ -73,7 +73,7 @@
     done
     ```
 
-- value definitions or comparatives within conditional statements must be at least single-quoted, double-quoted if they contain variables or interpolated commands
+- **quoting in conditionals** - value definitions or comparatives within conditional statements must be at least single-quoted, double-quoted if they contain variables or interpolated commands
     ```
     var='value'
     ```
@@ -91,18 +91,18 @@
     fi
     ```
 
-- string arguments passed into functions are not single-quoted unless they contain spaces, special characters, and double-quoted if they contain variables or interpolated commands
+- **string arguments** - string arguments passed into functions are not single-quoted unless they contain spaces, special characters, and double-quoted if they contain variables or interpolated commands
     ```
     function_in_some_file arg1 'this is arg 2' "$arg3" "$(arg4)"
     ```
 
-- variables that are defined as constants must be capitalized and called with braces
+- **quoting constants** - variables that are defined as constants must be capitalized and called with braces
     ```
     ROOT_LEVEL_CONSTANT='something'
     echo "${ROOT_LEVEL_CONSTANT}"
     ```
 
-- variables that are not defined as constants are lower-cased and called without braces, this includes all positional variables
+- **quoting non constants** - variables that are not defined as constants are lower-cased and called without braces, this includes all positional variables
     ```
     var='something'
     echo "$var"
@@ -115,14 +115,14 @@
     echo "$pos_1 - $pos_2"
     ```
 
-- if a string posesses a variable in it, then the whole string is double-quoted
+- **quoting variables in strings** - if a string posesses a variable in it, then the whole string is double-quoted
     ```
     "${ELISE_ROOT_DIR}/src/elise.sh is a file"
     echo '/root/src/elise.sh is a file'
     echo "${ELISE_ROOT_DIR}/src/elise.sh is a file"
     ```
 
-- when using bash concepts that indent (for loops, while loops, if statements, etc), the convention is to indent 4 spaces and leave one blank line before either the next condition or the end of that block
+- **loop blocks** - when using bash concepts that indent (for loops, while loops, if statements, etc), the convention is to indent 4 spaces and leave one blank line before either the next condition or the end of that block
     ```
     for item in thing1 thing2; do
         echo "$item"
@@ -145,7 +145,7 @@
     fi
     ```
 
-- indented blocks will also have a space before the starting statement and a space after the closing line, except when following a single `print_message` command
+- **loop block spacing** - indented blocks will also have a space before the starting statement and a space after the closing line, except when following a single `print_message` command
     ```
     statement_1
 
@@ -164,7 +164,7 @@
     done
     ```
 
-- functions must indent four spaces and do not have an empty line before the closing brace
+- **function spacing** - functions must indent four spaces and do not have an empty line before the closing brace
     ```
     function () {
         do_something
@@ -172,7 +172,7 @@
     }
     ```
 
- - if piping is used, either in a command or through an interpolated command, each pipe will break out on a new line escaped with the unix `\` and is indented four spaces except if there's only one pipe, then the whole command must be on one line
+ - **piped commands** - if piping is used, either in a command or through an interpolated command, each pipe will break out on a new line escaped with the unix `\` and is indented four spaces except if there's only one pipe, then the whole command must be on one line
     ```
     echo "$something" \
         | grep 'string' \
@@ -187,7 +187,7 @@
     var="$(echo "something" | grep 'string')"
     ```
 
- - blocks containing piped commands have one empty line before and one empty line after the block, same as other blocks
+ - **piped commands spacing** - blocks containing piped commands have one empty line before and one empty line after the block, same as other blocks
     ```
     do_something
 
@@ -198,14 +198,14 @@
     do_something_else
     ```
 
- - when using conditionals that only assign one line variables, the command is included on the previous line along with the condition and there are no empty lines
+ - **one line conditionals** - when using conditionals that only assign one line variables, the command is included on the previous line along with the condition and there are no empty lines
     ```
     if [ "$var" == 'value_1' ]; then something='something_1'
     elif [ "$var" == 'value_2' ]; then something='something_2'
     fi
     ```
 
- - when using conditionals that check for multiple conditions, each condition is broken out to new line using the unix `\` and indented however many spaces needed to align it with the previous condition, except when the condition has only one command assigning a variable, which is then printed on one line and has no empty lines
+ - **conditionals with multiple conditions** - when using conditionals that check for multiple conditions, each condition is broken out to new line using the unix `\` and indented however many spaces needed to align it with the previous condition, except when the condition has only one command assigning a variable, which is then printed on one line and has no empty lines
     ```
     if [ "$var_1" == 'value_1' ] && \
        [ "$var_2" == 'value_2' ]; then
