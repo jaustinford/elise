@@ -10,7 +10,6 @@ MODE="$1"
 
 if [ "${MODE}" == 'change' ]; then
     print_message stdout 'new expressvpn server' "${KHARON_EXPRESSVPN_SERVER}"
-
     if [ ! -z "$(pod_from_deployment eslabs kharon)" ]; then
         grab_loaded_vpn_server "$(pod_from_deployment eslabs kharon)"
 

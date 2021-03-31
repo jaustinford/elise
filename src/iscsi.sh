@@ -58,12 +58,8 @@ interact_target () {
     iscsi_volume="$2"
     iscsi_iqn="$3"
 
-    if [ "$iscsi_mode" == 'login' ]; then
-        action='log into target '
-
-    elif [ "$iscsi_mode" == 'logout' ]; then
-        action='log out of target '
-
+    if [ "$iscsi_mode" == 'login' ]; then action='log into target '
+    elif [ "$iscsi_mode" == 'logout' ]; then action='log out of target '
     fi
 
     print_message stdout "$action" "$iscsi_iqn:$iscsi_volume"
