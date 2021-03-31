@@ -73,7 +73,8 @@
         do_something
 
     fi
-
+    ```
+    ```
     if [ "$var" == "$(command)" ]; then
         do_something_else
 
