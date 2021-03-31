@@ -133,7 +133,7 @@
 
     ```
 
-- indented blocks will also have a space before the starting statement and a space after the closing line, except when followed by a `print_message` command
+- indented blocks will also have a space before the starting statement and a space after the closing line, except when following a single `print_message` command
     ```
     statement_1
 

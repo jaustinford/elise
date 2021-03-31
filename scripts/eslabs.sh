@@ -9,7 +9,6 @@ set -e
 OPTION="$1"
 
 print_message stdout "started ${OPTION}"
-
 if [ "${OPTION}" == 'destroy' ]; then
     print_message stdout 'stopping haproxy'
     ansible-playbook "${ELISE_ROOT_DIR}/ansible/playbooks/haproxy.yml" \

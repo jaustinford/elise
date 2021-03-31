@@ -7,7 +7,6 @@ set -e
 . "${ELISE_ROOT_DIR}/src/kubernetes.sh"
 
 MODE="$1"
-
 ONE_POD_DEPLOYMENTS=(
     'acme'
     'bigbrother'
@@ -47,7 +46,6 @@ if [ "$#" -ge 1 ]; then
 
         kube_stop_deployment "$namespace" "$deployment" 1> /dev/null
         ensure_pod stop "$namespace" "$(pod_from_deployment $namespace $deployment wait)"
-
         kube_start_deployment "$namespace" "$deployment" 1 1> /dev/null
         ensure_pod start "$namespace" "$(pod_from_deployment $namespace $deployment wait)"
 
@@ -57,9 +55,7 @@ if [ "$#" -ge 1 ]; then
         container="$4"
 
         for item in ${ONE_POD_DEPLOYMENTS[@]}; do
-            if [ "$deployment" == "$item" ]; then
-                container="$item"
-
+            if [ "$deployment" == "$item" ]; then container="$item"
             fi
 
         done
@@ -72,9 +68,7 @@ if [ "$#" -ge 1 ]; then
         container="$4"
 
         for item in ${ONE_POD_DEPLOYMENTS[@]}; do
-            if [ "$deployment" == "$item" ]; then
-                container="$item"
-
+            if [ "$deployment" == "$item" ]; then container="$item"
             fi
 
         done
@@ -111,9 +105,7 @@ if [ "$#" -ge 1 ]; then
         container="$4"
 
         for item in ${ONE_POD_DEPLOYMENTS[@]}; do
-            if [ "$deployment" == "$item" ]; then
-                container="$item"
-
+            if [ "$deployment" == "$item" ]; then container="$item"
             fi
 
         done
@@ -131,12 +123,8 @@ if [ "$#" -ge 1 ]; then
         namespace="$2"
         resource="$3"
 
-        if [ "$resource" == 'pod' ]; then
-            object="$(pod_from_deployment $namespace $4 wait)"
-
-        else
-            object="$4"
-
+        if [ "$resource" == 'pod' ]; then object="$(pod_from_deployment $namespace $4 wait)"
+        else object="$4"
         fi
 
         kube_describe "$namespace" "$resource" "$object"
@@ -150,9 +138,7 @@ if [ "$#" -ge 1 ]; then
         container="$4"
 
         for item in ${ONE_POD_DEPLOYMENTS[@]}; do
-            if [ "$deployment" == "$item" ]; then
-                container="$item"
-
+            if [ "$deployment" == "$item" ]; then container="$item"
             fi
 
         done
