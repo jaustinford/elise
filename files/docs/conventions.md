@@ -170,7 +170,6 @@
     var="$(echo "$something" \
         | grep 'string' \
         | grep 'string_2')"
-
     ```
     ```
     var="$(echo "something" | grep 'string')"
