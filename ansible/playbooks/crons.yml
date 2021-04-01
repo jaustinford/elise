@@ -1,8 +1,9 @@
-- hosts: kube02.labs.elysianskies.com
-  become: true
-  vars:
-    ELISE_ROOT_DIR: /tmp/lab_backup
+###########################################
+# global cron variables
+###########################################
 
+- hosts: k8s
+  become: true
   handlers:
     - name: systemctl restart cron
       systemd:
@@ -11,7 +12,7 @@
         daemon_reload: yes
 
   tasks:
-    - name: cronjob - lab_backup - variables
+    - name: crontab variables
       cron:
         name: "{{ item.name }}"
         value: "{{ item.value }}"
@@ -24,21 +25,20 @@
         - name: MAILTO
           value: root
         - name: ELISE_ROOT_DIR
-          value: "{{ ELISE_ROOT_DIR }}"
+          value: /tmp/lab_backup
       notify: systemctl restart cron
 
-    - name: cronjob - lab_backup - job
-      cron:
-        name: lab_backup
-        minute: '20'
-        hour: '4'
-        weekday: '3'
-        user: root
-        job: "${ELISE_ROOT_DIR}/scripts/lab_backup.sh >> /mnt/tvault/es-labs/backups/iscsi_volumes/backup_cron.log"
-      notify: systemctl restart cron
+###########################################
+# cron - lab_backup
+###########################################
 
-- hosts: worker_nodes
+- hosts: kube02.labs.elysianskies.com
   become: true
+  vars:
+    log_dir: /mnt/tvault/es-labs/logs
+    cron_name: lab_backup
+    cron_cmd: ${ELISE_ROOT_DIR}/scripts/lab_backup.sh
+
   handlers:
     - name: systemctl restart cron
       systemd:
@@ -47,26 +47,70 @@
         daemon_reload: yes
 
   tasks:
-    - name: cronjob - ssl_renew - variables
+    - name: "cronjob - {{ cron_name }} - job"
       cron:
-        name: "{{ item.name }}"
-        value: "{{ item.value }}"
-        env: yes
-      with_items:
-        - name: SHELL
-          value: /bin/bash
-        - name: PATH
-          value: /sbin:/bin:/usr/sbin:/usr/bin
-        - name: MAILTO
-          value: root
+        name: "{{ cron_name }}"
+        minute: '20'
+        hour: '4'
+        weekday: '3'
+        user: root
+        job: "{{ cron_cmd }} >> {{ log_dir }}/{{ cron_name }}-$(hostname).log"
       notify: systemctl restart cron
 
-    - name: cronjob - ssl_renew - job
+###########################################
+# cron - ssl_renew
+###########################################
+
+- hosts: worker_nodes
+  become: true
+  vars:
+    log_dir: /mnt/tvault/es-labs/logs
+    cron_name: ssl_renew
+    cron_cmd: docker exec $(docker ps | egrep -o 'k8s_acme_acme-.*$') certbot renew
+
+  handlers:
+    - name: systemctl restart cron
+      systemd:
+        name: cron
+        state: restarted
+        daemon_reload: yes
+
+  tasks:
+    - name: "cronjob - {{ cron_name }} - job"
       cron:
-        name: ssl_renew
+        name: "{{ cron_name }}"
         minute: '0'
-        hour: '0'
+        hour: '4'
         day: '*/89'
         user: root
-        job: "docker exec -it $(docker ps | egrep -o 'k8s_acme_acme-.*$') certbot renew >> /mnt/tvault/es-labs/backups/ssl_renewal-$(hostname).log"
+        job: "{{ cron_cmd }} >> {{ log_dir }}/{{ cron_name }}-$(hostname).log"
+      notify: systemctl restart cron
+
+###########################################
+# cron - haproxy_restart
+###########################################
+
+- hosts: master_node
+  become: true
+  vars:
+    log_dir: /mnt/tvault/es-labs/logs
+    cron_name: haproxy_restart
+    cron_cmd: docker restart haproxy
+
+  handlers:
+    - name: systemctl restart cron
+      systemd:
+        name: cron
+        state: restarted
+        daemon_reload: yes
+
+  tasks:
+    - name: "cronjob - {{ cron_name }} - job"
+      cron:
+        name: "{{ cron_name }}"
+        minute: '5'
+        hour: '4'
+        day: '*/89'
+        user: root
+        job: "{{ cron_cmd }} >> {{ log_dir }}/{{ cron_name }}-$(hostname).log"
       notify: systemctl restart cron
