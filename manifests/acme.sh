@@ -36,22 +36,36 @@ data:
   certbot.sh: |
     #!/usr/bin/env bash
 
-    WEBROOT='/usr/local/apache2/htdocs'
-    mkdir -p \${WEBROOT}/.well-known/acme-challenge
-    chmod 777 \${WEBROOT}/.well-known/acme-challenge
+    MODE="\$1"
 
-    for item in \${LAB_SSL_DOMAINS[@]}; do
-        DOMAINS+="\$item,"
+    if [ "\${MODE}" == 'generate' ]; then
+        WEBROOT='/usr/local/apache2/htdocs'
+        mkdir -p \${WEBROOT}/.well-known/acme-challenge
+        chmod 777 \${WEBROOT}/.well-known/acme-challenge
 
-    done
+        for item in \${LAB_SSL_DOMAINS[@]}; do
+            DOMAINS+="\$item,"
 
-    DOMAINS=\$(echo "\${DOMAINS}" | sed -E 's/,$//g')
+        done
 
-    certbot certonly \
-        --domains "\${DOMAINS}" \
-        --email '$(git config -l | egrep ^user.email | cut -d'=' -f2)' \
-        --webroot --webroot-path="\${WEBROOT}" \
-        --agree-tos --non-interactive
+        DOMAINS=\$(echo "\${DOMAINS}" | sed -E 's/,$//g')
+
+        certbot certonly \
+            --domains "\${DOMAINS}" \
+            --email '$(git config -l | egrep ^user.email | cut -d'=' -f2)' \
+            --webroot --webroot-path="\${WEBROOT}" \
+            --agree-tos \
+            --non-interactive
+
+    elif [ "\${MODE}" == 'renew' ]; then
+        certbot renew \
+            --agree-tos \
+            --non-interactive
+
+    fi
+
+    cat "/etc/letsencrypt/live/\${LAB_FQDN}/fullchain.pem" > /tmp/tvault-ssl/nginx.crt
+    cat "/etc/letsencrypt/live/\${LAB_FQDN}/privkey.pem" > /tmp/tvault-ssl/nginx.crt.key
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -98,6 +112,8 @@ spec:
               subPath: certbot.sh
             - name: k8s-vol-acme-letsencrypt
               mountPath: /etc/letsencrypt
+            - name: tvault-ssl
+              mountPath: /tmp/tvault-ssl
       volumes:
         - name: k8s-vol-acme-letsencrypt
           iscsi:
@@ -110,6 +126,9 @@ spec:
             chapAuthSession: true
             secretRef:
               name: tvault-iscsi-chap
+        - name: tvault-ssl
+          hostPath:
+            path: /mnt/tvault/es-labs/ssl
         - name: acme-configmap
           configMap:
             name: acme-configmap

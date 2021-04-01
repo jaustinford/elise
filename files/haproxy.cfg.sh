@@ -48,7 +48,7 @@ backend acme_apache_nodeports
 ###########################################
 
 frontend nginx_ingress_controller
-    bind *:443 ssl crt /usr/local/etc/haproxy/nginx.crt
+    bind *:443 ssl crt /usr/local/etc/haproxy/ssl/nginx.crt
     mode http
     stats enable
     stats realm eslabs\ haproxy\ statistics
@@ -72,7 +72,7 @@ backend nginx_ingress_controller_nodeports
 ###########################################
 
 frontend plexserver
-    bind *:32401 ssl crt /usr/local/etc/haproxy/nginx.crt
+    bind *:32401 ssl crt /usr/local/etc/haproxy/ssl/nginx.crt
     mode http
     option forwardfor
     default_backend plexserver_nodeports

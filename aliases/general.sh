@@ -13,5 +13,6 @@ alias nuke="${ELISE_ROOT_DIR}/scripts/countdown.sh \"${ELISE_ROOT_DIR}/scripts/e
 alias scp='scp -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no -o LogLevel=ERROR'
 alias ssh='ssh -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no -o LogLevel=ERROR'
 alias ssl_eslabs_display="ssl_reader ${LAB_FQDN} 443"
-alias ssl_eslabs_generate="kube_exec eslabs \$(pod_from_deployment eslabs acme wait) acme 'rm -rf /etc/letsencrypt/*; /tmp/certbot.sh'"
+alias ssl_eslabs_generate="kube_exec eslabs \$(pod_from_deployment eslabs acme wait) acme '/tmp/certbot.sh generate'"
+alias ssl_eslabs_renew="kube_exec eslabs \$(pod_from_deployment eslabs acme wait) acme '/tmp/certbot.sh renew'"
 alias tree_project="tree -a -I '.git|*_history|.viminfo|.config|.vim|.kube|.ssh|dropoff|.cache|.lesshst|.ansible' ${ELISE_ROOT_DIR}"

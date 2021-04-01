@@ -1,33 +1,12 @@
 - hosts: master_node
   become: true
   tasks:
-    - name: import lab fqdn
-      shell: |
-        source ../../src/elise.sh;
-        echo "${LAB_FQDN}"
-      delegate_to: localhost
-      register: lab_fqdn_var
-
     - name: import haproxy.cfg
       shell: |
         source ../../files/haproxy.cfg.sh;
         echo "${HAPROXY_CFG}"
       delegate_to: localhost
       register: haproxy_cfg
-
-    - name: import haproxy crt
-      shell: |
-        source ../../src/kubernetes.sh;
-        kube_exec eslabs "$(pod_from_deployment eslabs acme wait)" acme 'cat /etc/letsencrypt/live/{{ lab_fqdn_var.stdout }}/fullchain.pem'
-      delegate_to: localhost
-      register: haproxy_crt
-
-    - name: import haproxy key
-      shell: |
-        source ../../src/kubernetes.sh;
-        kube_exec eslabs "$(pod_from_deployment eslabs acme wait)" acme 'cat /etc/letsencrypt/live/{{ lab_fqdn_var.stdout }}/privkey.pem'
-      delegate_to: localhost
-      register: haproxy_key
 
     - name: "{{ message }} haproxy container"
       docker_container:
@@ -43,16 +22,14 @@
         command: |
           /bin/bash -c '\
             echo "{{ haproxy_cfg.stdout }}" > /usr/local/etc/haproxy/haproxy.cfg; \
-            echo "{{ haproxy_crt.stdout }}" > /usr/local/etc/haproxy/nginx.crt; \
-            echo "{{ haproxy_key.stdout }}" > /usr/local/etc/haproxy/nginx.crt.key; \
             chmod 755 /usr/local/etc/haproxy/haproxy.cfg; \
-            chmod 750 /usr/local/etc/haproxy/nginx.crt; \
-            chmod 600 /usr/local/etc/haproxy/nginx.crt.key; \
             haproxy -f /usr/local/etc/haproxy/haproxy.cfg'
         ports:
           - '443:443'
           - '80:80'
           - '32401:32401'
           - '3128:3128'
+        volumes:
+          - '/mnt/tvault/es-labs/ssl:/usr/local/etc/haproxy/ssl'
         network_mode: bridge
         restart_policy: unless-stopped
