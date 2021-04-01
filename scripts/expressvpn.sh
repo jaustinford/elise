@@ -21,7 +21,7 @@ if [ "${MODE}" == 'change' ]; then
         vars_update KHARON_EXPRESSVPN_SERVER "${SERVER}"
         . "${ELISE_ROOT_DIR}/src/elise.sh"
         "${ELISE_ROOT_DIR}/scripts/kube_automator.sh" stop eslabs kharon
-        "${ELISE_ROOT_DIR}/scripts/run_manifest.sh" apply kharon 1> /dev/null
+        "${ELISE_ROOT_DIR}/scripts/run_manifest.sh" apply kharon
         "${ELISE_ROOT_DIR}/scripts/kube_automator.sh" start eslabs kharon
 
 
