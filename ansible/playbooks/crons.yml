@@ -66,8 +66,7 @@
         name: ssl_renew
         minute: '0'
         hour: '0'
-        day: '1'
-        month: '2,4,6,8,10,12'
+        day: '*/89'
         user: root
-        job: "docker exec -it $(docker ps | egrep -o 'k8s_acme_acme-.*$') certbot renew"
+        job: "docker exec -it $(docker ps | egrep -o 'k8s_acme_acme-.*$') certbot renew >> /mnt/tvault/es-labs/backups/ssl_renewal-$(hostname).log"
       notify: systemctl restart cron
