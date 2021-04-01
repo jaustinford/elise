@@ -63,7 +63,7 @@ elif [ "${OPTION}" == 'deploy' ]; then
     "${ELISE_ROOT_DIR}/manifests/nagios.sh" apply; "${ELISE_ROOT_DIR}/scripts/kube_automator.sh" start eslabs nagios
     "${ELISE_ROOT_DIR}/manifests/pihole.sh" apply
     "${ELISE_ROOT_DIR}/manifests/ntopng.sh" apply
-    ansible-playbook "${ELISE_ROOT_DIR}/ansible/playbooks/lab_backup.yml" --extra-vars "option=copy"
+    ansible-playbook "${ELISE_ROOT_DIR}/ansible/playbooks/soteria.yml" --extra-vars "option=deploy"
 
 fi
 

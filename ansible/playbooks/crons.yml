@@ -25,19 +25,19 @@
         - name: MAILTO
           value: root
         - name: ELISE_ROOT_DIR
-          value: /tmp/lab_backup
+          value: /usr/elise
       notify: systemctl restart cron
 
 ###########################################
-# cron - lab_backup
+# cron - soteria
 ###########################################
 
 - hosts: kube02.labs.elysianskies.com
   become: true
   vars:
     log_dir: /mnt/tvault/es-labs/logs
-    cron_name: lab_backup
-    cron_cmd: ${ELISE_ROOT_DIR}/scripts/lab_backup.sh
+    cron_name: soteria
+    cron_cmd: ${ELISE_ROOT_DIR}/scripts/soteria.sh
 
   handlers:
     - name: systemctl restart cron

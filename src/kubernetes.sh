@@ -245,7 +245,7 @@ check_if_k8s_is_using () {
 }
 
 ####################################################
-# lab_backup
+# soteria
 ####################################################
 
 find_active_deployments_from_array () {

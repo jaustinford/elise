@@ -1,14 +1,14 @@
 - hosts: kube02.labs.elysianskies.com
   become: true
   vars:
-    ELISE_ROOT_DIR: /tmp/lab_backup
+    ELISE_ROOT_DIR: /usr/elise
 
   environment:
     ELISE_ROOT_DIR: "{{ ELISE_ROOT_DIR }}"
 
   tasks:
     - block:
-      - name: ensure lab_backup dir
+      - name: ensure soteria dir
         file:
           path: "{{ item }}"
           state: directory
@@ -25,7 +25,7 @@
           path: "{{ ELISE_ROOT_DIR }}/src/elise.sh"
           state: absent
 
-      - name: import lab_backup vars - constants
+      - name: import soteria vars - constants
         shell: |
           source ../../src/elise.sh;
           echo {{ item }}=\"${{ item }}\"
@@ -49,20 +49,20 @@
           - KUBE_CONFIG_CLIENT_CERTIFICATE_DATA
           - KUBE_CONFIG_CLIENT_KEY_DATA
 
-      - name: import lab_backup vars - volumes
+      - name: import soteria vars - volumes
         shell:
           source ../../src/elise.sh;
           echo ISCSI_BACKUP_VOLUMES=\(${ISCSI_BACKUP_VOLUMES[@]}\)
         register: volume_vars
         delegate_to: localhost
 
-      - name: copy lab_backup vars - constants
+      - name: copy soteria vars - constants
         shell: echo '{{ item.stdout }}' >> {{ ELISE_ROOT_DIR }}/src/elise.sh
         no_log: true
         with_items:
           - "{{ elise_constants.results }}"
 
-      - name: copy lab_backup vars - volumes
+      - name: copy soteria vars - volumes
         shell: echo '{{ volume_vars.stdout }}' >> {{ ELISE_ROOT_DIR }}/src/elise.sh
 
       - name: copy source files
@@ -73,22 +73,22 @@
           group: root
           mode: 0750
         with_items:
-          - scripts/lab_backup.sh
+          - scripts/soteria.sh
           - src/general.sh
           - src/iscsi.sh
           - src/kubernetes.sh
-      when: option == "copy"
+      when: option == "deploy"
 
     - block:
-      - name: execute lab_backup tasks
-        shell: "{{ ELISE_ROOT_DIR }}/scripts/lab_backup.sh"
+      - name: execute soteria tasks
+        shell: "{{ ELISE_ROOT_DIR }}/scripts/soteria.sh"
         register: backup_output
 
       - debug: var=backup_output.stdout_lines
       when: option == "execute"
 
     - block:
-      - name: remove lab_backup
+      - name: remove soteria
         file:
           path: "{{ item }}"
           state: absent
