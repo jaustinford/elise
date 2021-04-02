@@ -28,20 +28,20 @@ defaults
     maxconn 100
 
 ###########################################
-# acme apache
+# hermes apache
 ###########################################
 
-frontend acme_apache
+frontend hermes_apache
     bind *:80
     mode http
     option forwardfor
-    default_backend acme_apache_nodeports
+    default_backend hermes_apache_nodeports
 
-backend acme_apache_nodeports
+backend hermes_apache_nodeports
     balance roundrobin
     default-server check maxconn 100
-    server kube01.labs.elysianskies.com 172.16.17.6:${KUBE_NODEPORT_ACME} check fall 3 rise 2
-    server kube02.labs.elysianskies.com 172.16.17.7:${KUBE_NODEPORT_ACME} check fall 3 rise 2
+    server kube01.labs.elysianskies.com 172.16.17.6:${KUBE_NODEPORT_HERMES} check fall 3 rise 2
+    server kube02.labs.elysianskies.com 172.16.17.7:${KUBE_NODEPORT_HERMES} check fall 3 rise 2
 
 ###########################################
 # nginx ingress controller

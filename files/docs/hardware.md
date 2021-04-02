@@ -235,7 +235,7 @@ the only component to the kubernetes system not being managed by kubernetes is a
 
 | haproxy frontend         | inbound port | proxy mode | lb method   | tls termination | description                                                           |
 |--------------------------|--------------|------------|-------------|-----------------|-----------------------------------------------------------------------|
-| acme                     | 80           | http       | round robin | no              | used for cerbot http method challenges in automating ssl cert renewal |
+| hermes                   | 80           | http       | round robin | no              | used for cerbot http method challenges in automating ssl cert renewal |
 | nginx ingress controller | 443          | http       | round robin | yes             | main kubernetes ingress endpoint                                      |
 | plexserver               | 32401        | http       | round robin | yes             | plex media server                                                     |
 | squid                    | 3128         | tcp        | round robin | no              | squid proxy into the expressvpn tunnel                                |

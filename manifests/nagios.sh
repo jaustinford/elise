@@ -235,8 +235,8 @@ data:
     define service {
         use                 eslabs-service
         host_name           kube00.labs.elysianskies.com
-        service_description kubernetes service - acme/apache
-        check_command       check_nrpe!check_k8s_acme
+        service_description kubernetes service - hermes/apache
+        check_command       check_nrpe!check_k8s_hermes
     }
     define service {
         use                 eslabs-service

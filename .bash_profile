@@ -44,7 +44,7 @@ if [ ! -z "${ELISE_PROFILE}" ]; then
         ssl_reader "${LAB_FQDN}" 443
         curl_test 'kubernetes ingress' https "${LAB_FQDN}" '/tvault'
         curl_test 'plex media server' https "${LAB_FQDN}" ':32400/web/index.html'
-        curl_test 'acme apache' http "${LAB_FQDN}" '/'
+        curl_test 'hermes apache' http "${LAB_FQDN}" '/'
         grab_loaded_vpn_server "$(pod_from_deployment eslabs kharon)"
         find_wan_from_pod "$(pod_from_deployment eslabs kharon)"
 

@@ -88,7 +88,7 @@ once decrypted, the values can be retrieved in bash via the alias : `_vars_edit`
 | **KUBE_CONFIG_CLIENT_CERTIFICATE_DATA**    | str  |                                             | `true` |
 | **KUBE_CONFIG_CLIENT_KEY_DATA**            | str  |                                             | `true` |
 | **KUBE_POD_NETWORK**                       | str  |                                             |        |
-| **KUBE_NODEPORT_ACME**                     | str  |                                             |        |
+| **KUBE_NODEPORT_HERMES**                   | str  |                                             |        |
 | **KUBE_NODEPORT_INGRESS**                  | str  |                                             |        |
 | **KUBE_NODEPORT_PLEXSERVER**               | str  | `32400`                                     |        |
 | **KUBE_NODEPORT_SQUID**                    | str  |                                             |        |

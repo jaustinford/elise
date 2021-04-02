@@ -7,22 +7,22 @@ cat <<EOF | kubectl "$1" -f -
 apiVersion: v1
 kind: Service
 metadata:
-  name: acme
+  name: hermes
   namespace: eslabs
 spec:
   type: NodePort
   selector:
-    app: acme
+    app: hermes
   ports:
     - protocol: TCP
       port: 80
       targetPort: 80
-      nodePort: ${KUBE_NODEPORT_ACME}
+      nodePort: ${KUBE_NODEPORT_HERMES}
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: acme-configmap
+  name: hermes-configmap
   namespace: eslabs
 data:
   index.html: |
@@ -70,25 +70,25 @@ data:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: acme
+  name: hermes
   namespace: eslabs
   labels:
-    app: acme
+    app: hermes
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: acme
+      app: hermes
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: acme
+        app: hermes
     spec:
       containers:
         - image: httpd:latest
-          name: acme
+          name: hermes
           env:
             - name: TZ
               value: "${DOCKER_TIMEZONE}"
@@ -104,21 +104,21 @@ spec:
               apt-get install -y certbot;
               httpd-foreground
           volumeMounts:
-            - name: acme-configmap
+            - name: hermes-configmap
               mountPath: /usr/local/apache2/htdocs/index.html
               subPath: index.html
-            - name: acme-configmap
+            - name: hermes-configmap
               mountPath: /tmp/certbot.sh
               subPath: certbot.sh
-            - name: k8s-vol-acme-letsencrypt
+            - name: k8s-vol-hermes-letsencrypt
               mountPath: /etc/letsencrypt
             - name: tvault-ssl
               mountPath: /tmp/tvault-ssl
       volumes:
-        - name: k8s-vol-acme-letsencrypt
+        - name: k8s-vol-hermes-letsencrypt
           iscsi:
             targetPortal: ${ISCSI_PORTAL}
-            iqn: ${ISCSI_IQN}:k8s-vol-acme-letsencrypt
+            iqn: ${ISCSI_IQN}:k8s-vol-hermes-letsencrypt
             lun: 0
             fsType: ext4
             readOnly: false
@@ -129,8 +129,8 @@ spec:
         - name: tvault-ssl
           hostPath:
             path: /mnt/tvault/es-labs/ssl
-        - name: acme-configmap
+        - name: hermes-configmap
           configMap:
-            name: acme-configmap
+            name: hermes-configmap
             defaultMode: 0777
 EOF

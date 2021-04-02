@@ -47,7 +47,7 @@ elif [ "${OPTION}" == 'deploy' ]; then
 
     print_message stdout 'deploying namespace and ssl'
     "${ELISE_ROOT_DIR}/manifests/eslabs.sh" apply
-    "${ELISE_ROOT_DIR}/manifests/acme.sh" apply; "${ELISE_ROOT_DIR}/scripts/kube_automator.sh" start eslabs acme
+    "${ELISE_ROOT_DIR}/manifests/hermes.sh" apply; "${ELISE_ROOT_DIR}/scripts/kube_automator.sh" start eslabs hermes
 
     print_message stdout 'starting haproxy'
     ansible-playbook "${ELISE_ROOT_DIR}/ansible/playbooks/haproxy.yml" \

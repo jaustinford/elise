@@ -66,7 +66,7 @@
   vars:
     log_dir: /mnt/tvault/es-labs/logs
     cron_name: ssl_renew
-    cron_cmd: docker exec $(docker ps | egrep -o 'k8s_acme_acme-.*$') /tmp/certbot.sh renew
+    cron_cmd: docker exec $(docker ps | egrep -o 'k8s_hermes_hermes-.*$') /tmp/certbot.sh renew
 
   handlers:
     - name: systemctl restart cron

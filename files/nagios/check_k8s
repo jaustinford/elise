@@ -3,7 +3,7 @@
 DEPLOYMENT="$1"
 SERVICE="$2"
 
-if [ "${DEPLOYMENT}" == 'acme' ]; then
+if [ "${DEPLOYMENT}" == 'hermes' ]; then
     url='http://labs.elysianskies.com'
     SERVICE='apache'
 
