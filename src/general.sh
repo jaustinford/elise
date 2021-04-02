@@ -96,7 +96,7 @@ elif [ "${SHELL_KUBE_DISPLAY_KEY_COLOR}" == 'darkgray' ]; then SHELL_KUBE_DISPLA
 elif [ "${SHELL_KUBE_DISPLAY_KEY_COLOR}" == 'lightgray' ]; then SHELL_KUBE_DISPLAY_KEY_CODE="${ECHO_LIGHTGRAY}"
 fi
 
-command_line_color () {
+colors () {
     user_color="$1"
     host_color="$2"
     cwd_color="$3"
