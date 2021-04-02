@@ -96,6 +96,19 @@ elif [ "${SHELL_KUBE_DISPLAY_KEY_COLOR}" == 'darkgray' ]; then SHELL_KUBE_DISPLA
 elif [ "${SHELL_KUBE_DISPLAY_KEY_COLOR}" == 'lightgray' ]; then SHELL_KUBE_DISPLAY_KEY_CODE="${ECHO_LIGHTGRAY}"
 fi
 
+command_line_color () {
+    user_color="$1"
+    host_color="$2"
+    cwd_color="$3"
+
+    if [ "$#" == '3' ]; then
+        vars_update SHELL_USER_PROMPT_COLOR "$user_color"
+        vars_update SHELL_HOST_PROMPT_COLOR "$host_color"
+        vars_update SHELL_CWD_PROMPT_COLOR "$cwd_color"
+
+    fi
+}
+
 ####################################################
 # messages
 ####################################################
