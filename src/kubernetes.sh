@@ -149,7 +149,6 @@ ensure_pod () {
     pod="$3"
 
     print_message stdout 'ensuring pod state' "$pod_mode - $namespace/$pod"
-
     if [ "$pod_mode" == 'start' ]; then
         while [ "$(kubectl -n "$namespace" get pods -o json \
             | jq -r ".items[] | select (.metadata.name == \"$pod\") | .status.phase")" != 'Running' ] && \
