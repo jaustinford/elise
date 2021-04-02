@@ -108,7 +108,7 @@
     - name: "cronjob - {{ cron_name }} - job"
       cron:
         name: "{{ cron_name }}"
-        minute: '5'
+        minute: '10'
         hour: '4'
         day: '*/89'
         user: root
