@@ -304,10 +304,10 @@ curl_test () {
         | awk '{print $2}')"
 
     if [ "$http_response" == '200' ]; then
-        print_message stdout "curl $http_response $message" "$2://$3$4"
+        print_message stdout "curl $http_response $message" "$http_mode://$domain$web_path"
 
     else
-        print_message stderr "curl $http_response $message" "$2://$3$4"
+        print_message stderr "curl $http_response $message" "$http_mode://$domain$web_path"
 
     fi
 }
