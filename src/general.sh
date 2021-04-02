@@ -176,8 +176,9 @@ sed_edit () {
     new_string="$2"
 
     print_message stdout "switching $old_string" "$new_string"
-    for file in $(grep -R --exclude-dir=.git "$old_string" . | cut -d':' -f1); do
-        sed -i "s/$old_string/$new_string/g" "$file"
+    for file in $(grep -R --exclude-dir=.git --exclude-dir=.kube --exclude=.bash_history "$old_string" . | cut -d':' -f1); do
+        echo "$file"
+        # sed -i "s/$old_string/$new_string/g" "$file"
 
     done
 }
