@@ -309,10 +309,6 @@ grab_loaded_vpn_server () {
             | sed 's/-ca-version-2.expressnetw.com//g'")"
 
         loaded_vpn_server="$(echo "$loaded_vpn_server" | sed 's/\r$//g')"
-
-    fi
-
-    if [ ! -z "$loaded_vpn_server" ]; then
         print_message stdout 'expressvpn connected' "$loaded_vpn_server"
 
     else
@@ -326,10 +322,6 @@ find_wan_from_pod () {
 
     if [ ! -z "$kharon_pod" ]; then
         pod_wan="$(kube_exec eslabs "$kharon_pod" expressvpn 'curl -s ifconfig.me')"
-
-    fi
-
-    if [ ! -z "$pod_wan" ]; then
         print_message stdout 'expressvpn wan ip' "$pod_wan"
 
     else
@@ -347,10 +339,6 @@ display_tvault_stats () {
         used="$(echo "$tdata" | awk '{print $3}')"
         avail="$(echo "$tdata" | awk '{print $4}')"
         perc="$(echo "$tdata" | awk '{print $5}')"
-
-    fi
-
-    if [ ! -z "$full" ]; then
         print_message stdout 'tvault volume statistics' "total $full - available $avail - used $used ($perc)"
 
     else
