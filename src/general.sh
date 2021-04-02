@@ -316,17 +316,22 @@ nmap_scan () {
     host="$1"
     port="$2"
 
-    state="$(nmap -Pn -p "$port" "$host" \
-        | egrep "^$port\/(tcp|udp)" \
-        | awk '{print $2}')"
+    while true; do
+        state="$(nmap -Pn -p "$port" "$host" \
+            | egrep "^$port\/(tcp|udp)" \
+            | awk '{print $2}')"
 
-    if [ "$state" == 'open' ]; then
-        print_message stdout 'nmap reports port is open' "$host:$port"
+        if [ "$state" == 'open' ]; then
+            print_message stdout 'nmap reports port is open' "$host:$port"
 
-    else
-        print_message stderr "nmap reports port is $state" "$host:$port"
+        else
+            print_message stderr "nmap reports port is $state" "$host:$port"
 
-    fi
+        fi
+
+        sleep 1
+
+    done
 }
 
 ssl_reader () {
