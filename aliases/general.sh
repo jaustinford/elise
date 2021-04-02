@@ -15,4 +15,5 @@ alias ssh='ssh -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no -o 
 alias ssl_eslabs_display="ssl_reader ${LAB_FQDN} 443"
 alias ssl_eslabs_generate="kube_exec eslabs \$(pod_from_deployment eslabs hermes wait) hermes '/tmp/certbot.sh generate'"
 alias ssl_eslabs_renew="kube_exec eslabs \$(pod_from_deployment eslabs hermes wait) hermes '/tmp/certbot.sh renew'"
+alias ssl_eslabs_stage="kube_exec eslabs \$(pod_from_deployment eslabs hermes wait) hermes '/tmp/certbot.sh'"
 alias tree_project="tree -a -I '.git|*_history|.viminfo|.config|.vim|.kube|.ssh|dropoff|.cache|.lesshst|.ansible' ${ELISE_ROOT_DIR}"
