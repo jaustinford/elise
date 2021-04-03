@@ -61,3 +61,6 @@
         opts: username={{ tvault_username.stdout }},password={{ tvault_password.stdout }},uid=1000,gid=1000
         path: /mnt/tvault
         state: mounted
+      when:
+        - tvault_username != ""
+        - tvault_password != ""
