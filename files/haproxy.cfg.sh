@@ -72,7 +72,7 @@ backend nginx_ingress_controller_nodeports
 ###########################################
 
 frontend plexserver
-    bind *:32401 ssl crt /usr/local/etc/haproxy/ssl/nginx.crt
+    bind *:${KUBE_NODEPORT_PLEXSERVER} ssl crt /usr/local/etc/haproxy/ssl/nginx.crt
     mode http
     option forwardfor
     default_backend plexserver_nodeports
