@@ -57,7 +57,7 @@ elif [ "${OPTION}" == 'deploy' ]; then
     "${ELISE_ROOT_DIR}/manifests/plex.sh" apply; "${ELISE_ROOT_DIR}/scripts/kube_automator.sh" start eslabs plex
     "${ELISE_ROOT_DIR}/manifests/kharon.sh" apply; "${ELISE_ROOT_DIR}/scripts/kube_automator.sh" start eslabs kharon
     ansible-playbook "${ELISE_ROOT_DIR}/ansible/playbooks/watchers.yml" --extra-vars "option=start"
-    "${ELISE_ROOT_DIR}/manifests/bigbrother.sh" apply; "${ELISE_ROOT_DIR}/scripts/kube_automator.sh" start eslabs bigbrother
+    "${ELISE_ROOT_DIR}/manifests/hyperion.sh" apply; "${ELISE_ROOT_DIR}/scripts/kube_automator.sh" start eslabs hyperion
     "${ELISE_ROOT_DIR}/manifests/filebrowser.sh" apply; "${ELISE_ROOT_DIR}/scripts/kube_automator.sh" start eslabs filebrowser
     ansible-playbook "${ELISE_ROOT_DIR}/ansible/playbooks/nrpe.yml"
     "${ELISE_ROOT_DIR}/manifests/nagios.sh" apply; "${ELISE_ROOT_DIR}/scripts/kube_automator.sh" start eslabs nagios

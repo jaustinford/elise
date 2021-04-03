@@ -7,7 +7,7 @@ if [ "${DEPLOYMENT}" == 'hermes' ]; then
     url='http://labs.elysianskies.com'
     SERVICE='apache'
 
-elif [ "${DEPLOYMENT}" == 'bigbrother' ]; then
+elif [ "${DEPLOYMENT}" == 'hyperion' ]; then
     url='https://labs.elysianskies.com/zm/'
     SERVICE='zoneminder'
 

@@ -241,8 +241,8 @@ data:
     define service {
         use                 eslabs-service
         host_name           kube00.labs.elysianskies.com
-        service_description kubernetes service - bigbrother/zoneminder
-        check_command       check_nrpe!check_k8s_bigbrother
+        service_description kubernetes service - hyperion/zoneminder
+        check_command       check_nrpe!check_k8s_hyperion
     }
     define service {
         use                 eslabs-service

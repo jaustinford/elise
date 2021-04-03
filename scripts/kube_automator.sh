@@ -8,9 +8,9 @@ set -e
 
 MODE="$1"
 ONE_POD_DEPLOYMENTS=(
-    'bigbrother'
     'filebrowser'
     'hermes'
+    'hyperion'
     'nagios'
 )
 

@@ -7,12 +7,12 @@ cat <<EOF | kubectl "$1" -f -
 apiVersion: v1
 kind: Service
 metadata:
-  name: bigbrother
+  name: hyperion
   namespace: eslabs
 spec:
   type: ClusterIP
   selector:
-    app: bigbrother
+    app: hyperion
   ports:
     - protocol: TCP
       port: 80
@@ -21,25 +21,25 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bigbrother
+  name: hyperion
   namespace: eslabs
   labels:
-    app: bigbrother
+    app: hyperion
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: bigbrother
+      app: hyperion
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: bigbrother
+        app: hyperion
     spec:
       containers:
         - image: dlandon/zoneminder:latest
-          name: bigbrother
+          name: hyperion
           env:
             - name: TZ
               value: "${DOCKER_TIMEZONE}"
@@ -66,28 +66,15 @@ spec:
           securityContext:
             privileged: true
           volumeMounts:
-            - name: k8s-vol-bigbrother-config
+            - name: k8s-vol-hyperion-config
               mountPath: /config
-            - name: k8s-vol-bigbrother-cache
-              mountPath: /var/cache/zoneminder
             - name: tmpfs-shm
               mountPath: /dev/shm
       volumes:
-        - name: k8s-vol-bigbrother-config
+        - name: k8s-vol-hyperion-config
           iscsi:
             targetPortal: ${ISCSI_PORTAL}
-            iqn: ${ISCSI_IQN}:k8s-vol-bigbrother-config
-            lun: 0
-            fsType: ext4
-            readOnly: false
-            chapAuthDiscovery: false
-            chapAuthSession: true
-            secretRef:
-              name: tvault-iscsi-chap
-        - name: k8s-vol-bigbrother-cache
-          iscsi:
-            targetPortal: ${ISCSI_PORTAL}
-            iqn: ${ISCSI_IQN}:k8s-vol-bigbrother-cache
+            iqn: ${ISCSI_IQN}:k8s-vol-hyperion-config
             lun: 0
             fsType: ext4
             readOnly: false
@@ -102,7 +89,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-eslabs-bigbrother
+  name: ingress-eslabs-hyperion
   namespace: eslabs
 spec:
   rules:
@@ -112,7 +99,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: bigbrother
+                name: hyperion
                 port:
                   number: 80
 EOF

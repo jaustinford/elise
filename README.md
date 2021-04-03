@@ -11,7 +11,7 @@ Bash Wrapper for managing Kubernetes on Elysian Skies
 - [ntopng traffic monitor](https://labs.elysianskies.com/ntopng)
 - [pihole console](https://labs.elysianskies.com/pihole/admin/)
 - [tautulli plex monitor](https://labs.elysianskies.com/tautulli/)
-- [bigbrother home security](https://labs.elysianskies.com/zm/)
+- [hyperion home security](https://labs.elysianskies.com/zm/)
 - [deluge web torrent server](https://labs.elysianskies.com/deluge)
 
 ### git
