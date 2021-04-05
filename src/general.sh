@@ -405,7 +405,7 @@ vars_ensure () {
             print_message stderr 'vault file not found' "${ELISE_ROOT_DIR}/.vault.txt"
             exit 1
 
-        elif [ "$attempt" == "ERROR! input is not vault encrypted data/root/src/elise.sh is not a vault encrypted file for /root/src/elise.sh" ]; then
+        elif [ "$attempt" == "ERROR! input is not vault encrypted data${ELISE_ROOT_DIR}/src/elise.sh is not a vault encrypted file for ${ELISE_ROOT_DIR}/src/elise.sh" ]; then
             print_message stdout 'vault file already decrypted' "${ELISE_ROOT_DIR}/.vault.txt"
 
         elif [ -z "$attempt" ]; then
