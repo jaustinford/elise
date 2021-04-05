@@ -380,7 +380,6 @@ vars_ensure () {
     filestate="$1"
 
     chmod 600 "${ELISE_ROOT_DIR}/.vault.txt" 2> /dev/null
-
     if [ "$filestate" == 'encrypted' ]; then
         while [ "$(head -1 ${ELISE_ROOT_DIR}/src/elise.sh)" != '$ANSIBLE_VAULT;1.1;AES256' ]; do
             print_message stdout 'encrypting variables' "${ELISE_ROOT_DIR}/src/elise.sh"
