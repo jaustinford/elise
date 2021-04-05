@@ -9,8 +9,8 @@ alias tree='tree -C'
 alias countdown="${ELISE_ROOT_DIR}/scripts/countdown.sh"
 alias eslabs_deploy="${ELISE_ROOT_DIR}/scripts/eslabs.sh deploy"
 alias eslabs_destroy="${ELISE_ROOT_DIR}/scripts/eslabs.sh destroy"
-alias hyperion_off="${KUBE_AUTOMATOR} stop eslabs kharon; ${ANSIBLE_PLAYBOOK}/watchers.yml --extra-vars \"option=stop\""
-alias hyperion_on="${KUBE_AUTOMATOR} start eslabs kharon; ${ANSIBLE_PLAYBOOK}/watchers.yml --extra-vars \"option=start\""
+alias hyperion_off="${KUBE_AUTOMATOR} stop eslabs hyperion; ${ANSIBLE_PLAYBOOK}/watchers.yml --extra-vars \"option=stop\""
+alias hyperion_on="${KUBE_AUTOMATOR} start eslabs hyperion; ${ANSIBLE_PLAYBOOK}/watchers.yml --extra-vars \"option=start\""
 alias nuke="${ELISE_ROOT_DIR}/scripts/countdown.sh \"${ELISE_ROOT_DIR}/scripts/eslabs.sh destroy; ${ELISE_ROOT_DIR}/scripts/eslabs.sh deploy\""
 alias scp='scp -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no -o LogLevel=ERROR'
 alias ssh='ssh -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no -o LogLevel=ERROR'
