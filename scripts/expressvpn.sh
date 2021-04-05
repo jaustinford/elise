@@ -24,7 +24,6 @@ if [ "${MODE}" == 'change' ]; then
         "${ELISE_ROOT_DIR}/scripts/run_manifest.sh" apply kharon
         "${ELISE_ROOT_DIR}/scripts/kube_automator.sh" start eslabs kharon
 
-
     else
         print_message stderr 'server already connected!' "${SERVER}"
         exit 1
