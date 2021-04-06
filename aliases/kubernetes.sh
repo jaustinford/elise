@@ -1,11 +1,10 @@
 KUBE_AUTOMATOR="${ELISE_ROOT_DIR}/scripts/kube_automator.sh"
-RUN_MANIFEST="${ELISE_ROOT_DIR}/scripts/run_manifest.sh"
 
 # kubernetes - manifests
-alias k_manifest_apply="${RUN_MANIFEST} apply"
-alias k_manifest_delete="${RUN_MANIFEST} delete"
-alias k_manifest_diff="${RUN_MANIFEST} diff"
-alias k_manifest_edit="${RUN_MANIFEST} edit"
+alias k_manifest_apply="kube_manifest apply"
+alias k_manifest_delete="kube_manifest delete"
+alias k_manifest_diff="kube_manifest diff"
+alias k_manifest_edit="kube_manifest edit"
 alias k_manifest_list="ls -m1 ${ELISE_ROOT_DIR}/manifests | cut -d'.' -f1"
 
 # kubernetes - general

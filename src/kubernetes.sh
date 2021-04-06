@@ -104,6 +104,19 @@ EOF
     chmod 600 "$home_dir/.kube/config"
 }
 
+kube_manifest () {
+    mode="$1"
+    manifest="$2"
+
+    if [ "$mode" == 'edit' ]; then
+        "${EDITOR}" "${ELISE_ROOT_DIR}/manifests/$manifest.sh"
+
+    else
+        "${ELISE_ROOT_DIR}/manifests/$manifest.sh" "$mode"
+
+    fi
+}
+
 ####################################################
 # pod determination
 ####################################################
