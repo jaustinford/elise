@@ -100,6 +100,8 @@ users:
     client-certificate-data: ${KUBE_CONFIG_CLIENT_CERTIFICATE_DATA}
     client-key-data: ${KUBE_CONFIG_CLIENT_KEY_DATA}
 EOF
+
+    chmod 600 "$home_dir/.kube/config"
 }
 
 ####################################################
