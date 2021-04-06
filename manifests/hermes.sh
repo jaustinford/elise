@@ -40,8 +40,8 @@ data:
 
     if [ "\${MODE}" == 'generate' ]; then
         WEBROOT='/usr/local/apache2/htdocs'
-        mkdir -p \${WEBROOT}/.well-known/acme-challenge
-        chmod 777 \${WEBROOT}/.well-known/acme-challenge
+        mkdir -p "\${WEBROOT}/.well-known/acme-challenge"
+        chmod 777 "\${WEBROOT}/.well-known/acme-challenge"
 
         for item in \${LAB_SSL_DOMAINS[@]}; do
             DOMAINS+="\$item,"
