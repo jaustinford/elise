@@ -18,15 +18,12 @@ if [ ! -z "${ELISE_PROFILE}" ]; then
 
     fi
 
-    for item in $(find "${ELISE_ROOT_DIR}/src" -type f); do
-        print_message stdout 'importing src module' "$item"
-        . "$item"
+    for dir in src aliases; do
+        for item in $(find "${ELISE_ROOT_DIR}/$dir" -type f); do
+            print_message stdout "importing $dir module" "$item"
+            . "$item"
 
-    done
-
-    for item in $(find "${ELISE_ROOT_DIR}/aliases" -type f); do
-        print_message stdout 'importing alias module' "$item"
-        . "$item"
+        done
 
     done
 
