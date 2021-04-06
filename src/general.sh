@@ -241,7 +241,7 @@ countdown_to_cmd () {
 
     fi
 
-    print_message stdout "executing $command"
+    print_message stdout "executing '$command'"
     /bin/bash -c "$command"
 }
 
