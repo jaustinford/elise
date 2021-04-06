@@ -63,6 +63,17 @@ elif [ "${SHELL_HOST_PROMPT_COLOR}" == 'darkgray' ]; then SHELL_HOST_PROMPT_CODE
 elif [ "${SHELL_HOST_PROMPT_COLOR}" == 'lightgray' ]; then SHELL_HOST_PROMPT_CODE="${ECHO_LIGHTGRAY}"
 fi
 
+if [ "${SHELL_TIME_PROMPT_COLOR}" == 'white' ]; then SHELL_TIME_PROMPT_CODE="${ECHO_WHITE}"
+elif [ "${SHELL_TIME_PROMPT_COLOR}" == 'blue' ]; then SHELL_TIME_PROMPT_CODE="${ECHO_BLUE}"
+elif [ "${SHELL_TIME_PROMPT_COLOR}" == 'green' ]; then SHELL_TIME_PROMPT_CODE="${ECHO_GREEN}"
+elif [ "${SHELL_TIME_PROMPT_COLOR}" == 'cyan' ]; then SHELL_TIME_PROMPT_CODE="${ECHO_CYAN}"
+elif [ "${SHELL_TIME_PROMPT_COLOR}" == 'red' ]; then SHELL_TIME_PROMPT_CODE="${ECHO_RED}"
+elif [ "${SHELL_TIME_PROMPT_COLOR}" == 'purple' ]; then SHELL_TIME_PROMPT_CODE="${ECHO_PURPLE}"
+elif [ "${SHELL_TIME_PROMPT_COLOR}" == 'yellow' ]; then SHELL_TIME_PROMPT_CODE="${ECHO_YELLOW}"
+elif [ "${SHELL_TIME_PROMPT_COLOR}" == 'darkgray' ]; then SHELL_TIME_PROMPT_CODE="${ECHO_DARKGRAY}"
+elif [ "${SHELL_TIME_PROMPT_COLOR}" == 'lightgray' ]; then SHELL_TIME_PROMPT_CODE="${ECHO_LIGHTGRAY}"
+fi
+
 if [ "${SHELL_CWD_PROMPT_COLOR}" == 'white' ]; then SHELL_CWD_PROMPT_CODE="${ECHO_WHITE}"
 elif [ "${SHELL_CWD_PROMPT_COLOR}" == 'blue' ]; then SHELL_CWD_PROMPT_CODE="${ECHO_BLUE}"
 elif [ "${SHELL_CWD_PROMPT_COLOR}" == 'green' ]; then SHELL_CWD_PROMPT_CODE="${ECHO_GREEN}"
@@ -98,11 +109,13 @@ fi
 
 colors () {
     user_color="$1"
-    cwd_color="$2"
+    time_color="$2"
     host_color="$3"
+    cwd_color="$4"
 
-    if [ "$#" == '3' ]; then
+    if [ "$#" == '4' ]; then
         vars_update SHELL_USER_PROMPT_COLOR "$user_color"
+        vars_update SHELL_TIME_PROMPT_COLOR "$time_color"
         vars_update SHELL_CWD_PROMPT_COLOR "$cwd_color"
         vars_update SHELL_HOST_PROMPT_COLOR "$host_color"
 
@@ -129,10 +142,10 @@ print_message () {
 
     if [ "$print_message_mode" == 'stdout' ]; then
         if [ ! -z "$message_2" ]; then
-            echo -e "  ${SHELL_STDOUT_CODE}OUT${ECHO_RESET} [ ${SHELL_CWD_PROMPT_CODE}$(date '+%Y.%m.%d - %H:%M:%S')${ECHO_RESET} ] ${SHELL_HOST_PROMPT_CODE}$message_1${ECHO_RESET} | ${SHELL_CWD_PROMPT_CODE}$message_2${ECHO_RESET}"
+            echo -e "  ${SHELL_STDOUT_CODE}OUT${ECHO_RESET} [ ${SHELL_TIME_PROMPT_CODE}$(date '+%Y.%m.%d - %H:%M:%S')${ECHO_RESET} ] ${SHELL_HOST_PROMPT_CODE}$message_1${ECHO_RESET} | ${SHELL_CWD_PROMPT_CODE}$message_2${ECHO_RESET}"
 
         else
-            echo -e "  ${SHELL_STDOUT_CODE}OUT${ECHO_RESET} [ ${SHELL_CWD_PROMPT_CODE}$(date '+%Y.%m.%d - %H:%M:%S')${ECHO_RESET} ] ${SHELL_HOST_PROMPT_CODE}$message_1${ECHO_RESET}"
+            echo -e "  ${SHELL_STDOUT_CODE}OUT${ECHO_RESET} [ ${SHELL_TIME_PROMPT_CODE}$(date '+%Y.%m.%d - %H:%M:%S')${ECHO_RESET} ] ${SHELL_HOST_PROMPT_CODE}$message_1${ECHO_RESET}"
 
         fi
 
