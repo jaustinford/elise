@@ -227,6 +227,24 @@ print_expressvpn_servers () {
     done
 }
 
+countdown_to_cmd () {
+    command="$1"
+    time="$2"
+
+    if [ ! -z "$time" ] && \
+       [ ! -z "$command" ]; then
+        print_message stdout "scheduled for $time" "$command"
+        while [ "$(date +%H:%M:%S)" != "$time" ]; do
+            sleep 1
+
+        done
+
+    fi
+
+    print_message stdout "executing $command"
+    /bin/bash -c "$command"
+}
+
 ####################################################
 # init tasks
 ####################################################
