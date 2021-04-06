@@ -16,9 +16,9 @@ alias a_soteria_deploy="${ANSIBLE_PLAYBOOK}/soteria.yml --extra-vars option=depl
 alias a_soteria_execute="${ANSIBLE_PLAYBOOK}/soteria.yml --extra-vars option=execute"
 alias a_soteria_remove="${ANSIBLE_PLAYBOOK}/soteria.yml --extra-vars option=remove"
 alias a_sudoers="${ANSIBLE_PLAYBOOK}/sudoers.yml --ask-become-pass"
-alias a_watchers_install="${ANSIBLE_PLAYBOOK}/watchers.yml --extra-vars \"option=install\""
-alias a_watchers_start="${ANSIBLE_PLAYBOOK}/watchers.yml --extra-vars \"option=start\""
-alias a_watchers_stop="${ANSIBLE_PLAYBOOK}/watchers.yml --extra-vars \"option=stop\""
+alias a_watchers_install="${ANSIBLE_PLAYBOOK}/watchers.yml --extra-vars option=install"
+alias a_watchers_start="${ANSIBLE_PLAYBOOK}/watchers.yml --extra-vars option=start"
+alias a_watchers_stop="${ANSIBLE_PLAYBOOK}/watchers.yml --extra-vars option=stop"
 
 # ansible-vault
 alias a_decrypt="ansible-vault decrypt --vault-password-file=~/.vault.txt"
