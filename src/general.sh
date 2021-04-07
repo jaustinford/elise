@@ -1,113 +1,74 @@
 ####################################################
-# shell coloring
+# colors
 ####################################################
 
-ECHO_TYPE='bold'
+export_color_codes () {
+    ECHO_FORMAT_TEXT='normal'
+    BASH_COLORS=(
+        '30m|black'
+        '31m|red'
+        '32m|green'
+        '33m|yellow'
+        '34m|blue'
+        '35m|purple'
+        '36m|cyan'
+        '37m|lightgray'
+        '90m|gray'
+        '91m|lightred'
+        '92m|lightgreen'
+        '93m|lightyellow'
+        '94m|lightblue'
+        '95m|lightpurple'
+        '96m|lightcyan'
+        '97m|white'
+    )
 
-if [ "${ECHO_TYPE}" == 'bold' ]; then ECHO_START='\033['
-elif [ "${ECHO_TYPE}" == 'regular' ]; then ECHO_START='\e['
-fi
+    ECHO_START_CODE='\e['
+    ECHO_RESET="${ECHO_START_CODE}00m"
+    export ECHO_RESET
 
-ECHO_WHITE="${ECHO_START}1;37m"
-ECHO_BLUE="${ECHO_START}1;34m"
-ECHO_GREEN="${ECHO_START}1;32m"
-ECHO_CYAN="${ECHO_START}1;36m"
-ECHO_RED="${ECHO_START}1;31m"
-ECHO_PURPLE="${ECHO_START}1;35m"
-ECHO_YELLOW="${ECHO_START}1;33m"
-ECHO_DARKGRAY="${ECHO_START}1;30m"
-ECHO_LIGHTGRAY="${ECHO_START}0;37m"
-ECHO_RESET="${ECHO_START}00m"
+    if [ "${ECHO_FORMAT_TEXT}" == 'normal' ]; then ECHO_FORMAT_CODE='0'
+    elif [ "${ECHO_FORMAT_TEXT}" == 'bold' ]; then ECHO_FORMAT_CODE='1'
+    elif [ "${ECHO_FORMAT_TEXT}" == 'italics' ]; then ECHO_FORMAT_CODE='3'
+    fi
 
-if [ "${SHELL_STDOUT_COLOR}" == 'white' ]; then SHELL_STDOUT_CODE="${ECHO_WHITE}"
-elif [ "${SHELL_STDOUT_COLOR}" == 'blue' ]; then SHELL_STDOUT_CODE="${ECHO_BLUE}"
-elif [ "${SHELL_STDOUT_COLOR}" == 'green' ]; then SHELL_STDOUT_CODE="${ECHO_GREEN}"
-elif [ "${SHELL_STDOUT_COLOR}" == 'cyan' ]; then SHELL_STDOUT_CODE="${ECHO_CYAN}"
-elif [ "${SHELL_STDOUT_COLOR}" == 'red' ]; then SHELL_STDOUT_CODE="${ECHO_RED}"
-elif [ "${SHELL_STDOUT_COLOR}" == 'purple' ]; then SHELL_STDOUT_CODE="${ECHO_PURPLE}"
-elif [ "${SHELL_STDOUT_COLOR}" == 'yellow' ]; then SHELL_STDOUT_CODE="${ECHO_YELLOW}"
-elif [ "${SHELL_STDOUT_COLOR}" == 'darkgray' ]; then SHELL_STDOUT_CODE="${ECHO_DARKGRAY}"
-elif [ "${SHELL_STDOUT_COLOR}" == 'lightgray' ]; then SHELL_STDOUT_CODE="${ECHO_LIGHTGRAY}"
-fi
+    shell_vars=$(egrep '^SHELL_' "${ELISE_ROOT_DIR}/src/elise.sh")
 
-if [ "${SHELL_STDERR_COLOR}" == 'white' ]; then SHELL_STDERR_CODE="${ECHO_WHITE}"
-elif [ "${SHELL_STDERR_COLOR}" == 'blue' ]; then SHELL_STDERR_CODE="${ECHO_BLUE}"
-elif [ "${SHELL_STDERR_COLOR}" == 'green' ]; then SHELL_STDERR_CODE="${ECHO_GREEN}"
-elif [ "${SHELL_STDERR_COLOR}" == 'cyan' ]; then SHELL_STDERR_CODE="${ECHO_CYAN}"
-elif [ "${SHELL_STDERR_COLOR}" == 'red' ]; then SHELL_STDERR_CODE="${ECHO_RED}"
-elif [ "${SHELL_STDERR_COLOR}" == 'purple' ]; then SHELL_STDERR_CODE="${ECHO_PURPLE}"
-elif [ "${SHELL_STDERR_COLOR}" == 'yellow' ]; then SHELL_STDERR_CODE="${ECHO_YELLOW}"
-elif [ "${SHELL_STDERR_COLOR}" == 'darkgray' ]; then SHELL_STDERR_CODE="${ECHO_DARKGRAY}"
-elif [ "${SHELL_STDERR_COLOR}" == 'lightgray' ]; then SHELL_STDERR_CODE="${ECHO_LIGHTGRAY}"
-fi
+    for var in $shell_vars; do
+        key="$(echo "$var" | cut -d'=' -f1 | sed "s/_COLOR/_CODE/g")"
+        value="$(echo "$var" | cut -d'=' -f2 | sed "s/'//g")"
+        nested_value="$(echo "$value" | egrep '^"\$')"
 
-if [ "${SHELL_USER_PROMPT_COLOR}" == 'white' ]; then SHELL_USER_PROMPT_CODE="${ECHO_WHITE}"
-elif [ "${SHELL_USER_PROMPT_COLOR}" == 'blue' ]; then SHELL_USER_PROMPT_CODE="${ECHO_BLUE}"
-elif [ "${SHELL_USER_PROMPT_COLOR}" == 'green' ]; then SHELL_USER_PROMPT_CODE="${ECHO_GREEN}"
-elif [ "${SHELL_USER_PROMPT_COLOR}" == 'cyan' ]; then SHELL_USER_PROMPT_CODE="${ECHO_CYAN}"
-elif [ "${SHELL_USER_PROMPT_COLOR}" == 'red' ]; then SHELL_USER_PROMPT_CODE="${ECHO_RED}"
-elif [ "${SHELL_USER_PROMPT_COLOR}" == 'purple' ]; then SHELL_USER_PROMPT_CODE="${ECHO_PURPLE}"
-elif [ "${SHELL_USER_PROMPT_COLOR}" == 'yellow' ]; then SHELL_USER_PROMPT_CODE="${ECHO_YELLOW}"
-elif [ "${SHELL_USER_PROMPT_COLOR}" == 'darkgray' ]; then SHELL_USER_PROMPT_CODE="${ECHO_DARKGRAY}"
-elif [ "${SHELL_USER_PROMPT_COLOR}" == 'lightgray' ]; then SHELL_USER_PROMPT_CODE="${ECHO_LIGHTGRAY}"
-fi
+        if [ ! -z "$nested_value" ]; then
+            original_key="$(echo "$nested_value" | sed -E 's/[${}"]//g')"
+            value="$(egrep "^$original_key" "${ELISE_ROOT_DIR}/src/elise.sh" | cut -d'=' -f2 | sed "s/'//g")"
 
-if [ "${SHELL_HOST_PROMPT_COLOR}" == 'white' ]; then SHELL_HOST_PROMPT_CODE="${ECHO_WHITE}"
-elif [ "${SHELL_HOST_PROMPT_COLOR}" == 'blue' ]; then SHELL_HOST_PROMPT_CODE="${ECHO_BLUE}"
-elif [ "${SHELL_HOST_PROMPT_COLOR}" == 'green' ]; then SHELL_HOST_PROMPT_CODE="${ECHO_GREEN}"
-elif [ "${SHELL_HOST_PROMPT_COLOR}" == 'cyan' ]; then SHELL_HOST_PROMPT_CODE="${ECHO_CYAN}"
-elif [ "${SHELL_HOST_PROMPT_COLOR}" == 'red' ]; then SHELL_HOST_PROMPT_CODE="${ECHO_RED}"
-elif [ "${SHELL_HOST_PROMPT_COLOR}" == 'purple' ]; then SHELL_HOST_PROMPT_CODE="${ECHO_PURPLE}"
-elif [ "${SHELL_HOST_PROMPT_COLOR}" == 'yellow' ]; then SHELL_HOST_PROMPT_CODE="${ECHO_YELLOW}"
-elif [ "${SHELL_HOST_PROMPT_COLOR}" == 'darkgray' ]; then SHELL_HOST_PROMPT_CODE="${ECHO_DARKGRAY}"
-elif [ "${SHELL_HOST_PROMPT_COLOR}" == 'lightgray' ]; then SHELL_HOST_PROMPT_CODE="${ECHO_LIGHTGRAY}"
-fi
+        fi
 
-if [ "${SHELL_TIME_PROMPT_COLOR}" == 'white' ]; then SHELL_TIME_PROMPT_CODE="${ECHO_WHITE}"
-elif [ "${SHELL_TIME_PROMPT_COLOR}" == 'blue' ]; then SHELL_TIME_PROMPT_CODE="${ECHO_BLUE}"
-elif [ "${SHELL_TIME_PROMPT_COLOR}" == 'green' ]; then SHELL_TIME_PROMPT_CODE="${ECHO_GREEN}"
-elif [ "${SHELL_TIME_PROMPT_COLOR}" == 'cyan' ]; then SHELL_TIME_PROMPT_CODE="${ECHO_CYAN}"
-elif [ "${SHELL_TIME_PROMPT_COLOR}" == 'red' ]; then SHELL_TIME_PROMPT_CODE="${ECHO_RED}"
-elif [ "${SHELL_TIME_PROMPT_COLOR}" == 'purple' ]; then SHELL_TIME_PROMPT_CODE="${ECHO_PURPLE}"
-elif [ "${SHELL_TIME_PROMPT_COLOR}" == 'yellow' ]; then SHELL_TIME_PROMPT_CODE="${ECHO_YELLOW}"
-elif [ "${SHELL_TIME_PROMPT_COLOR}" == 'darkgray' ]; then SHELL_TIME_PROMPT_CODE="${ECHO_DARKGRAY}"
-elif [ "${SHELL_TIME_PROMPT_COLOR}" == 'lightgray' ]; then SHELL_TIME_PROMPT_CODE="${ECHO_LIGHTGRAY}"
-fi
+        for bash_color in ${BASH_COLORS[@]}; do
+            color_found=''
+            color_code="$(echo "$bash_color" | cut -d'|' -f1)"
+            color_name="$(echo "$bash_color" | cut -d'|' -f2)"
 
-if [ "${SHELL_CWD_PROMPT_COLOR}" == 'white' ]; then SHELL_CWD_PROMPT_CODE="${ECHO_WHITE}"
-elif [ "${SHELL_CWD_PROMPT_COLOR}" == 'blue' ]; then SHELL_CWD_PROMPT_CODE="${ECHO_BLUE}"
-elif [ "${SHELL_CWD_PROMPT_COLOR}" == 'green' ]; then SHELL_CWD_PROMPT_CODE="${ECHO_GREEN}"
-elif [ "${SHELL_CWD_PROMPT_COLOR}" == 'cyan' ]; then SHELL_CWD_PROMPT_CODE="${ECHO_CYAN}"
-elif [ "${SHELL_CWD_PROMPT_COLOR}" == 'red' ]; then SHELL_CWD_PROMPT_CODE="${ECHO_RED}"
-elif [ "${SHELL_CWD_PROMPT_COLOR}" == 'purple' ]; then SHELL_CWD_PROMPT_CODE="${ECHO_PURPLE}"
-elif [ "${SHELL_CWD_PROMPT_COLOR}" == 'yellow' ]; then SHELL_CWD_PROMPT_CODE="${ECHO_YELLOW}"
-elif [ "${SHELL_CWD_PROMPT_COLOR}" == 'darkgray' ]; then SHELL_CWD_PROMPT_CODE="${ECHO_DARKGRAY}"
-elif [ "${SHELL_CWD_PROMPT_COLOR}" == 'lightgray' ]; then SHELL_CWD_PROMPT_CODE="${ECHO_LIGHTGRAY}"
-fi
+            if [ "$value" == "$color_name" ]; then
+                export $key="${ECHO_START_CODE}${ECHO_FORMAT_CODE};$color_code"
+                color_found='true'
+                break
 
-if [ "${SHELL_KUBE_DISPLAY_BANNER_COLOR}" == 'white' ]; then SHELL_KUBE_DISPLAY_BANNER_CODE="${ECHO_WHITE}"
-elif [ "${SHELL_KUBE_DISPLAY_BANNER_COLOR}" == 'blue' ]; then SHELL_KUBE_DISPLAY_BANNER_CODE="${ECHO_BLUE}"
-elif [ "${SHELL_KUBE_DISPLAY_BANNER_COLOR}" == 'green' ]; then SHELL_KUBE_DISPLAY_BANNER_CODE="${ECHO_GREEN}"
-elif [ "${SHELL_KUBE_DISPLAY_BANNER_COLOR}" == 'cyan' ]; then SHELL_KUBE_DISPLAY_BANNER_CODE="${ECHO_CYAN}"
-elif [ "${SHELL_KUBE_DISPLAY_BANNER_COLOR}" == 'red' ]; then SHELL_KUBE_DISPLAY_BANNER_CODE="${ECHO_RED}"
-elif [ "${SHELL_KUBE_DISPLAY_BANNER_COLOR}" == 'purple' ]; then SHELL_KUBE_DISPLAY_BANNER_CODE="${ECHO_PURPLE}"
-elif [ "${SHELL_KUBE_DISPLAY_BANNER_COLOR}" == 'yellow' ]; then SHELL_KUBE_DISPLAY_BANNER_CODE="${ECHO_YELLOW}"
-elif [ "${SHELL_KUBE_DISPLAY_BANNER_COLOR}" == 'darkgray' ]; then SHELL_KUBE_DISPLAY_BANNER_CODE="${ECHO_DARKGRAY}"
-elif [ "${SHELL_KUBE_DISPLAY_BANNER_COLOR}" == 'lightgray' ]; then SHELL_KUBE_DISPLAY_BANNER_CODE="${ECHO_LIGHTGRAY}"
-fi
+            fi
 
-if [ "${SHELL_KUBE_DISPLAY_KEY_COLOR}" == 'white' ]; then SHELL_KUBE_DISPLAY_KEY_CODE="${ECHO_WHITE}"
-elif [ "${SHELL_KUBE_DISPLAY_KEY_COLOR}" == 'blue' ]; then SHELL_KUBE_DISPLAY_KEY_CODE="${ECHO_BLUE}"
-elif [ "${SHELL_KUBE_DISPLAY_KEY_COLOR}" == 'green' ]; then SHELL_KUBE_DISPLAY_KEY_CODE="${ECHO_GREEN}"
-elif [ "${SHELL_KUBE_DISPLAY_KEY_COLOR}" == 'cyan' ]; then SHELL_KUBE_DISPLAY_KEY_CODE="${ECHO_CYAN}"
-elif [ "${SHELL_KUBE_DISPLAY_KEY_COLOR}" == 'red' ]; then SHELL_KUBE_DISPLAY_KEY_CODE="${ECHO_RED}"
-elif [ "${SHELL_KUBE_DISPLAY_KEY_COLOR}" == 'purple' ]; then SHELL_KUBE_DISPLAY_KEY_CODE="${ECHO_PURPLE}"
-elif [ "${SHELL_KUBE_DISPLAY_KEY_COLOR}" == 'yellow' ]; then SHELL_KUBE_DISPLAY_KEY_CODE="${ECHO_YELLOW}"
-elif [ "${SHELL_KUBE_DISPLAY_KEY_COLOR}" == 'darkgray' ]; then SHELL_KUBE_DISPLAY_KEY_CODE="${ECHO_DARKGRAY}"
-elif [ "${SHELL_KUBE_DISPLAY_KEY_COLOR}" == 'lightgray' ]; then SHELL_KUBE_DISPLAY_KEY_CODE="${ECHO_LIGHTGRAY}"
-fi
+        done
 
-colors () {
+        if [ -z "$color_found" ]; then
+            print_message stderr 'incorrect color value' "$key='$value'"
+            break
+
+        fi
+
+    done
+}
+
+update_colors () {
     user_color="$1"
     time_color="$2"
     host_color="$3"
@@ -424,6 +385,7 @@ vars_ensure () {
         if [ "$(head -1 ${ELISE_ROOT_DIR}/src/elise.sh)" != '$ANSIBLE_VAULT;1.1;AES256' ]; then
             . "${ELISE_ROOT_DIR}/src/elise.sh"
             . "${ELISE_ROOT_DIR}/src/general.sh"
+            export_color_codes
 
         fi
 

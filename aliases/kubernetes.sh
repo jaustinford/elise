@@ -21,7 +21,6 @@ alias k_shell="${KUBE_AUTOMATOR} shell"
 alias k_start="${KUBE_AUTOMATOR} start"
 alias k_stop="${KUBE_AUTOMATOR} stop"
 alias k_tail="${KUBE_AUTOMATOR} tail"
-alias k_watch="watch -n 5 -t -c ${KUBE_AUTOMATOR} display"
 
 # kubernetes - kube-system namespace
 alias k_system_describe="${KUBE_AUTOMATOR} describe kube-system"
@@ -29,7 +28,7 @@ alias k_system_display="${KUBE_AUTOMATOR} display kube-system"
 alias k_system_events="${KUBE_AUTOMATOR} get kube-system events"
 alias k_system_get="${KUBE_AUTOMATOR} get kube-system"
 alias k_system_tail="${KUBE_AUTOMATOR} tail kube-system"
-alias k_system_watch="watch -n 5 -t -c ${KUBE_AUTOMATOR} display kube-system"
+alias k_system_watch="while true; do clear; ${KUBE_AUTOMATOR} display kube-system; sleep 5; done"
 
 # kubernetes - ingress-nginx namespace
 alias k_ingress_describe="${KUBE_AUTOMATOR} describe ingress-nginx"
@@ -37,7 +36,7 @@ alias k_ingress_display="${KUBE_AUTOMATOR} display ingress-nginx"
 alias k_ingress_events="${KUBE_AUTOMATOR} get ingress-nginx events"
 alias k_ingress_get="${KUBE_AUTOMATOR} get ingress-nginx"
 alias k_ingress_tail="${KUBE_AUTOMATOR} tail ingress-nginx"
-alias k_ingress_watch="watch -n 5 -t -c ${KUBE_AUTOMATOR} display ingress-nginx"
+alias k_ingress_watch="while true; do clear; ${KUBE_AUTOMATOR} display ingress-nginx; sleep 5; done"
 
 # kubernetes - eslabs namespace
 alias k_eslabs_crash="${KUBE_AUTOMATOR} crash eslabs"
@@ -55,4 +54,4 @@ alias k_eslabs_shell="${KUBE_AUTOMATOR} shell eslabs"
 alias k_eslabs_start="${KUBE_AUTOMATOR} start eslabs"
 alias k_eslabs_stop="${KUBE_AUTOMATOR} stop eslabs"
 alias k_eslabs_tail="${KUBE_AUTOMATOR} tail eslabs"
-alias k_eslabs_watch="watch -n 5 -t -c ${KUBE_AUTOMATOR} display eslabs"
+alias k_eslabs_watch="while true; do clear; ${KUBE_AUTOMATOR} display eslabs; sleep 5; done"

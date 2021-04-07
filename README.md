@@ -58,7 +58,7 @@ deploying container attempts to decrypt this file and will fail the container if
 
 once decrypted, the values can be retrieved in bash via the alias : `_vars_edit`
 
-> **NOTE** : available color codes : `white`, `blue`, `green`, `cyan`, `red`, `purple`, `yellow`, `darkgray`, `lightgray`
+> **NOTE** : color values must match a value specified in this [`BASH_COLORS`](https://github.com/jaustinford/elise/blob/main/src/general.sh#L7) array
 
 > **NOTE** : assign `KHARON_EXPRESSVPN_SERVER` with one of the [expressvpn servers](https://github.com/jaustinford/elise/blob/main/files/expressvpn_servers.txt)
 
@@ -67,13 +67,15 @@ once decrypted, the values can be retrieved in bash via the alias : `_vars_edit`
 
 | name                                       | type | default value                               | base64 |
 |--------------------------------------------|------|---------------------------------------------|--------|
-| **SHELL_USER_PROMPT_COLOR**                | str  |                                             |        |
-| **SHELL_TIME_PROMPT_COLOR**                | str  |                                             |        |
-| **SHELL_HOST_PROMPT_COLOR**                | str  |                                             |        |
-| **SHELL_CWD_PROMPT_COLOR**                 | str  |                                             |        |
+| **SHELL_USER_PROMPT_COLOR**                | str  | `green`                                     |        |
+| **SHELL_TIME_PROMPT_COLOR**                | str  | `gray`                                      |        |
+| **SHELL_HOST_PROMPT_COLOR**                | str  | `white`                                     |        |
+| **SHELL_CWD_PROMPT_COLOR**                 | str  | `gray`                                      |        |
 | **SHELL_STDOUT_COLOR**                     | str  | `${SHELL_USER_PROMPT_COLOR}`                |        |
 | **SHELL_STDERR_COLOR**                     | str  | `red`                                       |        |
-| **GITHUB_DEFAULT_COMMIT_MESSAGE**          | str  |                                             |        |
+| **SHELL_KUBE_DISPLAY_BANNER_COLOR**        | str  | `${SHELL_CWD_PROMPT_COLOR}`                 |        |
+| **SHELL_KUBE_DISPLAY_KEY_COLOR**           | str  | `${SHELL_USER_PROMPT_COLOR}`                |        |
+| **GITHUB_DEFAULT_COMMIT_MESSAGE**          | str  | `automated debugging commit`                |        |
 | **GITHUB_DEFAULT_COMMIT_BRANCH**           | str  | `main`                                      |        |
 | **ISCSI_CHAP_SESSION_USERNAME**            | str  |                                             |        |
 | **ISCSI_CHAP_SESSION_PASSWORD**            | str  |                                             |        |
@@ -88,11 +90,11 @@ once decrypted, the values can be retrieved in bash via the alias : `_vars_edit`
 | **KUBE_CONFIG_CERTIFICATE_AUTHORITY_DATA** | str  |                                             | `true` |
 | **KUBE_CONFIG_CLIENT_CERTIFICATE_DATA**    | str  |                                             | `true` |
 | **KUBE_CONFIG_CLIENT_KEY_DATA**            | str  |                                             | `true` |
-| **KUBE_POD_NETWORK**                       | str  |                                             |        |
-| **KUBE_NODEPORT_HERMES**                   | str  |                                             |        |
-| **KUBE_NODEPORT_INGRESS**                  | str  |                                             |        |
+| **KUBE_POD_NETWORK**                       | str  | `10.244.0.0/16`                             |        |
+| **KUBE_NODEPORT_HERMES**                   | str  | `32565`                                     |        |
+| **KUBE_NODEPORT_INGRESS**                  | str  | `32566`                                     |        |
 | **KUBE_NODEPORT_PLEXSERVER**               | str  | `32400`                                     |        |
-| **KUBE_NODEPORT_SQUID**                    | str  |                                             |        |
+| **KUBE_NODEPORT_SQUID**                    | str  | `32566`                                     |        |
 | **KHARON_EXPRESSVPN_SERVER**               | str  | `usa-denver`                                |        |
 | **KHARON_EXPRESSVPN_USERNAME**             | str  |                                             | `true` |
 | **KHARON_EXPRESSVPN_PASSWORD**             | str  |                                             | `true` |
