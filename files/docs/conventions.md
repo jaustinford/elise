@@ -181,11 +181,17 @@
     }
     ```
 
- - **piped commands** - if piping is used, either in a command or through an interpolated command, each pipe will break out on a new line escaped with the unix `\` and is indented four spaces except if there's only one pipe, then the whole command must be on one line
+ - **piped commands** - if piping is used, either in a command or through an interpolated command, each pipe will break out on a new line escaped with the unix `\` and is indented four spaces except if there's only one pipe or if there is more than one interpolated command being assigned in a row, then the whole command must be on one line
     ```
     echo "$something" \
         | grep 'string' \
         | grep 'string_2'
+    ```
+    ```
+    echo "something" | grep 'string'
+    ```
+    ```
+    var="$(echo "something" | grep 'string')"
     ```
     ```
     var="$(echo "$something" \
@@ -193,7 +199,8 @@
         | grep 'string_2')"
     ```
     ```
-    var="$(echo "something" | grep 'string')"
+    var_1="$(echo "something" | grep 'string' | grep 'another_string')"
+    var_2="$(echo "something" | grep 'string' | grep 'another_string')"
     ```
 
  - **piped commands spacing** - blocks containing piped commands have one empty line before and one empty line after the block, same as other blocks
