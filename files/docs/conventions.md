@@ -188,10 +188,10 @@
         | grep 'string_2'
     ```
     ```
-    echo "something" | grep 'string'
+    echo 'something' | grep 'string'
     ```
     ```
-    var="$(echo "something" | grep 'string')"
+    var="$(echo 'something' | grep 'string')"
     ```
     ```
     var="$(echo "$something" \
@@ -199,8 +199,8 @@
         | grep 'string_2')"
     ```
     ```
-    var_1="$(echo "something" | grep 'string' | grep 'another_string')"
-    var_2="$(echo "something" | grep 'string' | grep 'another_string')"
+    var_1="$(echo 'something' | grep 'string' | grep 'another_string')"
+    var_2="$(echo 'something' | grep 'string' | grep 'another_string')"
     ```
 
  - **piped commands spacing** - blocks containing piped commands have one empty line before and one empty line after the block, same as other blocks
