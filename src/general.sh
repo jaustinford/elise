@@ -71,15 +71,15 @@ export_color_codes () {
 
 update_colors () {
     user_color="$1"
-    time_color="$2"
+    hist_color="$2"
     host_color="$3"
     cwd_color="$4"
 
     if [ "$#" == '4' ]; then
         vars_update SHELL_USER_PROMPT_COLOR "$user_color"
-        vars_update SHELL_TIME_PROMPT_COLOR "$time_color"
-        vars_update SHELL_CWD_PROMPT_COLOR "$cwd_color"
+        vars_update SHELL_HIST_PROMPT_COLOR "$hist_color"
         vars_update SHELL_HOST_PROMPT_COLOR "$host_color"
+        vars_update SHELL_CWD_PROMPT_COLOR "$cwd_color"
 
     fi
 }
@@ -104,10 +104,10 @@ print_message () {
 
     if [ "$print_message_mode" == 'stdout' ]; then
         if [ ! -z "$message_2" ]; then
-            echo -e "  ${SHELL_STDOUT_CODE}OUT${ECHO_RESET} [ ${SHELL_TIME_PROMPT_CODE}$(date '+%Y.%m.%d - %H:%M:%S')${ECHO_RESET} ] ${SHELL_HOST_PROMPT_CODE}$message_1${ECHO_RESET} | ${SHELL_CWD_PROMPT_CODE}$message_2${ECHO_RESET}"
+            echo -e "  ${SHELL_STDOUT_CODE}OUT${ECHO_RESET} [ ${SHELL_HIST_PROMPT_CODE}$(date '+%Y.%m.%d - %H:%M:%S')${ECHO_RESET} ] ${SHELL_HOST_PROMPT_CODE}$message_1${ECHO_RESET} | ${SHELL_CWD_PROMPT_CODE}$message_2${ECHO_RESET}"
 
         else
-            echo -e "  ${SHELL_STDOUT_CODE}OUT${ECHO_RESET} [ ${SHELL_TIME_PROMPT_CODE}$(date '+%Y.%m.%d - %H:%M:%S')${ECHO_RESET} ] ${SHELL_HOST_PROMPT_CODE}$message_1${ECHO_RESET}"
+            echo -e "  ${SHELL_STDOUT_CODE}OUT${ECHO_RESET} [ ${SHELL_HIST_PROMPT_CODE}$(date '+%Y.%m.%d - %H:%M:%S')${ECHO_RESET} ] ${SHELL_HOST_PROMPT_CODE}$message_1${ECHO_RESET}"
 
         fi
 

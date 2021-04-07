@@ -33,7 +33,7 @@
         delegate_to: localhost
         with_items:
           - SHELL_USER_PROMPT_COLOR
-          - SHELL_TIME_PROMPT_COLOR
+          - SHELL_HIST_PROMPT_COLOR
           - SHELL_HOST_PROMPT_COLOR
           - SHELL_CWD_PROMPT_COLOR
           - SHELL_STDERR_COLOR
