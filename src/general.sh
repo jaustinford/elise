@@ -24,8 +24,7 @@ export_color_codes () {
     )
 
     ECHO_START_CODE='\e['
-    ECHO_RESET="${ECHO_START_CODE}00m"
-    export ECHO_RESET
+    export ECHO_RESET="${ECHO_START_CODE}00m"
 
     if [ "${ECHO_FORMAT_TEXT}" == 'normal' ]; then ECHO_FORMAT_CODE='0'
     elif [ "${ECHO_FORMAT_TEXT}" == 'bold' ]; then ECHO_FORMAT_CODE='1'
