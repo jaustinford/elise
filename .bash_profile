@@ -3,7 +3,7 @@
 . "${ELISE_ROOT_DIR}/src/general.sh"
 
 vars_ensure decrypted
-PS1="  ${SHELL_STDOUT_CODE}OUT${ECHO_RESET} [ ${SHELL_CWD_PROMPT_CODE}$(date '+%Y.%m.%d - %H:%M:%S')${ECHO_RESET} ] "
+PS1="  ${SHELL_STDERR_CODE}DOC "
 
 if [ ! -z "${ELISE_PROFILE}" ]; then
     export PATH="${PATH}:${HOME}/.local/bin:${HOME}/bin"
