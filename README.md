@@ -67,7 +67,7 @@ once decrypted, the values can be retrieved in bash via the alias : `_vars_edit`
 
 | name                                       | type | default value                               | base64 |
 |--------------------------------------------|------|---------------------------------------------|--------|
-| **SHELL_USER_PROMPT_COLOR**                | str  | `green`                                     |        |
+| **SHELL_USER_PROMPT_COLOR**                | str  | `lightgreen`                                |        |
 | **SHELL_TIME_PROMPT_COLOR**                | str  | `gray`                                      |        |
 | **SHELL_HOST_PROMPT_COLOR**                | str  | `white`                                     |        |
 | **SHELL_CWD_PROMPT_COLOR**                 | str  | `gray`                                      |        |
