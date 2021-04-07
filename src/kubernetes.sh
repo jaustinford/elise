@@ -209,27 +209,27 @@ kube_display () {
 
     echo -e "
 
-$color_1    ${KUBE_DISPLAY_BANNER}                                   $ECHO_RESET
+$color_1    ${KUBE_DISPLAY_BANNER}                                   ${ECHO_RESET}
 
-      namespace : $color_2 $namespace                                $ECHO_RESET
+      namespace : $color_2 $namespace                                ${ECHO_RESET}
 
-$color_2  nodes                                                      $ECHO_RESET
+$color_2  nodes                                                      ${ECHO_RESET}
 
 $(kube_get $namespace nodes)
 
-$color_2  pods                                                       $ECHO_RESET
+$color_2  pods                                                       ${ECHO_RESET}
 
 $(kube_get $namespace pods)
 
-$color_2  services                                                   $ECHO_RESET
+$color_2  services                                                   ${ECHO_RESET}
 
 $(kube_get $namespace services)
 
-$color_2  endpoints                                                  $ECHO_RESET
+$color_2  endpoints                                                  ${ECHO_RESET}
 
 $(kube_get $namespace endpoints)
 
-$color_2  ingresses                                                  $ECHO_RESET
+$color_2  ingresses                                                  ${ECHO_RESET}
 
 $(kube_get $namespace ingresses)
 "
