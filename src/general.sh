@@ -35,13 +35,14 @@ export_color_codes () {
     shell_vars=$(egrep '^SHELL_' "${ELISE_ROOT_DIR}/src/elise.sh")
 
     for var in $shell_vars; do
-        key="$(echo "$var" | cut -d'=' -f1 | sed "s/_COLOR/_CODE/g")"
-        value="$(echo "$var" | cut -d'=' -f2 | sed "s/'//g")"
-        nested_value="$(echo "$value" | egrep '^"\$')"
+        key_color="$(echo "$var" | cut -d'=' -f1)"
+        key_code="$(echo "$key_color" | sed 's/_COLOR/_CODE/g')"
+        value_color="$(echo "$var" | cut -d'=' -f2 | sed "s/'//g")"
+        nested_value_color="$(echo "$value_color" | egrep '^"\$')"
 
-        if [ ! -z "$nested_value" ]; then
-            original_key="$(echo "$nested_value" | sed -E 's/[${}"]//g')"
-            value="$(egrep "^$original_key" "${ELISE_ROOT_DIR}/src/elise.sh" | cut -d'=' -f2 | sed "s/'//g")"
+        if [ ! -z "$nested_value_color" ]; then
+            original_key_color="$(echo "$nested_value_color" | sed -E 's/[${}"]//g')"
+            value_color="$(egrep "^$original_key_color" "${ELISE_ROOT_DIR}/src/elise.sh" | cut -d'=' -f2 | sed "s/'//g")"
 
         fi
 
@@ -50,8 +51,8 @@ export_color_codes () {
             color_code="$(echo "$bash_color" | cut -d'|' -f1)"
             color_name="$(echo "$bash_color" | cut -d'|' -f2)"
 
-            if [ "$value" == "$color_name" ]; then
-                export $key="${ECHO_START_CODE}${ECHO_FORMAT_CODE};$color_code"
+            if [ "$value_color" == "$color_name" ]; then
+                export "$key_code"="${ECHO_START_CODE}${ECHO_FORMAT_CODE};$color_code"
                 color_found='true'
                 break
 
@@ -60,7 +61,7 @@ export_color_codes () {
         done
 
         if [ -z "$color_found" ]; then
-            print_message stderr 'incorrect color value' "$key='$value'"
+            print_message stderr 'incorrect color value' "$key_code='$value_color'"
             break
 
         fi
