@@ -37,10 +37,10 @@ export_color_codes () {
     for var in $shell_vars; do
         key_color="$(echo "$var" | cut -d'=' -f1)"
         key_code="$(echo "$key_color" | sed 's/_COLOR/_CODE/g')"
-        value_color="$(echo "$var" | cut -d'=' -f2 | sed "s/'//g")"
-        nested_value_color="$(echo "$value_color" | egrep '^"\$')"
+        value_color="$(echo "$var" | cut -d'=' -f2 | sed -E "s/['\"]//g")"
 
-        if [ ! -z "$nested_value_color" ]; then
+        if [ ! -z "$(echo "$value_color" | egrep '^\$')" ]; then
+            nested_value_color="$(echo "$value_color" | egrep '^\$')"
             original_key_color="$(echo "$nested_value_color" | sed -E 's/[${}"]//g')"
             value_color="$(egrep "^$original_key_color" "${ELISE_ROOT_DIR}/src/elise.sh" | cut -d'=' -f2 | sed "s/'//g")"
 

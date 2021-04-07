@@ -7,6 +7,7 @@ set -e
 . "${ELISE_ROOT_DIR}/src/iscsi.sh"
 . "${ELISE_ROOT_DIR}/src/kubernetes.sh"
 
+export_color_codes
 print_message stdout started "$(date)"
 print_message stdout 'processing host' "$(hostname)"
 ensure_root
