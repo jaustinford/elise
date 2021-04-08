@@ -32,6 +32,7 @@
         register: elise_constants
         delegate_to: localhost
         with_items:
+          - SHELL_FORMAT_TYPE
           - SHELL_USER_PROMPT_COLOR
           - SHELL_HIST_PROMPT_COLOR
           - SHELL_HOST_PROMPT_COLOR

@@ -64,9 +64,9 @@ once decrypted, the values can be retrieved in bash via the alias : `_vars_edit`
 
 > **NOTE** : `base64` must be base64 encoded string
 
-
 | name                                       | type | default value                               | base64 |
 |--------------------------------------------|------|---------------------------------------------|--------|
+| **SHELL_FORMAT_TYPE**                      | str  | `normal`                                    |        |
 | **SHELL_USER_PROMPT_COLOR**                | str  | `lightgreen`                                |        |
 | **SHELL_HIST_PROMPT_COLOR**                | str  | `gray`                                      |        |
 | **SHELL_HOST_PROMPT_COLOR**                | str  | `white`                                     |        |

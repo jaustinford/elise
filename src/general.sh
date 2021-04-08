@@ -3,7 +3,6 @@
 ####################################################
 
 export_color_codes () {
-    ECHO_FORMAT_TEXT='normal'
     BASH_COLORS=(
         '30m|black'
         '31m|red'
@@ -26,12 +25,12 @@ export_color_codes () {
     ECHO_START_CODE='\e['
     export ECHO_RESET="${ECHO_START_CODE}00m"
 
-    if [ "${ECHO_FORMAT_TEXT}" == 'normal' ]; then ECHO_FORMAT_CODE='0'
-    elif [ "${ECHO_FORMAT_TEXT}" == 'bold' ]; then ECHO_FORMAT_CODE='1'
-    elif [ "${ECHO_FORMAT_TEXT}" == 'italics' ]; then ECHO_FORMAT_CODE='3'
+    if [ "${SHELL_FORMAT_TYPE}" == 'normal' ]; then ECHO_FORMAT_CODE='0'
+    elif [ "${SHELL_FORMAT_TYPE}" == 'bold' ]; then ECHO_FORMAT_CODE='1'
+    elif [ "${SHELL_FORMAT_TYPE}" == 'italics' ]; then ECHO_FORMAT_CODE='3'
     fi
 
-    shell_vars=$(egrep '^SHELL_' "${ELISE_ROOT_DIR}/src/elise.sh")
+    shell_vars=$(egrep '^SHELL_.*_COLOR' "${ELISE_ROOT_DIR}/src/elise.sh")
 
     for var in $shell_vars; do
         key_color="$(echo "$var" | cut -d'=' -f1)"
@@ -69,12 +68,14 @@ export_color_codes () {
 }
 
 update_colors () {
-    user_color="$1"
-    hist_color="$2"
-    host_color="$3"
-    cwd_color="$4"
+    format_type="$1"
+    user_color="$2"
+    hist_color="$3"
+    host_color="$4"
+    cwd_color="$5"
 
-    if [ "$#" == '4' ]; then
+    if [ "$#" == '5' ]; then
+        vars_update SHELL_FORMAT_TYPE "$format_type"
         vars_update SHELL_USER_PROMPT_COLOR "$user_color"
         vars_update SHELL_HIST_PROMPT_COLOR "$hist_color"
         vars_update SHELL_HOST_PROMPT_COLOR "$host_color"
