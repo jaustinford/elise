@@ -20,53 +20,6 @@
           - "{{ ELISE_ROOT_DIR }}/src"
           - "{{ ELISE_ROOT_DIR }}/scripts"
 
-      - name: reset remote elise.sh vars
-        file:
-          path: "{{ ELISE_ROOT_DIR }}/src/elise.sh"
-          state: absent
-
-      - name: import soteria vars - constants
-        shell: |
-          source ../../src/elise.sh;
-          echo {{ item }}=\"${{ item }}\"
-        register: elise_constants
-        delegate_to: localhost
-        with_items:
-          - SHELL_FORMAT_TYPE
-          - SHELL_USER_PROMPT_COLOR
-          - SHELL_HIST_PROMPT_COLOR
-          - SHELL_HOST_PROMPT_COLOR
-          - SHELL_CWD_PROMPT_COLOR
-          - SHELL_STDERR_COLOR
-          - SHELL_STDOUT_COLOR
-          - ISCSI_CHAP_SESSION_USERNAME
-          - ISCSI_CHAP_SESSION_PASSWORD
-          - ISCSI_PORTAL
-          - ISCSI_LOCAL_MOUNT_DIR
-          - ISCSI_BACKUP_DIR
-          - ISCSI_BACKUP_ROTATE_DAYS
-          - ISCSI_IQN
-          - LAB_FQDN
-          - KUBE_CONFIG_CERTIFICATE_AUTHORITY_DATA
-          - KUBE_CONFIG_CLIENT_CERTIFICATE_DATA
-          - KUBE_CONFIG_CLIENT_KEY_DATA
-
-      - name: import soteria vars - volumes
-        shell:
-          source ../../src/elise.sh;
-          echo ISCSI_BACKUP_VOLUMES=\(${ISCSI_BACKUP_VOLUMES[@]}\)
-        register: volume_vars
-        delegate_to: localhost
-
-      - name: copy soteria vars - constants
-        shell: echo '{{ item.stdout }}' >> {{ ELISE_ROOT_DIR }}/src/elise.sh
-        no_log: true
-        with_items:
-          - "{{ elise_constants.results }}"
-
-      - name: copy soteria vars - volumes
-        shell: echo '{{ volume_vars.stdout }}' >> {{ ELISE_ROOT_DIR }}/src/elise.sh
-
       - name: copy source files
         copy:
           src: "../../{{ item }}"
@@ -76,6 +29,7 @@
           mode: 0750
         with_items:
           - scripts/soteria.sh
+          - src/elise.sh
           - src/general.sh
           - src/iscsi.sh
           - src/kubernetes.sh
@@ -89,15 +43,14 @@
       - debug: var=backup_output.stdout_lines
       when: option == "execute"
 
-    - block:
-      - name: remove soteria
-        file:
-          path: "{{ item }}"
-          state: absent
-          owner: root
-          group: root
-          mode: 0750
-        with_items:
-          - "{{ ELISE_ROOT_DIR }}"
-          - /root/.kube
+    - name: remove soteria
+      file:
+        path: "{{ item }}"
+        state: absent
+        owner: root
+        group: root
+        mode: 0750
+      with_items:
+        - "{{ ELISE_ROOT_DIR }}"
+        - /root/.kube
       when: option == "remove"
