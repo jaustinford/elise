@@ -244,7 +244,7 @@
     
     elif [ "$var_1" == 'value_3' ] && \
          [ "$var_2" == 'value_4' ]; then
-         echo 'something else'
+        echo 'something else'
 
     fi
     ```
