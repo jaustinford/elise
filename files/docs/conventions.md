@@ -30,7 +30,7 @@
 
 - the module [`${ELISE_ROOT_DIR}/src/general.sh`](https://github.com/jaustinford/elise/blob/main/src/general.sh) defines general functions and variables which are imported frequently across the project
 
-- the function [`print_message`](https://github.com/jaustinford/elise/blob/main/src/general.sh#L103) inside of the `${ELISE_ROOT_DIR}/src/general.sh` module is used for all stdout and stderr message handling
+- the function [`print_message`](https://github.com/jaustinford/elise/blob/main/src/general.sh#L91) inside of the `${ELISE_ROOT_DIR}/src/general.sh` module is used for all stdout and stderr message handling
 
 #### _conventions_
 ---
