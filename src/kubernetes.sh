@@ -310,6 +310,7 @@ crash_container () {
     # meant as a way to force kubernetes to restart containers by crashing them internally
     # as opposed to using kubernetes to kill the pod. useful in troubleshooting boot order
     # issues with pods that have multiple containers.
+
     print_message stdout 'crashing container' "$namespace/$pod:$container"
     kube_exec "$namespace" "$pod" "$container" /sbin/killall5
 }
