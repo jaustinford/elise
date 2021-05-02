@@ -34,6 +34,7 @@ for deployment in "${active_deployments[@]}"; do
         create_backup "$volume" "${ISCSI_LOCAL_MOUNT_DIR}" "${ISCSI_BACKUP_DIR}"
         check_if_volume_is_not_mounted "${ISCSI_LOCAL_MOUNT_DIR}"
         dismount_disk "${ISCSI_LOCAL_MOUNT_DIR}"
+        check_if_volume_is_mounted "${ISCSI_LOCAL_MOUNT_DIR}" wait
         interact_target logout "$volume" "${ISCSI_IQN}"
         completed_volumes+=("$volume")
 
@@ -59,6 +60,7 @@ if [ ! -z "${remaining_items}" ]; then
         create_backup "$volume" "${ISCSI_LOCAL_MOUNT_DIR}" "${ISCSI_BACKUP_DIR}"
         check_if_volume_is_not_mounted "${ISCSI_LOCAL_MOUNT_DIR}"
         dismount_disk "${ISCSI_LOCAL_MOUNT_DIR}"
+        check_if_volume_is_mounted "${ISCSI_LOCAL_MOUNT_DIR}" wait
         interact_target logout "$volume" "${ISCSI_IQN}"
 
     done

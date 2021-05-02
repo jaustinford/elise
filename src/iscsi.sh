@@ -31,11 +31,20 @@ ensure_iscsi_mountpath () {
 
 check_if_volume_is_mounted () {
     mount_dir="$1"
+    wait_mode="$2"
 
-    if [ ! -z "$(df | grep $mount_dir)" ]; then
-        print_message stderr "$mount_dir has a mounted volume"
-        exit 1
+    if [ ! -z "$wait_mode" ]; then
+        while [ ! -z "$(df | grep $mount_dir)" ]; do
+            sleep 1
 
+        done
+
+    else
+        if [ ! -z "$(df | grep $mount_dir)" ]; then
+            print_message stderr "$mount_dir has a mounted volume"
+            exit 1
+
+        fi
     fi
 }
 
