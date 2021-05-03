@@ -15,6 +15,7 @@ alias hyperion_on="${KUBE_AUTOMATOR} start eslabs hyperion; ${ANSIBLE_PLAYBOOK}/
 alias logs_haproxy='ssh kube00 sudo docker logs -f haproxy'
 alias logs_soteria="ssh kube02 tail -f ${LOG_DIR}/soteria-kube02.labs.elysianskies.com.log"
 alias nuke="countdown_to_cmd \"${ELISE_ROOT_DIR}/scripts/eslabs.sh destroy; ${ELISE_ROOT_DIR}/scripts/eslabs.sh deploy\""
+alias pihole_update='ssh dns sudo pihole -up'
 alias scp='scp -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no -o LogLevel=ERROR'
 alias ssh='ssh -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no -o LogLevel=ERROR'
 alias tree_project="tree -a -I '.git|*_history|.viminfo|.config|.vim|.kube|.ssh|dropoff|.cache|.lesshst|.ansible' ${ELISE_ROOT_DIR}"
