@@ -45,6 +45,7 @@ check_if_volume_is_mounted () {
             exit 1
 
         fi
+
     fi
 }
 
