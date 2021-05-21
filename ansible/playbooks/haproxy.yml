@@ -19,12 +19,11 @@
           net.ipv4.tcp_syncookies: 1
           net.ipv4.conf.all.rp_filter: 1
           net.ipv4.tcp_max_syn_backlog: 1024
-        user: root
         command: |
           /bin/bash -c '\
-            echo "{{ haproxy_cfg.stdout }}" > /usr/local/etc/haproxy/haproxy.cfg; \
-            chmod 755 /usr/local/etc/haproxy/haproxy.cfg; \
-            haproxy -f /usr/local/etc/haproxy/haproxy.cfg'
+            echo "{{ haproxy_cfg.stdout }}" > /tmp/haproxy.cfg; \
+            chmod 755 /tmp/haproxy.cfg; \
+            haproxy -f /tmp/haproxy.cfg'
         ports:
           - '443:443'
           - '80:80'
