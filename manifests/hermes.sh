@@ -86,6 +86,7 @@ spec:
       labels:
         app: hermes
     spec:
+      dnsPolicy: Default
       containers:
         - image: httpd:latest
           name: hermes

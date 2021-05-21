@@ -53,6 +53,7 @@ spec:
       labels:
         app: plex
     spec:
+      dnsPolicy: Default
       containers:
         - image: plexinc/pms-docker:latest
           name: plexserver

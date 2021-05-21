@@ -53,6 +53,7 @@ spec:
       labels:
         app: filebrowser
     spec:
+      dnsPolicy: Default
       containers:
         - image: filebrowser/filebrowser:latest
           name: filebrowser

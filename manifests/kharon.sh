@@ -268,6 +268,7 @@ spec:
       labels:
         app: kharon
     spec:
+      dnsPolicy: Default
       containers:
         - image: dperson/openvpn-client:latest
           name: expressvpn

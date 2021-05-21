@@ -370,6 +370,7 @@ spec:
       labels:
         app: nagios
     spec:
+      dnsPolicy: Default
       containers:
         - image: jasonrivers/nagios:latest
           name: nagios

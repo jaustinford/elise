@@ -37,6 +37,7 @@ spec:
       labels:
         app: hyperion
     spec:
+      dnsPolicy: Default
       containers:
         - image: dlandon/zoneminder:latest
           name: hyperion
