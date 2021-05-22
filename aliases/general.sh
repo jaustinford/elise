@@ -10,8 +10,8 @@ alias tree='tree -C'
 # general
 alias eslabs_deploy="${ELISE_ROOT_DIR}/scripts/eslabs.sh deploy"
 alias eslabs_destroy="${ELISE_ROOT_DIR}/scripts/eslabs.sh destroy"
-alias hyperion_off="ELISE_PROFILE=1 ENABLE_INIT= source ${ELISE_ROOT_DIR}/.bash_profile; ${KUBE_AUTOMATOR} stop eslabs hyperion; ${ANSIBLE_PLAYBOOK}/watchers.yml --extra-vars \"option=stop\""
-alias hyperion_on="ELISE_PROFILE=1 ENABLE_INIT= source ${ELISE_ROOT_DIR}/.bash_profile; ${KUBE_AUTOMATOR} start eslabs hyperion; ${ANSIBLE_PLAYBOOK}/watchers.yml --extra-vars \"option=start\""
+alias hyperion_off="${KUBE_AUTOMATOR} stop eslabs hyperion; ${ANSIBLE_PLAYBOOK}/watchers.yml --extra-vars \"option=stop\""
+alias hyperion_on="${KUBE_AUTOMATOR} start eslabs hyperion; ${ANSIBLE_PLAYBOOK}/watchers.yml --extra-vars \"option=start\""
 alias logs_full_haproxy='ssh kube00 sudo docker logs haproxy'
 alias logs_full_soteria="ssh kube02 cat ${LOG_DIR}/soteria-kube02.labs.elysianskies.com.log"
 alias logs_tail_haproxy='ssh kube00 sudo docker logs -f haproxy'
