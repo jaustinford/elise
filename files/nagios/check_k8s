@@ -17,8 +17,8 @@ elif [ "${DEPLOYMENT}" == 'filebrowser' ]; then
 
 elif [ "${DEPLOYMENT}" == 'kharon' ] && [ "${SERVICE}" == 'expressvpn' ]; then
     url='http://kube00.labs.elysianskies.com:3128'
-    http_response_proxy=$(curl -s ifconfig.me -x $url)
-    http_response_local=$(curl -s ifconfig.me)
+    http_response_proxy=$(curl -s ifconfig.co -x $url)
+    http_response_local=$(curl -s ifconfig.co)
 
     if [ "$http_response_proxy" == "$http_response_local" ] \
         || [ -z "$http_response_proxy" ]; then
