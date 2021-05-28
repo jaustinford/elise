@@ -336,11 +336,11 @@ find_wan_from_pod () {
     kharon_pod="$1"
 
     if [ ! -z "$kharon_pod" ]; then
-        pod_wan="$(kube_exec eslabs "$kharon_pod" expressvpn 'curl -s ifconfig.co')"
+        pod_wan="$(kube_exec eslabs "$kharon_pod" expressvpn 'curl -s icanhazip.com')"
         print_message stdout 'expressvpn wan ip' "$pod_wan"
 
     else
-        print_message stderr 'wan ip exposed' "$(curl -s ifconfig.co)"
+        print_message stderr 'wan ip exposed' "$(curl -s icanhazip.com)"
 
     fi
 }
