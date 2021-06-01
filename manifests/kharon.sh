@@ -42,6 +42,17 @@ metadata:
   name: kharon-configmap-expressvpn
   namespace: eslabs
 data:
+  gen-dns-record.sh: |
+    #!/usr/bin/env bash
+
+    manual_resolution=$(nslookup ${KHARON_EXPRESSVPN_SERVER}-ca-version-2.expressnetw.com \
+      | egrep '^Name' -A1 \
+      | egrep '^Address' \
+      | awk '{print $2}' \
+      | head -1)
+
+    sleep 2
+    echo "\$manual_resolution    ${KHARON_EXPRESSVPN_SERVER}-ca-version-2.expressnetw.com" >> /etc/hosts
   vpn.credentials: |
     ${KHARON_EXPRESSVPN_USERNAME}
     ${KHARON_EXPRESSVPN_PASSWORD}
@@ -275,7 +286,12 @@ spec:
           env:
             - name: TZ
               value: "${DOCKER_TIMEZONE}"
-          command: ["/sbin/tini", "--", "/usr/bin/openvpn.sh", "-d"]
+          command: ['/bin/bash']
+          args:
+            - '-c'
+            - >
+              /tmp/gen-dns-record.sh &&
+              /sbin/tini -- /usr/bin/openvpn.sh -d
           securityContext:
             capabilities:
               add:
@@ -290,6 +306,9 @@ spec:
             - name: kharon-configmap-expressvpn
               mountPath: /vpn/vpn.credentials
               subPath: vpn.credentials
+            - name: kharon-configmap-expressvpn
+              mountPath: /tmp/gen-dns-record.sh
+              subPath: gen-dns-record.sh
         - image: sameersbn/squid:latest
           name: squid
           env:
@@ -340,7 +359,7 @@ spec:
         - name: kharon-configmap-expressvpn
           configMap:
             name: kharon-configmap-expressvpn
-            defaultMode: 0644
+            defaultMode: 0755
         - name: kharon-configmap-squid
           configMap:
             name: kharon-configmap-squid
