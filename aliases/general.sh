@@ -10,13 +10,15 @@ alias tree='tree -C'
 # general
 alias eslabs_deploy="${ELISE_ROOT_DIR}/scripts/eslabs.sh deploy"
 alias eslabs_destroy="${ELISE_ROOT_DIR}/scripts/eslabs.sh destroy"
+alias eslabs_nuke="countdown_to_cmd \"${ELISE_ROOT_DIR}/scripts/eslabs.sh stop; ${ELISE_ROOT_DIR}/scripts/eslabs.sh destroy yes; ${ELISE_ROOT_DIR}/scripts/eslabs.sh deploy\""
+alias eslabs_shutdown="${ELISE_ROOT_DIR}/scripts/eslabs.sh shutdown"
+alias eslabs_stop="${ELISE_ROOT_DIR}/scripts/eslabs.sh stop"
 alias hyperion_off="${KUBE_AUTOMATOR} stop eslabs hyperion; ${ANSIBLE_PLAYBOOK}/watchers.yml --extra-vars \"option=stop\""
 alias hyperion_on="${KUBE_AUTOMATOR} start eslabs hyperion; ${ANSIBLE_PLAYBOOK}/watchers.yml --extra-vars \"option=start\""
 alias logs_full_haproxy='ssh kube00 sudo docker logs haproxy'
 alias logs_full_soteria="ssh kube02 cat ${LOG_DIR}/soteria-kube02.labs.elysianskies.com.log"
 alias logs_tail_haproxy='ssh kube00 sudo docker logs -f haproxy'
 alias logs_tail_soteria="ssh kube02 tail -f ${LOG_DIR}/soteria-kube02.labs.elysianskies.com.log"
-alias nuke="countdown_to_cmd \"${ELISE_ROOT_DIR}/scripts/eslabs.sh destroy; ${ELISE_ROOT_DIR}/scripts/eslabs.sh deploy\""
 alias pihole_update='ssh dns sudo pihole -up'
 alias scp='scp -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no -o LogLevel=ERROR'
 alias ssh='ssh -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no -o LogLevel=ERROR'

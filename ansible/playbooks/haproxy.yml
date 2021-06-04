@@ -33,3 +33,4 @@
           - '/mnt/tvault/es-labs/ssl:/usr/local/etc/haproxy/ssl'
         network_mode: bridge
         restart_policy: unless-stopped
+      ignore_errors: yes

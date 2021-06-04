@@ -109,6 +109,7 @@ once decrypted, the values can be retrieved in bash via the alias : `_vars_edit`
 | **LAB_FQDN**                               | str  | `labs.elysianskies.com`                     |        |
 | **LAB_APACHE_MOTD**                        | str  |                                             |        |
 | **LAB_USER_AUSTIN_SSH_KEY**                | str  |                                             | `true` |
+| **LAB_SSH_LOGINS**                         | list |                                             |        |
 | **LAB_SSL_DOMAINS**                        | list |                                             |        |
 | **NAGIOS_USERNAME**                        | str  |                                             |        |
 | **NAGIOS_PASSWORD**                        | str  |                                             |        |

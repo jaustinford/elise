@@ -7,9 +7,9 @@ set -e
 . ${ELISE_ROOT_DIR}/src/kubernetes.sh
 
 OPTION="$1"
+REBOOT="$2"
 
-print_message stdout "started ${OPTION}"
-if [ "${OPTION}" == 'destroy' ]; then
+if [ "${OPTION}" == 'stop' ]; then
     print_message stdout 'stopping haproxy'
     ansible-playbook "${ELISE_ROOT_DIR}/ansible/playbooks/haproxy.yml" \
         --extra-vars "container_state=stopped recreate_container=no message=stopping"
@@ -18,11 +18,23 @@ if [ "${OPTION}" == 'destroy' ]; then
     "${ELISE_ROOT_DIR}/scripts/kube_automator.sh" stop eslabs all
     ansible-playbook "${ELISE_ROOT_DIR}/ansible/playbooks/watchers.yml" --extra-vars "option=stop"
 
+elif [ "${OPTION}" == 'shutdown' ]; then
+    for host in ${LAB_SSH_LOGINS[@]}; do
+        short_name=$(echo $host | awk -F '@' '{print $2}')
+        print_message stdout "shutdown $short_name"
+        ssh $host -i /tmp/id_rsa 'sudo shutdown now -h' &> /dev/null &
+
+    done
+
+elif [ "${OPTION}" == 'destroy' ]; then
     print_message stdout 'destroying cluster'
     ansible-playbook "${ELISE_ROOT_DIR}/ansible/playbooks/k8s_cluster_destroy.yml"
 
-    print_message stdout 'rebooting ansible hosts'
-    ansible "~(k8s|watchers)" --become -m reboot
+    if [ ! -z "${REBOOT}" ]; then
+        print_message stdout 'rebooting ansible hosts'
+        ansible "~(k8s|watchers)" --become -m reboot
+
+    fi
 
 elif [ "${OPTION}" == 'deploy' ]; then
     print_message stdout 'installing kubernetes'
@@ -66,5 +78,3 @@ elif [ "${OPTION}" == 'deploy' ]; then
     ansible-playbook "${ELISE_ROOT_DIR}/ansible/playbooks/soteria.yml" --extra-vars "option=deploy"
 
 fi
-
-print_message stdout "finished ${OPTION}"
