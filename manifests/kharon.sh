@@ -45,10 +45,10 @@ data:
   gen-dns-record.sh: |
     #!/usr/bin/env bash
 
-    manual_resolution=$(nslookup ${KHARON_EXPRESSVPN_SERVER}-ca-version-2.expressnetw.com \
+    manual_resolution=\$(nslookup ${KHARON_EXPRESSVPN_SERVER}-ca-version-2.expressnetw.com \
       | egrep '^Name' -A1 \
       | egrep '^Address' \
-      | awk '{print $2}' \
+      | awk '{print \$2}' \
       | head -1)
 
     sleep 2
