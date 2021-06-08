@@ -22,7 +22,8 @@ RUN \
         net-tools \
         diffutils \
         bind-utils \
-        httpd-tools
+        httpd-tools \
+        openvpn
 
 # ansible
 RUN \
