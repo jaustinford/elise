@@ -111,6 +111,8 @@ once decrypted, the values can be retrieved in bash via the alias : `_vars_edit`
 | **LAB_USER_AUSTIN_SSH_KEY**                | str  |                                             | `true` |
 | **LAB_SSH_LOGINS**                         | list |                                             |        |
 | **LAB_SSL_DOMAINS**                        | list |                                             |        |
+| **LAB_VPN_USERNAME**                       | str  |                                             |        |
+| **LAB_VPN_PASSWORD**                       | str  |                                             |        |
 | **NAGIOS_USERNAME**                        | str  |                                             |        |
 | **NAGIOS_PASSWORD**                        | str  |                                             |        |
 | **NAGIOS_CHECK_INTERVAL_MINUTES**          | str  | `1`                                         |        |
@@ -125,6 +127,8 @@ once decrypted, the values can be retrieved in bash via the alias : `_vars_edit`
 | **HAPROXY_STATS_PASSWORD**                 | str  |                                             |        |
 | **HAPROXY_STATS_URI**                      | str  | `/haproxy`                                  |        |
 | **NTOPNG_LICENSE**                         | str  |                                             |        |
+| **FILEBROWSER_USERNAME**                   | str  |                                             |        |
+| **FILEBROWSER_PASSWORD**                   | str  |                                             |        |
 
 <br />
 
