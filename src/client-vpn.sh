@@ -1,4 +1,3 @@
-
 ####################################################
 # vpn
 ####################################################
@@ -12,9 +11,7 @@ EOF
 }
 
 vpn_generate_config () {
-    LAB_FQDN="$1"
-
-    token=$(curl -X POST "https://$1/tvault/api/login" 2> /dev/null \
+    token=$(curl -X POST "https://${LAB_FQDN}/tvault/api/login" 2> /dev/null \
         --header 'Accept: */*' \
         --header 'Content-Type: application/json' \
         --data "
@@ -27,7 +24,7 @@ vpn_generate_config () {
     )
 
     print_message stdout 'generate ovpn file' '/tmp/eslabs_ap.ovpn'
-    curl -X GET "https://$1/tvault/api/resources/es-labs/eslabs_ap.ovpn" 2> /dev/null \
+    curl -X GET "https://${LAB_FQDN}/tvault/api/resources/es-labs/eslabs_ap.ovpn" 2> /dev/null \
         --header 'Accept: application/json' \
         --header 'Content-Type: application/json' \
         --header "X-Auth: $token" | jq -r '.content' > '/tmp/eslabs_ap.ovpn'
@@ -35,7 +32,7 @@ vpn_generate_config () {
 
 vpn_connect () {
     vpn_generate_credentials
-    vpn_generate_config "${LAB_FQDN}"
+    vpn_generate_config
 
     print_message stdout 'connecting vpn' '/tmp/eslabs_ap.log'
     openvpn \
