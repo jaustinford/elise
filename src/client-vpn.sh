@@ -11,23 +11,7 @@ EOF
 }
 
 eslabs_vpn_generate_config () {
-    token=$(curl -X POST "https://${LAB_FQDN}/tvault/api/login" 2> /dev/null \
-        --header 'Accept: */*' \
-        --header 'Content-Type: application/json' \
-        --data "
-            {
-                \"username\": \"${FILEBROWSER_USERNAME}\",
-                \"password\": \"${FILEBROWSER_PASSWORD}\",
-                \"recaptcha\": \"\"
-            }
-        "
-    )
-
-    print_message stdout 'generate ovpn file' '/tmp/eslabs_ap.ovpn'
-    curl -X GET "https://${LAB_FQDN}/tvault/api/resources/es-labs/eslabs_ap.ovpn" 2> /dev/null \
-        --header 'Accept: application/json' \
-        --header 'Content-Type: application/json' \
-        --header "X-Auth: $token" | jq -r '.content' > '/tmp/eslabs_ap.ovpn'
+    filebrowser_api_download_file '/es-labs/eslabs_ap.ovpn' '/tmp'
 }
 
 eslabs_vpn_connect () {

@@ -1,0 +1,729 @@
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:47:01[00m ] [1;37mstarted                      [00m | [1;30mThu Apr  1 05:47:01 PM MDT 2021[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:47:01[00m ] [1;37mprocessing host              [00m | [1;30mkube02.labs.elysianskies.com[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:47:01[00m ] [1;37mgenerate kubernetes config   [00m | [1;30mhttps://labs.elysianskies.com:6443[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:47:01[00m ] [1;37mdeleting files after 30 days [00m | [1;30m/mnt/tvault/es-labs/backups/iscsi_volumes/*.tgz[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:47:03[00m ] [1;37mensuring pod state           [00m | [1;30mstop - eslabs/acme-7856c6587d-fw87l[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:47:41[00m ] [1;37mpod is gone                  [00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:47:41[00m ] [1;37mchap session user            [00m | [1;30maustin[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:47:41[00m ] [1;37mdiscover portal              [00m | [1;30m172.16.17.4[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:47:41[00m ] [1;37mlog into target              [00m | [1;30miqn.2013-03.com.wdc:elysianskies:k8s-vol-acme-letsencrypt[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:47:43[00m ] [1;37mfound device                 [00m | [1;30m/dev/sdb[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:47:43[00m ] [1;37mmounting at                  [00m | [1;30m/mnt/iscsi[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:47:43[00m ] [1;37mgenerating tarball           [00m | [1;30m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-acme-letsencrypt_20210401.tgz[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:47:43[00m ] [1;37munmounting disk              [00m | [1;30m/mnt/iscsi[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:47:43[00m ] [1;37mlog out of target            [00m | [1;30miqn.2013-03.com.wdc:elysianskies:k8s-vol-acme-letsencrypt[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:47:44[00m ] [1;37mensuring pod state           [00m | [1;30mstart - eslabs/acme-7856c6587d-jw42g[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:47:52[00m ] [1;37mpod is 'Running'             [00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:47:52[00m ] [1;37mensuring pod state           [00m | [1;30mstop - eslabs/bigbrother-6b444c7665-zntvc[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:48:25[00m ] [1;37mpod is gone                  [00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:48:25[00m ] [1;37mchap session user            [00m | [1;30maustin[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:48:25[00m ] [1;37mdiscover portal              [00m | [1;30m172.16.17.4[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:48:25[00m ] [1;37mlog into target              [00m | [1;30miqn.2013-03.com.wdc:elysianskies:k8s-vol-bigbrother-config[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:48:27[00m ] [1;37mfound device                 [00m | [1;30m/dev/sdc[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:48:27[00m ] [1;37mmounting at                  [00m | [1;30m/mnt/iscsi[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:48:27[00m ] [1;37mgenerating tarball           [00m | [1;30m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-bigbrother-config_20210401.tgz[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:49:35[00m ] [1;37munmounting disk              [00m | [1;30m/mnt/iscsi[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:49:35[00m ] [1;37mlog out of target            [00m | [1;30miqn.2013-03.com.wdc:elysianskies:k8s-vol-bigbrother-config[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:49:36[00m ] [1;37mchap session user            [00m | [1;30maustin[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:49:36[00m ] [1;37mdiscover portal              [00m | [1;30m172.16.17.4[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:49:36[00m ] [1;37mlog into target              [00m | [1;30miqn.2013-03.com.wdc:elysianskies:k8s-vol-bigbrother-cache[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:49:38[00m ] [1;37mfound device                 [00m | [1;30m/dev/sdc[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:49:38[00m ] [1;37mmounting at                  [00m | [1;30m/mnt/iscsi[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:49:38[00m ] [1;37mgenerating tarball           [00m | [1;30m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-bigbrother-cache_20210401.tgz[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:49:38[00m ] [1;37munmounting disk              [00m | [1;30m/mnt/iscsi[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:49:38[00m ] [1;37mlog out of target            [00m | [1;30miqn.2013-03.com.wdc:elysianskies:k8s-vol-bigbrother-cache[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:49:38[00m ] [1;37mensuring pod state           [00m | [1;30mstart - eslabs/bigbrother-6b444c7665-tlrkw[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:50:00[00m ] [1;37mpod is 'Running'             [00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:50:00[00m ] [1;37mensuring pod state           [00m | [1;30mstop - eslabs/plex-5d554f96c6-v9l64[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:50:10[00m ] [1;37mpod is gone                  [00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:50:10[00m ] [1;37mchap session user            [00m | [1;30maustin[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:50:10[00m ] [1;37mdiscover portal              [00m | [1;30m172.16.17.4[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:50:10[00m ] [1;37mlog into target              [00m | [1;30miqn.2013-03.com.wdc:elysianskies:k8s-vol-tautulli[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:50:12[00m ] [1;37mfound device                 [00m | [1;30m/dev/sdc[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:50:12[00m ] [1;37mmounting at                  [00m | [1;30m/mnt/iscsi[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:50:12[00m ] [1;37mgenerating tarball           [00m | [1;30m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-tautulli_20210401.tgz[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:50:39[00m ] [1;37munmounting disk              [00m | [1;30m/mnt/iscsi[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:50:39[00m ] [1;37mlog out of target            [00m | [1;30miqn.2013-03.com.wdc:elysianskies:k8s-vol-tautulli[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:50:39[00m ] [1;37mchap session user            [00m | [1;30maustin[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:50:39[00m ] [1;37mdiscover portal              [00m | [1;30m172.16.17.4[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:50:39[00m ] [1;37mlog into target              [00m | [1;30miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-config[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:50:41[00m ] [1;37mfound device                 [00m | [1;30m/dev/sdc[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:50:41[00m ] [1;37mmounting at                  [00m | [1;30m/mnt/iscsi[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 17:50:41[00m ] [1;37mgenerating tarball           [00m | [1;30m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-plexserver-config_20210401.tgz[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 18:13:33[00m ] [1;37munmounting disk              [00m | [1;30m/mnt/iscsi[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 18:13:34[00m ] [1;37mlog out of target            [00m | [1;30miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-config[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 18:13:35[00m ] [1;37mchap session user            [00m | [1;30maustin[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 18:13:35[00m ] [1;37mdiscover portal              [00m | [1;30m172.16.17.4[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 18:13:35[00m ] [1;37mlog into target              [00m | [1;30miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-transcode[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 18:13:37[00m ] [1;37mfound device                 [00m | [1;30m/dev/sdc[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 18:13:37[00m ] [1;37mmounting at                  [00m | [1;30m/mnt/iscsi[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 18:13:37[00m ] [1;37mgenerating tarball           [00m | [1;30m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-plexserver-transcode_20210401.tgz[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 18:13:37[00m ] [1;37munmounting disk              [00m | [1;30m/mnt/iscsi[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 18:13:37[00m ] [1;37mlog out of target            [00m | [1;30miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-transcode[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 18:13:38[00m ] [1;37mensuring pod state           [00m | [1;30mstart - eslabs/plex-5d554f96c6-tkkvl[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 18:14:13[00m ] [1;37mpod is 'Running'             [00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 18:14:13[00m ] [1;37mfinished                     [00m | [1;30mThu Apr  1 06:14:13 PM MDT 2021[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:30:01[00m ] [1;37mstarted                      [00m | [1;30mThu Apr  1 07:30:01 PM MDT 2021[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:30:01[00m ] [1;37mprocessing host              [00m | [1;30mkube02.labs.elysianskies.com[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:30:01[00m ] [1;37mgenerate kubernetes config   [00m | [1;30mhttps://labs.elysianskies.com:6443[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:30:01[00m ] [1;37mdeleting files after 30 days [00m | [1;30m/mnt/tvault/es-labs/backups/iscsi_volumes/*.tgz[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:30:02[00m ] [1;37mensuring pod state           [00m | [1;30mstop - eslabs/bigbrother-6b444c7665-tlrkw[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:30:41[00m ] [1;37mpod is gone                  [00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:30:41[00m ] [1;37mchap session user            [00m | [1;30maustin[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:30:41[00m ] [1;37mdiscover portal              [00m | [1;30m172.16.17.4[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:30:42[00m ] [1;37mlog into target              [00m | [1;30miqn.2013-03.com.wdc:elysianskies:k8s-vol-bigbrother-config[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:30:44[00m ] [1;37mfound device                 [00m | [1;30m/dev/sdc[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:30:44[00m ] [1;37mmounting at                  [00m | [1;30m/mnt/iscsi[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:30:44[00m ] [1;37mgenerating tarball           [00m | [1;30m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-bigbrother-config_20210401.tgz[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:31:48[00m ] [1;37munmounting disk              [00m | [1;30m/mnt/iscsi[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:31:48[00m ] [1;37mlog out of target            [00m | [1;30miqn.2013-03.com.wdc:elysianskies:k8s-vol-bigbrother-config[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:31:49[00m ] [1;37mchap session user            [00m | [1;30maustin[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:31:49[00m ] [1;37mdiscover portal              [00m | [1;30m172.16.17.4[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:31:49[00m ] [1;37mlog into target              [00m | [1;30miqn.2013-03.com.wdc:elysianskies:k8s-vol-bigbrother-cache[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:31:51[00m ] [1;37mfound device                 [00m | [1;30m/dev/sdc[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:31:51[00m ] [1;37mmounting at                  [00m | [1;30m/mnt/iscsi[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:31:51[00m ] [1;37mgenerating tarball           [00m | [1;30m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-bigbrother-cache_20210401.tgz[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:31:51[00m ] [1;37munmounting disk              [00m | [1;30m/mnt/iscsi[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:31:51[00m ] [1;37mlog out of target            [00m | [1;30miqn.2013-03.com.wdc:elysianskies:k8s-vol-bigbrother-cache[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:31:52[00m ] [1;37mensuring pod state           [00m | [1;30mstart - eslabs/bigbrother-6b444c7665-fsrt2[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:32:13[00m ] [1;37mpod is 'Running'             [00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:32:14[00m ] [1;37mensuring pod state           [00m | [1;30mstop - eslabs/hermes-7c9bbb5f74-7vcbq[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:32:51[00m ] [1;37mpod is gone                  [00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:32:51[00m ] [1;37mchap session user            [00m | [1;30maustin[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:32:51[00m ] [1;37mdiscover portal              [00m | [1;30m172.16.17.4[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:32:51[00m ] [1;37mlog into target              [00m | [1;30miqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:32:53[00m ] [1;37mfound device                 [00m | [1;30m/dev/sdb[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:32:53[00m ] [1;37mmounting at                  [00m | [1;30m/mnt/iscsi[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:32:53[00m ] [1;37mgenerating tarball           [00m | [1;30m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-hermes-letsencrypt_20210401.tgz[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:32:53[00m ] [1;37munmounting disk              [00m | [1;30m/mnt/iscsi[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:32:53[00m ] [1;37mlog out of target            [00m | [1;30miqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:32:54[00m ] [1;37mensuring pod state           [00m | [1;30mstart - eslabs/hermes-7c9bbb5f74-rcv4m[00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:33:13[00m ] [1;37mpod is 'Running'             [00m
+  [1;32mOUT[00m [ [1;30m2021.04.01 - 19:33:13[00m ] [1;37mfinished                     [00m | [1;30mThu Apr  1 07:33:13 PM MDT 2021[00m
+  OUT [ 2021.04.07 - 04:20:01 ] started                       | Wed Apr  7 04:20:01 AM MDT 2021
+  OUT [ 2021.04.07 - 04:20:01 ] processing host               | kube02.labs.elysianskies.com
+  OUT [ 2021.04.07 - 04:20:01 ] generate kubernetes config    | https://labs.elysianskies.com:6443
+  OUT [ 2021.04.07 - 04:20:01 ] deleting files after 30 days  | /mnt/tvault/es-labs/backups/iscsi_volumes/*.tgz
+  OUT [ 2021.04.07 - 04:20:03 ] ensuring pod state            | stop - eslabs/hermes-7c9bbb5f74-2z4w8
+  OUT [ 2021.04.07 - 04:20:36 ] pod is gone                  
+  OUT [ 2021.04.07 - 04:20:36 ] chap session user             | austin
+  OUT [ 2021.04.07 - 04:20:36 ] discover portal               | 172.16.17.4
+  OUT [ 2021.04.07 - 04:20:36 ] log into target               | iqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt
+  OUT [ 2021.04.07 - 04:20:38 ] found device                  | /dev/sdb
+  OUT [ 2021.04.07 - 04:20:39 ] mounting at                   | /mnt/iscsi
+  OUT [ 2021.04.07 - 04:20:39 ] generating tarball            | /mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-hermes-letsencrypt_20210407.tgz
+  OUT [ 2021.04.07 - 04:20:39 ] unmounting disk               | /mnt/iscsi
+  OUT [ 2021.04.07 - 04:20:39 ] log out of target             | iqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt
+  OUT [ 2021.04.07 - 04:20:39 ] ensuring pod state            | start - eslabs/hermes-7c9bbb5f74-mcsk6
+  OUT [ 2021.04.07 - 04:20:59 ] pod is 'Running'             
+  OUT [ 2021.04.07 - 04:21:00 ] ensuring pod state            | stop - eslabs/hyperion-5979dcf8d4-n5jb5
+  OUT [ 2021.04.07 - 04:21:41 ] pod is gone                  
+  OUT [ 2021.04.07 - 04:21:42 ] chap session user             | austin
+  OUT [ 2021.04.07 - 04:21:42 ] discover portal               | 172.16.17.4
+  OUT [ 2021.04.07 - 04:21:42 ] log into target               | iqn.2013-03.com.wdc:elysianskies:k8s-vol-hyperion-config
+  OUT [ 2021.04.07 - 04:21:44 ] found device                  | /dev/sdb
+  OUT [ 2021.04.07 - 04:21:44 ] mounting at                   | /mnt/iscsi
+  OUT [ 2021.04.07 - 04:21:44 ] generating tarball            | /mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-hyperion-config_20210407.tgz
+  OUT [ 2021.04.07 - 04:23:01 ] unmounting disk               | /mnt/iscsi
+  OUT [ 2021.04.07 - 04:23:02 ] log out of target             | iqn.2013-03.com.wdc:elysianskies:k8s-vol-hyperion-config
+  OUT [ 2021.04.07 - 04:23:05 ] ensuring pod state            | start - eslabs/hyperion-5979dcf8d4-vgb6m
+  OUT [ 2021.04.07 - 04:23:17 ] pod is 'Running'             
+  OUT [ 2021.04.07 - 04:23:18 ] ensuring pod state            | stop - eslabs/plex-5d554f96c6-sxz68
+  OUT [ 2021.04.07 - 04:23:31 ] pod is gone                  
+  OUT [ 2021.04.07 - 04:23:31 ] chap session user             | austin
+  OUT [ 2021.04.07 - 04:23:31 ] discover portal               | 172.16.17.4
+  OUT [ 2021.04.07 - 04:23:32 ] log into target               | iqn.2013-03.com.wdc:elysianskies:k8s-vol-tautulli
+  OUT [ 2021.04.07 - 04:23:34 ] found device                  | /dev/sdb
+  OUT [ 2021.04.07 - 04:23:34 ] mounting at                   | /mnt/iscsi
+  OUT [ 2021.04.07 - 04:23:34 ] generating tarball            | /mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-tautulli_20210407.tgz
+  OUT [ 2021.04.07 - 04:24:06 ] unmounting disk               | /mnt/iscsi
+  OUT [ 2021.04.07 - 04:24:06 ] log out of target             | iqn.2013-03.com.wdc:elysianskies:k8s-vol-tautulli
+  OUT [ 2021.04.07 - 04:24:06 ] chap session user             | austin
+  OUT [ 2021.04.07 - 04:24:06 ] discover portal               | 172.16.17.4
+  OUT [ 2021.04.07 - 04:24:06 ] log into target               | iqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-config
+  OUT [ 2021.04.07 - 04:24:08 ] found device                  | /dev/sdb
+  OUT [ 2021.04.07 - 04:24:08 ] mounting at                   | /mnt/iscsi
+  OUT [ 2021.04.07 - 04:24:08 ] generating tarball            | /mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-plexserver-config_20210407.tgz
+  OUT [ 2021.04.07 - 04:51:10 ] unmounting disk               | /mnt/iscsi
+  OUT [ 2021.04.07 - 04:51:11 ] log out of target             | iqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-config
+  OUT [ 2021.04.07 - 04:51:12 ] chap session user             | austin
+  OUT [ 2021.04.07 - 04:51:12 ] discover portal               | 172.16.17.4
+  OUT [ 2021.04.07 - 04:51:12 ] log into target               | iqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-transcode
+  OUT [ 2021.04.07 - 04:51:14 ] found device                  | /dev/sdb
+  OUT [ 2021.04.07 - 04:51:14 ] mounting at                   | /mnt/iscsi
+  OUT [ 2021.04.07 - 04:51:14 ] generating tarball            | /mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-plexserver-transcode_20210407.tgz
+  OUT [ 2021.04.07 - 04:51:14 ] unmounting disk               | /mnt/iscsi
+  OUT [ 2021.04.07 - 04:51:14 ] log out of target             | iqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-transcode
+  OUT [ 2021.04.07 - 04:51:15 ] ensuring pod state            | start - eslabs/plex-5d554f96c6-cdpr6
+  OUT [ 2021.04.07 - 04:51:46 ] pod is 'Running'             
+  OUT [ 2021.04.07 - 04:51:46 ] finished                      | Wed Apr  7 04:51:46 AM MDT 2021
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 08:58:01[00m ] [0;97mstarted                      [00m | [0;90mWed Apr  7 08:58:01 AM MDT 2021[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 08:58:01[00m ] [0;97mfinished                     [00m | [0;90mWed Apr  7 08:58:01 AM MDT 2021[00m
+  OUT [ 2021.04.07 - 09:00:01 ] started                       | Wed Apr  7 09:00:01 AM MDT 2021
+  OUT [ 2021.04.07 - 09:00:01 ] finished                      | Wed Apr  7 09:00:01 AM MDT 2021
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 09:03:01[00m ] [0;97mstarted                      [00m | [0;90mWed Apr  7 09:03:01 AM MDT 2021[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 09:03:01[00m ] [0;97mprocessing host              [00m | [0;90mkube02.labs.elysianskies.com[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 09:03:01[00m ] [0;97mgenerate kubernetes config   [00m | [0;90mhttps://labs.elysianskies.com:6443[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 09:03:01[00m ] [0;97mdeleting files after 30 days [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/*.tgz[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 09:03:03[00m ] [0;97mensuring pod state           [00m | [0;90mstop - eslabs/hermes-7c9bbb5f74-mcsk6[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 09:03:41[00m ] [0;97mpod is gone                  [00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 09:03:41[00m ] [0;97mchap session user            [00m | [0;90maustin[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 09:03:41[00m ] [0;97mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 09:03:41[00m ] [0;97mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 09:03:43[00m ] [0;97mfound device                 [00m | [0;90m/dev/sdb[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 09:03:43[00m ] [0;97mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 09:03:43[00m ] [0;97mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-hermes-letsencrypt_20210407.tgz[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 09:03:44[00m ] [0;97munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 09:03:44[00m ] [0;97mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 09:03:44[00m ] [0;97mensuring pod state           [00m | [0;90mstart - eslabs/hermes-7c9bbb5f74-w98bj[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 09:03:55[00m ] [0;97mpod is 'Running'             [00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 09:03:56[00m ] [0;97mfinished                     [00m | [0;90mWed Apr  7 09:03:55 AM MDT 2021[00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:15:01[00m ] [0;97mstarted                      [00m | [0;90mWed Apr  7 09:15:01 AM MDT 2021[00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:15:01[00m ] [0;97mprocessing host              [00m | [0;90mkube02.labs.elysianskies.com[00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:15:01[00m ] [0;97mgenerate kubernetes config   [00m | [0;90mhttps://labs.elysianskies.com:6443[00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:15:01[00m ] [0;97mdeleting files after 30 days [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/*.tgz[00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:15:02[00m ] [0;97mensuring pod state           [00m | [0;90mstop - eslabs/hermes-7c9bbb5f74-w98bj[00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:15:42[00m ] [0;97mpod is gone                  [00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:15:42[00m ] [0;97mchap session user            [00m | [0;90maustin[00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:15:42[00m ] [0;97mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:15:42[00m ] [0;97mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt[00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:15:44[00m ] [0;97mfound device                 [00m | [0;90m/dev/sdb[00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:15:44[00m ] [0;97mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:15:44[00m ] [0;97mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-hermes-letsencrypt_20210407.tgz[00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:15:44[00m ] [0;97munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:15:44[00m ] [0;97mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt[00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:15:45[00m ] [0;97mensuring pod state           [00m | [0;90mstart - eslabs/hermes-7c9bbb5f74-qg5hz[00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:16:05[00m ] [0;97mpod is 'Running'             [00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:16:05[00m ] [0;97mensuring pod state           [00m | [0;90mstop - eslabs/hyperion-5979dcf8d4-vgb6m[00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:16:38[00m ] [0;97mpod is gone                  [00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:16:38[00m ] [0;97mchap session user            [00m | [0;90maustin[00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:16:38[00m ] [0;97mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:16:38[00m ] [0;97mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hyperion-config[00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:16:40[00m ] [0;97mfound device                 [00m | [0;90m/dev/sdb[00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:16:40[00m ] [0;97mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:16:40[00m ] [0;97mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-hyperion-config_20210407.tgz[00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:17:50[00m ] [0;97munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:17:50[00m ] [0;97mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hyperion-config[00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:17:52[00m ] [0;97mensuring pod state           [00m | [0;90mstart - eslabs/hyperion-5979dcf8d4-4dp68[00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:18:04[00m ] [0;97mpod is 'Running'             [00m
+  [0;32mOUT[00m [ [0;90m2021.04.07 - 09:18:04[00m ] [0;97mfinished                     [00m | [0;90mWed Apr  7 09:18:04 AM MDT 2021[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:05:01[00m ] [0;97mstarted                      [00m | [0;90mWed Apr  7 02:05:01 PM MDT 2021[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:05:01[00m ] [0;97mprocessing host              [00m | [0;90mkube02.labs.elysianskies.com[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:05:01[00m ] [0;97mgenerate kubernetes config   [00m | [0;90mhttps://labs.elysianskies.com:6443[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:05:01[00m ] [0;97mdeleting files after 30 days [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/*.tgz[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:05:02[00m ] [0;97mensuring pod state           [00m | [0;90mstop - eslabs/hermes-7c9bbb5f74-qg5hz[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:05:42[00m ] [0;97mpod is gone                  [00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:05:42[00m ] [0;97mchap session user            [00m | [0;90maustin[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:05:42[00m ] [0;97mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:05:42[00m ] [0;97mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:05:44[00m ] [0;97mfound device                 [00m | [0;90m/dev/sdb[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:05:44[00m ] [0;97mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:05:44[00m ] [0;97mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-hermes-letsencrypt_20210407.tgz[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:05:44[00m ] [0;97munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:05:44[00m ] [0;97mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:05:45[00m ] [0;97mensuring pod state           [00m | [0;90mstart - eslabs/hermes-7c9bbb5f74-qqc9p[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:05:56[00m ] [0;97mpod is 'Running'             [00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:05:57[00m ] [0;97mensuring pod state           [00m | [0;90mstop - eslabs/hyperion-5979dcf8d4-nhfm4[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:06:30[00m ] [0;97mpod is gone                  [00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:06:30[00m ] [0;97mchap session user            [00m | [0;90maustin[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:06:30[00m ] [0;97mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:06:30[00m ] [0;97mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hyperion-config[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:06:32[00m ] [0;97mfound device                 [00m | [0;90m/dev/sdb[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:06:32[00m ] [0;97mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:06:32[00m ] [0;97mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-hyperion-config_20210407.tgz[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:07:45[00m ] [0;97munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:07:45[00m ] [0;97mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hyperion-config[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:07:46[00m ] [0;97mensuring pod state           [00m | [0;90mstart - eslabs/hyperion-5979dcf8d4-q6bk5[00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:07:57[00m ] [0;97mpod is 'Running'             [00m
+  [0;92mOUT[00m [ [0;90m2021.04.07 - 14:07:57[00m ] [0;97mfinished                     [00m | [0;90mWed Apr  7 02:07:57 PM MDT 2021[00m
+  [0;92mOUT[00m [ [0;90m2021.04.08 - 08:18:01[00m ] [0;97mstarted                      [00m | [0;90mThu Apr  8 08:18:01 AM MDT 2021[00m
+  [0;92mOUT[00m [ [0;90m2021.04.08 - 08:18:01[00m ] [0;97mprocessing host              [00m | [0;90mkube02.labs.elysianskies.com[00m
+  [0;92mOUT[00m [ [0;90m2021.04.08 - 08:18:01[00m ] [0;97mgenerate kubernetes config   [00m | [0;90mhttps://labs.elysianskies.com:6443[00m
+  [0;92mOUT[00m [ [0;90m2021.04.08 - 08:18:01[00m ] [0;97mdeleting files after 30 days [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/*.tgz[00m
+  [0;92mOUT[00m [ [0;90m2021.04.08 - 08:18:02[00m ] [0;97mensuring pod state           [00m | [0;90mstop - eslabs/hermes-7c9bbb5f74-qqc9p[00m
+  [0;92mOUT[00m [ [0;90m2021.04.08 - 08:18:41[00m ] [0;97mpod is gone                  [00m
+  [0;92mOUT[00m [ [0;90m2021.04.08 - 08:18:42[00m ] [0;97mchap session user            [00m | [0;90maustin[00m
+  [0;92mOUT[00m [ [0;90m2021.04.08 - 08:18:42[00m ] [0;97mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;92mOUT[00m [ [0;90m2021.04.08 - 08:18:42[00m ] [0;97mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt[00m
+  [0;92mOUT[00m [ [0;90m2021.04.08 - 08:18:44[00m ] [0;97mfound device                 [00m | [0;90m/dev/sdb[00m
+  [0;92mOUT[00m [ [0;90m2021.04.08 - 08:18:44[00m ] [0;97mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;92mOUT[00m [ [0;90m2021.04.08 - 08:18:44[00m ] [0;97mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-hermes-letsencrypt_20210408.tgz[00m
+  [0;92mOUT[00m [ [0;90m2021.04.08 - 08:18:44[00m ] [0;97munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;92mOUT[00m [ [0;90m2021.04.08 - 08:18:44[00m ] [0;97mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt[00m
+  [0;92mOUT[00m [ [0;90m2021.04.08 - 08:18:44[00m ] [0;97mensuring pod state           [00m | [0;90mstart - eslabs/hermes-7c9bbb5f74-4fz8m[00m
+  [0;92mOUT[00m [ [0;90m2021.04.08 - 08:18:53[00m ] [0;97mpod is 'Running'             [00m
+  [0;92mOUT[00m [ [0;90m2021.04.08 - 08:18:53[00m ] [0;97mfinished                     [00m | [0;90mThu Apr  8 08:18:53 AM MDT 2021[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.08 - 21:38:02[00m ] [0;37mstarted                      [00m | [0;90mThu Apr  8 09:38:02 PM MDT 2021[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.08 - 21:38:02[00m ] [0;37mprocessing host              [00m | [0;90mkube02.labs.elysianskies.com[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.08 - 21:38:02[00m ] [0;37mgenerate kubernetes config   [00m | [0;90mhttps://labs.elysianskies.com:6443[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.08 - 21:38:02[00m ] [0;37mdeleting files after 30 days [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/*.tgz[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.08 - 21:38:03[00m ] [0;37mensuring pod state           [00m | [0;90mstop - eslabs/hermes-7c9bbb5f74-4fz8m[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.08 - 21:38:42[00m ] [0;37mpod is gone                  [00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.08 - 21:38:42[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.08 - 21:38:42[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.08 - 21:38:42[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.08 - 21:38:44[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdb[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.08 - 21:38:44[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.08 - 21:38:44[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-hermes-letsencrypt_20210408.tgz[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.08 - 21:38:45[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.08 - 21:38:45[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.08 - 21:38:45[00m ] [0;37mensuring pod state           [00m | [0;90mstart - eslabs/hermes-7c9bbb5f74-rmcqj[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.08 - 21:38:58[00m ] [0;37mpod is 'Running'             [00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.08 - 21:38:58[00m ] [0;37mfinished                     [00m | [0;90mThu Apr  8 09:38:58 PM MDT 2021[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:20:01[00m ] [0;37mstarted                      [00m | [0;90mWed Apr 14 04:20:01 AM MDT 2021[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:20:01[00m ] [0;37mprocessing host              [00m | [0;90mkube02.labs.elysianskies.com[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:20:01[00m ] [0;37mgenerate kubernetes config   [00m | [0;90mhttps://labs.elysianskies.com:6443[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:20:01[00m ] [0;37mdeleting files after 30 days [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/*.tgz[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:20:03[00m ] [0;37mensuring pod state           [00m | [0;90mstop - eslabs/hermes-7c9bbb5f74-h9hbt[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:20:46[00m ] [0;37mpod is gone                  [00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:20:46[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:20:47[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:20:47[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:20:49[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdf[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:20:49[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:20:49[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-hermes-letsencrypt_20210414.tgz[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:20:49[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:20:49[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:20:49[00m ] [0;37mensuring pod state           [00m | [0;90mstart - eslabs/hermes-7c9bbb5f74-5nf2p[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:21:01[00m ] [0;37mpod is 'Running'             [00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:21:01[00m ] [0;37mensuring pod state           [00m | [0;90mstop - eslabs/hyperion-5979dcf8d4-qntss[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:21:36[00m ] [0;37mpod is gone                  [00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:21:36[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:21:36[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:21:36[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hyperion-config[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:21:38[00m ] [0;37mfound device                 [00m | [0;90m/dev/sde[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:21:38[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:21:39[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-hyperion-config_20210414.tgz[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:22:51[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:22:51[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hyperion-config[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:22:52[00m ] [0;37mensuring pod state           [00m | [0;90mstart - eslabs/hyperion-5979dcf8d4-mrlmk[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:23:04[00m ] [0;37mpod is 'Running'             [00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:23:05[00m ] [0;37mensuring pod state           [00m | [0;90mstop - eslabs/plex-5d554f96c6-zjl27[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:23:16[00m ] [0;37mpod is gone                  [00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:23:16[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:23:16[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:23:16[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-tautulli[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:23:18[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdb[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:23:18[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:23:19[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-tautulli_20210414.tgz[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:23:52[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:23:52[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-tautulli[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:23:53[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:23:53[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:23:53[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-config[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:23:55[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdb[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:23:55[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:23:55[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-plexserver-config_20210414.tgz[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:50:49[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:50:51[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-config[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:50:51[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:50:51[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:50:51[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-transcode[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:50:53[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdb[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:50:53[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:50:53[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-plexserver-transcode_20210414.tgz[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:50:53[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:50:53[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-transcode[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:50:55[00m ] [0;37mensuring pod state           [00m | [0;90mstart - eslabs/plex-5d554f96c6-tlcld[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:51:05[00m ] [0;37mpod is 'Running'             [00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.14 - 04:51:05[00m ] [0;37mfinished                     [00m | [0;90mWed Apr 14 04:51:05 AM MDT 2021[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:20:01[00m ] [0;37mstarted                      [00m | [0;90mWed Apr 21 04:20:01 AM MDT 2021[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:20:01[00m ] [0;37mprocessing host              [00m | [0;90mkube02.labs.elysianskies.com[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:20:01[00m ] [0;37mgenerate kubernetes config   [00m | [0;90mhttps://labs.elysianskies.com:6443[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:20:01[00m ] [0;37mdeleting files after 30 days [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/*.tgz[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:20:03[00m ] [0;37mensuring pod state           [00m | [0;90mstop - eslabs/hermes-7c9bbb5f74-pgfhw[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:20:47[00m ] [0;37mpod is gone                  [00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:20:47[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:20:47[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:20:47[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:20:49[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdb[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:20:49[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:20:49[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-hermes-letsencrypt_20210421.tgz[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:20:49[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:20:50[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:20:50[00m ] [0;37mensuring pod state           [00m | [0;90mstart - eslabs/hermes-7c9bbb5f74-vdxg4[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:20:58[00m ] [0;37mpod is 'Running'             [00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:20:58[00m ] [0;37mensuring pod state           [00m | [0;90mstop - eslabs/hyperion-5979dcf8d4-qtpwd[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:21:38[00m ] [0;37mpod is gone                  [00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:21:38[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:21:38[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:21:38[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hyperion-config[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:21:40[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdf[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:21:40[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:21:40[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-hyperion-config_20210421.tgz[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:23:04[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:23:05[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hyperion-config[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:23:06[00m ] [0;37mensuring pod state           [00m | [0;90mstart - eslabs/hyperion-5979dcf8d4-4jbtl[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:23:12[00m ] [0;37mpod is 'Running'             [00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:23:12[00m ] [0;37mensuring pod state           [00m | [0;90mstop - eslabs/plex-5d554f96c6-8v94r[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:23:21[00m ] [0;37mpod is gone                  [00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:23:21[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:23:21[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:23:21[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-tautulli[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:23:23[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdc[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:23:23[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:23:23[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-tautulli_20210421.tgz[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:23:58[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:23:59[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-tautulli[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:23:59[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:23:59[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:23:59[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-config[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:24:01[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdc[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:24:01[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:24:01[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-plexserver-config_20210421.tgz[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:52:30[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:52:31[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-config[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:52:32[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:52:32[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:52:32[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-transcode[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:52:34[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdc[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:52:34[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:52:34[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-plexserver-transcode_20210421.tgz[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:52:34[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:52:34[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-transcode[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:52:35[00m ] [0;37mensuring pod state           [00m | [0;90mstart - eslabs/plex-5d554f96c6-gcz4s[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:52:49[00m ] [0;37mpod is 'Running'             [00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.21 - 04:52:49[00m ] [0;37mfinished                     [00m | [0;90mWed Apr 21 04:52:49 AM MDT 2021[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:20:02[00m ] [0;37mstarted                      [00m | [0;90mWed Apr 28 04:20:02 AM MDT 2021[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:20:02[00m ] [0;37mprocessing host              [00m | [0;90mkube02.labs.elysianskies.com[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:20:02[00m ] [0;37mgenerate kubernetes config   [00m | [0;90mhttps://labs.elysianskies.com:6443[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:20:02[00m ] [0;37mdeleting files after 30 days [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/*.tgz[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:20:04[00m ] [0;37mensuring pod state           [00m | [0;90mstop - eslabs/hermes-7c9bbb5f74-vdxg4[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:20:47[00m ] [0;37mpod is gone                  [00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:20:47[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:20:47[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:20:47[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:20:49[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdb[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:20:49[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:20:49[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-hermes-letsencrypt_20210428.tgz[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:20:49[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:20:49[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:20:50[00m ] [0;37mensuring pod state           [00m | [0;90mstart - eslabs/hermes-7c9bbb5f74-jz4tf[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:20:58[00m ] [0;37mpod is 'Running'             [00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:20:58[00m ] [0;37mensuring pod state           [00m | [0;90mstop - eslabs/hyperion-5979dcf8d4-b6xj9[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:21:38[00m ] [0;37mpod is gone                  [00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:21:38[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:21:38[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:21:38[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hyperion-config[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:21:40[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdf[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:21:40[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:21:40[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-hyperion-config_20210428.tgz[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:23:07[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:23:08[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hyperion-config[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:23:08[00m ] [0;37mensuring pod state           [00m | [0;90mstart - eslabs/hyperion-5979dcf8d4-2pm6p[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:23:20[00m ] [0;37mpod is 'Running'             [00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:23:20[00m ] [0;37mensuring pod state           [00m | [0;90mstop - eslabs/plex-5d554f96c6-9prt5[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:23:29[00m ] [0;37mpod is gone                  [00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:23:29[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:23:29[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:23:29[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-tautulli[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:23:32[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdc[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:23:32[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:23:32[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-tautulli_20210428.tgz[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:24:10[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:24:10[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-tautulli[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:24:11[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:24:11[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:24:11[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-config[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:24:13[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdc[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:24:13[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:24:13[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-plexserver-config_20210428.tgz[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:56:42[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:56:44[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-config[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:56:44[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:56:44[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:56:44[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-transcode[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:56:46[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdc[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:56:46[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:56:46[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-plexserver-transcode_20210428.tgz[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:56:47[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:56:47[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-transcode[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:56:48[00m ] [0;37mensuring pod state           [00m | [0;90mstart - eslabs/plex-5d554f96c6-mz6fq[00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:57:02[00m ] [0;37mpod is 'Running'             [00m
+  [0;92mSTDOUT[00m [ [0;90m2021.04.28 - 04:57:02[00m ] [0;37mfinished                     [00m | [0;90mWed Apr 28 04:57:02 AM MDT 2021[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:20:01[00m ] [0;37mstarted                      [00m | [0;90mWed May  5 04:20:01 AM MDT 2021[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:20:01[00m ] [0;37mprocessing host              [00m | [0;90mkube02.labs.elysianskies.com[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:20:01[00m ] [0;37mgenerate kubernetes config   [00m | [0;90mhttps://labs.elysianskies.com:6443[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:20:01[00m ] [0;37mdeleting files after 30 days [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/*.tgz[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:20:03[00m ] [0;37mensuring pod state           [00m | [0;90mstop - eslabs/hermes-7c9bbb5f74-jz4tf[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:20:46[00m ] [0;37mpod is gone                  [00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:20:46[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:20:46[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:20:46[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:20:49[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdb[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:20:49[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:20:49[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-hermes-letsencrypt_20210505.tgz[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:20:49[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:20:49[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:20:49[00m ] [0;37mensuring pod state           [00m | [0;90mstart - eslabs/hermes-7c9bbb5f74-bnpjf[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:20:58[00m ] [0;37mpod is 'Running'             [00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:20:59[00m ] [0;37mensuring pod state           [00m | [0;90mstop - eslabs/hyperion-5979dcf8d4-nb4xg[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:21:37[00m ] [0;37mpod is gone                  [00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:21:37[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:21:37[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:21:37[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hyperion-config[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:21:39[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdf[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:21:39[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:21:39[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-hyperion-config_20210505.tgz[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:23:18[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:23:18[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hyperion-config[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:23:18[00m ] [0;37mensuring pod state           [00m | [0;90mstart - eslabs/hyperion-5979dcf8d4-r72lf[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:23:30[00m ] [0;37mpod is 'Running'             [00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:23:30[00m ] [0;37mensuring pod state           [00m | [0;90mstop - eslabs/plex-5d554f96c6-fvlns[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:23:39[00m ] [0;37mpod is gone                  [00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:23:40[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:23:40[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:23:40[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-tautulli[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:23:42[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdc[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:23:42[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:23:42[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-tautulli_20210505.tgz[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:24:16[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:24:17[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-tautulli[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:24:17[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:24:17[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:24:17[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-config[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:24:19[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdc[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:24:19[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:24:19[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-plexserver-config_20210505.tgz[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:54:07[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:54:08[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-config[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:54:09[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:54:09[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:54:09[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-transcode[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:54:11[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdc[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:54:11[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:54:11[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-plexserver-transcode_20210505.tgz[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:54:11[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:54:12[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-transcode[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:54:12[00m ] [0;37mensuring pod state           [00m | [0;90mstart - eslabs/plex-5d554f96c6-mg58j[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:54:35[00m ] [0;37mpod is 'Running'             [00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.05 - 04:54:35[00m ] [0;37mfinished                     [00m | [0;90mWed May  5 04:54:35 AM MDT 2021[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:20:01[00m ] [0;37mstarted                      [00m | [0;90mWed May 12 04:20:01 AM MDT 2021[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:20:01[00m ] [0;37mprocessing host              [00m | [0;90mkube02.labs.elysianskies.com[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:20:01[00m ] [0;37mgenerate kubernetes config   [00m | [0;90mhttps://labs.elysianskies.com:6443[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:20:01[00m ] [0;37mdeleting files after 30 days [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/*.tgz[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:20:03[00m ] [0;37mensuring pod state           [00m | [0;90mstop - eslabs/hermes-7c9bbb5f74-fn2cl[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:20:36[00m ] [0;37mpod is gone                  [00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:20:36[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:20:36[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:20:36[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:20:38[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdf[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:20:38[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:20:38[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-hermes-letsencrypt_20210512.tgz[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:20:38[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:20:38[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:20:38[00m ] [0;37mensuring pod state           [00m | [0;90mstart - eslabs/hermes-7c9bbb5f74-2zxqm[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:20:51[00m ] [0;37mpod is 'Running'             [00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:20:52[00m ] [0;37mensuring pod state           [00m | [0;90mstop - eslabs/hyperion-5979dcf8d4-hsslt[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:21:23[00m ] [0;37mpod is gone                  [00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:21:23[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:21:23[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:21:23[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hyperion-config[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:21:25[00m ] [0;37mfound device                 [00m | [0;90m/dev/sde[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:21:25[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:21:26[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-hyperion-config_20210512.tgz[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:22:56[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:22:56[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hyperion-config[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:22:57[00m ] [0;37mensuring pod state           [00m | [0;90mstart - eslabs/hyperion-5979dcf8d4-srftz[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:23:08[00m ] [0;37mpod is 'Running'             [00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:23:09[00m ] [0;37mensuring pod state           [00m | [0;90mstop - eslabs/plex-5d554f96c6-sp6sj[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:23:17[00m ] [0;37mpod is gone                  [00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:23:17[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:23:17[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:23:17[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-tautulli[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:23:19[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdb[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:23:19[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:23:19[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-tautulli_20210512.tgz[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:23:55[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:23:56[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-tautulli[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:23:56[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:23:56[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:23:56[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-config[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:23:58[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdb[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:23:58[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:23:58[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-plexserver-config_20210512.tgz[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:51:16[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:51:17[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-config[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:51:18[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:51:18[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:51:18[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-transcode[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:51:20[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdb[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:51:20[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:51:20[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-plexserver-transcode_20210512.tgz[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:51:20[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:51:20[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-transcode[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:51:21[00m ] [0;37mensuring pod state           [00m | [0;90mstart - eslabs/plex-5d554f96c6-tq76d[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:51:35[00m ] [0;37mpod is 'Running'             [00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.12 - 04:51:35[00m ] [0;37mfinished                     [00m | [0;90mWed May 12 04:51:35 AM MDT 2021[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:20:01[00m ] [0;37mstarted                      [00m | [0;90mWed May 19 04:20:01 AM MDT 2021[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:20:02[00m ] [0;37mprocessing host              [00m | [0;90mkube02.labs.elysianskies.com[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:20:02[00m ] [0;37mgenerate kubernetes config   [00m | [0;90mhttps://labs.elysianskies.com:6443[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:20:02[00m ] [0;37mdeleting files after 30 days [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/*.tgz[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:20:03[00m ] [0;37mensuring pod state           [00m | [0;90mstop - eslabs/hermes-7c9bbb5f74-2zxqm[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:20:40[00m ] [0;37mpod is gone                  [00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:20:41[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:20:41[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:20:41[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:20:43[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdf[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:20:43[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:20:43[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-hermes-letsencrypt_20210519.tgz[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:20:43[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:20:43[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:20:43[00m ] [0;37mensuring pod state           [00m | [0;90mstart - eslabs/hermes-7c9bbb5f74-tpf9g[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:20:52[00m ] [0;37mpod is 'Running'             [00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:20:53[00m ] [0;37mensuring pod state           [00m | [0;90mstop - eslabs/hyperion-5979dcf8d4-htz8q[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:21:26[00m ] [0;37mpod is gone                  [00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:21:26[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:21:26[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:21:26[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hyperion-config[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:21:28[00m ] [0;37mfound device                 [00m | [0;90m/dev/sde[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:21:28[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:21:28[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-hyperion-config_20210519.tgz[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:22:58[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:22:59[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hyperion-config[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:22:59[00m ] [0;37mensuring pod state           [00m | [0;90mstart - eslabs/hyperion-5979dcf8d4-n55vj[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:23:03[00m ] [0;37mpod is 'Running'             [00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:23:04[00m ] [0;37mensuring pod state           [00m | [0;90mstop - eslabs/plex-5d554f96c6-jwtdx[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:23:22[00m ] [0;37mpod is gone                  [00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:23:22[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:23:22[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:23:22[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-tautulli[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:23:24[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdb[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:23:24[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:23:24[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-tautulli_20210519.tgz[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:24:01[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:24:01[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-tautulli[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:24:02[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:24:02[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:24:02[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-config[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:24:04[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdb[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:24:04[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:24:04[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-plexserver-config_20210519.tgz[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:50:37[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:50:39[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-config[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:50:40[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:50:40[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:50:40[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-transcode[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:50:42[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdb[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:50:42[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:50:42[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-plexserver-transcode_20210519.tgz[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:50:42[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:50:42[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-transcode[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:50:43[00m ] [0;37mensuring pod state           [00m | [0;90mstart - eslabs/plex-5d554f96c6-j44mt[00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:51:05[00m ] [0;37mpod is 'Running'             [00m
+  [0;94mSTDOUT[00m [ [0;90m2021.05.19 - 04:51:05[00m ] [0;37mfinished                     [00m | [0;90mWed May 19 04:51:05 AM MDT 2021[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:20:02[00m ] [0;37mstarted                      [00m | [0;90mWed May 26 04:20:02 AM MDT 2021[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:20:02[00m ] [0;37mprocessing host              [00m | [0;90mkube02.labs.elysianskies.com[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:20:02[00m ] [0;37mgenerate kubernetes config   [00m | [0;90mhttps://labs.elysianskies.com:6443[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:20:02[00m ] [0;37mdeleting files after 30 days [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/*.tgz[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:20:03[00m ] [0;37mensuring pod state           [00m | [0;90mstop - eslabs/hermes-7cd49d8c97-qmsnz[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:20:45[00m ] [0;37mpod is gone                  [00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:20:46[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:20:46[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:20:46[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:20:48[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdf[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:20:48[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:20:48[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-hermes-letsencrypt_20210526.tgz[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:20:48[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:20:48[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:20:49[00m ] [0;37mensuring pod state           [00m | [0;90mstart - eslabs/hermes-7cd49d8c97-nw5nv[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:21:04[00m ] [0;37mpod is 'Running'             [00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:21:04[00m ] [0;37mensuring pod state           [00m | [0;90mstop - eslabs/hyperion-7fc49cf7f5-2sq5h[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:21:37[00m ] [0;37mpod is gone                  [00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:21:37[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:21:37[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:21:37[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hyperion-config[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:21:39[00m ] [0;37mfound device                 [00m | [0;90m/dev/sde[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:21:39[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:21:39[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-hyperion-config_20210526.tgz[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:23:22[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:23:23[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hyperion-config[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:23:25[00m ] [0;37mensuring pod state           [00m | [0;90mstart - eslabs/hyperion-7fc49cf7f5-7hwh7[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:23:31[00m ] [0;37mpod is 'Running'             [00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:23:32[00m ] [0;37mensuring pod state           [00m | [0;90mstop - eslabs/plex-d4bfd995f-6gwl8[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:23:41[00m ] [0;37mpod is gone                  [00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:23:41[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:23:41[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:23:41[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-tautulli[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:23:43[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdb[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:23:43[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:23:43[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-tautulli_20210526.tgz[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:24:18[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:24:19[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-tautulli[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:24:19[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:24:19[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:24:19[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-config[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:24:21[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdb[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:24:21[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:24:21[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-plexserver-config_20210526.tgz[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:49:59[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:50:00[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-config[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:50:01[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:50:01[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:50:01[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-transcode[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:50:03[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdb[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:50:03[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:50:03[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-plexserver-transcode_20210526.tgz[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:50:03[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:50:03[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-transcode[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:50:04[00m ] [0;37mensuring pod state           [00m | [0;90mstart - eslabs/plex-d4bfd995f-bqlww[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:50:14[00m ] [0;37mpod is 'Running'             [00m
+  [0;91mSTDOUT[00m [ [0;90m2021.05.26 - 04:50:14[00m ] [0;37mfinished                     [00m | [0;90mWed May 26 04:50:14 AM MDT 2021[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:20:02[00m ] [0;37mstarted                      [00m | [0;90mWed Jun  2 04:20:02 AM MDT 2021[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:20:02[00m ] [0;37mprocessing host              [00m | [0;90mkube02.labs.elysianskies.com[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:20:02[00m ] [0;37mgenerate kubernetes config   [00m | [0;90mhttps://labs.elysianskies.com:6443[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:20:02[00m ] [0;37mdeleting files after 30 days [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/*.tgz[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:20:03[00m ] [0;37mensuring pod state           [00m | [0;90mstop - eslabs/hermes-7cd49d8c97-nw5nv[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:20:36[00m ] [0;37mpod is gone                  [00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:20:36[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:20:36[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:20:36[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:20:38[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdf[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:20:38[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:20:39[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-hermes-letsencrypt_20210602.tgz[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:20:39[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:20:39[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hermes-letsencrypt[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:20:39[00m ] [0;37mensuring pod state           [00m | [0;90mstart - eslabs/hermes-7cd49d8c97-w7cfz[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:20:46[00m ] [0;37mpod is 'Running'             [00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:20:46[00m ] [0;37mensuring pod state           [00m | [0;90mstop - eslabs/hyperion-7fc49cf7f5-fwtvd[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:21:26[00m ] [0;37mpod is gone                  [00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:21:26[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:21:26[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:21:26[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hyperion-config[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:21:28[00m ] [0;37mfound device                 [00m | [0;90m/dev/sde[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:21:28[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:21:28[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-hyperion-config_20210602.tgz[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:23:04[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:23:05[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-hyperion-config[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:23:05[00m ] [0;37mensuring pod state           [00m | [0;90mstart - eslabs/hyperion-7fc49cf7f5-bznhj[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:23:25[00m ] [0;37mpod is 'Running'             [00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:23:26[00m ] [0;37mensuring pod state           [00m | [0;90mstop - eslabs/plex-d4bfd995f-frggb[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:23:36[00m ] [0;37mpod is gone                  [00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:23:36[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:23:36[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:23:36[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-tautulli[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:23:38[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdb[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:23:38[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:23:38[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-tautulli_20210602.tgz[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:24:18[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:24:18[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-tautulli[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:24:18[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:24:18[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:24:18[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-config[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:24:20[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdb[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:24:20[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:24:20[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-plexserver-config_20210602.tgz[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:50:36[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:50:38[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-config[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:50:38[00m ] [0;37mchap session user            [00m | [0;90maustin[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:50:38[00m ] [0;37mdiscover portal              [00m | [0;90m172.16.17.4[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:50:38[00m ] [0;37mlog into target              [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-transcode[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:50:41[00m ] [0;37mfound device                 [00m | [0;90m/dev/sdb[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:50:41[00m ] [0;37mmounting at                  [00m | [0;90m/mnt/iscsi[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:50:41[00m ] [0;37mgenerating tarball           [00m | [0;90m/mnt/tvault/es-labs/backups/iscsi_volumes/k8s-vol-plexserver-transcode_20210602.tgz[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:50:41[00m ] [0;37munmounting disk              [00m | [0;90m/mnt/iscsi[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:50:41[00m ] [0;37mlog out of target            [00m | [0;90miqn.2013-03.com.wdc:elysianskies:k8s-vol-plexserver-transcode[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:50:43[00m ] [0;37mensuring pod state           [00m | [0;90mstart - eslabs/plex-d4bfd995f-8pksb[00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:51:11[00m ] [0;37mpod is 'Running'             [00m
+  [0;91mSTDOUT[00m [ [0;90m2021.06.02 - 04:51:11[00m ] [0;37mfinished                     [00m | [0;90mWed Jun  2 04:51:11 AM MDT 2021[00m
+
