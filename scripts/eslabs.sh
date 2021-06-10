@@ -22,7 +22,7 @@ elif [ "${OPTION}" == 'shutdown' ]; then
     for host in ${LAB_SSH_LOGINS[@]}; do
         short_name=$(echo $host | awk -F '@' '{print $2}')
         print_message stdout "shutdown $short_name"
-        ssh $host -i /tmp/id_rsa 'sudo shutdown now -h' &> /dev/null &
+        ssh -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no -o LogLevel=ERROR $host 'sudo shutdown now -h' &> /dev/null &
 
     done
 
