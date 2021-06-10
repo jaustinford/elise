@@ -18,7 +18,7 @@ filebrowser_api_generate_token () {
 filebrowser_api_download_file () {
     src_fqpath="$1"
     dest_fqpath="$2"
-    
+
     src_file=$(echo "$src_fqpath" | egrep -o '[a-zA-Z0-9_-]{,}([.][a-zA-Z0-9_-]{,}){,}$')
 
     print_message stdout 'downloading tvault file' "$dest_fqpath/$src_file"
