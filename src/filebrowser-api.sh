@@ -25,7 +25,7 @@ filebrowser_api_download_file () {
     curl -X GET "https://${LAB_FQDN}/tvault/api/resources$src_fqpath" \
         --header 'Accept: application/json' \
         --header 'Content-Type: application/json' \
-        --header "X-Auth: $(filebrowser_api_generate_token)"
+        --header "X-Auth: $(filebrowser_api_generate_token)" | jq -r '.content' > "$dest_fqpath/$src_file"
 }
 
 filebrowser_api_copy_file () {
