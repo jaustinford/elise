@@ -103,9 +103,11 @@ once decrypted, the values can be retrieved in bash via the alias : `_vars_edit`
 | **KHARON_EXPRESSVPN_TLS**                  | str  |                                             | `true` |
 | **KHARON_EXPRESSVPN_CA**                   | str  |                                             | `true` |
 | **KHARON_DELUGE_DOWNLOAD_DIR**             | str  | `/mnt/tvault/kharon`                        |        |
+| **KHARON_DELUGE_PLUGINS_DIR**              | str  | `/mnt/tvault/es-labs/plugins`               |        |
 | **KHARON_DELUGE_MAX_ACTIVE_DOWNLOADING**   | str  | `3`                                         |        |
 | **KHARON_DELUGE_PASSWORD**                 | str  |                                             |        |
 | **PLEX_CLAIM**                             | str  |                                             |        |
+| **PLEX_TOKEN**                             | str  |                                             |        |
 | **LAB_FQDN**                               | str  | `labs.elysianskies.com`                     |        |
 | **LAB_APACHE_MOTD**                        | str  |                                             |        |
 | **LAB_USER_AUSTIN_SSH_KEY**                | str  |                                             | `true` |

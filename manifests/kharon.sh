@@ -225,7 +225,9 @@ data:
         "base": "/",
         "cert": "ssl/daemon.cert",
         "default_daemon": "848a383a14b046a3995900613d4690c3",
-        "enabled_plugins": [],
+        "enabled_plugins": [
+          "webapi"
+        ],
         "first_login": false,
         "https": false,
         "interface": "0.0.0.0",
@@ -337,8 +339,10 @@ spec:
             - name: PGID
               value: "1000"
           volumeMounts:
-            - name: k8s-vol-deluge-downloads
+            - name: deluge-downloads
               mountPath: /downloads
+            - name: deluge-plugins
+              mountPath: /config/plugins
             - name: kharon-configmap-deluge
               mountPath: /config/core.conf
               subPath: core.conf
@@ -368,9 +372,12 @@ spec:
           configMap:
             name: kharon-configmap-deluge
             defaultMode: 0644
-        - name: k8s-vol-deluge-downloads
+        - name: deluge-downloads
           hostPath:
             path: "${KHARON_DELUGE_DOWNLOAD_DIR}"
+        - name: deluge-plugins
+          hostPath:
+            path: "${KHARON_DELUGE_PLUGINS_DIR}"
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress

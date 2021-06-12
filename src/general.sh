@@ -220,6 +220,45 @@ countdown_to_cmd () {
     /bin/bash -c "$command"
 }
 
+url_encode_string () {
+    string="$1"
+
+    string=$(echo "$string" \
+      | sed 's/\%/%25/g' \
+      | sed "s/'/%27/g"
+    )
+
+    echo "$string" \
+      | sed 's/\ /%20/g' \
+      | sed 's/\!/%21/g' \
+      | sed 's/\"/%22/g' \
+      | sed 's/\#/%23/g' \
+      | sed 's/\$/%24/g' \
+      | sed 's/\&/%26/g' \
+      | sed 's/(/%28/g' \
+      | sed 's/)/%29/g' \
+      | sed 's/\*/%2A/g' \
+      | sed 's/\+/%2B/g' \
+      | sed 's/\,/%2C/g' \
+      | sed 's/\-/%2D/g' \
+      | sed 's/\./%2E/g' \
+      | sed 's/\//%2F/g' \
+      | sed 's/\:/%3A/g' \
+      | sed 's/\;/%3B/g' \
+      | sed 's/</%3C/g' \
+      | sed 's/\=/%3D/g' \
+      | sed 's/>/%3E/g' \
+      | sed 's/\?/%3F/g' \
+      | sed 's/\@/%40/g' \
+      | sed 's/\[/%5B/g' \
+      | sed 's/\\/%5C/g' \
+      | sed 's/\]/%5D/g' \
+      | sed 's/\^/%5E/g' \
+      | sed 's/\_/%5F/g' \
+      | sed 's/`/%60/g'
+
+}
+
 ####################################################
 # init tasks
 ####################################################
