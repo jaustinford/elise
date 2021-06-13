@@ -49,7 +49,7 @@ filebrowser_api_delete_file () {
     url_file=$(url_encode_string "$file_fqpath")
     url_file=$(echo "$url_file" | sed 's/%2F/\//g')
 
-    if [ ! -z "$url_file" ]; then
+    if [ ! -z "$(echo $url_file | egrep '%2E[0-9a-z]{,}$')" ]; then
         print_message stdout 'deleting tvault file' "/$file_fqpath"
         curl -X DELETE "https://${LAB_FQDN}/tvault/api/resources/$url_file" \
             --header "X-Auth: $(filebrowser_api_generate_token)"
