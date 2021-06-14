@@ -39,6 +39,7 @@ if [ ! -z "${ELISE_PROFILE}" ]; then
         curl_test 'kubernetes ingress' https "${LAB_FQDN}" '/tvault'
         curl_test 'plex media server' https "${LAB_FQDN}" ':32400/web/index.html'
         curl_test 'hermes apache' http "${LAB_FQDN}" '/'
+        print_message stdout 'tautulli active streams' $(tautulli_api_execute get_activity | jq -r '.response.data.stream_count')
         grab_loaded_vpn_server "$(pod_from_deployment eslabs kharon)"
         find_wan_from_pod "$(pod_from_deployment eslabs kharon)"
 

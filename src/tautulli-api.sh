@@ -36,23 +36,24 @@ tautulli_api_get_activity () {
         geoip=$(tautulli_api_geoip_lookup $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .ip_address_public"))
 
         echo -e "
-${SHELL_STDOUT_CODE} full_title         ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .full_title") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} library_name       ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .library_name") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} user               ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .user") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} state              ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .state") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} ip_address_public  ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .ip_address_public") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} code               ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.code") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} country            ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.country") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} region             ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.region") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} city               ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.city") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} postal_code        ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.postal_code") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} timezone           ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.timezone") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} location           ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .location") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} progress_percent   ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .progress_percent") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} transcode_progress ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .transcode_progress") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} quality_profile    ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .quality_profile") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} device             ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .device") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} summary            ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .summary") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} full_title            ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .full_title") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} library_name          ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .library_name") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} user                  ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .user") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} state                 ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .state") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} ip_address_public     ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .ip_address_public") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} code                  ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.code") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} country               ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.country") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} region                ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.region") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} city                  ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.city") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} postal_code           ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.postal_code") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} timezone              ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.timezone") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} location              ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .location") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} progress_percent      ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .progress_percent") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} transcode_progress    ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .transcode_progress") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} quality_profile       ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .quality_profile") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} video_full_resolution ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .video_full_resolution") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} device                ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .device") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} summary               ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .summary") ${ECHO_RESET}
         "
 
     done
