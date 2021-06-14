@@ -54,6 +54,7 @@ ${SHELL_STDOUT_CODE} quality_profile    ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE
 ${SHELL_STDOUT_CODE} device             ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .device") ${ECHO_RESET}
 ${SHELL_STDOUT_CODE} device             ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .summary") ${ECHO_RESET}
     "
+
     done
 }
 
