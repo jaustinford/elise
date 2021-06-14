@@ -53,7 +53,7 @@ ${SHELL_STDOUT_CODE} transcode_progress ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE
 ${SHELL_STDOUT_CODE} quality_profile    ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .quality_profile") ${ECHO_RESET}
 ${SHELL_STDOUT_CODE} device             ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .device") ${ECHO_RESET}
 ${SHELL_STDOUT_CODE} device             ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .summary") ${ECHO_RESET}
-    "
+        "
 
     done
 }
@@ -81,7 +81,7 @@ ${SHELL_STDOUT_CODE} started            ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE
 ${SHELL_STDOUT_CODE} stopped            ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$history" | jq -r ".response.data.data[] | select ( .date == $item ) | .stopped") ${ECHO_RESET}
 ${SHELL_STDOUT_CODE} product            ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$history" | jq -r ".response.data.data[] | select ( .date == $item ) | .product") ${ECHO_RESET}
 ${SHELL_STDOUT_CODE} percent_complete   ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$history" | jq -r ".response.data.data[] | select ( .date == $item ) | .percent_complete") ${ECHO_RESET}
-    "
+        "
 
     done
 }
