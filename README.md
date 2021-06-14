@@ -108,6 +108,7 @@ once decrypted, the values can be retrieved in bash via the alias : `_vars_edit`
 | **KHARON_DELUGE_PASSWORD**                 | str  |                                             |        |
 | **PLEX_CLAIM**                             | str  |                                             |        |
 | **PLEX_TOKEN**                             | str  |                                             |        |
+| **TAUTULLI_API_KEY**                       | str  |                                             |        |
 | **LAB_FQDN**                               | str  | `labs.elysianskies.com`                     |        |
 | **LAB_APACHE_MOTD**                        | str  |                                             |        |
 | **LAB_USER_AUSTIN_SSH_KEY**                | str  |                                             | `true` |
