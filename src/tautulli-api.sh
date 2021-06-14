@@ -68,20 +68,20 @@ tautulli_api_get_history () {
         geoip=$(tautulli_api_geoip_lookup $(echo "$history" | jq -r ".response.data.data[] | select ( .date == $item ) | .ip_address"))
 
         echo -e "
-${SHELL_STDOUT_CODE} full_title         ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$history" | jq -r ".response.data.data[] | select ( .date == $item ) | .full_title") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} ip_address         ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$history" | jq -r ".response.data.data[] | select ( .date == $item ) | .ip_address") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} code               ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.code") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} country            ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.country") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} region             ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.region") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} city               ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.city") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} postal_code        ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.postal_code") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} timezone           ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.timezone") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} user               ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$history" | jq -r ".response.data.data[] | select ( .date == $item ) | .user") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} date               ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$history" | jq -r ".response.data.data[] | select ( .date == $item ) | .date") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} started            ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$history" | jq -r ".response.data.data[] | select ( .date == $item ) | .started") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} stopped            ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$history" | jq -r ".response.data.data[] | select ( .date == $item ) | .stopped") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} product            ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$history" | jq -r ".response.data.data[] | select ( .date == $item ) | .product") ${ECHO_RESET}
-${SHELL_STDOUT_CODE} percent_complete   ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$history" | jq -r ".response.data.data[] | select ( .date == $item ) | .percent_complete") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} full_title            ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$history" | jq -r ".response.data.data[] | select ( .date == $item ) | .full_title") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} user                  ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$history" | jq -r ".response.data.data[] | select ( .date == $item ) | .user") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} ip_address            ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$history" | jq -r ".response.data.data[] | select ( .date == $item ) | .ip_address") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} code                  ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.code") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} country               ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.country") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} region                ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.region") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} city                  ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.city") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} postal_code           ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.postal_code") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} timezone              ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.timezone") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} date                  ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$history" | jq -r ".response.data.data[] | select ( .date == $item ) | .date") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} started               ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$history" | jq -r ".response.data.data[] | select ( .date == $item ) | .started") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} stopped               ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$history" | jq -r ".response.data.data[] | select ( .date == $item ) | .stopped") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} product               ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$history" | jq -r ".response.data.data[] | select ( .date == $item ) | .product") ${ECHO_RESET}
+${SHELL_STDOUT_CODE} percent_complete      ${ECHO_RESET} : ${SHELL_HIST_PROMPT_CODE} $(echo "$history" | jq -r ".response.data.data[] | select ( .date == $item ) | .percent_complete") ${ECHO_RESET}
         "
 
     done
