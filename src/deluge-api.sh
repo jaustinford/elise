@@ -4,7 +4,7 @@
 
 deluge_api_authenticate () {
     print_message stdout 'authenticating deluge' '/tmp/deluge.cookie'
-    curl -X POST -c /tmp/deluge.cookie "https://${LAB_FQDN}/deluge/json" \
+    curl -s -X POST -c /tmp/deluge.cookie "https://${LAB_FQDN}/deluge/json" \
         --header 'Accept: application/json' \
         --header 'Content-Type: application/json' \
         --data "
@@ -13,13 +13,13 @@ deluge_api_authenticate () {
                 \"method\": \"auth.login\",
                 \"params\": [\"${KHARON_DELUGE_PASSWORD}\"]
             }
-        " 2> /dev/null | jq '.'
+        " | jq '.'
 }
 
 deluge_api_version () {
     deluge_api_authenticate
     print_message stdout 'querying deluge api version'
-    curl -X POST -b /tmp/deluge.cookie "https://${LAB_FQDN}/deluge/json" \
+    curl -s -X POST -b /tmp/deluge.cookie "https://${LAB_FQDN}/deluge/json" \
         --header 'Accept: application/json' \
         --header 'Content-Type: application/json' \
         --data "
@@ -28,14 +28,13 @@ deluge_api_version () {
                 \"method\": \"webapi.get_api_version\",
                 \"params\": []
             }
-        " 2> /dev/null | jq '.'
+        " | jq '.'
 }
-
 
 deluge_api_get_torrents () {
     deluge_api_authenticate
     print_message stdout 'display torrents'
-    curl -X POST -b /tmp/deluge.cookie "https://${LAB_FQDN}/deluge/json" \
+    curl -s -X POST -b /tmp/deluge.cookie "https://${LAB_FQDN}/deluge/json" \
         --header 'Accept: application/json' \
         --header 'Content-Type: application/json' \
         --data "
@@ -44,7 +43,7 @@ deluge_api_get_torrents () {
                 \"method\": \"webapi.get_torrents\",
                 \"params\": []
             }
-        " 2> /dev/null | jq '.'
+        " | jq '.'
 }
 
 deluge_api_get_torrent_info () {
@@ -52,7 +51,7 @@ deluge_api_get_torrent_info () {
 
     deluge_api_authenticate
     print_message stdout 'displaying torrent info' "$torrent_id"
-    curl -X POST -b /tmp/deluge.cookie "https://${LAB_FQDN}/deluge/json" \
+    curl -s -X POST -b /tmp/deluge.cookie "https://${LAB_FQDN}/deluge/json" \
         --header 'Accept: application/json' \
         --header 'Content-Type: application/json' \
         --data "
@@ -69,7 +68,7 @@ deluge_api_get_torrent_info () {
                     ]
                 ]
             }
-        " 2> /dev/null | jq '.'
+        " | jq '.'
 }
 
 deluge_api_get_torrent_progress () {
@@ -77,7 +76,7 @@ deluge_api_get_torrent_progress () {
 
     deluge_api_authenticate
     print_message stdout 'displaying torrent progress' "$torrent_id"
-    curl -X POST -b /tmp/deluge.cookie "https://${LAB_FQDN}/deluge/json" \
+    curl -s -X POST -b /tmp/deluge.cookie "https://${LAB_FQDN}/deluge/json" \
         --header 'Accept: application/json' \
         --header 'Content-Type: application/json' \
         --data "
@@ -90,7 +89,7 @@ deluge_api_get_torrent_progress () {
                     ]
                 ]
             }
-        " 2> /dev/null | jq '.'
+        " | jq '.'
 }
 
 deluge_api_add_torrent () {
@@ -98,7 +97,7 @@ deluge_api_add_torrent () {
 
     deluge_api_authenticate
     print_message stdout 'adding torrent' "$magnet_link"
-    curl -X POST -b /tmp/deluge.cookie "https://${LAB_FQDN}/deluge/json" \
+    curl -s -X POST -b /tmp/deluge.cookie "https://${LAB_FQDN}/deluge/json" \
         --header 'Accept: application/json' \
         --header 'Content-Type: application/json' \
         --data "
@@ -107,7 +106,7 @@ deluge_api_add_torrent () {
                 \"method\": \"webapi.add_torrent\",
                 \"params\": [\"$magnet_link\"]
             }
-        " 2> /dev/null | jq '.'
+        " | jq '.'
 }
 
 deluge_api_remove_torrent () {
@@ -115,7 +114,7 @@ deluge_api_remove_torrent () {
 
     deluge_api_authenticate
     print_message stdout 'removing torrent' "$torrent_id"
-    curl -X POST -b /tmp/deluge.cookie "https://${LAB_FQDN}/deluge/json" \
+    curl -s -X POST -b /tmp/deluge.cookie "https://${LAB_FQDN}/deluge/json" \
         --header 'Accept: application/json' \
         --header 'Content-Type: application/json' \
         --data "
@@ -124,5 +123,5 @@ deluge_api_remove_torrent () {
                 \"method\": \"webapi.remove_torrent\",
                 \"params\": [\"$torrent_id\"]
             }
-        " 2> /dev/null | jq '.'
+        " | jq '.'
 }
