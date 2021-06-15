@@ -72,7 +72,7 @@ tautulli_api_get_history () {
     history=$(tautulli_api_execute get_history)
     date=$(echo "$history" | jq -r '.response.data.data[] | .date')
 
-    print_message stdout 'displaying tautulli history' "https://${LAB_FQDN}/tvault"
+    print_message stdout 'displaying tautulli history' "https://${LAB_FQDN}/tautulli"
     for item in $date; do
         geoip=$(tautulli_api_geoip_lookup $(echo "$history" | jq -r ".response.data.data[] | select ( .date == $item ) | .ip_address"))
 
