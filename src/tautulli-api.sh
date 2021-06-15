@@ -37,6 +37,7 @@ tautulli_api_get_activity () {
 
         echo -e "
 ${SHELL_HIST_PROMPT_CODE} full_title            ${ECHO_RESET} : ${SHELL_STDOUT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .full_title") ${ECHO_RESET}
+${SHELL_HIST_PROMPT_CODE} parent_title          ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .parent_title") ${ECHO_RESET}
 ${SHELL_HIST_PROMPT_CODE} library_name          ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .library_name") ${ECHO_RESET}
 ${SHELL_HIST_PROMPT_CODE} user                  ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .user") ${ECHO_RESET}
 ${SHELL_HIST_PROMPT_CODE} state                 ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .state") ${ECHO_RESET}
