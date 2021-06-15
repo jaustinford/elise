@@ -22,10 +22,10 @@ alias logs_full_soteria="ssh kube02 cat ${LOG_DIR}/soteria-kube02.labs.elysiansk
 alias logs_tail_haproxy='ssh kube00 sudo docker logs -f haproxy'
 alias logs_tail_soteria="ssh kube02 tail -f ${LOG_DIR}/soteria-kube02.labs.elysianskies.com.log"
 alias pihole_update='ssh dns sudo pihole -up'
-alias tpb_search_hd_movies='tpb_search most_seeders hd_movies'
-alias tpb_search_hd_tv_shows='tpb_search most_seeders hd_tv_shows'
 alias scp='scp -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no -o LogLevel=ERROR'
 alias ssh='ssh -F /tmp/ssh_config -i /tmp/id_rsa -o StrictHostKeyChecking=no -o LogLevel=ERROR'
+alias tpb_search_hd_movies='tpb_search most_seeders hd_movies'
+alias tpb_search_hd_tv_shows='tpb_search most_seeders hd_tv_shows'
 alias tree_project="tree -a -I '.git|*_history|.viminfo|.config|.vim|.kube|.ssh|dropoff|.cache|.lesshst|.ansible' ${ELISE_ROOT_DIR}"
 
 # ssl
