@@ -59,6 +59,7 @@ tpb_search () {
     url_query=$(url_encode_string "$query")
     url_sort=$(tpb_grab_sort_ids "$sort_value")
     url_media=$(tpb_grab_media_ids "$media_value")
+    print_message stdout 'tpb - search' "$query"
     tpb_parse_xml $(curl -s -X GET "https://${TPB_URL}/search/$url_query/1/$url_sort/$url_media")
 }
 
@@ -66,9 +67,11 @@ tpb_top () {
     media_value="$1"
 
     url_media=$(tpb_grab_media_ids "$media_value")
+    print_message stdout 'tpb - recent'
     tpb_parse_xml $(curl -s -X GET "https://${TPB_URL}/top/$url_media")
 }
 
 tpb_recent () {
+    print_message stdout 'tpb - top'
     tpb_parse_xml $(curl -s -X GET "https://${TPB_URL}/recent/1")
 }
