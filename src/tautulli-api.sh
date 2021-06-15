@@ -6,9 +6,9 @@ tautulli_api_execute () {
     cmd="$1"
     add_params="$2"
 
-    curl -X GET "https://${LAB_FQDN}/tautulli/api/v2?apikey=${TAUTULLI_API_KEY}&cmd=$cmd$add_params" \
+    curl -s -X GET "https://${LAB_FQDN}/tautulli/api/v2?apikey=${TAUTULLI_API_KEY}&cmd=$cmd$add_params" \
         --header 'Accept: application/json', \
-        --header 'Content-Type: application/json' 2> /dev/null
+        --header 'Content-Type: application/json'
 }
 
 tautulli_api_geoip_lookup () {
