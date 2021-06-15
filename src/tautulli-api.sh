@@ -36,7 +36,7 @@ tautulli_api_get_activity () {
     activity=$(tautulli_api_execute get_activity)
     session_key=$(echo "$activity" | jq -r '.response.data.sessions[] | .session_key')
 
-    print_message stdout 'displaying tautulli activity' "https://${LAB_FQDN}/tvault"
+    print_message stdout 'displaying tautulli activity' "https://${LAB_FQDN}/tautulli"
     stream_count=$(echo "$activity" | jq -r ".response.data.stream_count")
     echo -e "\n active sessions        :  $stream_count"
 
