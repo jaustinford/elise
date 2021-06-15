@@ -97,15 +97,19 @@ tautulli_api_search () {
 
     echo -e "
 ${SHELL_STDOUT_CODE}  movies ${ECHO_RESET}
+
 ${SHELL_HOST_PROMPT_CODE}$(echo "$search_result" | jq -r '.response.data.results_list.movie[].title') ${ECHO_RESET}
 
 ${SHELL_STDOUT_CODE}  shows ${ECHO_RESET}
+
 ${SHELL_HOST_PROMPT_CODE}$(echo "$search_result" | jq -r '.response.data.results_list.show[].title') ${ECHO_RESET}
 
 ${SHELL_STDOUT_CODE}  seasons ${ECHO_RESET}
+
 ${SHELL_HOST_PROMPT_CODE}$(echo "$search_result" | jq -r '.response.data.results_list.season[] | .title, .parent_title') ${ECHO_RESET}
 
 ${SHELL_STDOUT_CODE}  episodes ${ECHO_RESET}
+
 ${SHELL_HOST_PROMPT_CODE}$(echo "$search_result" | jq -r '.response.data.results_list.episode[] | .title, .grandparent_title') ${ECHO_RESET}
     "
 }
