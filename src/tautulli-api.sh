@@ -12,8 +12,16 @@ tautulli_api_execute () {
 }
 
 tautulli_api_geoip_lookup () {
-    ip_address="$1"
+    target_fqdn="$1"
     geoip_key="$2"
+
+    if [ -z "$(echo $target_fqdn | egrep '^([0-9]{,}[.]){3}[0-9]{,}$')" ]; then
+        ip_address="$(dig +short $target_fqdn)"
+
+    else
+        ip_address="$target_fqdn"
+
+    fi
 
     if [ ! -z "$geoip_key" ]; then
         tautulli_api_execute get_geoip_lookup "&ip_address=$ip_address" | jq -r ".response.data.$geoip_key"
