@@ -132,6 +132,8 @@ once decrypted, the values can be retrieved in bash via the alias : `_vars_edit`
 | **NTOPNG_LICENSE**                         | str  |                                             |        |
 | **FILEBROWSER_USERNAME**                   | str  |                                             |        |
 | **FILEBROWSER_PASSWORD**                   | str  |                                             |        |
+| **ZONEMINDER_USERNAME**                    | str  |                                             |        |
+| **ZONEMINDER_PASSWORD**                    | str  |                                             |        |
 
 <br />
 
