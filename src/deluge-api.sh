@@ -111,8 +111,11 @@ deluge_api_remove_torrent () {
 }
 
 deluge_api_display () {
+    result=()
     for item in $(deluge_api_get_torrents | jq -r '.result.torrents[].hash'); do
-        deluge_api_get_torrent_info "$item"
+        result+=$(deluge_api_get_torrent_info "$item")
 
     done
+
+    echo "$result" | jq -s '.'
 }
