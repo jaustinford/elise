@@ -35,7 +35,6 @@ tautulli_api_geoip_lookup () {
 tautulli_api_get_activity () {
     activity=$(tautulli_api_execute get_activity)
     session_key=$(echo "$activity" | jq -r '.response.data.sessions[] | .session_key')
-
     print_message stdout 'displaying tautulli activity' "https://${LAB_FQDN}/tautulli"
     stream_count=$(echo "$activity" | jq -r '.response.data.stream_count')
     echo -e "\n active sessions        :  $stream_count"
@@ -104,7 +103,6 @@ tautulli_api_search () {
     url_search=$(url_encode_string "$query")
     search_result=$(tautulli_api_execute search "&query=$url_search&limit=254")
     print_message stdout 'search results found' "$(echo "$search_result" | jq '.response.data.results_count')"
-
     echo -e "
 ${SHELL_STDOUT_CODE}  movies ${ECHO_RESET}
 
