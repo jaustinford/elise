@@ -2,6 +2,18 @@
 # tpb
 ####################################################
 
+tpb_check_proxy () {
+    if [ "${TPB_PROXY_ENABLED}" == 'yes' ]; then
+        print_message stdout 'tpb - proxy enabled' "${TPB_PROXY_ENABLED} - ${TPB_PROXY_SERVER}"
+        curl_cmd="curl -s -X GET -x ${TPB_PROXY_SERVER}"
+
+    elif [ "${TPB_PROXY_ENABLED}" == 'no' ]; then
+        print_message stdout 'tpb - proxy enabled' "${TPB_PROXY_ENABLED}"
+        curl_cmd='curl -s -X GET'
+
+    fi
+}
+
 tpb_grab_sort_ids () {
     sort_value="$1"
 
@@ -65,7 +77,8 @@ tpb_search () {
     print_message stdout 'tpb - search' "sorted by  : $sort_value"
     print_message stdout 'tpb - search' "media type : $media_value"
     print_message stdout 'tpb - search' "search url : https://${TPB_URL}/search/$url_query/1/$url_sort/$url_media"
-    tpb_parse_xml ${TPB_RESULTS_LIMIT} "$(curl -s -X GET "https://${TPB_URL}/search/$url_query/1/$url_sort/$url_media")"
+    tpb_check_proxy
+    tpb_parse_xml ${TPB_RESULTS_LIMIT} "$($curl_cmd "https://${TPB_URL}/search/$url_query/1/$url_sort/$url_media")"
 }
 
 tpb_top () {
@@ -73,10 +86,12 @@ tpb_top () {
 
     url_media=$(tpb_grab_media_ids "$media_value")
     print_message stdout 'tpb - top' "https://${TPB_URL}/top/$url_media"
-    tpb_parse_xml ${TPB_RESULTS_LIMIT} "$(curl -s -X GET "https://${TPB_URL}/top/$url_media")"
+    tpb_check_proxy
+    tpb_parse_xml ${TPB_RESULTS_LIMIT} "$("$curl_cmd" "https://${TPB_URL}/top/$url_media")"
 }
 
 tpb_recent () {
     print_message stdout 'tpb - recent' "https://${TPB_URL}/recent"
-    tpb_parse_xml ${TPB_RESULTS_LIMIT} "$(curl -s -X GET "https://${TPB_URL}/recent")"
+    tpb_check_proxy
+    tpb_parse_xml ${TPB_RESULTS_LIMIT} "$("$curl_cmd" "https://${TPB_URL}/recent")"
 }
