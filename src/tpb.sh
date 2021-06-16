@@ -52,7 +52,7 @@ tpb_parse_xml () {
     limit="$1"
     xml_result="$2"
 
-    magnets=$(echo "$xml_result" | egrep '^<a href="magnet:' | cut -d'"' -f2)
+    magnets=$(echo "$xml_result" | egrep -o 'magnet:\?xt=.*announce')
     magnets=$(echo "$magnets" | head -$limit)
 
     print_message stdout 'tpb - results limited' "$limit"
