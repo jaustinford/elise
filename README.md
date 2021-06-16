@@ -135,6 +135,7 @@ once decrypted, the values can be retrieved in bash via the alias : `_vars_edit`
 | **ZONEMINDER_USERNAME**                    | str  |                                             |        |
 | **ZONEMINDER_PASSWORD**                    | str  |                                             |        |
 | **TPB_URL**                                | str  |                                             |        |
+| **TPB_RESULTS_LIMIT**                      | str  | `5`                                         |        |
 
 <br />
 

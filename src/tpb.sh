@@ -37,13 +37,16 @@ tpb_grab_media_ids () {
 }
 
 tpb_parse_xml () {
-    xml_result="$1"
+    limit="$1"
+    xml_result="$2"
 
     magnets=$(echo "$xml_result" | egrep '^<a href="magnet:' | cut -d'"' -f2)
+    magnets=$(echo "$magnets" | head -$limit)
 
+    print_message stdout 'tpb - results limited' "$limit"
     for line in $magnets; do
         title=$(echo "$line" | cut -d'&' -f2 | cut -d'=' -f2)
-        echo -e "\
+        echo -e "
 ${SHELL_HOST_PROMPT_CODE}$title ${ECHO_RESET}
 ${SHELL_HIST_PROMPT_CODE}$line ${ECHO_RESET}
         "
@@ -59,19 +62,21 @@ tpb_search () {
     url_query=$(url_encode_string "$query")
     url_sort=$(tpb_grab_sort_ids "$sort_value")
     url_media=$(tpb_grab_media_ids "$media_value")
-    print_message stdout 'tpb - search' "$query"
-    tpb_parse_xml $(curl -s -X GET "https://${TPB_URL}/search/$url_query/1/$url_sort/$url_media")
+    print_message stdout 'tpb - search' "sorted by  : $sort_value"
+    print_message stdout 'tpb - search' "media type : $media_value"
+    print_message stdout 'tpb - search' "search url : https://${TPB_URL}/search/$url_query/1/$url_sort/$url_media"
+    tpb_parse_xml ${TPB_RESULTS_LIMIT} "$(curl -s -X GET "https://${TPB_URL}/search/$url_query/1/$url_sort/$url_media")"
 }
 
 tpb_top () {
     media_value="$1"
 
     url_media=$(tpb_grab_media_ids "$media_value")
-    print_message stdout 'tpb - recent'
-    tpb_parse_xml $(curl -s -X GET "https://${TPB_URL}/top/$url_media")
+    print_message stdout 'tpb - top' "https://${TPB_URL}/top/$url_media"
+    tpb_parse_xml ${TPB_RESULTS_LIMIT} "$(curl -s -X GET "https://${TPB_URL}/top/$url_media")"
 }
 
 tpb_recent () {
-    print_message stdout 'tpb - top'
-    tpb_parse_xml $(curl -s -X GET "https://${TPB_URL}/recent/1")
+    print_message stdout 'tpb - recent' "https://${TPB_URL}/recent"
+    tpb_parse_xml ${TPB_RESULTS_LIMIT} "$(curl -s -X GET "https://${TPB_URL}/recent")"
 }
