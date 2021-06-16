@@ -16,8 +16,8 @@ alias eslabs_stop="${ELISE_ROOT_DIR}/scripts/eslabs.sh stop"
 alias hyperion_arm="zoneminder_api_change_function_all_monitors Modect 1"
 alias hyperion_check="zoneminder_api_get_monitors | jq '.monitors[].Monitor_Status'"
 alias hyperion_disarm="zoneminder_api_change_function_all_monitors Monitor 1"
-alias hyperion_off="${ANSIBLE_PLAYBOOK}/watchers.yml --extra-vars \"option=stop\"; zoneminder_api_change_function_all_monitors None 0"
-alias hyperion_on="${ANSIBLE_PLAYBOOK}/watchers.yml --extra-vars \"option=start\"; zoneminder_api_change_function_all_monitors Monitor 1"
+alias hyperion_off="zoneminder_api_change_function_all_monitors None 0"
+alias hyperion_on="zoneminder_api_change_function_all_monitors Monitor 1"
 alias logs_full_haproxy='ssh kube00 sudo docker logs haproxy'
 alias logs_full_soteria="ssh kube02 cat ${LOG_DIR}/soteria-kube02.labs.elysianskies.com.log"
 alias logs_tail_haproxy='ssh kube00 sudo docker logs -f haproxy'
