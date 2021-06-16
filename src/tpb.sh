@@ -87,11 +87,11 @@ tpb_top () {
     url_media=$(tpb_grab_media_ids "$media_value")
     print_message stdout 'tpb - top' "https://${TPB_URL}/top/$url_media"
     tpb_check_proxy
-    tpb_parse_xml ${TPB_RESULTS_LIMIT} "$("$curl_cmd" "https://${TPB_URL}/top/$url_media")"
+    tpb_parse_xml ${TPB_RESULTS_LIMIT} "$($curl_cmd "https://${TPB_URL}/top/$url_media")"
 }
 
 tpb_recent () {
     print_message stdout 'tpb - recent' "https://${TPB_URL}/recent"
     tpb_check_proxy
-    tpb_parse_xml ${TPB_RESULTS_LIMIT} "$("$curl_cmd" "https://${TPB_URL}/recent")"
+    tpb_parse_xml ${TPB_RESULTS_LIMIT} "$($curl_cmd "https://${TPB_URL}/recent")"
 }
