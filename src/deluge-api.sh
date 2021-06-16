@@ -78,6 +78,7 @@ deluge_api_get_torrent_progress () {
             \"method\": \"web.get_torrent_status\",
             \"params\": [
                 \"$torrent_id\", [
+                    \"name\",
                     \"progress\"
                 ]
             ]
@@ -107,4 +108,11 @@ deluge_api_remove_torrent () {
             \"params\": [\"$torrent_id\"]
         }
     "
+}
+
+deluge_api_display () {
+    for item in $(deluge_api_get_torrents | jq -r '.result.torrents[].hash'); do
+        deluge_api_get_torrent_info "$item"
+
+    done
 }
