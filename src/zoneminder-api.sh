@@ -15,7 +15,7 @@ zoneminder_api_version () {
 
 zoneminder_api_get_monitors () {
     curl -s -X GET "https://${LAB_FQDN}/zm/api/monitors.json?token=$(zoneminder_api_authenticate)" \
-        --header 'Accept: application/json' | jq '.monitors[] | .Monitor.Id, .Monitor.Name, .Monitor.Function, .Monitor_Status.Status'
+        --header 'Accept: application/json' | jq '.'
 }
 
 zoneminder_api_change_function () {
