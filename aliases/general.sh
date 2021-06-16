@@ -14,6 +14,7 @@ alias eslabs_nuke="countdown_to_cmd \"${ELISE_ROOT_DIR}/scripts/eslabs.sh stop; 
 alias eslabs_shutdown="${ELISE_ROOT_DIR}/scripts/eslabs.sh shutdown"
 alias eslabs_stop="${ELISE_ROOT_DIR}/scripts/eslabs.sh stop"
 alias hyperion_arm="zoneminder_api_change_function_all_monitors Modect 1"
+alias hyperion_check="zoneminder_api_get_monitors | jq '.monitors[].Monitor_Status'"
 alias hyperion_disarm="zoneminder_api_change_function_all_monitors Monitor 1"
 alias hyperion_off="${ANSIBLE_PLAYBOOK}/watchers.yml --extra-vars \"option=stop\"; zoneminder_api_change_function_all_monitors None 0"
 alias hyperion_on="${ANSIBLE_PLAYBOOK}/watchers.yml --extra-vars \"option=start\"; zoneminder_api_change_function_all_monitors Monitor 1"
