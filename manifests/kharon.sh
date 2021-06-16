@@ -139,7 +139,9 @@ data:
         "dont_count_slow_torrents": false,
         "download_location": "/downloads/incoming",
         "download_location_paths_list": [],
-        "enabled_plugins": [],
+        "enabled_plugins": [
+          "webapi"
+        ],
         "enc_in_policy": 1,
         "enc_level": 2,
         "enc_out_policy": 1,
