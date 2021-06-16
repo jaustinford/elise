@@ -40,6 +40,8 @@ if [ ! -z "${ELISE_PROFILE}" ]; then
         curl_test 'plex media server' https "${LAB_FQDN}" ':32400/web/index.html'
         curl_test 'hermes apache' http "${LAB_FQDN}" '/'
         print_message stdout 'tautulli active streams' $(tautulli_api_execute get_activity | jq -r '.response.data.stream_count')
+        deluge_api_authenticate &> /dev/null
+        print_message stdout 'deluge active torrents' $(deluge_api_get_torrents | jq -r '.result.torrents[].hash' | wc -l)
         grab_loaded_vpn_server "$(pod_from_deployment eslabs kharon)"
         find_wan_from_pod "$(pod_from_deployment eslabs kharon)"
 
