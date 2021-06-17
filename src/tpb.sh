@@ -60,7 +60,7 @@ tpb_parse_xml () {
     for line in $magnets; do
         title=$(echo "$line" | cut -d'&' -f2 | cut -d'=' -f2)
         echo -e "
-${SHELL_STDOUT_CODE}$iter${ECHO_RESET} | ${SHELL_HOST_PROMPT_CODE}$(url_encode_string url-to-text "$title")${ECHO_RESET}
+${SHELL_STDOUT_CODE} $iter ${ECHO_RESET}|${SHELL_HOST_PROMPT_CODE} $(url_encode_string url-to-text "$title") ${ECHO_RESET}
 ${SHELL_HIST_PROMPT_CODE}$line${ECHO_RESET}
         "
         iter=$(expr 1 + "$iter")
