@@ -265,7 +265,7 @@ url_encode_string () {
         '~|%7E'
     )
 
-    if [ "$mode" == "text-to-url" ]; then
+    if [ "$mode" == 'text-to-url' ]; then
         for item in ${filter_one[@]} ${filter_two[@]}; do
             char=$(echo "$item" | cut -d'|' -f1)
             code=$(echo "$item" | cut -d'|' -f2)
@@ -286,7 +286,7 @@ url_encode_string () {
 
         echo "$object"
 
-    elif [ "$mode" == "url-to-text" ]; then
+    elif [ "$mode" == 'url-to-text' ]; then
         for item in ${filter_one[@]} ${filter_two[@]}; do
             char=$(echo "$item" | cut -d'|' -f1)
             code=$(echo "$item" | cut -d'|' -f2)
