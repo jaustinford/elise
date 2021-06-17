@@ -12,6 +12,8 @@ tpb_check_proxy () {
         curl_cmd='curl -s -X GET'
 
     fi
+
+    wan_address="$($curl_cmd ifconfig.io)"
 }
 
 tpb_grab_sort_ids () {
@@ -80,6 +82,7 @@ tpb_search () {
     print_message stdout 'tpb - search' "media type : $media_value"
     print_message stdout 'tpb - search' "search url : https://${TPB_URL}/search/$url_query/1/$url_sort/$url_media"
     tpb_check_proxy
+    print_message stdout 'tpb - wan address' "$wan_address"
     tpb_parse_xml ${TPB_RESULTS_LIMIT} "$($curl_cmd "https://${TPB_URL}/search/$url_query/1/$url_sort/$url_media")"
 }
 
@@ -89,11 +92,13 @@ tpb_top () {
     url_media=$(tpb_grab_media_ids "$media_value")
     print_message stdout 'tpb - top' "https://${TPB_URL}/top/$url_media"
     tpb_check_proxy
+    print_message stdout 'tpb - wan address' "$wan_address"
     tpb_parse_xml ${TPB_RESULTS_LIMIT} "$($curl_cmd "https://${TPB_URL}/top/$url_media")"
 }
 
 tpb_recent () {
     print_message stdout 'tpb - recent' "https://${TPB_URL}/recent"
     tpb_check_proxy
+    print_message stdout 'tpb - wan address' "$wan_address"
     tpb_parse_xml ${TPB_RESULTS_LIMIT} "$($curl_cmd "https://${TPB_URL}/recent")"
 }
