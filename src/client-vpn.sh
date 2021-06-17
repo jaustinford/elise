@@ -28,30 +28,3 @@ eslabs_vpn_kill () {
     print_message stdout 'kill vpn connection'
     kill -9 $(pidof openvpn)
 }
-
-####################################################
-# eslabs_squid
-####################################################
-
-eslabs_squid_start () {
-    cat << EOF > /tmp/squid.conf
-acl SSL_ports port 443
-acl Safe_ports port 80
-acl Safe_ports port 443
-acl CONNECT method CONNECT
-http_access deny !Safe_ports
-http_access deny CONNECT !SSL_ports
-http_access allow localhost manager
-http_access deny manager
-http_access allow all
-http_port 3128
-EOF
-
-    print_message stdout 'starting squid server'
-    squid -f /tmp/squid.conf
-}
-
-eslabs_squid_kill () {
-    print_message stdout 'kill squid server'
-    kill -9 $(pidof squid)
-}
