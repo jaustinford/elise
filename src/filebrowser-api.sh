@@ -56,3 +56,15 @@ filebrowser_api_delete_file () {
 
     fi
 }
+
+filebrowser_api_create_file () {
+    file_fqpath="$1"
+
+    file_fqpath=$(echo "$file_fqpath" | sed -E 's/^\///g')
+    url_file=$(url_encode_string text-to-url "$file_fqpath")
+    url_file=$(echo "$url_file" | sed 's/%2F/\//g')
+
+    print_message stdout 'creating tvault file' "/$file_fqpath"
+    curl -s -X POST "https://${LAB_FQDN}/tvault/api/resources/$url_file" \
+        --header "X-Auth: $(filebrowser_api_generate_token)"
+}
