@@ -49,7 +49,7 @@ filebrowser_api_delete_file () {
     url_file=$(url_encode_string text-to-url "$file_fqpath")
     url_file=$(echo "$url_file" | sed 's/%2F/\//g')
 
-    if [ ! -z "$(echo $url_file | egrep '%2E[0-9a-z]{,}$')" ]; then
+    if [ ! -z "$(echo $url_file | egrep '/.*/')" ]; then
         print_message stdout 'deleting tvault file' "/$file_fqpath"
         curl -s -X DELETE "https://${LAB_FQDN}/tvault/api/resources/$url_file" \
             --header "X-Auth: $(filebrowser_api_generate_token)"
@@ -57,7 +57,7 @@ filebrowser_api_delete_file () {
     fi
 }
 
-filebrowser_api_create_file () {
+filebrowser_api_create_directory () {
     file_fqpath="$1"
 
     file_fqpath=$(echo "$file_fqpath" | sed -E 's/^\///g')
@@ -65,6 +65,6 @@ filebrowser_api_create_file () {
     url_file=$(echo "$url_file" | sed 's/%2F/\//g')
 
     print_message stdout 'creating tvault file' "/$file_fqpath"
-    curl -s -X POST "https://${LAB_FQDN}/tvault/api/resources/$url_file" \
+    curl -s -X POST "https://${LAB_FQDN}/tvault/api/resources/$url_file/" \
         --header "X-Auth: $(filebrowser_api_generate_token)"
 }
