@@ -30,6 +30,7 @@ deluge_api_authenticate () {
 }
 
 deluge_api_version () {
+    deluge_api_authenticate
     deluge_api_execute "
         {
             \"id\": 2,
@@ -40,6 +41,7 @@ deluge_api_version () {
 }
 
 deluge_api_get_torrents () {
+    deluge_api_authenticate
     deluge_api_execute "
         {
             \"id\": 3,
@@ -52,6 +54,7 @@ deluge_api_get_torrents () {
 deluge_api_get_torrent_info () {
     torrent_id="$1"
 
+    deluge_api_authenticate
     deluge_api_execute "
         {
             \"id\": 4,
@@ -72,6 +75,7 @@ deluge_api_get_torrent_info () {
 deluge_api_get_torrent_progress () {
     torrent_id="$1"
 
+    deluge_api_authenticate
     deluge_api_execute "
         {
             \"id\": 5,
@@ -89,6 +93,7 @@ deluge_api_get_torrent_progress () {
 deluge_api_add_torrent () {
     magnet_link="$1"
 
+    deluge_api_authenticate
     deluge_api_execute "
         {
             \"id\": 6,
@@ -101,6 +106,7 @@ deluge_api_add_torrent () {
 deluge_api_remove_torrent () {
     torrent_id="$1"
 
+    deluge_api_authenticate
     deluge_api_execute "
         {
             \"id\": 7,
