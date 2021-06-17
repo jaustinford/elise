@@ -23,8 +23,7 @@ RUN \
         diffutils \
         bind-utils \
         httpd-tools \
-        openvpn \
-        squid
+        openvpn
 
 # ansible
 RUN \
