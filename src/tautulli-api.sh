@@ -100,7 +100,7 @@ tautulli_api_search () {
     query="$1"
 
     print_message stdout 'searching plex server' "$query"
-    url_search=$(url_encode_string "$query")
+    url_search=$(url_encode_string text-to-url "$query")
     search_result=$(tautulli_api_execute search "&query=$url_search&limit=254")
     print_message stdout 'search results found' "$(echo "$search_result" | jq '.response.data.results_count')"
     echo -e "

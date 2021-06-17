@@ -221,42 +221,93 @@ countdown_to_cmd () {
 }
 
 url_encode_string () {
-    string="$1"
+    mode="$1"
+    object="$2"
 
-    string=$(echo "$string" \
-      | sed 's/\%/%25/g' \
-      | sed "s/'/%27/g"
+    filter_one=(
+        '%|%25'
     )
 
-    echo "$string" \
-      | sed 's/\ /%20/g' \
-      | sed 's/\!/%21/g' \
-      | sed 's/\"/%22/g' \
-      | sed 's/\#/%23/g' \
-      | sed 's/\$/%24/g' \
-      | sed 's/\&/%26/g' \
-      | sed 's/(/%28/g' \
-      | sed 's/)/%29/g' \
-      | sed 's/\*/%2A/g' \
-      | sed 's/\+/%2B/g' \
-      | sed 's/\,/%2C/g' \
-      | sed 's/\-/%2D/g' \
-      | sed 's/\./%2E/g' \
-      | sed 's/\//%2F/g' \
-      | sed 's/\:/%3A/g' \
-      | sed 's/\;/%3B/g' \
-      | sed 's/</%3C/g' \
-      | sed 's/\=/%3D/g' \
-      | sed 's/>/%3E/g' \
-      | sed 's/\?/%3F/g' \
-      | sed 's/\@/%40/g' \
-      | sed 's/\[/%5B/g' \
-      | sed 's/\\/%5C/g' \
-      | sed 's/\]/%5D/g' \
-      | sed 's/\^/%5E/g' \
-      | sed 's/\_/%5F/g' \
-      | sed 's/`/%60/g'
+    filter_two=(
+        ' |%20'
+        '!|%21'
+        '"|%22'
+        '#|%23'
+        '$|%24'
+        '&|%26'
+        '*|%2A'
+        '+|%2B'
+        ',|%2C'
+        '-|%2D'
+        '.|%2E'
+        '/|%2F'
+        ':|%3A'
+        ';|%3B'
+        '=|%3D'
+        '?|%3F'
+        '@|%40'
+        '[|%5B'
+        '\|%5C'
+        ']|%5D'
+        '^|%5E'
+        '_|%5F'
+    )
 
+    filter_three=(
+        "'|%27"
+        '(|%28'
+        ')|%29'
+        '<|%3C'
+        '>|%3E'
+        '`|%60'
+        '{|%7B'
+        '}|%7D'
+        '~|%7E'
+    )
+
+    if [ "$mode" == "text-to-url" ]; then
+        for item in ${filter_one[@]} ${filter_two[@]}; do
+            char=$(echo "$item" | cut -d'|' -f1)
+            code=$(echo "$item" | cut -d'|' -f2)
+
+            if [ "$code" == '%20' ]; then char=' '
+            fi
+
+            object=$(echo "$object" | sed "s/\\$char/$code/g")
+
+        done
+
+        for item in ${filter_three[@]}; do
+            char=$(echo "$item" | cut -d'|' -f1)
+            code=$(echo "$item" | cut -d'|' -f2)
+            object=$(echo "$object" | sed "s/$char/$code/g")
+
+        done
+
+        echo "$object"
+
+    elif [ "$mode" == "url-to-text" ]; then
+        for item in ${filter_one[@]} ${filter_two[@]}; do
+            char=$(echo "$item" | cut -d'|' -f1)
+            code=$(echo "$item" | cut -d'|' -f2)
+
+            if [ "$code" == '%20' ]; then char=' '
+            fi
+
+            object=$(echo "$object" | sed "s/$code/\\$char/g")
+
+        done
+
+        for item in ${filter_three[@]}; do
+            char=$(echo "$item" | cut -d'|' -f1)
+            code=$(echo "$item" | cut -d'|' -f2)
+            object=$(echo "$object" | sed "s/$code/$char/g")
+
+        done
+
+        echo "$object"
+
+    fi
 }
 
 ####################################################

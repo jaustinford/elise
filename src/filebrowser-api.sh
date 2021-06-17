@@ -33,9 +33,9 @@ filebrowser_api_copy_file () {
     dest_fqpath="$2"
 
     src_fqpath=$(echo "$src_fqpath" | sed -E 's/^\///g')
-    url_src=$(url_encode_string "$src_fqpath")
+    url_src=$(url_encode_string text-to-url "$src_fqpath")
     url_src=$(echo "$url_src" | sed 's/%2F/\//g')
-    url_dest=$(url_encode_string "$dest_fqpath")
+    url_dest=$(url_encode_string text-to-url "$dest_fqpath")
 
     print_message stdout 'copying tvault file' "https://${LAB_FQDN}/tvault/files$dest_fqpath"
     curl -s -X PATCH "https://${LAB_FQDN}/tvault/api/resources/$url_src?action=copy&destination=$url_dest" \
@@ -46,7 +46,7 @@ filebrowser_api_delete_file () {
     file_fqpath="$1"
 
     file_fqpath=$(echo "$file_fqpath" | sed -E 's/^\///g')
-    url_file=$(url_encode_string "$file_fqpath")
+    url_file=$(url_encode_string text-to-url "$file_fqpath")
     url_file=$(echo "$url_file" | sed 's/%2F/\//g')
 
     if [ ! -z "$(echo $url_file | egrep '%2E[0-9a-z]{,}$')" ]; then

@@ -59,8 +59,8 @@ tpb_parse_xml () {
     for line in $magnets; do
         title=$(echo "$line" | cut -d'&' -f2 | cut -d'=' -f2)
         echo -e "
-${SHELL_HOST_PROMPT_CODE}$title ${ECHO_RESET}
-${SHELL_HIST_PROMPT_CODE}$line ${ECHO_RESET}
+${SHELL_HOST_PROMPT_CODE}$(url_encode_string url-to-text "$title")${ECHO_RESET}
+${SHELL_HIST_PROMPT_CODE}$line${ECHO_RESET}
         "
 
     done
@@ -71,7 +71,7 @@ tpb_search () {
     media_value="$2"
     query="$3"
 
-    url_query=$(url_encode_string "$query")
+    url_query=$(url_encode_string text-to-url "$query")
     url_sort=$(tpb_grab_sort_ids "$sort_value")
     url_media=$(tpb_grab_media_ids "$media_value")
     print_message stdout 'tpb - search' "sorted by  : $sort_value"
