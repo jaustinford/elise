@@ -50,6 +50,31 @@ tpb_grab_media_ids () {
     done
 }
 
+tpb_print_ids () {
+    id_type="$1"
+
+    tpb_grab_sort_ids
+    tpb_grab_media_ids
+
+    if [ "$id_type" == 'media' ]; then
+        for item in ${MEDIA_TYPES[@]}; do
+            key=$(echo "$item" | cut -d':' -f1)
+            value=$(echo "$item" | cut -d':' -f2)
+            print_message stdout "$key" "$value"
+
+        done
+
+    elif [ "$id_type" == 'sort' ]; then
+        for item in ${SORT_TYPES[@]}; do
+            key=$(echo "$item" | cut -d':' -f1)
+            value=$(echo "$item" | cut -d':' -f2)
+            print_message stdout "$key" "$value"
+
+        done
+
+    fi
+}
+
 tpb_parse_xml () {
     limit="$1"
     xml_result="$2"
