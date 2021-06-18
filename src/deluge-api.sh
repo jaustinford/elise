@@ -6,17 +6,18 @@ deluge_api_execute () {
     json_data="$1"
 
     if [ "$(echo "$json_data" | jq -r '.method')" == 'auth.login' ]; then
-        auth_mode='--cookie-jar'
+        curl -s -X POST --cookie-jar /tmp/deluge.cookie "https://${LAB_FQDN}/deluge/json" \
+            --header 'Accept: application/json' \
+            --header 'Content-Type: application/json' \
+            --data "$json_data" &> /dev/null
 
     else
-        auth_mode='--cookie'
+        curl -s -X POST --cookie /tmp/deluge.cookie "https://${LAB_FQDN}/deluge/json" \
+            --header 'Accept: application/json' \
+            --header 'Content-Type: application/json' \
+            --data "$json_data" | jq '.'
 
     fi
-
-    curl -s -X POST "$auth_mode" /tmp/deluge.cookie "https://${LAB_FQDN}/deluge/json" \
-        --header 'Accept: application/json' \
-        --header 'Content-Type: application/json' \
-        --data "$json_data" | jq '.'
 }
 
 deluge_api_authenticate () {
@@ -118,7 +119,7 @@ deluge_api_remove_torrent () {
 
 deluge_api_display () {
     result=""
-    for item in $(deluge_api_get_torrents | jq -s '.' | jq -r '.[1].result.torrents[].hash'); do
+    for item in $(deluge_api_get_torrents | jq -r '.result.torrents[].hash'); do
         result+=$(deluge_api_get_torrent_info "$item")
 
     done
