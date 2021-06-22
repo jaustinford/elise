@@ -15,9 +15,6 @@ eslabs_vpn_generate_config () {
 }
 
 eslabs_vpn_connect () {
-    eslabs_vpn_generate_credentials
-    eslabs_vpn_generate_config
-
     print_message stdout 'connecting vpn' '/tmp/eslabs_ap.log'
     openvpn \
         --config '/tmp/eslabs_ap.ovpn' \
