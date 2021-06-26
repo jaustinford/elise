@@ -37,7 +37,7 @@ tautulli_api_get_activity () {
     session_key=$(echo "$activity" | jq -r '.response.data.sessions[] | .session_key')
     print_message stdout 'displaying tautulli activity' "https://${LAB_FQDN}/tautulli"
     stream_count=$(echo "$activity" | jq -r '.response.data.stream_count')
-    echo -e "\n active sessions        :  $stream_count"
+    echo -e "\n active sessions          :  $stream_count"
 
     for item in $session_key; do
         geoip=$(tautulli_api_geoip_lookup $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .ip_address_public"))
