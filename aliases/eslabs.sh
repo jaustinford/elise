@@ -1,3 +1,4 @@
+alias arnold="echo 'Arnold says...'; while sleep 5; do tautulli_api_execute arnold | jq '.response.data'; done"
 alias eslabs_connect="eslabs_vpn_generate_credentials; eslabs_vpn_generate_config; eslabs_vpn_connect"
 alias eslabs_deploy="${ELISE_ROOT_DIR}/scripts/eslabs.sh deploy"
 alias eslabs_destroy="${ELISE_ROOT_DIR}/scripts/eslabs.sh destroy"
