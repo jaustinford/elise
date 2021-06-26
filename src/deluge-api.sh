@@ -52,43 +52,45 @@ deluge_api_get_torrents () {
     "
 }
 
-deluge_api_get_torrent_info () {
-    torrent_id="$1"
-
+deluge_api_info () {
     deluge_api_authenticate
-    deluge_api_execute "
-        {
-            \"id\": 4,
-            \"method\": \"web.get_torrent_status\",
-            \"params\": [
-                \"$torrent_id\", [
-                    \"name\",
-                    \"hash\",
-                    \"total_size\",
-                    \"files\",
-                    \"progress\"
+
+    for torrent_id in $(deluge_api_get_torrents | jq -r '.result.torrents[].hash'); do
+        deluge_api_execute "
+            {
+                \"id\": 4,
+                \"method\": \"web.get_torrent_status\",
+                \"params\": [
+                    \"$torrent_id\", [
+                        \"name\",
+                        \"hash\",
+                        \"total_size\",
+                        \"files\",
+                        \"progress\"
+                    ]
                 ]
-            ]
-        }
-    "
+            }
+        "
+    done | jq -s '.'
 }
 
-deluge_api_get_torrent_progress () {
-    torrent_id="$1"
-
+deluge_api_progress () {
     deluge_api_authenticate
-    deluge_api_execute "
-        {
-            \"id\": 5,
-            \"method\": \"web.get_torrent_status\",
-            \"params\": [
-                \"$torrent_id\", [
-                    \"name\",
-                    \"progress\"
+
+    for torrent_id in $(deluge_api_get_torrents | jq -r '.result.torrents[].hash'); do
+        deluge_api_execute "
+            {
+                \"id\": 5,
+                \"method\": \"web.get_torrent_status\",
+                \"params\": [
+                    \"$torrent_id\", [
+                        \"name\",
+                        \"progress\"
+                    ]
                 ]
-            ]
-        }
-    "
+            }
+        "
+    done | jq -s '.'
 }
 
 deluge_api_add_torrent () {
@@ -117,12 +119,14 @@ deluge_api_remove_torrent () {
     "
 }
 
-deluge_api_display () {
-    result=""
-    for item in $(deluge_api_get_torrents | jq -r '.result.torrents[].hash'); do
-        result+=$(deluge_api_get_torrent_info "$item")
+deluge_api_remove_completed () {
+    deluge_api_authenticate
 
-    done
+    for torrent_id in $(deluge_api_get_torrents | jq -r '.result.torrents[].hash'); do
+        if [ "$(deluge_api_info | jq ".[] | select ( .result.hash == \"$torrent_id\" ) | .result.progress")" == 100 ]; then
+            deluge_api_remove_torrent "$torrent_id"
 
-    echo "$result" | jq -s '.'
+        fi
+
+    done | jq -s '.'
 }
