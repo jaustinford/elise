@@ -19,8 +19,8 @@ if [ ! -z "${ELISE_PROFILE}" ]; then
     fi
 
     for dir in src aliases; do
+        print_message stdout 'importing modules' "${ELISE_ROOT_DIR}/$dir"
         for item in $(find "${ELISE_ROOT_DIR}/$dir" -type f); do
-            print_message stdout "importing $dir module" "$item"
             . "$item"
 
         done
