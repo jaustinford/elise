@@ -363,7 +363,7 @@ greeting () {
     elif [ "$chour" -ge 22 ] && [ "$chour" -lt 24 ]; then message="it's getting late"
     fi
 
-    echo -e "                  $message${SHELL_USER_PROMPT_CODE} $user ${ECHO_RESET}\n"
+    echo -e "                                      $message${SHELL_USER_PROMPT_CODE} $user ${ECHO_RESET}\n"
 }
 
 ####################################################
