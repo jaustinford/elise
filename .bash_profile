@@ -16,21 +16,20 @@ if [ ! -z "${ELISE_PROFILE}" ]; then
         "${ELISE_ROOT_DIR}/scripts/motd.sh"
         echo "${LAB_BANNER_MOTD}" | base64 -d
         greeting austin
+        . "${ELISE_ROOT_DIR}/src/tautulli-api.sh"
+        wan_ip="$(tautulli_api_geoip_lookup "$(curl -s ifconfig.io)")"
+        geoip_city="$(echo "$wan_ip" | jq -r '.response.data.city')"
+        geoip_region="$(echo "$wan_ip" | jq -r '.response.data.region')"
+        geoip_country="$(echo "$wan_ip" | jq -r '.response.data.country')"
+        geoip_timezone="$(echo "$wan_ip" | jq -r '.response.data.timezone')"
 
-    fi
+        if [ ! -z "$geoip_city" ] && \
+           [ ! -z "$geoip_region" ] && \
+           [ ! -z "$geoip_country" ] && \
+           [ ! -z "$geoip_timezone" ]; then
+            print_message stdout 'client location found' "$geoip_city, $geoip_region, $geoip_country ($geoip_timezone)"
 
-    . "${ELISE_ROOT_DIR}/src/tautulli-api.sh"
-    wan_ip="$(tautulli_api_geoip_lookup "$(curl -s ifconfig.io)")"
-    geoip_city="$(echo "$wan_ip" | jq -r '.response.data.city')"
-    geoip_region="$(echo "$wan_ip" | jq -r '.response.data.region')"
-    geoip_country="$(echo "$wan_ip" | jq -r '.response.data.country')"
-    geoip_timezone="$(echo "$wan_ip" | jq -r '.response.data.timezone')"
-
-    if [ ! -z "$geoip_city" ] && \
-       [ ! -z "$geoip_region" ] && \
-       [ ! -z "$geoip_country" ] && \
-       [ ! -z "$geoip_timezone" ]; then
-        print_message stdout 'client location found' "$geoip_city, $geoip_region, $geoip_country ($geoip_timezone)"
+        fi
 
     fi
 
