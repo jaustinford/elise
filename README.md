@@ -110,6 +110,7 @@ once decrypted, the values can be retrieved in bash via the alias : `_vars_edit`
 | **PLEX_TOKEN**                             | str  |                                             |        |
 | **TAUTULLI_API_KEY**                       | str  |                                             |        |
 | **LAB_FQDN**                               | str  | `labs.elysianskies.com`                     |        |
+| **LAB_BANNER_MOTD**                        | str  |                                             | `true` |
 | **LAB_APACHE_MOTD**                        | str  |                                             |        |
 | **LAB_USER_AUSTIN_SSH_KEY**                | str  |                                             | `true` |
 | **LAB_SSH_LOGINS**                         | list |                                             |        |
