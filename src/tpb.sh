@@ -86,8 +86,10 @@ tpb_parse_xml () {
     iter=1
     for line in $magnets; do
         title=$(echo "$line" | cut -d'&' -f2 | cut -d'=' -f2)
+        id=$(echo "$line" | egrep -o 'magnet:\?xt=urn:btih:[0-9A-Z]{,}' | cut -d':' -f4)
+        size=$(echo "$xml_result" | grep "$id" | egrep -o '[0-9]{,}[.][0-9]{,}&nbsp;(M|G)iB' | sed 's/&nbsp;/ /g')
         echo -e "
-${SHELL_STDOUT_CODE} $iter ${ECHO_RESET}|${SHELL_HOST_PROMPT_CODE} $(url_encode_string url-to-text "$title" | sed -E 's/[+.]/ /g') ${ECHO_RESET}
+${SHELL_STDOUT_CODE} $iter ${ECHO_RESET}|${SHELL_HOST_PROMPT_CODE} $size | $(url_encode_string url-to-text "$title" | sed -E 's/[+.]/ /g') ${ECHO_RESET}
 ${SHELL_HIST_PROMPT_CODE}$line${ECHO_RESET}
         "
         iter=$(expr 1 + "$iter")
