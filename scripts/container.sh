@@ -26,7 +26,6 @@ if [ "$1" == 'deploy' ]; then
         --env HOST_HOSTNAME="$(hostname)" \
         --env ELISE_ROOT_DIR="${ROOT_MOUNT_PATH}" \
         --volume "${ROOT_VOLUME}":rw \
-        --publish 127.0.0.1:3128:3128 \
         "${IMAGE_NAME}:${IMAGE_TAG}"
 
 elif [ "$1" == 'start' ]; then
