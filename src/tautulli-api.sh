@@ -34,36 +34,37 @@ tautulli_api_geoip_lookup () {
 
 tautulli_api_get_activity () {
     activity=$(tautulli_api_execute get_activity)
-    session_key=$(echo "$activity" | jq -r '.response.data.sessions[] | .session_key')
+    rating_key=$(echo "$activity" | jq -r '.response.data.sessions[] | .rating_key')
     print_message stdout 'displaying tautulli activity' "https://${LAB_FQDN}/tautulli"
     stream_count=$(echo "$activity" | jq -r '.response.data.stream_count')
     echo -e "\n active sessions          :  $stream_count"
 
-    for item in $session_key; do
-        geoip=$(tautulli_api_geoip_lookup $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .ip_address_public"))
+    for item in $rating_key; do
+        geoip=$(tautulli_api_geoip_lookup $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .rating_key == \"$item\" ) | .ip_address_public"))
 
         echo -e "
-${SHELL_HIST_PROMPT_CODE} full_title              ${ECHO_RESET} : ${SHELL_STDOUT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .full_title") ${ECHO_RESET}
-${SHELL_HIST_PROMPT_CODE} originally_available_at ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .originally_available_at") ${ECHO_RESET}
-${SHELL_HIST_PROMPT_CODE} parent_title            ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .parent_title") ${ECHO_RESET}
-${SHELL_HIST_PROMPT_CODE} media_index             ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .media_index") ${ECHO_RESET}
-${SHELL_HIST_PROMPT_CODE} library_name            ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .library_name") ${ECHO_RESET}
-${SHELL_HIST_PROMPT_CODE} user                    ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .user") ${ECHO_RESET}
-${SHELL_HIST_PROMPT_CODE} state                   ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .state") ${ECHO_RESET}
-${SHELL_HIST_PROMPT_CODE} ip_address_public       ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .ip_address_public") ${ECHO_RESET}
+${SHELL_HIST_PROMPT_CODE} full_title              ${ECHO_RESET} : ${SHELL_STDOUT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .rating_key == \"$item\" ) | .full_title") ${ECHO_RESET}
+${SHELL_HIST_PROMPT_CODE} rating_key              ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $rating_key ${ECHO_RESET}
+${SHELL_HIST_PROMPT_CODE} originally_available_at ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .rating_key == \"$item\" ) | .originally_available_at") ${ECHO_RESET}
+${SHELL_HIST_PROMPT_CODE} parent_title            ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .rating_key == \"$item\" ) | .parent_title") ${ECHO_RESET}
+${SHELL_HIST_PROMPT_CODE} media_index             ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .rating_key == \"$item\" ) | .media_index") ${ECHO_RESET}
+${SHELL_HIST_PROMPT_CODE} library_name            ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .rating_key == \"$item\" ) | .library_name") ${ECHO_RESET}
+${SHELL_HIST_PROMPT_CODE} user                    ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .rating_key == \"$item\" ) | .user") ${ECHO_RESET}
+${SHELL_HIST_PROMPT_CODE} state                   ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .rating_key == \"$item\" ) | .state") ${ECHO_RESET}
+${SHELL_HIST_PROMPT_CODE} ip_address_public       ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .rating_key == \"$item\" ) | .ip_address_public") ${ECHO_RESET}
 ${SHELL_HIST_PROMPT_CODE} code                    ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.code") ${ECHO_RESET}
 ${SHELL_HIST_PROMPT_CODE} country                 ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.country") ${ECHO_RESET}
 ${SHELL_HIST_PROMPT_CODE} region                  ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.region") ${ECHO_RESET}
 ${SHELL_HIST_PROMPT_CODE} city                    ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.city") ${ECHO_RESET}
 ${SHELL_HIST_PROMPT_CODE} postal_code             ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.postal_code") ${ECHO_RESET}
 ${SHELL_HIST_PROMPT_CODE} timezone                ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$geoip" | jq -r ".response.data.timezone") ${ECHO_RESET}
-${SHELL_HIST_PROMPT_CODE} location                ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .location") ${ECHO_RESET}
-${SHELL_HIST_PROMPT_CODE} progress_percent        ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .progress_percent") ${ECHO_RESET}
-${SHELL_HIST_PROMPT_CODE} transcode_progress      ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .transcode_progress") ${ECHO_RESET}
-${SHELL_HIST_PROMPT_CODE} quality_profile         ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .quality_profile") ${ECHO_RESET}
-${SHELL_HIST_PROMPT_CODE} video_full_resolution   ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .video_full_resolution") ${ECHO_RESET}
-${SHELL_HIST_PROMPT_CODE} device                  ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .device") ${ECHO_RESET}
-${SHELL_HIST_PROMPT_CODE} summary                 ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .session_key == \"$item\" ) | .summary") ${ECHO_RESET}
+${SHELL_HIST_PROMPT_CODE} location                ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .rating_key == \"$item\" ) | .location") ${ECHO_RESET}
+${SHELL_HIST_PROMPT_CODE} progress_percent        ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .rating_key == \"$item\" ) | .progress_percent") ${ECHO_RESET}
+${SHELL_HIST_PROMPT_CODE} transcode_progress      ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .rating_key == \"$item\" ) | .transcode_progress") ${ECHO_RESET}
+${SHELL_HIST_PROMPT_CODE} quality_profile         ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .rating_key == \"$item\" ) | .quality_profile") ${ECHO_RESET}
+${SHELL_HIST_PROMPT_CODE} video_full_resolution   ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .rating_key == \"$item\" ) | .video_full_resolution") ${ECHO_RESET}
+${SHELL_HIST_PROMPT_CODE} device                  ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .rating_key == \"$item\" ) | .device") ${ECHO_RESET}
+${SHELL_HIST_PROMPT_CODE} summary                 ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$activity" | jq -r ".response.data.sessions[] | select ( .rating_key == \"$item\" ) | .summary") ${ECHO_RESET}
         "
 
     done
@@ -79,6 +80,7 @@ tautulli_api_get_history () {
 
         echo -e "
 ${SHELL_HIST_PROMPT_CODE} full_title              ${ECHO_RESET} : ${SHELL_STDOUT_CODE} $(echo "$history" | jq -r ".response.data.data[] | select ( .date == $item ) | .full_title") ${ECHO_RESET}
+${SHELL_HIST_PROMPT_CODE} rating_key              ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$history" | jq -r ".response.data.data[] | select ( .date == $item ) | .rating_key") ${ECHO_RESET}
 ${SHELL_HIST_PROMPT_CODE} originally_available_at ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$history" | jq -r ".response.data.data[] | select ( .date == $item ) | .originally_available_at") ${ECHO_RESET}
 ${SHELL_HIST_PROMPT_CODE} user                    ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$history" | jq -r ".response.data.data[] | select ( .date == $item ) | .user") ${ECHO_RESET}
 ${SHELL_HIST_PROMPT_CODE} ip_address              ${ECHO_RESET} : ${SHELL_HOST_PROMPT_CODE} $(echo "$history" | jq -r ".response.data.data[] | select ( .date == $item ) | .ip_address") ${ECHO_RESET}
