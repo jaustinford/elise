@@ -90,7 +90,7 @@ deluge_api_progress () {
                 ]
             }
         "
-    done | jq -s '.'
+    done | jq '.result.name, .result.progress'
 }
 
 deluge_api_add_torrent () {
