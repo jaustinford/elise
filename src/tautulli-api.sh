@@ -105,21 +105,63 @@ tautulli_api_search () {
     url_search=$(url_encode_string text-to-url "$query")
     search_result=$(tautulli_api_execute search "&query=$url_search&limit=254")
     print_message stdout 'search results found' "$(echo "$search_result" | jq '.response.data.results_count')"
-    echo -e "
-${SHELL_STDOUT_CODE}  movies ${ECHO_RESET}
 
-${SHELL_HOST_PROMPT_CODE}$(echo "$search_result" | jq -r '.response.data.results_list.movie[].title') ${ECHO_RESET}
+    if [ ! -z "$(echo "$search_result" | jq -r '.response.data.results_list.movie[].rating_key')" ]; then
+        echo -e "${SHELL_STDOUT_CODE}\n movies ${ECHO_RESET}(${SHELL_HIST_PROMPT_CODE} rating_key${ECHO_RESET},${SHELL_HIST_PROMPT_CODE} title${ECHO_RESET} )"
+        echo "$search_result" | jq -r '.response.data.results_list.movie[] | .rating_key, .title'
 
-${SHELL_STDOUT_CODE}  shows ${ECHO_RESET}
+    fi
 
-${SHELL_HOST_PROMPT_CODE}$(echo "$search_result" | jq -r '.response.data.results_list.show[].title') ${ECHO_RESET}
+    if [ ! -z "$(echo "$search_result" | jq -r '.response.data.results_list.show[].rating_key')" ]; then
+        echo -e "${SHELL_STDOUT_CODE}\n shows ${ECHO_RESET}(${SHELL_HIST_PROMPT_CODE} rating_key${ECHO_RESET},${SHELL_HIST_PROMPT_CODE} title${ECHO_RESET} )"
+        echo "$search_result" | jq -r '.response.data.results_list.show[] | .rating_key, .title'
 
-${SHELL_STDOUT_CODE}  seasons ${ECHO_RESET}
+    fi
 
-${SHELL_HOST_PROMPT_CODE}$(echo "$search_result" | jq -r '.response.data.results_list.season[] | .title, .parent_title') ${ECHO_RESET}
+    if [ ! -z "$(echo "$search_result" | jq -r '.response.data.results_list.season[].rating_key')" ]; then
+        echo -e "${SHELL_STDOUT_CODE}\n seasons ${ECHO_RESET}(${SHELL_HIST_PROMPT_CODE} rating_key${ECHO_RESET},${SHELL_HIST_PROMPT_CODE} title${ECHO_RESET},${SHELL_HIST_PROMPT_CODE} parent_title${ECHO_RESET} )"
+        echo "$search_result" | jq -r '.response.data.results_list.season[] | .rating_key, .title, .parent_title'
 
-${SHELL_STDOUT_CODE}  episodes ${ECHO_RESET}
+    fi
 
-${SHELL_HOST_PROMPT_CODE}$(echo "$search_result" | jq -r '.response.data.results_list.episode[] | .title, .grandparent_title') ${ECHO_RESET}
-    "
+    if [ ! -z "$(echo "$search_result" | jq -r '.response.data.results_list.episode[].rating_key')" ]; then
+        echo -e "${SHELL_STDOUT_CODE}\n episodes ${ECHO_RESET}(${SHELL_HIST_PROMPT_CODE} rating_key${ECHO_RESET},${SHELL_HIST_PROMPT_CODE} title${ECHO_RESET},${SHELL_HIST_PROMPT_CODE} grandparent_title${ECHO_RESET} )"
+        echo "$search_result" | jq -r '.response.data.results_list.episode[] | .rating_key, .title, .grandparent_title'
+
+    fi
+}
+
+tautulli_api_describe () {
+    rating_key="$1"
+    search_key="$2"
+
+    timestamp_keys=(
+        'added_at'
+        'updated_at'
+        'last_viewed_at'
+    )
+
+    if [ -z "$search_key" ]; then
+        tautulli_api_execute get_metadata "&rating_key=$rating_key" | jq '.response.data'
+
+    else
+        timestamp='no'
+        for timestamp_key in ${timestamp_keys[@]}; do
+            if [ "$search_key" == "$timestamp_key" ]; then
+                timestamp='yes'
+                break
+
+            fi
+
+        done
+
+        if [ "$timestamp" == 'yes' ];then
+            date -d @$(tautulli_api_execute get_metadata "&rating_key=$rating_key" | jq -r ".response.data.$search_key")
+
+        else
+            tautulli_api_execute get_metadata "&rating_key=$rating_key" | jq ".response.data.$search_key"
+
+        fi
+
+    fi
 }
