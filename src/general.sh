@@ -284,6 +284,7 @@ url_encode_string () {
 
         done
 
+        object=$(echo "$object" | sed 's/|/%7C/g')
         echo "$object"
 
     elif [ "$mode" == 'url-to-text' ]; then
@@ -305,6 +306,7 @@ url_encode_string () {
 
         done
 
+        object=$(echo "$object" | sed 's/%7C/|/g')
         echo "$object"
 
     fi
