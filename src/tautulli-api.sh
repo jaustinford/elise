@@ -167,3 +167,38 @@ tautulli_api_describe () {
 
     fi
 }
+
+tautulli_api_user_id () {
+    friendly_name="$1"
+
+    tautulli_api_execute get_user_names | jq -r ".response.data[] | select ( .friendly_name == \"$friendly_name\" ) | .user_id"
+}
+
+tautulli_api_user () {
+    friendly_name="$1"
+    api_method="$2"
+
+    if [ ! -z "$friendly_name" ]; then
+
+        if [ ! -z "$api_method" ]; then
+            if [ "$api_method" == 'ips' ]; then
+                tautulli_api_execute get_user_ips "&user_id=$(tautulli_api_user_id $friendly_name)" | jq '.'
+
+            elif [ "$api_method" == 'player_stats' ]; then
+                tautulli_api_execute get_user_player_stats "&user_id=$(tautulli_api_user_id $friendly_name)" | jq '.'
+
+            elif [ "$api_method" == 'watch_time_stats' ]; then
+                tautulli_api_execute get_user_watch_time_stats "&user_id=$(tautulli_api_user_id $friendly_name)" | jq '.'
+
+            fi
+
+        else
+            tautulli_api_execute get_users_table | jq ".response.data.data[] | select ( .friendly_name == \"$friendly_name\" )"
+
+        fi
+
+    else
+        tautulli_api_execute get_user_names | jq ".response.data[].friendly_name"
+
+    fi
+}
