@@ -104,19 +104,19 @@ print_message () {
 
     if [ "$print_message_mode" == 'stdout' ]; then
         if [ ! -z "$message_2" ]; then
-            echo -e "  ${SHELL_STDOUT_CODE}STDOUT${ECHO_RESET} [ ${SHELL_HIST_PROMPT_CODE}$(date '+%Y.%m.%d - %H:%M:%S')${ECHO_RESET} ] ${SHELL_HOST_PROMPT_CODE}$message_1${ECHO_RESET} | ${SHELL_CWD_PROMPT_CODE}$message_2${ECHO_RESET}"
+            echo -e "  ${SHELL_STDOUT_CODE}STDOUT${ECHO_RESET} [ ${SHELL_HIST_PROMPT_CODE}$(date '+%Y.%m.%d')${ECHO_RESET} - ${SHELL_HIST_PROMPT_CODE}$(date '+%H:%M:%S')${ECHO_RESET} ] ${SHELL_HOST_PROMPT_CODE}$message_1${ECHO_RESET} | ${SHELL_CWD_PROMPT_CODE}$message_2${ECHO_RESET}"
 
         else
-            echo -e "  ${SHELL_STDOUT_CODE}STDOUT${ECHO_RESET} [ ${SHELL_HIST_PROMPT_CODE}$(date '+%Y.%m.%d - %H:%M:%S')${ECHO_RESET} ] ${SHELL_HOST_PROMPT_CODE}$message_1${ECHO_RESET}"
+            echo -e "  ${SHELL_STDOUT_CODE}STDOUT${ECHO_RESET} [ ${SHELL_HIST_PROMPT_CODE}$(date '+%Y.%m.%d')${ECHO_RESET} - ${SHELL_HIST_PROMPT_CODE}$(date '+%H:%M:%S')${ECHO_RESET} ] ${SHELL_HOST_PROMPT_CODE}$message_1${ECHO_RESET}"
 
         fi
 
     elif [ "$print_message_mode" == 'stderr' ]; then
         if [ ! -z "$message_2" ]; then
-            echo -e "  ${SHELL_STDERR_CODE}STDERR${ECHO_RESET} [ ${SHELL_STDERR_CODE}$(date '+%Y.%m.%d - %H:%M:%S')${ECHO_RESET} ] ${SHELL_STDERR_CODE}$message_1${ECHO_RESET} | ${SHELL_STDERR_CODE}$message_2${ECHO_RESET}"
+            echo -e "  ${SHELL_STDERR_CODE}STDERR${ECHO_RESET} [ ${SHELL_STDERR_CODE}$(date '+%Y.%m.%d')${ECHO_RESET} - ${SHELL_STDERR_CODE}$(date '+%H:%M:%S')${ECHO_RESET} ] ${SHELL_STDERR_CODE}$message_1${ECHO_RESET} | ${SHELL_STDERR_CODE}$message_2${ECHO_RESET}"
 
         else
-            echo -e "  ${SHELL_STDERR_CODE}STDERR${ECHO_RESET} [ ${SHELL_STDERR_CODE}$(date '+%Y.%m.%d - %H:%M:%S')${ECHO_RESET} ] ${SHELL_STDERR_CODE}$message_1${ECHO_RESET}"
+            echo -e "  ${SHELL_STDERR_CODE}STDERR${ECHO_RESET} [ ${SHELL_STDERR_CODE}$(date '+%Y.%m.%d')${ECHO_RESET} - ${SHELL_STDERR_CODE}$(date '+%H:%M:%S')${ECHO_RESET} ] ${SHELL_STDERR_CODE}$message_1${ECHO_RESET}"
 
         fi
 
